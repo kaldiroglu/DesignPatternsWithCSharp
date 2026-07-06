@@ -1,0 +1,54 @@
+' Model: Claude Opus 4.8 (1M context)
+' Created: 2026-07-04
+' Pluggable technique (c) — parameterized / lambdas (GoF p.143).
+' Models java/dev/kaldiroglu/adapter/gof/pluggable/electricity/PluggablePowerAdapter.java.
+
+@startuml pluggable-c-parameterized
+title Technique (c) — Parameterized (pluggable via lambdas)
+
+skinparam classAttributeIconSize 0
+skinparam shadowing false
+hide empty members
+
+interface TurkishPowerSource <<Target>> {
+  +turnOn()
+  +turnOff()
+}
+
+class PluggablePowerAdapter <<Adapter>> {
+  -onTurnOn : Runnable
+  -onTurnOff : Runnable
+  +turnOn()
+  +turnOff()
+}
+
+interface Runnable <<block>> {
+  +run()
+}
+
+class USPowerSource <<Adaptee>> {
+  +pushSwitch()
+}
+
+class UKPowerSource <<Adaptee>> {
+  +flipToggle()
+}
+
+class KenyaPowerSource <<Adaptee>> {
+  +hakunaMatata()
+}
+
+TurkishPowerSource <|.. PluggablePowerAdapter
+PluggablePowerAdapter o--> "2" Runnable : lambdas
+
+note bottom of PluggablePowerAdapter
+  One adapter class; the narrow interface is
+  supplied as Runnable object. Each Runnable object is
+  a lambda expression (or a method reference) to an adaptee, e.g.
+  new PluggablePowerAdapter(us::pushSwitch, us::pushSwitch)
+end note
+
+USPowerSource .[#gray,dashed].> Runnable : us::pushSwitch
+UKPowerSource .[#gray,dashed].> Runnable : uk::flipToggle
+KenyaPowerSource .[#gray,dashed].> Runnable : ke::hakunaMatata
+@enduml

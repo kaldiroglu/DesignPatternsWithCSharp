@@ -1,0 +1,25 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.11.1" />
+    <PackageReference Include="xunit" Version="2.9.2" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.8.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\Electricity.Domain\Electricity.Domain.csproj" />
+    <ProjectReference Include="..\..\src\Electricity.ClassAdapter\Electricity.ClassAdapter.csproj" />
+    <ProjectReference Include="..\..\src\Electricity.PowerAdapter1\Electricity.PowerAdapter1.csproj" />
+    <ProjectReference Include="..\..\src\Electricity.TwoWayAdapter\Electricity.TwoWayAdapter.csproj" />
+    <ProjectReference Include="..\..\src\Pluggable.AbstractOperations\Pluggable.AbstractOperations.csproj" />
+    <ProjectReference Include="..\..\src\Pluggable.DelegateObject\Pluggable.DelegateObject.csproj" />
+    <ProjectReference Include="..\..\src\Pluggable.Parameterized\Pluggable.Parameterized.csproj" />
+    <ProjectReference Include="..\..\src\Gof\Gof.csproj" />
+    <ProjectReference Include="..\..\src\Gof.Pluggable\Gof.Pluggable.csproj" />
+  </ItemGroup>
+
+</Project>
