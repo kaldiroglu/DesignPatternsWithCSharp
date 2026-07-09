@@ -10,7 +10,7 @@ Created: 2026-07-06
 **Project:** C# port of the Adapter-pattern examples from the Java course repo
 (`StructuralPatternsInJava`), for the structural-patterns training.
 **Created:** 2026-07-06
-**Target:** .NET 8 · C# (latest lang version)
+**Target:** .NET 10 · C# (latest lang version)
 
 ## Expected benefits
 
