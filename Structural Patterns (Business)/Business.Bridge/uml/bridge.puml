@@ -1,0 +1,75 @@
+@startuml Bridge
+skinparam classAttributeIconSize 0
+title Bridge — Business example (C#)
+
+abstract class Notification {
+  # Channel : IDeliveryChannel
+  # Notification(channel : IDeliveryChannel)
+  # {abstract} Render(channel : IDeliveryChannel) : RenderedMessage
+  + Send(recipient : Recipient) : void
+}
+note top of Notification : Abstraction
+
+class OrderConfirmation {
+  - _orderId : string
+  - _lineItems : IReadOnlyList<string>
+  - _total : decimal
+  # Render(channel : IDeliveryChannel) : RenderedMessage
+}
+note bottom of OrderConfirmation : RefinedAbstraction
+
+class PasswordReset {
+  - _resetLink : string
+  # Render(channel : IDeliveryChannel) : RenderedMessage
+}
+note bottom of PasswordReset : RefinedAbstraction
+
+interface IDeliveryChannel {
+  + SupportsRichContent : bool
+  + MaxBodyLength : int
+  + Deliver(recipient : Recipient, message : RenderedMessage) : void
+}
+note top of IDeliveryChannel : Implementor
+
+class EmailChannel {
+  + SupportsRichContent : bool
+  + MaxBodyLength : int
+  + Deliver(r : Recipient, m : RenderedMessage) : void
+}
+note bottom of EmailChannel : ConcreteImplementor
+
+class SmsChannel {
+  + SupportsRichContent : bool
+  + MaxBodyLength : int
+  + Deliver(r : Recipient, m : RenderedMessage) : void
+}
+note bottom of SmsChannel : ConcreteImplementor
+
+class SlackChannel {
+  + SupportsRichContent : bool
+  + MaxBodyLength : int
+  + Deliver(r : Recipient, m : RenderedMessage) : void
+}
+note bottom of SlackChannel : ConcreteImplementor
+
+class Recipient <<record>> {
+  + Email : string
+  + Phone : string
+  + SlackChannel : string
+  + PushDeviceToken : string
+}
+class RenderedMessage <<record>> {
+  + Subject : string
+  + Body : string
+}
+
+Notification <|-- OrderConfirmation
+Notification <|-- PasswordReset
+IDeliveryChannel <|.. EmailChannel
+IDeliveryChannel <|.. SmsChannel
+IDeliveryChannel <|.. SlackChannel
+Notification o--> IDeliveryChannel : Channel
+Notification ..> Recipient
+Notification ..> RenderedMessage
+
+@enduml

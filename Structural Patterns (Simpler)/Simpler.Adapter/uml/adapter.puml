@@ -1,0 +1,53 @@
+@startuml Adapter
+skinparam classAttributeIconSize 0
+title Adapter — Simpler example (C#)
+
+interface IMediaPlayer {
+  + Play(type : string, fileName : string) : void
+}
+
+interface IAdvancedMediaPlayer {
+  + PlayVlc(fileName : string) : void
+  + PlayMp4(fileName : string) : void
+}
+
+class VlcPlayer {
+  + PlayVlc(fileName : string) : void
+  + PlayMp4(fileName : string) : void
+}
+
+class Mp4Player {
+  + PlayVlc(fileName : string) : void
+  + PlayMp4(fileName : string) : void
+}
+
+class MediaAdapter {
+  - _advanced : IAdvancedMediaPlayer
+  + MediaAdapter(type : string)
+  + Play(type : string, fileName : string) : void
+}
+
+class AudioPlayer {
+  + Play(type : string, fileName : string) : void
+}
+
+class SolutionDemo {
+  + Run() : void
+}
+
+IMediaPlayer <|.. MediaAdapter
+IMediaPlayer <|.. AudioPlayer
+IAdvancedMediaPlayer <|.. VlcPlayer
+IAdvancedMediaPlayer <|.. Mp4Player
+MediaAdapter o--> IAdvancedMediaPlayer : _advanced
+AudioPlayer ..> MediaAdapter : delegates vlc/mp4
+SolutionDemo ..> IMediaPlayer
+
+note right of IMediaPlayer : Target
+note right of MediaAdapter : Adapter
+note right of IAdvancedMediaPlayer : Adaptee interface
+note bottom of VlcPlayer : Adaptee
+note bottom of Mp4Player : Adaptee
+note bottom of SolutionDemo : Client
+
+@enduml

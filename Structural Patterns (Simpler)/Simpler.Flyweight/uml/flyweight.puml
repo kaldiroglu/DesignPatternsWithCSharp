@@ -1,0 +1,51 @@
+@startuml Flyweight
+skinparam classAttributeIconSize 0
+title Flyweight — Simpler example (C#)
+
+class TreeType {
+  + Name : string
+  + Color : string
+  + Texture : byte[]
+  + TreeType(name : string, color : string, texture : byte[])
+  + Draw(x : int, y : int) : void
+}
+
+class TreeFactory {
+  - _types : Dictionary<string, TreeType>
+  + Get(name : string, color : string, texture : byte[]) : TreeType
+  + DistinctTypes : int
+}
+
+class Tree {
+  - _x : int
+  - _y : int
+  - _type : TreeType
+  + Tree(x : int, y : int, type : TreeType)
+  + Draw() : void
+}
+
+class Forest {
+  - _trees : List<Tree>
+  - _factory : TreeFactory
+  + Plant(x, y, name, color, texture) : void
+  + Size : int
+  + DistinctTypes : int
+}
+
+class SolutionDemo {
+  + Run() : void
+}
+
+TreeFactory o--> "*" TreeType : _types (shared pool)
+Tree o--> TreeType : _type (shared)
+Forest *--> "*" Tree : _trees
+Forest *--> TreeFactory : _factory
+SolutionDemo ..> Forest
+
+note right of TreeType : Flyweight / ConcreteFlyweight\nintrinsic: Name, Color, Texture
+note right of TreeFactory : FlyweightFactory
+note right of Tree : Context (holds extrinsic x, y)
+note bottom of Forest : Client
+note bottom of SolutionDemo : Client driver
+
+@enduml

@@ -1,0 +1,46 @@
+@startuml Composite
+skinparam classAttributeIconSize 0
+title Composite — Business example (C#)
+
+interface IOrgUnit {
+  + Name : string
+  + Headcount : int
+  + TotalSalaryCost : decimal
+  + FindEmployee(id : string) : Employee?
+}
+note top of IOrgUnit : Component
+
+class Employee {
+  + Id : string
+  + Name : string
+  + AnnualSalary : decimal
+  + Employee(id : string, name : string, annualSalary : decimal)
+  + Headcount : int
+  + TotalSalaryCost : decimal
+  + FindEmployee(id : string) : Employee?
+}
+note bottom of Employee : Leaf
+
+class Department {
+  - _children : List<IOrgUnit>
+  + Name : string
+  + Department(name : string)
+  + Add(child : IOrgUnit) : Department
+  + Headcount : int
+  + TotalSalaryCost : decimal
+  + FindEmployee(id : string) : Employee?
+  - Walk() : IEnumerable<IOrgUnit>
+}
+note bottom of Department : Composite
+
+class SolutionDemo {
+  + {static} Run() : void
+}
+note right of SolutionDemo : Client
+
+IOrgUnit <|.. Employee
+IOrgUnit <|.. Department
+Department o--> "0..*" IOrgUnit : _children
+SolutionDemo ..> IOrgUnit
+
+@enduml

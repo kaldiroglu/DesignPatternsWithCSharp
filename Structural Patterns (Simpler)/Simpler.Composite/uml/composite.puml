@@ -1,0 +1,39 @@
+@startuml Composite
+skinparam classAttributeIconSize 0
+title Composite — Simpler example (C#)
+
+interface IFileSystemNode {
+  + Name : string
+  + Size : long
+}
+
+class File {
+  + Name : string
+  + Size : long
+  + File(name : string, size : long)
+}
+
+class Directory {
+  - _children : List<IFileSystemNode>
+  + Name : string
+  + Directory(name : string)
+  + Add(child : IFileSystemNode) : Directory
+  + Size : long
+}
+
+class SolutionDemo {
+  + Run() : void
+  - Print(n : IFileSystemNode) : void
+}
+
+IFileSystemNode <|.. File
+IFileSystemNode <|.. Directory
+Directory o--> "*" IFileSystemNode : _children
+SolutionDemo ..> IFileSystemNode
+
+note right of IFileSystemNode : Component
+note bottom of File : Leaf
+note bottom of Directory : Composite
+note bottom of SolutionDemo : Client
+
+@enduml
