@@ -1,0 +1,8 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <!-- Class library holding the three Proxy examples: Gof, Network and Pm. -->
+  <PropertyGroup>
+    <AssemblyName>Proxy</AssemblyName>
+  </PropertyGroup>
+
+</Project>

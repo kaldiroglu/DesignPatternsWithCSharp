@@ -1,0 +1,12 @@
+<Project>
+
+  <!-- Common settings for every project in the Proxy C# solution. -->
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <LangVersion>latest</LangVersion>
+    <RootNamespace>dev.kaldiroglu.Proxy</RootNamespace>
+  </PropertyGroup>
+
+</Project>
