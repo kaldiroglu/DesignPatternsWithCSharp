@@ -6,7 +6,7 @@ For further enquiry please contact Akin Kaldiroglu at akin@kaldiroglu.dev
 
 ## Type
 
-**Unit tests** (xUnit 2.7, net8.0). No I/O, no timing, no external resources — the suite is
+**Unit tests** (xUnit 2.9, net10.0). No I/O, no timing, no external resources — the suite is
 deterministic and runs in milliseconds.
 
 ## Scope
@@ -29,7 +29,7 @@ deterministic and runs in milliseconds.
 ## Results
 
 ```
-Passed!  - Failed: 0, Passed: 67, Skipped: 0, Total: 67 - Composite.Tests.dll (net8.0)
+Passed!  - Failed: 0, Passed: 67, Skipped: 0, Total: 67 - Composite.Tests.dll (net10.0)
 ```
 
 The 49 GoF and bill-of-materials tests are the same assertions, with the same expected

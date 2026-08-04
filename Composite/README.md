@@ -58,6 +58,5 @@ dotnet run --project src/Composite.Demo
 dotnet test
 ```
 
-> **SDK note.** The repository root pins .NET 10 in `global.json` with
-> `rollForward: latestMajor`, which does not roll *back*. On a machine whose newest SDK is 9,
-> add a `global.json` beside this README pinning the installed version, or install .NET 10.
+Targets **net10.0**, like the Adapter and Facade projects, and honours the .NET 10 pin in the
+repository root's `global.json`.
