@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <!-- Class library holding every Composite example: the two from GoF, the
+       bill of materials in both its naive and its Composite form, a file
+       system, a drawing canvas, and the three homework exercises. -->
+  <PropertyGroup>
+    <AssemblyName>Composite</AssemblyName>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <InternalsVisibleTo Include="Composite.Tests" />
+  </ItemGroup>
+
+</Project>

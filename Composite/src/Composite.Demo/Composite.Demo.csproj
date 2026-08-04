@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <AssemblyName>Composite.Demo</AssemblyName>
+    <RootNamespace>dev.kaldiroglu.Composite.Demo</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Composite\Composite.csproj" />
+  </ItemGroup>
+
+</Project>
