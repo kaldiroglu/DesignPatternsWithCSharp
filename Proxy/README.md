@@ -32,7 +32,7 @@ The client always programs to the **Subject** interface and never learns whether
 ## Architecture
 
 - **Root namespace:** `dev.kaldiroglu.Proxy`.
-- **net8.0**; nullable reference types and implicit usings enabled; common settings in `Directory.Build.props`.
+- **net10.0**; nullable reference types and implicit usings enabled; common settings in `Directory.Build.props`.
 - **Layout:** `src/Proxy` (class library with the three examples), `src/Proxy.Demo` (console app that runs all three), and `tests/Proxy.Tests` (xUnit), wired by `Proxy.sln`.
 
 ## Notes on the port

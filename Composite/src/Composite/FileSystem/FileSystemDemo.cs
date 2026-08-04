@@ -12,7 +12,7 @@ public static class FileSystemDemo
         var dev = new Directory("Dev", home);
         var readme = new File("Readme.txt", dev, 2_048);
         var report = new File("Report.docx", dev, 45_000);
-        var java = new File("Selam.java", dev, 3_100);
+        var cs = new File("Selam.cs", dev, 3_100);
 
         var reports = new Directory("Reports", dev);
         var important = new File("ImportantReport.docx", reports, 120_000);
@@ -20,7 +20,7 @@ public static class FileSystemDemo
 
         readme.Touch(DateTimeOffset.Parse("2026-01-04T09:00:00Z"));
         report.Touch(DateTimeOffset.Parse("2026-03-19T14:30:00Z"));
-        java.Touch(DateTimeOffset.Parse("2026-02-11T08:15:00Z"));
+        cs.Touch(DateTimeOffset.Parse("2026-02-11T08:15:00Z"));
         important.Touch(DateTimeOffset.Parse("2026-07-21T17:45:00Z"));
 
         home.List();
@@ -32,7 +32,7 @@ public static class FileSystemDemo
         Console.WriteLine($"elements in the tree   : {home.Count()}");
         Console.WriteLine($"newest anywhere        : {home.LastModified():yyyy-MM-ddTHH:mm:ssZ}");
         Console.WriteLine($"biggest leaf           : {home.Largest()?.GetName() ?? "none"}");
-        Console.WriteLine($"find Selam.java        : {home.Find("Selam.java")?.GetName() ?? "not found"}");
+        Console.WriteLine($"find Selam.cs          : {home.Find("Selam.cs")?.GetName() ?? "not found"}");
         Console.WriteLine("over 40 KB, any depth  : "
             + string.Join(", ", home.FindAll(s => s.Size() > 40_000).Select(s => s.GetName())));
         Console.WriteLine("  Directories are in that list because a directory over 40 KB");
