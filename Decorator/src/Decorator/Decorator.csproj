@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <!-- Class library holding every Decorator example: GoF's two (a visual toolkit and a
+       stream), the price-feed middleware in its three naive and three pattern forms, an
+       Ayvalik toast shop, and the three homework exercises. -->
+  <PropertyGroup>
+    <AssemblyName>Decorator</AssemblyName>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <InternalsVisibleTo Include="Decorator.Tests" />
+  </ItemGroup>
+
+</Project>
