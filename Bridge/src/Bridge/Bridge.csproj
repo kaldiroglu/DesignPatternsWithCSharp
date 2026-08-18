@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <!-- Class library holding every Bridge example: the inheritance violation that argues for
+       the pattern, the pattern reduced to its bones, shapes over two window systems, GoF's
+       own Window/WindowImp, an order system's notifications in their naive and pattern
+       forms, a document store over four vendors, the retrofit case where a standard arrives
+       over a working engine, and the three homework exercises. -->
+  <PropertyGroup>
+    <AssemblyName>Bridge</AssemblyName>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <InternalsVisibleTo Include="Bridge.Tests" />
+  </ItemGroup>
+
+</Project>

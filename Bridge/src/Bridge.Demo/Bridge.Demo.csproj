@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <AssemblyName>Bridge.Demo</AssemblyName>
+    <RootNamespace>dev.kaldiroglu.Bridge.Demo</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Bridge\Bridge.csproj" />
+  </ItemGroup>
+
+</Project>
