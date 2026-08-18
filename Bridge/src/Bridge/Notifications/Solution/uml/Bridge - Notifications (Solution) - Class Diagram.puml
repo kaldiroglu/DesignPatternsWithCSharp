@@ -1,0 +1,80 @@
+@startuml "Bridge - Notifications (Solution) - Class Diagram"
+skinparam classAttributeIconSize 0
+title After — two hierarchies, one reference between them
+
+
+abstract class Notification <<Abstraction>> {
+  - _channel : INotificationChannel
+  # Channel : INotificationChannel
+  + ChannelName : string
+  + {abstract} Notify(to, message) : DeliveryResult
+  + SetChannel(INotificationChannel) : void
+  # Dispatch(to, message, attempts) : DeliveryResult
+  # Fit(body) : string
+}
+
+class SimpleNotification <<RefinedAbstraction>> {
+  + override Notify(..) : DeliveryResult
+}
+class UrgentNotification <<RefinedAbstraction>> {
+  - _maxAttempts : int
+  + override Notify(..) : DeliveryResult
+}
+class DigestNotification <<RefinedAbstraction>> {
+  - _pending : List<Message>
+  + Add(Message) : DigestNotification
+  + Flush(to) : DeliveryResult
+}
+
+interface INotificationChannel <<Implementor>> {
+  + Name : string
+  + AddressOf(Recipient) : string
+  + MaxBodyLength : int
+  + SupportsSubject : bool
+  + Deliver(address, subject, body) : bool
+}
+
+class EmailChannel <<ConcreteImplementor>>
+class SmsChannel <<ConcreteImplementor>>
+class PushChannel <<ConcreteImplementor>>
+
+Notification o--> "_channel" INotificationChannel
+Notification <|-- SimpleNotification
+Notification <|-- UrgentNotification
+Notification <|-- DigestNotification
+INotificationChannel <|.. EmailChannel
+INotificationChannel <|.. SmsChannel
+INotificationChannel <|.. PushChannel
+
+note right of INotificationChannel
+  <b>Primitives, and questions about the channel.</b>
+  No SendUrgent, no SendDigest. The abstraction
+  <b>asks</b> MaxBodyLength and SupportsSubject;
+  it never asks <i>which</i> channel it is holding,
+  and there is no type test in this namespace.
+end note
+
+note bottom of UrgentNotification
+  The retry lives <b>here, once</b> — and is
+  therefore true over every channel that
+  exists, and every channel added later.
+end note
+
+note bottom of DigestNotification
+  A refinement may hold real state. This one
+  collects messages and sends one, and still
+  says nothing about any channel — which is
+  what makes the abstraction side a hierarchy
+  rather than decoration.
+end note
+
+note as N1
+  3 kinds <b>+</b> 3 channels = <b>6 classes</b>, covering all 9 combinations.
+  A 4th channel costs 1 class and no kind is touched.
+  A 4th kind costs 1 class and no channel is touched.
+
+  Both figures are counted from the namespace by a test, so a
+  fourth channel breaks the assertion rather than the slide.
+end note
+
+@enduml

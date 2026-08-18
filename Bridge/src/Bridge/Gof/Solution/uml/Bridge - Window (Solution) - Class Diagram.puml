@@ -1,0 +1,88 @@
+@startuml "Bridge - Window (Solution) - Class Diagram"
+skinparam classAttributeIconSize 0
+title After — the platform is an object the window holds (the solution)
+
+
+class Window <<Abstraction>> {
+  - _imp : IWindowImp
+  # Imp : IWindowImp
+  + DrawRect(..) : void
+  + DrawText(..) : void
+  + DrawBorder(canvas) : void
+  + virtual DrawContents(canvas) : void
+  + SetImp(IWindowImp) : void
+}
+
+class IconWindow <<RefinedAbstraction>> {
+  + override DrawContents(canvas) : void
+}
+class TransientWindow <<RefinedAbstraction>> {
+  + override DrawContents(canvas) : void
+}
+
+interface IWindowImp <<Implementor>> {
+  + Platform : string
+  + DeviceRect(..) : void
+  + DeviceText(..) : void
+  + DeviceRaise() : void
+  + DeviceLower() : void
+}
+
+class XWindowImp <<ConcreteImplementor>> {
+  + DeviceRect(..) : void
+  + DeviceText(..) : void
+}
+class PMWindowImp <<ConcreteImplementor>> {
+  + DeviceRect(..) : void
+  + DeviceText(..) : void
+}
+
+Window o--> "_imp" IWindowImp
+Window <|-- IconWindow
+Window <|-- TransientWindow
+IWindowImp <|.. XWindowImp
+IWindowImp <|.. PMWindowImp
+
+note right of IWindowImp
+  <b>Primitives only.</b>
+  DeviceRect, DeviceText — the smallest
+  things a window system can be asked.
+  There is no DeviceIcon here, and if
+  one appeared the two hierarchies would
+  have grown back together.
+end note
+
+note bottom of PMWindowImp
+  PM has no rectangle call, so it
+  builds one from a polyline: seven
+  journal entries against X's three,
+  for the same picture.
+  The window never finds out.
+end note
+
+note left of Window
+  <b>The reference is private here.</b>
+  Refinements reach it through a protected
+  property.
+  Nothing outside the hierarchy can route around
+  the window straight to the device.
+
+  Next door, FileManager makes the other choice
+  and holds it protected. Both are defensible —
+  the question is how much of the implementor a
+  refinement is trusted with.
+end note
+
+note as N1
+  <b>Two hierarchies, growing independently.</b>
+
+     3 window kinds  +  2 platforms  =  5 classes
+     a 3rd platform  ->  6        a 4th kind -> 6
+
+  And the link is a field, so `window.SetImp(pm)`
+  moves a window that <b>already exists</b> to another
+  platform — which the design on the left cannot do
+  at any price.
+end note
+
+@enduml

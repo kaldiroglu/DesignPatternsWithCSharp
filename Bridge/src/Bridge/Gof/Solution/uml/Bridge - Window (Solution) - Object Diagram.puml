@@ -1,0 +1,34 @@
+@startuml "Bridge - Window (Solution) - Object Diagram"
+skinparam classAttributeIconSize 0
+title The objects at run time — one window kind, two platforms, one class
+
+
+object "anIconWindow : IconWindow" as w1
+object "anXWindowImp : XWindowImp" as x1
+w1 --> x1 : _imp
+
+object "anIconWindow : IconWindow " as w2
+object "aPMWindowImp : PMWindowImp" as p2
+w2 --> p2 : _imp
+
+note right of x1
+  +----------------------+
+  | +-+                  |
+  | +-+ readme.txt       |
+  +----------------------+
+end note
+
+note right of p2
+  #======================#
+  ! #=#                  !
+  ! #=# readme.txt       !
+  #======================#
+end note
+
+note as N1
+  The <b>same IconWindow class</b> produced both pictures.
+  Only the object on the right of the arrow differs — and
+  it can be replaced on a window that already exists.
+end note
+
+@enduml

@@ -1,0 +1,49 @@
+@startuml "Bridge - Shape (Problem) - Class Diagram"
+skinparam classAttributeIconSize 0
+hide empty members
+title Bridge — the device as a base class
+
+
+interface IShape {
+  + Draw() : void
+  + Erase() : void
+}
+
+abstract class AbstractShape {
+  + Name : string
+}
+
+abstract class Circle
+abstract class Rectangle
+abstract class Triangle
+
+class CircleMacOS
+class CircleXWindows
+class RectangleMacOS
+class RectangleXWindows
+class TriangleMacOS
+class TriangleXWindows
+
+IShape <|.. AbstractShape
+AbstractShape <|-- Circle
+AbstractShape <|-- Rectangle
+AbstractShape <|-- Triangle
+Circle <|-- CircleMacOS
+Circle <|-- CircleXWindows
+Rectangle <|-- RectangleMacOS
+Rectangle <|-- RectangleXWindows
+Triangle <|-- TriangleMacOS
+Triangle <|-- TriangleXWindows
+
+note as N1
+  <b>The device is the class.</b>
+  An object cannot change its class, so a
+  CircleMacOS is a MacOS circle for life —
+  there is no SetDrawer to write.
+
+  3 shapes x 2 devices = <b>6 leaf classes</b>,
+  plus 4 abstract ones.
+  A third device: <b>+3</b>. A fourth shape: <b>+2</b>.
+end note
+
+@enduml

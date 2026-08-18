@@ -1,0 +1,35 @@
+@startuml "Bridge - Notifications (Solution) - Object Diagram"
+skinparam classAttributeIconSize 0
+title The objects at run time — the two axes meet in one reference
+
+
+object "urgent : UrgentNotification" as u
+object "digest : DigestNotification" as dg
+object "simple : SimpleNotification" as s
+
+object "sms : SmsChannel" as sms
+object "email : EmailChannel" as email
+
+u --> sms : _channel
+dg --> email : _channel
+s --> email : _channel
+
+note right of sms
+  MaxBodyLength = 160
+  SupportsSubject = false
+end note
+
+note right of email
+  MaxBodyLength = 10000
+  SupportsSubject = true
+end note
+
+note as N1
+  Three notifications, two channels, and <b>one shared email object</b>
+  serving two of them (GoF implementation issue 3).
+
+  `urgent.SetChannel(email)` moves the top one across at any moment —
+  the notification it is does not change, only how it goes out.
+end note
+
+@enduml

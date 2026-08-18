@@ -1,0 +1,81 @@
+@startuml "Bridge - Files (Problem) - Class Diagram"
+skinparam classAttributeIconSize 0
+title Before — a client's document store, three ways it could have been written
+
+
+package "1 - one class, a switch on each axis" {
+  class SwitchingFileManager {
+    + Save(department, store, path, content) : string
+    - SaveForFinance(store, ..) : string
+    - SaveForInsurance(store, ..) : string
+  }
+  note bottom of SwitchingFileManager
+    2 departments x 3 stores = <b>6 branches</b>, by hand.
+    Six of them store something; <b>five</b> then trim.
+
+    The insurance-on-FileNet branch has no retention
+    loop at all, so insurance keeps eight versions
+    where it is allowed two. Nothing throws. The
+    vendor is happy. Only an auditor finds it — or
+    the test that counts what was kept.
+  end note
+}
+
+package "2 - a class per (department, store) pair" {
+  class FinanceEvernoteManager {
+    - Keep = 5
+  }
+  class InsuranceEvernoteManager {
+    - Keep = 2
+  }
+  class FinanceSharePointManager {
+    - Keep = 5
+  }
+  class "...three more..." as More
+  note bottom of More
+    The class name has to state <b>both axes</b>,
+    which is the smell: a name carrying two
+    ideas is hiding a field.
+
+    2 x 3 = <b>6 classes</b>. Same store, two
+    departments: the vendor calls are duplicated.
+    Same department, two stores: the retention
+    number is.
+  end note
+}
+
+package "3 - the store becomes the base class" {
+  abstract class EvernoteStore {
+    # Put(path, content) : string
+    # KeepOnly(path, versions) : void
+  }
+  class EvernoteBoundFinanceManager {
+    - Keep = 5
+    + Save(path, content) : string
+  }
+  EvernoteStore <|-- EvernoteBoundFinanceManager
+  note bottom of EvernoteBoundFinanceManager
+    A <b>real improvement</b>: the Evernote calls are
+    written once now instead of once per department.
+
+    And still welded. There is no SetStore here and
+    there cannot be, so when the Evernote contract
+    ends this object cannot follow the documents.
+    A test asserts no such method exists.
+  end note
+}
+
+' Graphviz places packages by content, not by declaration order. Hidden edges pin
+' them to the order the deck teaches them in.
+SwitchingFileManager -[hidden]right- FinanceEvernoteManager
+FinanceSharePointManager -[hidden]right- EvernoteStore
+
+note as N1
+  All three work, and the first one has been in production.
+  <b>The two axes are welded together</b> in each: who owns the
+  document, and which vendor holds the bytes. Nothing about
+  either list is derived from the other, which is exactly why
+  they multiply.
+end note
+
+@enduml

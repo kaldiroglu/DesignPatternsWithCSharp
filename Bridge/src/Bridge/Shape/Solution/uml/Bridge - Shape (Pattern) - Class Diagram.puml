@@ -1,0 +1,82 @@
+@startuml "Bridge - Shape (Pattern) - Class Diagram"
+skinparam classAttributeIconSize 0
+hide empty members
+title Bridge — primitives on one side, composition on the other
+
+
+interface IShape <<Abstraction>> {
+  + Draw() : void
+  + Erase() : void
+  + SetDrawer(drawer : IShapeDrawer) : void
+}
+
+abstract class AbstractShape {
+  + Name : string
+  # Drawer : IShapeDrawer
+}
+
+class Circle <<RefinedAbstraction>>
+class Rectangle <<RefinedAbstraction>>
+class Triangle <<RefinedAbstraction>>
+
+interface IShapeDrawer <<Implementor>> {
+  + DrawLine(x1, y1, x2, y2) : void
+  + DrawArc(cx, cy, r, start, sweep) : void
+  + Clear(x, y, w, h) : void
+}
+
+abstract class AbstractShapeDrawer {
+  + Name : string
+  + Calls : IReadOnlyList<string>
+  + ResetCalls() : void
+}
+
+class MacOSDrawer <<ConcreteImplementor>>
+class XWindowsDrawer <<ConcreteImplementor>>
+
+IShape <|.. AbstractShape
+AbstractShape <|-- Circle
+AbstractShape <|-- Rectangle
+AbstractShape <|-- Triangle
+AbstractShape o--> "1" IShapeDrawer : Drawer
+IShapeDrawer <|.. AbstractShapeDrawer
+AbstractShapeDrawer <|-- MacOSDrawer
+AbstractShapeDrawer <|-- XWindowsDrawer
+
+note right of IShapeDrawer
+  <b>Not one method per shape.</b>
+  DrawCircle() here would force every
+  drawer to grow when a shape is added,
+  and the two hierarchies would stop
+  being independent — the only thing
+  Bridge exists to buy.
+
+  GoF p. 154: "the Implementor interface
+  provides only primitive operations, and
+  Abstraction defines higher-level
+  operations based on these primitives."
+end note
+
+note bottom of XWindowsDrawer
+  Has <b>no arc call</b>, so DrawArc builds one
+  from 16 line segments — GoF's Presentation
+  Manager detail (p. 157).
+  The same Circle: 1 call on MacOS, 16 here.
+end note
+
+note bottom of Triangle
+  Added <b>after</b> both drawers were written.
+  Neither drawer changed.
+end note
+
+note as N1
+  <b>The call journal is not on the implementor.</b>
+  Calls sits on the abstract drawer: it is how the
+  tests watch, not something a shape may ask for.
+  A primitive added for a test's benefit is the
+  first step towards an implementor that mirrors
+  its abstraction.
+end note
+N1 .. AbstractShapeDrawer
+
+@enduml

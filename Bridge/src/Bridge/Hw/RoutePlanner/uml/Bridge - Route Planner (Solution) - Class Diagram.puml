@@ -1,0 +1,60 @@
+@startuml "Bridge - Route Planner (Solution) - Class Diagram"
+skinparam classAttributeIconSize 0
+hide empty members
+title Bridge — homework 3, route kinds over map providers
+
+
+abstract class RoutePlanner <<Abstraction>> {
+  # Maps : IMapProvider
+  + Plan(from, to, hubs) : Route
+  # {abstract} Score(route) : long
+}
+
+class FastestRoute <<RefinedAbstraction>>
+class CheapestRoute <<RefinedAbstraction>>
+class StepFreeRoute <<RefinedAbstraction>>
+
+interface IMapProvider <<Implementor>> {
+  + Name : string
+  + TravelSeconds(from, to) : int
+  + TollMinor(from, to) : int
+  + StepFree(from, to) : bool
+}
+
+class InHouseMaps <<ConcreteImplementor>>
+class VendorMaps <<ConcreteImplementor>>
+
+class Route <<record>> {
+  + Stops : IReadOnlyList<string>
+  + Seconds : int
+  + TollMinor : int
+  + StepFree : bool
+}
+
+RoutePlanner <|-- FastestRoute
+RoutePlanner <|-- CheapestRoute
+RoutePlanner <|-- StepFreeRoute
+RoutePlanner o--> "1" IMapProvider : Maps
+RoutePlanner ..> Route
+IMapProvider <|.. InHouseMaps
+IMapProvider <|.. VendorMaps
+
+note right of IMapProvider
+  Measurements of one leg. No routing
+  decision, and <b>no vendor name</b>.
+end note
+
+note bottom of VendorMaps
+  Surveyed Uskudar &gt; Levent and found steps,
+  so StepFreeRoute picks a different journey.
+  Different answer, identical routing code.
+end note
+
+note as N1
+  A test reflects over every abstraction class
+  and fails if a concrete provider type appears
+  in any field or constructor — the closest you
+  can get to asserting "the diff was empty".
+end note
+
+@enduml

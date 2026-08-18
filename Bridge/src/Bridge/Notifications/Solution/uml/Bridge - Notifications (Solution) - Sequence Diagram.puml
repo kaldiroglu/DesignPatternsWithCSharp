@@ -1,0 +1,58 @@
+@startuml "Bridge - Notifications (Solution) - Sequence Diagram"
+skinparam classAttributeIconSize 0
+title One urgent notification, over SMS — the abstraction asks, the implementor answers
+
+
+actor Client
+participant "urgent : UrgentNotification" as U
+participant "sms : SmsChannel" as C
+participant "SMS vendor SDK" as V
+
+Client -> U : Notify(bora, message)
+activate U
+U -> U : mark subject "URGENT ..."
+
+group Dispatch() — written in primitives only
+  U -> C : AddressOf(bora)
+  activate C
+  C --> U : "+90-555-0100"
+  deactivate C
+  U -> C : SupportsSubject
+  activate C
+  C --> U : false
+  deactivate C
+  U -> U : fold subject into body
+  U -> C : MaxBodyLength
+  activate C
+  C --> U : 160
+  deactivate C
+  U -> U : Fit(body) -> 160 chars
+  U -> C : Deliver(address, subject, body)
+  activate C
+  C -> V : SmsSubmit(number, text)
+  activate V
+  V --> C : false  (outage)
+  deactivate V
+  C --> U : false
+  deactivate C
+end
+
+U -> U : not delivered — attempt 2
+U -> C : Deliver(..)
+activate C
+C -> V : SmsSubmit(number, text)
+activate V
+V --> C : true
+deactivate V
+C --> U : true
+deactivate C
+U --> Client : DeliveryResult(Delivered, Attempts = 2)
+deactivate U
+
+note over U, C
+  Four questions and a command — and not one of them
+  is "which channel are you?". Swap `sms` for `email`
+  and every arrow above still makes sense.
+end note
+
+@enduml

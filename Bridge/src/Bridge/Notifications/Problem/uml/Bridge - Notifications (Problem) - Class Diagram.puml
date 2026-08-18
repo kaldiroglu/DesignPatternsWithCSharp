@@ -1,0 +1,73 @@
+@startuml "Bridge - Notifications (Problem) - Class Diagram"
+skinparam classAttributeIconSize 0
+title Before — three naive answers to two independent axes
+
+
+package "1 - one class, a switch on each axis" {
+  class SwitchingNotifier {
+    + Send(kind, channel, to, message) : DeliveryResult
+    - SendSimple(channel, ..) : DeliveryResult
+    - SendUrgent(channel, ..) : DeliveryResult
+    - SendDigest(channel, ..) : DeliveryResult
+  }
+  note bottom of SwitchingNotifier
+    3 kinds x 3 channels = <b>9 branches</b>, by hand.
+    No edit touches one axis alone.
+
+    Three of those branches send an SMS, and the
+    160-character rule is stated in <b>two</b> of them.
+    SendDigest is the one that forgot, so an SMS
+    digest throws — in production, at 2am.
+    A test counts the branches and the rule.
+  end note
+}
+
+package "2 - a class per (kind, channel) pair" {
+  class UrgentEmailNotification
+  class UrgentSmsNotification
+  class DigestEmailNotification
+  class "...six more..." as More
+  note bottom of More
+    The class name has to name <b>both axes</b>,
+    so the class count is their product:
+    3 x 3 = <b>9 classes</b>, and the retry loop
+    is written once per channel.
+  end note
+}
+
+package "3 - the notification inherits the channel" {
+  abstract class EmailSender {
+    # Deliver(address, subject, body) : bool
+    # ChannelName : string
+  }
+  class EmailBoundUrgentNotification {
+    + Send(to, message) : DeliveryResult
+  }
+  EmailSender <|-- EmailBoundUrgentNotification
+  note bottom of EmailBoundUrgentNotification
+    <b>The channel is the type, not a field.</b>
+    EmailBoundUrgentNotification is an EmailSender,
+    not "has a channel", so a preference read from a database cannot
+    reach this object at any price: a base class
+    is chosen when the code compiles, and never
+    again.
+
+    <b>The burden moves to every call site.</b>
+    The symptom is one silent email; the disease is
+    that avoiding the mismatch is now each caller's
+    job, and no compiler checks the one that forgot.
+  end note
+}
+
+' Graphviz places packages by content, not by declaration order, and put the
+' second one first. Hidden edges pin them to the order the deck teaches them in.
+SwitchingNotifier -[hidden]right- UrgentEmailNotification
+DigestEmailNotification -[hidden]right- EmailSender
+
+note as N1
+  All three work. All three make the same mistake in different
+  handwriting: <b>the two axes are welded together</b>, so neither
+  can change without disturbing the other.
+end note
+
+@enduml

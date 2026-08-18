@@ -1,0 +1,66 @@
+@startuml "Bridge - Pattern Structure - Class Diagram"
+skinparam classAttributeIconSize 0
+title Bridge — pattern structure (Design Patterns, p. 153)
+
+
+class Client
+
+abstract class Abstraction {
+  # imp : IImplementor
+  + Operation() : void
+}
+note right of Abstraction
+  Defines the abstraction's interface,
+  and maintains a reference to an
+  object of type IImplementor.
+  Operation() is implemented as
+  imp.OperationImp() — a <b>higher-level</b>
+  operation built from primitives.
+end note
+
+class RefinedAbstraction {
+  + Operation() : void
+  + ExtendedOperation() : void
+}
+note bottom of RefinedAbstraction
+  Extends the interface defined
+  by Abstraction. Knows nothing
+  about any implementation.
+end note
+
+interface IImplementor {
+  + OperationImp() : void
+}
+note right of IImplementor
+  Defines the interface for
+  implementation classes. It does <b>not</b>
+  have to match Abstraction's interface —
+  typically it provides only <b>primitive</b>
+  operations (p. 154).
+end note
+
+class ConcreteImplementorA {
+  + OperationImp() : void
+}
+class ConcreteImplementorB {
+  + OperationImp() : void
+}
+
+Client ..> Abstraction : uses
+Abstraction o--> "imp" IImplementor : delegates to
+Abstraction <|-- RefinedAbstraction
+IImplementor <|.. ConcreteImplementorA
+IImplementor <|.. ConcreteImplementorB
+
+note as N1
+  <b>Two hierarchies, one link.</b>
+  Left: what the thing is, and what it can do.
+  Right: how it is actually carried out.
+  Neither inherits from the other, so each can
+  grow without the other being touched — and the
+  link is a <b>reference</b>, so it is chosen while
+  the program runs.
+end note
+N1 .. Abstraction
+
+@enduml

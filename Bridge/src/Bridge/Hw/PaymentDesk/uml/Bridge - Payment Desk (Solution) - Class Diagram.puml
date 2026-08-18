@@ -1,0 +1,79 @@
+@startuml "Bridge - Payment Desk (Solution) - Class Diagram"
+skinparam classAttributeIconSize 0
+hide empty members
+title Bridge — homework 2, payment kinds over providers
+
+
+abstract class Payment <<Abstraction>> {
+  # Provider : IPaymentProvider
+  + {abstract} Collect(amount) : IReadOnlyList<Receipt>
+}
+
+class OneOffPayment <<RefinedAbstraction>>
+class InstallmentPlan <<RefinedAbstraction>> {
+  - _installments : int
+}
+class Refund <<RefinedAbstraction>>
+
+interface IPaymentProvider <<Implementor>> {
+  + Name : string
+  + Authorize(amount) : Authorization
+  + Capture(auth) : Receipt
+  + Refund(amount, reference) : Receipt
+}
+
+class BankGateway <<ConcreteImplementor>>
+class Wallet <<ConcreteImplementor>>
+class CashDrawer <<ConcreteImplementor>>
+
+class Authorization <<record>> {
+  + Reference : string
+  + Amount : decimal
+  + Settled : bool
+}
+class Receipt <<record>> {
+  + Reference : string
+  + Amount : decimal
+  + Provider : string
+}
+
+Payment <|-- OneOffPayment
+Payment <|-- InstallmentPlan
+Payment <|-- Refund
+Payment o--> "1" IPaymentProvider : Provider
+IPaymentProvider <|.. BankGateway
+IPaymentProvider <|.. Wallet
+IPaymentProvider <|.. CashDrawer
+IPaymentProvider ..> Authorization
+IPaymentProvider ..> Receipt
+
+note bottom of CashDrawer
+  <b>Cash cannot authorize then capture.</b>
+  Authorize() takes the money and returns an
+  Authorization already marked Settled;
+  Capture() then has nothing to do.
+
+  Rejected alternatives: a SupportsTwoPhase
+  boolean, or splitting the interface — both
+  are "which implementation are you?" in
+  disguise, and every branch on one is a piece
+  of the abstraction that knows about providers.
+end note
+
+note bottom of InstallmentPlan
+  The rounding rule — every installment equal,
+  the remainder onto the first — is business
+  logic, written once, and correct on every
+  provider including the drawer.
+end note
+
+note as N1
+  The cost of the choice, stated: there is no
+  <b>Void</b> primitive, because only two of the
+  three providers could implement it.
+
+  A test walks IPaymentProvider and fails on any
+  member returning bool.
+end note
+
+@enduml

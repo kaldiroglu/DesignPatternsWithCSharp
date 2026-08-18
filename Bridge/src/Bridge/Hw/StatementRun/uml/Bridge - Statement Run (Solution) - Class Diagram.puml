@@ -1,0 +1,57 @@
+@startuml "Bridge - Statement Run (Solution) - Class Diagram"
+skinparam classAttributeIconSize 0
+hide empty members
+title Bridge — homework 1, three documents over three media
+
+
+abstract class Document <<Abstraction>> {
+  # Medium : IMedium
+  + Render() : string
+  # {abstract} Body() : void
+}
+
+class Invoice <<RefinedAbstraction>>
+class AccountStatement <<RefinedAbstraction>>
+class DunningLetter <<RefinedAbstraction>>
+
+interface IMedium <<Implementor>> {
+  + Heading(level, text) : void
+  + Field(label, value) : void
+  + Row(params cells) : void
+  + Total(label, amount) : void
+  + Output() : string
+}
+
+class HtmlMedium <<ConcreteImplementor>>
+class PlainTextMedium <<ConcreteImplementor>>
+class SpokenMedium <<ConcreteImplementor>>
+
+Document <|-- Invoice
+Document <|-- AccountStatement
+Document <|-- DunningLetter
+Document o--> "1" IMedium : Medium
+IMedium <|.. HtmlMedium
+IMedium <|.. PlainTextMedium
+IMedium <|.. SpokenMedium
+
+note right of IMedium
+  Every primitive describes <b>meaning</b>,
+  not ink. DrawBox, SetFont, NewPage and
+  Margin are all questions about <b>paper</b>,
+  and a voice can answer none of them.
+
+  A test asserts the interface has exactly
+  these five members, by name.
+end note
+
+note bottom of SpokenMedium
+  The medium that decided the interface.
+  A test asserts its output contains no
+  &lt; , no = and no newline.
+end note
+
+note as N1
+  3 documents + 3 media = <b>6 classes</b>, not 9.
+end note
+
+@enduml

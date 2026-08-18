@@ -1,0 +1,55 @@
+@startuml "Bridge - Notifications (Variations) - Class Diagram"
+skinparam classAttributeIconSize 0
+title Two variations — who chooses the implementor, and who owns it
+
+
+package "variation 1 - a factory chooses (GoF implementation issue 2)" {
+  interface IChannelFactory {
+    + ChannelFor(Recipient) : INotificationChannel
+  }
+  class PreferenceChannelFactory {
+    - _channels : Dictionary<ChannelKind, INotificationChannel>
+    + ChannelFor(Recipient) : INotificationChannel
+    + Register(kind, channel) : PreferenceChannelFactory
+  }
+  class NotificationService {
+    + Send(kind, to, message) : DeliveryResult
+  }
+  IChannelFactory <|.. PreferenceChannelFactory
+  NotificationService o--> IChannelFactory
+
+  note bottom of NotificationService
+    The caller names <b>neither</b> a channel class
+    nor a combination class. The recipient's
+    stored preference decides, at run time.
+
+    <b>kind</b> arrives as a
+    Func&lt;INotificationChannel, Notification&gt;.
+    Java passes UrgentNotification::new; C# has
+    no constructor method group, so the call site
+    reads c =&gt; new UrgentNotification(c).
+  end note
+}
+
+package "variation 2 - sharing one implementor (issue 3)" {
+  class PooledChannel {
+    - _delegate : INotificationChannel
+    - _users : int
+    - _messages : int
+    + Acquire() : PooledChannel
+  }
+  note bottom of PooledChannel
+    One SMTP connection serving many
+    notifications.
+    <b>Cost:</b> shared state — hence Interlocked
+    on both counters, and its failures are
+    everybody's at once.
+  end note
+}
+
+note as N1
+  Neither variation changes the pattern. Each answers a question
+  the classic version leaves to whoever writes `new`.
+end note
+
+@enduml

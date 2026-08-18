@@ -1,0 +1,57 @@
+@startuml "Bridge - Basic (Pattern) - Class Diagram"
+skinparam classAttributeIconSize 0
+hide empty members
+title Bridge — the implementation behind a reference
+
+
+interface IAnAbstraction <<Abstraction>> {
+  + DoIt() : void
+}
+
+class ASubAbstraction <<RefinedAbstraction>> {
+  - _implementation : IAnAbstractionImplementation
+}
+class AnotherSubAbstraction <<RefinedAbstraction>> {
+  - _implementation : IAnAbstractionImplementation
+}
+
+interface IAnAbstractionImplementation <<Implementor>> {
+  + DoingIt() : void
+}
+
+class AConcreteImplementation1 <<ConcreteImplementor>>
+class AConcreteImplementation2 <<ConcreteImplementor>>
+
+class Client {
+  - _anAbstraction : IAnAbstraction
+  + Start() : void
+}
+
+IAnAbstraction <|.. ASubAbstraction
+IAnAbstraction <|.. AnotherSubAbstraction
+ASubAbstraction o--> "1" IAnAbstractionImplementation
+AnotherSubAbstraction o--> "1" IAnAbstractionImplementation
+IAnAbstractionImplementation <|.. AConcreteImplementation1
+IAnAbstractionImplementation <|.. AConcreteImplementation2
+Client o--> "1" IAnAbstraction
+
+note right of IAnAbstractionImplementation
+  The bridge: a <b>reference</b>, not a
+  base class. Both hierarchies can be
+  extended without touching the other.
+end note
+
+note bottom of Client
+  Identical to the Client next door, in Problem.
+  The calling code is not what differs between
+  the two designs; the class count behind it is.
+end note
+
+note as N1
+  2 refinements + 2 implementations
+  = <b>4 classes</b>, 4 combinations.
+
+  A third implementation costs <b>+1</b>.
+end note
+
+@enduml

@@ -1,0 +1,65 @@
+@startuml "Bridge - Violation - Class Diagram"
+skinparam classAttributeIconSize 0
+hide empty members
+title Why the implementation does not belong in a subclass
+
+
+class AType {
+  # AnIntVariable : int
+  # ABoolVariable : bool
+  + virtual DoIt() : void
+}
+
+class ASubType {
+  - _aStringVariable : string?
+  + override DoIt() : void
+  + WriteIt() : void
+  + AStringVariable : string?
+}
+
+AType <|-- ASubType
+
+note right of AType
+  <b>The contract:</b> calling DoIt() prints.
+  Every caller holding an AType is
+  entitled to rely on that.
+end note
+
+note bottom of ASubType
+  <b>The violation.</b> DoIt() stores instead of
+  printing, so a caller holding an AType gets
+  silence — no exception, no log line, no way
+  to tell except by testing the type.
+
+  A breach of the
+  <b>Liskov Substitution Principle</b>,
+  and it compiles perfectly.
+end note
+
+note as N1
+  <b>This is not a Bridge.</b> It is the argument
+  for one.
+
+  Subclassing was used to change <b>how</b>
+  something is done, which is what an
+  implementation is for — and overriding to do
+  that can break a promise the supertype made.
+
+  Delegation cannot: a refinement in
+  Bridge.Basic.Pattern runs its own body and
+  <b>then</b> calls implementation.DoingIt(), so its
+  own contract survives whichever
+  implementation it holds.
+end note
+
+note as N2
+  <b>C# asked one more question, and it did not help.</b>
+  DoIt() had to be declared virtual before
+  ASubType could override it.
+  Permitting an override is not sanctioning
+  every override, and the breach below is one
+  the author of AType explicitly allowed.
+end note
+N2 .. AType
+
+@enduml

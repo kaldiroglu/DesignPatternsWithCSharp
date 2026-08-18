@@ -58,6 +58,29 @@ in two of its three SMS branches; the digest branch throws in production.
 `SwitchingFileManager` applies a retention rule in five of its six branches; insurance
 keeps eight versions on FileNet where it is allowed two, and nothing throws at all.
 
+## The diagrams
+
+20 PlantUML diagrams live in a `uml/` folder beside the code each one describes —
+`src/Bridge/Retrofit/uml/`, `src/Bridge/Notifications/Solution/uml/`, and so on. That is
+the layout the Java repository uses. Each is checked in as `.puml`, `.png` and `.svg`.
+
+Seventeen are class diagrams: one per example side, plus GoF's pattern structure from
+p. 153. The notifications example carries three more — an object diagram showing the two
+axes meeting in one reference, a sequence diagram of a single urgent SMS, and a class
+diagram of the two variations. The window example carries an object diagram too, showing
+one `IconWindow` class producing two different pictures.
+
+The problem-side diagrams are worth as much as the solution-side ones, because the point
+of the material is what the naive designs cost rather than that they fail. The Java
+repository has no diagram for the naive document store; this port adds one, since
+`Bridge.Files.Problem` is a worked example here.
+
+Names are checked, not remembered: every class, interface and member named in a diagram
+was verified against the sources. The numbers in the notes are the ones the tests assert.
+
+Nothing in the build depends on them — the `.csproj` globs `*.cs` only, so `.puml`,
+`.png` and `.svg` are inert as far as MSBuild is concerned.
+
 ## Architecture
 
 - **One class library, `Bridge`**, holding all eight example groups as nested namespaces.
@@ -105,6 +128,9 @@ cd "~/Development/NET/Design Patterns/Design Patterns with CSharp/Bridge"
 
 # one example on its own
 ~/.dotnet/dotnet run --project src/Bridge.Demo -- violation
+
+# re-render every UML diagram to PNG and SVG (needs `brew install plantuml`)
+./render-uml.sh
 ```
 
 The runner accepts: `violation`, `basic`, `notifications-problem`, `notifications`,

@@ -1,0 +1,74 @@
+@startuml "Bridge - Files (Solution) - Class Diagram"
+skinparam classAttributeIconSize 0
+hide empty members
+title Bridge — departments and document stores
+
+
+abstract class FileManager <<Abstraction>> {
+  # Provider : IFileProvider
+  + Read(path) : string
+  + Save(path, content) : int
+  + Versions(path) : IReadOnlyList<int>
+  + SetProvider(provider : IFileProvider) : void
+  + {abstract} RetainedVersions : int
+  # {abstract} ApplyRetention(handle) : void
+}
+
+class FinanceFileManager <<RefinedAbstraction>> {
+  - Keep = 5
+}
+class InsuranceFileManager <<RefinedAbstraction>> {
+  - Keep = 2
+}
+
+interface IFileProvider <<Implementor>> {
+  + Name : string
+  + Open(path) : string
+  + Read(handle) : byte[]
+  + Write(handle, content) : int
+  + Versions(handle) : IReadOnlyList<int>
+  + DeleteVersion(handle, version) : void
+}
+
+abstract class InMemoryProvider
+class EvernoteProvider <<ConcreteImplementor>>
+class SharePointProvider <<ConcreteImplementor>>
+class FileNetProvider <<ConcreteImplementor>>
+
+FileManager <|-- FinanceFileManager
+FileManager <|-- InsuranceFileManager
+FileManager o--> "1" IFileProvider : Provider
+IFileProvider <|.. InMemoryProvider
+InMemoryProvider <|-- EvernoteProvider
+InMemoryProvider <|-- SharePointProvider
+InMemoryProvider <|-- FileNetProvider
+
+note right of IFileProvider
+  Storage <b>primitives</b>, not the manager's
+  operations. ReadFile/WriteFile/UpdateFile
+  would be the same interface written twice.
+
+  And nothing here is an <b>Adapter</b>: this was
+  designed alongside FileManager, not fitted
+  to an incompatible interface after the fact.
+  A test fails on any name containing "adapt".
+end note
+
+note bottom of FileManager
+  Save() writes a version and then applies the
+  department's retention rule — written once,
+  correct on every store, present and future.
+
+  <b>Provider is protected here</b>, because each
+  refinement writes its own retention loop
+  against it. GoF's Window keeps the same
+  reference private and hands out a property.
+end note
+
+note as N1
+  2 departments + 3 stores = <b>5 classes</b>,
+  6 combinations.
+  A fourth store: <b>+1</b>, no rule touched.
+end note
+
+@enduml

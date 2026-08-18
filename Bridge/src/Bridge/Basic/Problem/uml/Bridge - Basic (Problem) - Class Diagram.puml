@@ -1,0 +1,55 @@
+@startuml "Bridge - Basic (Problem) - Class Diagram"
+skinparam classAttributeIconSize 0
+hide empty members
+title Bridge — the implementation as a base class
+
+
+interface IAnAbstraction {
+  + DoIt() : void
+}
+
+class ASubAbstraction
+class AnotherSubAbstraction
+class AConcreteImplementation1
+class AConcreteImplementation2
+class AnotherConcreteImplementation1
+class AnotherConcreteImplementation2
+class Client {
+  - _anAbstraction : IAnAbstraction
+  + Start() : void
+}
+
+IAnAbstraction <|.. ASubAbstraction
+IAnAbstraction <|.. AnotherSubAbstraction
+ASubAbstraction <|-- AConcreteImplementation1
+ASubAbstraction <|-- AConcreteImplementation2
+AnotherSubAbstraction <|-- AnotherConcreteImplementation1
+AnotherSubAbstraction <|-- AnotherConcreteImplementation2
+Client o--> "1" IAnAbstraction
+
+note bottom of AConcreteImplementation1
+  Read the base class as the claim it makes:
+  this implementation <b>is a</b> refinement.
+  Change the implementation and you have
+  changed the object's type — which is why
+  nothing here can switch once it exists.
+end note
+
+note as N1
+  2 refinements x 2 implementations
+  = <b>4 leaf classes</b>, plus the 2
+  refinements themselves = <b>6</b>.
+
+  A third implementation costs <b>+2</b>.
+end note
+
+note as N2
+  Every refinement here is <b>virtual</b>, because
+  the whole design supplies its implementation
+  by overriding. Next door, in Pattern, nothing
+  is virtual at all — the variation moved into a
+  field, so nothing needs to be overridable.
+end note
+N2 .. ASubAbstraction
+
+@enduml
