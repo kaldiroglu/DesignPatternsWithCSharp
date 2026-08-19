@@ -18,6 +18,13 @@ package root `dev.kaldiroglu.dp.structural.<pattern>`. Ports follow that reposit
 example for example, name for name, and number for number. When a figure differs, the
 port is wrong.
 
+**This repository is downstream, always.** A worked example is designed in Java, tested
+there, and pushed; only then is it carried across here and pushed. Nothing is invented in
+C# first and back-ported, and no port is pushed while the Java it came from is still
+uncommitted. So when something needs changing, the question is which repository the change
+belongs in — and the answer is Java unless the thing is C#-only, which in practice means a
+language difference recorded under "Porting Java to C#" below.
+
 `Structural Patterns (Simpler)/` and `Structural Patterns (Business)/` are **older,
 separate** single-project demos with their own `uml/` folders. They are not the ports.
 Do not confuse the two, and do not "align" them.
@@ -136,7 +143,8 @@ depends on them; `.csproj` globs `*.cs` only.
 ## Repository arrangement
 
 - Remote is `kaldiroglu/DesignPatternsWithCSharp`, branch `master`. Commit and push when
-  asked.
+  asked — but check the Java repository is pushed first, because this one trails it. "Push
+  all" means Java then C#; the deck repository is local and is never pushed.
 - `.DS_Store` and `Design Patterns with CSharp.sln.DotSettings.user` are untracked on
   purpose. Never stage them; `git add -A` at the root will.
 - Root `.gitignore` covers `bin/` and `obj/`, so a plain `git add <Pattern>` is safe.
