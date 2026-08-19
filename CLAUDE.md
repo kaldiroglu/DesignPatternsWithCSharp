@@ -26,12 +26,10 @@ nothing in this file is structural-specific.** The C# folder is named for the pa
 the family — `Observer`, not `Behavioral.Observer` — and its root namespace is
 `dev.kaldiroglu.<Pattern>`, so the family shows in the Java package and nowhere else.
 
-**This repository is downstream, always.** A worked example is designed in Java, tested
-there, and pushed; only then is it carried across here and pushed. Nothing is invented in
-C# first and back-ported, and no port is pushed while the Java it came from is still
-uncommitted. So when something needs changing, the question is which repository the change
-belongs in — and the answer is Java unless the thing is C#-only, which in practice means a
-language difference recorded under "Porting Java to C#" below.
+**This repository is downstream, always.** The push order and what "push all" means are in
+`~/.claude/CLAUDE.md`, which is loaded everywhere. What it means when working *here*: a
+change belongs in Java unless it is C#-only, which in practice means one of the language
+differences recorded under "Porting Java to C#" below.
 
 `Structural Patterns (Simpler)/` and `Structural Patterns (Business)/` are **older,
 separate** single-project demos with their own `uml/` folders. They are not the ports.
@@ -167,9 +165,8 @@ depends on them; `.csproj` globs `*.cs` only.
 
 ## Repository arrangement
 
-- Remote is `kaldiroglu/DesignPatternsWithCSharp`, branch `master`. Commit and push when
-  asked — but check the Java repository is pushed first, because this one trails it. "Push
-  all" means Java then C#; the deck repository is local and is never pushed.
+- Branch is `master`. The remote and the push order are in `~/.claude/CLAUDE.md`; check the
+  Java repository is pushed before this one, because it trails it.
 - `.DS_Store` and `Design Patterns with CSharp.sln.DotSettings.user` are untracked on
   purpose. Never stage them; `git add -A` at the root will.
 - Root `.gitignore` covers `bin/` and `obj/`, so a plain `git add <Pattern>` is safe.
