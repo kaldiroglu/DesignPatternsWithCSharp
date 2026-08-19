@@ -78,9 +78,9 @@ and `RootNamespace dev.kaldiroglu.<Pattern>` once, for all three projects.
 Source folders mirror namespaces: `src/Bridge/Notifications/Solution/Classic/…` is
 `dev.kaldiroglu.Bridge.Notifications.Solution.Classic`.
 
-**Not every folder is complete.** `Decorator` has no `.sln`, `README.md` or `Test.md`;
-`Facade` and `Flyweight` have no `Directory.Build.props`. `Bridge` is the fullest example
-of the intended shape — copy it.
+**Every folder now carries `<Pattern>.sln`, `README.md` and `Test.md`.** `Facade` and
+`Flyweight` still have no `Directory.Build.props` and set their properties per project.
+`Bridge` is the fullest example of the intended shape — copy it.
 
 ## Porting Java to C#
 
