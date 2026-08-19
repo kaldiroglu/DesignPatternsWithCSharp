@@ -6,17 +6,25 @@ Guidance for Claude Code when working on **Design Patterns with C#**.
 
 ## What is here
 
-The C# side of the design-patterns course. Seven pattern folders — `Adapter`, `Bridge`,
-`Composite`, `Decorator`, `Facade`, `Flyweight`, `Proxy` — each a port of the Java in a
-**separate repository**:
+The C# side of the design-patterns course — **all three families, not just the structural
+ones**. One folder per pattern at the root, each a port of the Java in a **separate
+repository**:
 
 ```
 ~/Development/Java/Idea/Design Patterns/Design Patterns with Java
 ```
 
-package root `dev.kaldiroglu.dp.structural.<pattern>`. Ports follow that repository
-example for example, name for name, and number for number. When a figure differs, the
-port is wrong.
+package root `dev.kaldiroglu.dp.<family>.<pattern>`, where `<family>` is `structural`,
+`behavioral` or `creational`. Ports follow that repository example for example, name for
+name, and number for number. When a figure differs, the port is wrong.
+
+The seven structural patterns — `Adapter`, `Bridge`, `Composite`, `Decorator`, `Facade`,
+`Flyweight`, `Proxy` — are ported. The `behavioral` and `creational` packages exist in the
+Java repository but are still empty, so nothing is ported from them yet. **A new family
+adds pattern folders beside the existing ones; it does not need a new repository, and
+nothing in this file is structural-specific.** The C# folder is named for the pattern, not
+the family — `Observer`, not `Behavioral.Observer` — and its root namespace is
+`dev.kaldiroglu.<Pattern>`, so the family shows in the Java package and nowhere else.
 
 **This repository is downstream, always.** A worked example is designed in Java, tested
 there, and pushed; only then is it carried across here and pushed. Nothing is invented in
@@ -29,8 +37,9 @@ language difference recorded under "Porting Java to C#" below.
 separate** single-project demos with their own `uml/` folders. They are not the ports.
 Do not confuse the two, and do not "align" them.
 
-The slide decks that quote all of this live in a third place,
-`~/Development/Claude/Training/Design Patterns/Structural`, which has its own `CLAUDE.md`.
+The slide decks that quote all of this live in a third place, one folder per family:
+`~/Development/Claude/Training/Design Patterns/<Family>`. Only `Structural` exists so far,
+and it has its own `CLAUDE.md`.
 
 ## The SDK
 
@@ -57,12 +66,13 @@ cd "~/Development/NET/Design Patterns/Design Patterns with CSharp"
 cd Bridge && ./render-uml.sh                               # needs `brew install plantuml`
 ```
 
-- **Every one of the seven pattern ports targets `net10.0`, and a whole-solution
-  `dotnet test` is green** — nine suites, 264 tests. `Flyweight` was the last on `net8.0`
-  and failed the run on its own, because `~/.dotnet` carries no .NET 8 runtime; only
-  `/usr/local/share/dotnet` does. If a project is ever pinned back below 10, expect that
-  run to die with "You must install or update .NET to run this application" while every
-  other suite passes.
+- **Every pattern port targets `net10.0`, and a whole-solution `dotnet test` is green.**
+  It was nine suites and 264 tests when the structural family was complete; that figure is
+  a snapshot and will move, so read the run rather than this line. `Flyweight` was the last
+  project on `net8.0` and failed the run on its own, because `~/.dotnet` carries no .NET 8
+  runtime; only `/usr/local/share/dotnet` does. If a project is ever pinned back below 10,
+  expect that run to die with "You must install or update .NET to run this application"
+  while every other suite passes.
 - **The 14 older `Simpler` / `Business` demo projects are still `net9.0`.** They build,
   they carry no tests, and they are not ports — leave them alone unless asked.
 
@@ -78,11 +88,11 @@ and `RootNamespace dev.kaldiroglu.<Pattern>` once, for all three projects.
 Source folders mirror namespaces: `src/Bridge/Notifications/Solution/Classic/…` is
 `dev.kaldiroglu.Bridge.Notifications.Solution.Classic`.
 
-**All seven folders now carry the full set**, so any of them can be copied. `Bridge` is
-still the fullest worked example. Two shapes vary for a reason: `Facade` holds three
-independent examples rather than one library, so each of its projects overrides
-`RootNamespace`; and `Flyweight` has no separate `.Demo` project, because its library is
-itself the console app.
+**Every pattern folder carries the full set**, so any of them can be copied when a new
+pattern starts. `Bridge` is the fullest worked example. Two shapes vary for a reason:
+`Facade` holds three independent examples rather than one library, so each of its projects
+overrides `RootNamespace`; and `Flyweight` has no separate `.Demo` project, because its
+library is itself the console app.
 
 ## Porting Java to C#
 
@@ -106,6 +116,15 @@ These all cost real time at least once. In rough order of how quietly they fail:
   is taken by the `<Pattern>.Demo` namespace. Bridge's helper ended up `Scenario`.
 - **`RoundingMode.DOWN` on `BigDecimal`** is `Math.Truncate(x * 100m) / 100m` on `decimal`.
   Do not reach for `Math.Round`, which is banker's rounding by default.
+- **When the language already is the pattern, port it anyway.** This will bite hardest in
+  the behavioral family, where C# has `event` for Observer, `IEnumerable` and `yield` for
+  Iterator, and delegates for Strategy and Command. The temptation is to write the
+  idiomatic version instead of the GoF one. Don't: the port's job is to show the pattern
+  the deck teaches, in the shape the Java shows it. If the idiomatic rendering is worth
+  teaching — and it usually is — it belongs beside the classic one as a named variation,
+  the way `Middleware.Solution` carries `Classic`, `Fluent` and `Functional` side by side.
+  And because this repository is downstream, that variation is designed in Java first and
+  mirrored here, not invented in C#.
 
 ## Tests
 
