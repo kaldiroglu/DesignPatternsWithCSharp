@@ -1,99 +1,142 @@
+using System.Reflection;
 using dev.kaldiroglu.Flyweight;
 using Xunit;
 
 namespace dev.kaldiroglu.Flyweight.Tests;
 
+/// <summary>
+/// GoF's own example, and the one that shows the solution's least obvious half: the same
+/// shared object rendered in two different fonts, because the font was never inside it.
+/// <para>
+/// The two lines below are the ones the Java original types, so the figures here are the
+/// figures that repository asserts and the deck quotes.
+/// </para>
+/// </summary>
 public class FlyweightTests
 {
-    [Fact(DisplayName = "Factory returns the SAME shared instance for the same letter")]
-    public void FactorySharesCharacterFlyweights()
+    private const string LineOne = "flyweight is a nice solution";
+    private const string LineTwo = "lightweight is also a nice solution";
+
+    private sealed record Built(Column Document, GlyphFactory Factory, int Occurrences);
+
+    private static Built Document()
+    {
+        var factory = new GlyphFactory();
+        Column document = factory.CreateColumn();
+        var occurrences = 0;
+        foreach (var line in new[] { LineOne, LineTwo })
+        {
+            Row row = factory.CreateRow();
+            foreach (var c in line)
+            {
+                row.Insert(factory.CreateCharacter(c));
+                occurrences++;
+            }
+
+            document.Insert(row);
+        }
+
+        return new Built(document, factory, occurrences);
+    }
+
+    [Fact(DisplayName = "sixty-three characters of text cost sixteen objects")]
+    public void SharingIsMeasured()
+    {
+        Built built = Document();
+
+        Assert.Equal(63, built.Occurrences);
+        Assert.Equal(16, built.Factory.CreatedCharacterCount);
+        Assert.Equal(47, built.Occurrences - built.Factory.CreatedCharacterCount);
+    }
+
+    [Fact(DisplayName = "the factory returns the identical object for a repeated letter")]
+    public void TheFactoryShares()
     {
         var factory = new GlyphFactory();
 
-        CharacterGlyph a1 = factory.CreateCharacter('a');
-        CharacterGlyph a2 = factory.CreateCharacter('a');
+        CharacterGlyph first = factory.CreateCharacter('e');
+        CharacterGlyph second = factory.CreateCharacter('e');
 
-        Assert.Same(a1, a2);
+        Assert.Same(first, second);
         Assert.Equal(1, factory.CreatedCharacterCount);
     }
 
-    [Fact(DisplayName = "Distinct letters get distinct flyweights")]
-    public void DistinctLettersGetDistinctFlyweights()
+    [Fact(DisplayName = "distinct letters get distinct flyweights")]
+    public void DistinctLettersAreDistinctObjects()
     {
         var factory = new GlyphFactory();
 
-        factory.CreateCharacter('a');
-        factory.CreateCharacter('b');
-        factory.CreateCharacter('a'); // pool hit
-
+        Assert.NotSame(factory.CreateCharacter('a'), factory.CreateCharacter('b'));
         Assert.Equal(2, factory.CreatedCharacterCount);
     }
 
-    [Fact(DisplayName = "Rows and Columns are unshared (a fresh one every time)")]
-    public void RowsAndColumnsAreNeverShared()
+    [Fact(DisplayName = "rows and columns are unshared — each CreateRow is a new object")]
+    public void UnsharedConcreteFlyweightsAreNotPooled()
     {
         var factory = new GlyphFactory();
 
-        Assert.NotSame(factory.CreateRow(), factory.CreateRow());
-        Assert.NotSame(factory.CreateColumn(), factory.CreateColumn());
+        Row one = factory.CreateRow();
+        Row two = factory.CreateRow();
+
+        Assert.NotSame(one, two);        // a row owns its children, so it cannot be shared
+        Assert.IsAssignableFrom<Glyph>(one);  // and it is still a Glyph, which is what lets
+    }                                         // it hold shared characters
+
+    [Fact(DisplayName = "only the factory can create a character glyph")]
+    public void TheConstructorIsNotPublic()
+    {
+        ConstructorInfo[] constructors = typeof(CharacterGlyph)
+            .GetConstructors(BindingFlags.Instance | BindingFlags.Public
+                             | BindingFlags.NonPublic);
+
+        Assert.Single(constructors);
+        Assert.False(constructors[0].IsPublic,
+            "a public constructor would let a client defeat the sharing");
     }
 
-    [Fact(DisplayName = "One flyweight renders in different fonts via the context (extrinsic state)")]
-    public void SameFlyweightRendersInDifferentFonts()
+    [Fact(DisplayName = "the flyweight stores no font — one object renders in two of them")]
+    public void TheSameObjectRendersInTwoFonts()
     {
-        var factory = new GlyphFactory();
-        CharacterGlyph t = factory.CreateCharacter('t');
+        Built built = Document();
 
-        var context = new GlyphContext(new Font("default"));
-        var times = new Font("Times");
-        var courier = new Font("Courier");
-        context.SetFont(times, 1);
-        context.Next();
-        context.SetFont(courier, 1);
+        var context = new GlyphContext(new Font("Helvetica"));
+        context.Reset();
+        context.SetFont(new Font("Times"), LineOne.Length);
+        context.Next(LineOne.Length);
+        context.SetFont(new Font("Courier"), LineTwo.Length);
 
         var window = new Window();
         context.Reset();
-        t.Draw(window, context); // position 0 -> Times
-        t.Draw(window, context); // position 1 -> Courier
+        built.Document.Draw(window, context);
 
-        Assert.Equal(times, window.Rendered[0].Font);
-        Assert.Equal(courier, window.Rendered[1].Font);
-        Assert.Equal(1, factory.CreatedCharacterCount); // still only ONE flyweight
+        // 'i' appears on both lines, and it is one object.
+        Window.RenderedGlyph first = window.Rendered.First(r => r.Charcode == 'i' && r.Y == 0);
+        Window.RenderedGlyph second = window.Rendered.First(r => r.Charcode == 'i' && r.Y == 1);
+
+        Assert.Equal(new Font("Times"), first.Font);
+        Assert.Equal(new Font("Courier"), second.Font);
+        Assert.Equal(63, window.Rendered.Count);
     }
 
-    [Fact(DisplayName = "A document draws its glyphs in order")]
-    public void DocumentDrawsInOrder()
+    [Fact(DisplayName = "no field of the flyweight can hold a font")]
+    public void TheFlyweightHasNoFontField()
     {
-        var factory = new GlyphFactory();
+        FieldInfo[] fields = typeof(CharacterGlyph)
+            .GetFields(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
 
-        Column column = factory.CreateColumn();
-        Row row = factory.CreateRow();
-        foreach (char c in "hi")
-        {
-            row.Insert(factory.CreateCharacter(c));
-        }
-        column.Insert(row);
+        Assert.DoesNotContain(fields, f => f.FieldType == typeof(Font));
+        Assert.Single(fields);   // one field: the character code
+    }
+
+    [Fact(DisplayName = "the document renders back to the text that was typed")]
+    public void TheDocumentIsCorrect()
+    {
+        Built built = Document();
 
         var window = new Window();
-        column.Draw(window, new GlyphContext(new Font("default")));
+        var context = new GlyphContext(new Font("Helvetica"));
+        built.Document.Draw(window, context);
 
-        Assert.Equal("hi", window.Text());
-    }
-
-    [Fact(DisplayName = "Sharing reduces the object count below the number of occurrences")]
-    public void SharingReducesObjectCount()
-    {
-        var factory = new GlyphFactory();
-
-        const string text = "banana";
-        int occurrences = 0;
-        foreach (char c in text)
-        {
-            factory.CreateCharacter(c);
-            occurrences++;
-        }
-
-        Assert.Equal(6, occurrences);
-        Assert.Equal(3, factory.CreatedCharacterCount); // b, a, n
+        Assert.Equal(LineOne + "\n" + LineTwo, window.Text());
     }
 }

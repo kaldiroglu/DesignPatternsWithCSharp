@@ -8,7 +8,7 @@ using dev.kaldiroglu.Flyweight;
 
 var factory = new GlyphFactory();
 
-string[] lines = { "flyweight", "lightweight" };
+string[] lines = { "flyweight is a nice solution", "lightweight is also a nice solution" };
 
 // Build the document tree: a Column of Rows of (shared) Characters.
 Column document = factory.CreateColumn();
