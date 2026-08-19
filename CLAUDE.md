@@ -57,11 +57,14 @@ cd "~/Development/NET/Design Patterns/Design Patterns with CSharp"
 cd Bridge && ./render-uml.sh                               # needs `brew install plantuml`
 ```
 
-- **A whole-solution `dotnet test` exits non-zero even when every suite passes.**
-  `Flyweight` still targets `net8.0`, and `~/.dotnet` carries no .NET 8 runtime — only
-  `/usr/local/share/dotnet` does — so its test host dies with "You must install or update
-  .NET to run this application" while the other eight suites pass. Everything else is
-  `net10.0`. Read the per-suite lines, not the exit code, until Flyweight is moved up.
+- **Every one of the seven pattern ports targets `net10.0`, and a whole-solution
+  `dotnet test` is green** — nine suites, 264 tests. `Flyweight` was the last on `net8.0`
+  and failed the run on its own, because `~/.dotnet` carries no .NET 8 runtime; only
+  `/usr/local/share/dotnet` does. If a project is ever pinned back below 10, expect that
+  run to die with "You must install or update .NET to run this application" while every
+  other suite passes.
+- **The 14 older `Simpler` / `Business` demo projects are still `net9.0`.** They build,
+  they carry no tests, and they are not ports — leave them alone unless asked.
 
 ## Layout
 
@@ -105,7 +108,8 @@ These all cost real time at least once. In rough order of how quietly they fail:
 ## Tests
 
 - **xUnit, one test project per pattern**, `Microsoft.NET.Test.Sdk` 17.12.0 and xunit
-  2.9.2 (Flyweight is still on 2.7.0).
+  2.9.2. `Flyweight` is the outlier, on 17.9.0 and xunit 2.7.0; it runs clean on `net10.0`
+  at those versions, so this is untidiness rather than a fault.
 - **Tests count the code; they do not restate the numbers.** `Assert.Equal(9, 3 * 3)`
   proves something about integers and goes on passing the day a fourth channel is added
   and the slide still says nine. Count types out of the namespace instead — see

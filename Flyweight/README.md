@@ -21,13 +21,17 @@ Demonstrates how *sharing* fine-grained objects keeps memory bounded: a 20-chara
 ## Architecture
 
 - **Namespace:** `dev.kaldiroglu.Flyweight`.
-- **net8.0**; `Font`/`RenderedGlyph` modelled as `record` types; nullable reference types enabled.
+- **net10.0**; `Font`/`RenderedGlyph` modelled as `record` types; nullable reference types enabled.
 - **Participants:** `Glyph` (Flyweight) · `CharacterGlyph` (ConcreteFlyweight) · `Row`, `Column` (UnsharedConcreteFlyweight) · `GlyphFactory` (FlyweightFactory) · `GlyphContext` (extrinsic-state holder) · `Program` (Client).
 - **Layout:** `src/Flyweight` (console app) and `tests/Flyweight.Tests` (xUnit), wired by `Flyweight.sln`.
 
 ## Run it with
 
+The `dotnet` on `PATH` cannot build this repository — a tracked `global.json` at the root
+pins the SDK to 10.0.0, and the error it reports is the misleading
+"The command could not be loaded". Use the .NET 10 SDK directly:
+
 ```bash
-dotnet test                          # run the xUnit tests (see Test.md)
-dotnet run --project src/Flyweight   # run the demo
+~/.dotnet/dotnet test                          # run the xUnit tests (see Test.md)
+~/.dotnet/dotnet run --project src/Flyweight   # run the demo
 ```

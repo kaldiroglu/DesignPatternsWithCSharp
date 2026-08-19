@@ -17,5 +17,8 @@
 ## Run it with
 
 ```bash
-dotnet test
+~/.dotnet/dotnet test
 ```
+
+The `dotnet` on `PATH` will not do: a tracked `global.json` at the repository root pins the
+SDK to 10.0.0, and the PATH SDK reports that as "The command could not be loaded".
