@@ -1,0 +1,10 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <!-- Class library holding every Command example: a bank teller in its three naive and
+       one pattern form, GoF's menu items with their documents, the lender and air
+       conditioner classroom examples, and the three homework exercises. -->
+  <PropertyGroup>
+    <AssemblyName>Command</AssemblyName>
+  </PropertyGroup>
+
+</Project>

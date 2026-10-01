@@ -19,10 +19,10 @@ package root `dev.kaldiroglu.dp.<family>.<pattern>`, where `<family>` is `struct
 name, and number for number. When a figure differs, the port is wrong.
 
 The seven structural patterns — `Adapter`, `Bridge`, `Composite`, `Decorator`, `Facade`,
-`Flyweight`, `Proxy` — are ported. **`Strategy` is complete upstream and not ported yet** —
-four worked examples and a homework folder under `dp.behavioral.strategy`, all quoted by
-a built deck, so
-this repository is a family behind. `creational` exists in the Java repository and is still
+`Flyweight`, `Proxy` — are ported. Of the behavioral family, **`Command` is ported** (no
+test project yet: the author asked for none on 2026-10-02), and **`Strategy` is complete
+upstream and not ported yet** — four worked examples and a homework folder under
+`dp.behavioral.strategy`, all quoted by a built deck. `creational` exists in the Java repository and is still
 empty. **A new family
 adds pattern folders beside the existing ones; it does not need a new repository, and
 nothing in this file is structural-specific.** The C# folder is named for the pattern, not
