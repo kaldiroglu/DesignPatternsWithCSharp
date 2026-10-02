@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <AssemblyName>Strategy.Demo</AssemblyName>
+    <RootNamespace>dev.kaldiroglu.Strategy.Demo</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Strategy\Strategy.csproj" />
+  </ItemGroup>
+
+</Project>

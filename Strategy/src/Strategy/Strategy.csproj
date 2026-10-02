@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <!-- Class library holding every Strategy example: GoF's compositors, the checkout's three
+       naive designs and its pattern form, the sorter in three stages, the freight rate
+       cards, and the three homework exercises. -->
+  <PropertyGroup>
+    <AssemblyName>Strategy</AssemblyName>
+    <!-- CS8509 is "the switch expression does not handle all possible values". Java refuses
+         to compile EnumCheckout when a Campaign constant has no case; C# only warns. Making
+         that one warning an error keeps the stage-two claim true here: adding a constant
+         breaks the build until somebody writes the branch. -->
+    <WarningsAsErrors>$(WarningsAsErrors);CS8509</WarningsAsErrors>
+  </PropertyGroup>
+
+</Project>
