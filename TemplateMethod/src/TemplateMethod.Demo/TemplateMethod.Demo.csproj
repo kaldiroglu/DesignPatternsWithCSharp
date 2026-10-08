@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <AssemblyName>TemplateMethod.Demo</AssemblyName>
+    <RootNamespace>dev.kaldiroglu.TemplateMethod.Demo</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\TemplateMethod\TemplateMethod.csproj" />
+  </ItemGroup>
+
+</Project>

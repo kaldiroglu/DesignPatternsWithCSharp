@@ -1,0 +1,10 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <!-- Class library holding every Template Method example: the report export in its three
+       naive and one pattern form, GoF's applications and documents, the short Application
+       and Document version, the repeated task, and the three homework exercises. -->
+  <PropertyGroup>
+    <AssemblyName>TemplateMethod</AssemblyName>
+  </PropertyGroup>
+
+</Project>
