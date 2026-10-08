@@ -1,0 +1,68 @@
+using System.Globalization;
+
+namespace dev.kaldiroglu.State.Account;
+
+/// <summary>
+/// A <b>ConcreteState</b>: the balance is below zero. Withdrawals are allowed down to the
+/// overdraft limit, and reaching the limit moves the account to <see cref="Frozen"/>.
+/// Transfers and closing are refused.
+/// </summary>
+public class Overdrawn : IAccountStatus
+{
+    private readonly Account account;
+
+    public Overdrawn(Account account)
+    {
+        this.account = account;
+        Console.WriteLine("Status: Overdrawn and balance: " + Text(account.Balance));
+    }
+
+    public void Withdraw(int amount)
+    {
+        int balance = account.Balance;
+        int overdraftLimit = account.OverdraftLimit;
+        if ((balance + overdraftLimit) >= amount)
+        {
+            balance -= amount;
+            account.Balance = balance;
+            Console.WriteLine("Status: Overdrawn and balance: " + Text(account.Balance));
+            if (balance == -overdraftLimit)
+            {
+                account.Status = new Frozen(account);
+            }
+        }
+        else
+        {
+            Console.WriteLine("Status: Overdrawn and balance: " + Text(account.Balance));
+            Console.WriteLine("You can not withdraw money!");
+        }
+    }
+
+    public void Deposit(int amount)
+    {
+        int balance = account.Balance;
+        // NOTE: the Java has the same two lines. The first takes the overdraft limit off the
+        // amount. The second, "balance =+ amount", sets the balance to the amount instead of
+        // adding the amount to it. Both are kept so that the output is the same.
+        amount -= account.OverdraftLimit;
+        balance = +amount;
+        account.Balance = balance;
+        if (account.Balance >= 0)
+        {
+            account.Status = new Active(account);
+        }
+    }
+
+    public void Transfer(int amount)
+    {
+        Console.WriteLine("In overdrawn state no transfer is allowed!");
+    }
+
+    public void Close()
+    {
+        Console.WriteLine("In overdrawn state the  account can't be closed!");
+    }
+
+    // A negative balance prints with a plain "-" on every machine, as in Java.
+    private static string Text(int value) => value.ToString(CultureInfo.InvariantCulture);
+}

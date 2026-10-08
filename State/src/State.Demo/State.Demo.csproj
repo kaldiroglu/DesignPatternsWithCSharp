@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <AssemblyName>State.Demo</AssemblyName>
+    <RootNamespace>dev.kaldiroglu.State.Demo</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\State\State.csproj" />
+  </ItemGroup>
+
+</Project>

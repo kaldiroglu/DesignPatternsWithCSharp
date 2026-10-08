@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <!-- Class library holding every State example: the online order in its three naive and
+       one pattern form, GoF's TCP connection, the door in three forms, the bank account,
+       the elevator, the person, the short TCP outline, and the three homework exercises. -->
+  <PropertyGroup>
+    <AssemblyName>State</AssemblyName>
+    <!-- CS8509 is "the switch expression does not handle all possible values". Java refuses
+         to compile SwitchingOrder when a Status constant has no case; C# only warns. Making
+         that one warning an error keeps the stage-two claim true here: adding a status
+         breaks the build until somebody writes the case. -->
+    <WarningsAsErrors>$(WarningsAsErrors);CS8509</WarningsAsErrors>
+  </PropertyGroup>
+
+</Project>
