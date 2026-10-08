@@ -26,12 +26,14 @@ public class Frozen : IAccountStatus
     public void Deposit(int amount)
     {
         int balance = account.Balance;
-        // NOTE: the Java has the same line, "balance =+ amount". It sets the balance to the
-        // amount instead of adding the amount to it. It is kept so that the output is the same.
-        balance = +amount;
+        balance += amount;
         account.Balance = balance;
-        if (account.Balance >= 0)
+        if (balance >= 0)
             account.Status = new Active(account);
+        else if (balance > -account.OverdraftLimit)
+            account.Status = new Overdrawn(account);
+        else
+            Console.WriteLine("Status: Frozen and balance: " + account.Balance.ToString(CultureInfo.InvariantCulture));
     }
 
     public void Transfer(int amount)

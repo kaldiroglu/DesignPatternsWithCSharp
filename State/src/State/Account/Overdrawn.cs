@@ -41,16 +41,12 @@ public class Overdrawn : IAccountStatus
     public void Deposit(int amount)
     {
         int balance = account.Balance;
-        // NOTE: the Java has the same two lines. The first takes the overdraft limit off the
-        // amount. The second, "balance =+ amount", sets the balance to the amount instead of
-        // adding the amount to it. Both are kept so that the output is the same.
-        amount -= account.OverdraftLimit;
-        balance = +amount;
+        balance += amount;
         account.Balance = balance;
-        if (account.Balance >= 0)
-        {
+        if (balance >= 0)
             account.Status = new Active(account);
-        }
+        else
+            Console.WriteLine("Status: Overdrawn and balance: " + account.Balance.ToString(CultureInfo.InvariantCulture));
     }
 
     public void Transfer(int amount)

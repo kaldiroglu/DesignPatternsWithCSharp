@@ -10,7 +10,7 @@ public class Account
     {
         Balance = balance;
         IsFrozen = frozen;
-        if (balance > 0)
+        if (balance >= 0)
             Status = new Active(this);
         else
             throw new Exception("Initial balance can't be negative!");

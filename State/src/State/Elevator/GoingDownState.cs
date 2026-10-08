@@ -20,7 +20,6 @@ public class GoingDownState : IElevatorState
 
     public void Stop()
     {
-        // "Stooping!" is the Java output, kept as it is so that the two outputs are the same.
-        Console.WriteLine("Stooping!");
+        Console.WriteLine("Stopping!");
     }
 }

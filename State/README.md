@@ -45,17 +45,11 @@ zero.
 `Hw.AirConditioner` the states decide. In `Door.Pattern2` and `Hw.Document` one central
 object decides. In `Elevator` and `Person` the caller decides.
 
-**The account has two bugs, and the port keeps them.** `Frozen.Deposit` and
-`Overdrawn.Deposit` contain `balance = +amount`. In the Java it is written `balance =+ amount`,
-and in both languages it sets the balance to the amount instead of adding the amount to it.
-`Overdrawn.Deposit` also takes the overdraft limit off the amount first. In the demo the
-frozen account at -1000 receives 2000 and its balance becomes 2000, not 1000. The lines are
-kept so that the output is the same as the Java output, and each one carries a `// NOTE:`
-comment.
-
-**"Stooping!" is the Java spelling.** `GoingUpState.Stop` and `GoingDownState.Stop` print
-`Stooping!`, as the Java does. The elevator demo never calls `Stop`, so the word does not
-appear in the output.
+**Deposits add to the balance.** In `Frozen.Deposit` a frozen account that is back above
+the overdraft limit becomes overdrawn, and at 0 or above it becomes active. In the demo the
+frozen account at -1000 receives 2000 and its balance becomes 1000. An account may start at
+a balance of 0. (These follow a fix in the Java: an earlier version set the balance to the
+deposit instead of adding it.)
 
 ## The C# form of a sealed interface
 
