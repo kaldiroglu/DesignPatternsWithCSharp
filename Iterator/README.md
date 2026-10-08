@@ -121,13 +121,15 @@ a Turkish locale. What had to change:
 - **`Optional<String>` became `string?`.** Both `ChangeReport` classes return `null` when
   the charts are the same; `Main` prints `"none"` for it, as the Java prints
   `orElse("none")`.
-- **Package access became `internal`.** `Department.Members`/`Units` and
-  `ChainList<T>.Head` are visible to the iterators through `internal`, which is the whole
+- **Package access became `internal`.** `Department.Members`/`Units`,
+  `Directory.Elements` and `ChainList<T>.Head` are visible to the iterators through `internal`, which is the whole
   assembly rather than one package. C# has nothing closer.
 - **Accessors became properties**: `Name`, `Role`, `Count`, `Members`, `Units`,
-  `Elements`, `IsDirectory`, `Parent`, `Lines`, `PagesFetched`. `OpenDepartment.Members`,
-  `OpenDepartment.Units` and `Directory.Elements` still return the real mutable
-  `List<T>`, because handing out the internal list is the fault those classes show. Other
+  `Elements`, `IsDirectory`, `Parent`, `Lines`, `PagesFetched`. `OpenDepartment.Members` and
+  `OpenDepartment.Units` still return the real mutable `List<T>`, because handing out the
+  internal list is the fault that class shows. `Directory.Elements` is `internal` and
+  read-only, as in the Java, where `elements()` is package-private and
+  `DirectoryIterator` lives in the same package. Other
   methods that return a list return `IReadOnlyList<T>`. GoF's four operations stay methods
   (`IsDone()`, `CurrentItem()`), because they are the book's interface.
 - **`Consumer<Employee>` became `Action<Employee>`** in `CallbackDepartment`.

@@ -1,5 +1,3 @@
-using dev.kaldiroglu.Iterator.FileSystem.Iterator;
-
 namespace dev.kaldiroglu.Iterator.FileSystem;
 
 /// <summary>
@@ -11,8 +9,10 @@ namespace dev.kaldiroglu.Iterator.FileSystem;
 /// Inside this namespace <c>Directory</c> means this class, not <c>System.IO.Directory</c>.
 /// </para>
 /// <para>
-/// <see cref="Elements"/> returns the internal list. While it is public, a caller can go
-/// around the iterator and change the directory.
+/// Only the iterator can reach the elements. <see cref="Elements"/> is <c>internal</c> and
+/// returns a read-only view, and <see cref="DirectoryIterator{Storage}"/> is in the same
+/// namespace. Java's package-private access becomes <c>internal</c>, which is the whole
+/// assembly rather than one namespace; C# has nothing closer.
 /// </para>
 /// </remarks>
 public class Directory : StorageElement
@@ -55,8 +55,8 @@ public class Directory : StorageElement
         }
     }
 
-    /// <summary>The internal list itself.</summary>
-    public List<IStorage> Elements => _elements;
+    /// <summary>A read-only view of the elements, for the iterator only.</summary>
+    internal IReadOnlyList<IStorage> Elements => _elements.AsReadOnly();
 
     /// <summary>
     /// Creates the iterator. This is Java's <c>iterator()</c>; .NET calls it

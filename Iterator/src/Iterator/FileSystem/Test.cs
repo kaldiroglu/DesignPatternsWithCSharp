@@ -1,5 +1,3 @@
-using dev.kaldiroglu.Iterator.FileSystem.Iterator;
-
 namespace dev.kaldiroglu.Iterator.FileSystem;
 
 /// <summary>

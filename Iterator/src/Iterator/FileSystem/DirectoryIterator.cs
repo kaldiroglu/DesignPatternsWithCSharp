@@ -1,6 +1,6 @@
 using System.Collections;
 
-namespace dev.kaldiroglu.Iterator.FileSystem.Iterator;
+namespace dev.kaldiroglu.Iterator.FileSystem;
 
 /// <summary>
 /// The <b>ConcreteIterator</b>: walks the elements of one directory.
@@ -22,14 +22,14 @@ namespace dev.kaldiroglu.Iterator.FileSystem.Iterator;
 public class DirectoryIterator<Storage> : IEnumerator<Storage>
 {
     private readonly Directory _dir;
-    private List<Storage> _elements;
+    private IReadOnlyList<Storage> _elements;
     private IEnumerator<Storage> _iterator;
 
     public DirectoryIterator(Directory dir)
     {
         _dir = dir;
         // The same unchecked cast as the Java original. It succeeds only when Storage is IStorage.
-        _elements = (List<Storage>)(object)dir.Elements;
+        _elements = (IReadOnlyList<Storage>)(object)dir.Elements;
         _iterator = _elements.GetEnumerator();
     }
 
@@ -43,7 +43,7 @@ public class DirectoryIterator<Storage> : IEnumerator<Storage>
     public void Reset()
     {
         _iterator.Dispose();
-        _elements = (List<Storage>)(object)_dir.Elements;
+        _elements = (IReadOnlyList<Storage>)(object)_dir.Elements;
         _iterator = _elements.GetEnumerator();
     }
 
