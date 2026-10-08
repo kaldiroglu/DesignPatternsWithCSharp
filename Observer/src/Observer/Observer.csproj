@@ -1,0 +1,10 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <!-- Class library holding every Observer example: the stock price in its three naive and
+       one pattern form, GoF's clock timer, the invoice with an Observable base class, the
+       magazines and their subscribers, and the three homework exercises. -->
+  <PropertyGroup>
+    <AssemblyName>Observer</AssemblyName>
+  </PropertyGroup>
+
+</Project>

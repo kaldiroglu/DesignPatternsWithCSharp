@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <AssemblyName>Observer.Demo</AssemblyName>
+    <RootNamespace>dev.kaldiroglu.Observer.Demo</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Observer\Observer.csproj" />
+  </ItemGroup>
+
+</Project>
