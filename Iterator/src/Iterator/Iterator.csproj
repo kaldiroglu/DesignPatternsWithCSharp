@@ -1,0 +1,10 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <!-- Class library holding every Iterator example: the org chart in its three naive and
+       one pattern form, GoF's lists and iterators, the author's file system, and the three
+       homework exercises. -->
+  <PropertyGroup>
+    <AssemblyName>Iterator</AssemblyName>
+  </PropertyGroup>
+
+</Project>

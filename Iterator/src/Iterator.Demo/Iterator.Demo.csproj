@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <AssemblyName>Iterator.Demo</AssemblyName>
+    <RootNamespace>dev.kaldiroglu.Iterator.Demo</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Iterator\Iterator.csproj" />
+  </ItemGroup>
+
+</Project>
