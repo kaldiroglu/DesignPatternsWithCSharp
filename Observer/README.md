@@ -115,15 +115,6 @@ Turkish and a Swedish locale. What had to change:
 - **Java prints a `double` with `.0`.** `Invoice` prints `balance=5000.0`, as Java does;
   C# would print `5000`. A small helper in `Invoice.ToString()` adds the `.0` to a whole
   number. It does not copy Java's switch to E notation at ten million.
-- **Two bugs are ported as they are**, each with a `// NOTE:` comment, because the Java has
-  the same behavior and the output must match:
-  - `InstitutionalSubscriber` declares its own `name` field, which hides the base class
-    field and is never set, so the bank prints as `null`. C# needs the `new` modifier to
-    hide a field, and warns (CS0649) that the field is never assigned; that one warning is
-    turned off around the field. Java prints a null string as `null`, and C# prints nothing,
-    so the line prints `name ?? "null"`.
-  - `Newsweek.Publish` and `FourFourTwo.Publish` add the date to the publication's name on
-    every call, so a second issue is named `Newsweek - <date 1> - <date 2>`.
 - **The date has the shape of Java's `Date.toString()`**, for example
   `Thu Oct 08 21:52:22 GMT+03:00 2026`, printed with the invariant culture. Java prints a
   time zone name such as `CET` where it knows one; the port always prints the offset.

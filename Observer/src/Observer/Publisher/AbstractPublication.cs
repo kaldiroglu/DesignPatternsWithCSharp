@@ -3,6 +3,7 @@ namespace dev.kaldiroglu.Observer.Publisher;
 public abstract class AbstractPublication : IPublication
 {
     protected string name;
+    protected string? issueDate;
     protected List<ISubscriber> subscribers;
 
     protected AbstractPublication(string name)
@@ -12,6 +13,8 @@ public abstract class AbstractPublication : IPublication
     }
 
     public string Name => name;
+
+    public string Issue => name + " - " + issueDate;
 
     public void AddSubscriber(ISubscriber subscriber)
     {

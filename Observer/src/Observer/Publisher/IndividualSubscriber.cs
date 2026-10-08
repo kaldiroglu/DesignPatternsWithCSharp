@@ -13,6 +13,6 @@ public class IndividualSubscriber : AbstractSubscriber
 
     public void Read(IPublication publication)
     {
-        Console.WriteLine(name + " is reading " + publication.Name);
+        Console.WriteLine(name + " is reading " + publication.Issue);
     }
 }
