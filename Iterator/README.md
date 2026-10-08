@@ -25,7 +25,7 @@ first difference, and lets a loop read a paged web service as if it were one lon
 |---|---|
 | `Iterator.OrgChart` | The main worked example. A department has members and sub-departments. `Problem` is three naive stages — the department gives out its lists (`OpenDepartment`, with `PayrollRun` writing the recursion), copies everyone into a new list (`CopyingDepartment`), and walks itself with a callback (`CallbackDepartment`). Stage three cannot walk two charts side by side, so its `ChangeReport` copies both. `Solution` gives the department two iterators, `DepthFirstIterator` and `LevelOrderIterator`, and its `ChangeReport` moves two of them forward together. |
 | `Iterator.Gof` | GoF's own example (Design Patterns, pp. 257–271). `Problem.CursorList` keeps the cursor in the list, so a loop inside a loop makes 3 pairs instead of 9. `Solution` has GoF's `IIterator<T>` (`First`, `Next`, `IsDone`, `CurrentItem`), `AbstractList<T>` with `CreateIterator()`, `List<T>` and `ChainList<T>`, their iterators, `PrintEmployees`, and the internal iterator `ListTraverser<T>` with `PrintNEmployees`. |
-| `Iterator.FileSystem` | The author's own example. A `Directory` holds files, shortcuts, aliases and other directories, and gives out a `DirectoryIterator` that walks its own elements only. |
+| `Iterator.FileSystem` | A `Directory` holds files, shortcuts, aliases and other directories, and gives out a `DirectoryIterator` that walks its own elements only. |
 | `Iterator.Hw` | The three homework exercises: every part in a bill of materials with its total quantity (`Bom.PartIterator`), the business days between two dates with no list behind them (`Calendar.BusinessDays`), and a paged source read one page at a time (`Paging.PagedIterator`). |
 
 ### Things worth stopping on
@@ -70,7 +70,7 @@ from the book, because that shape is what the GoF slides show.
   charts, the `yield` walk and the three homework exercises, each on its own.
 - `net10.0`, nullable reference types on, implicit usings on — set once in
   `Directory.Build.props` and inherited by both projects.
-- There is no test project. The author asked for none.
+- There is no test project, as requested.
 
 ## Differences from the Java original
 
