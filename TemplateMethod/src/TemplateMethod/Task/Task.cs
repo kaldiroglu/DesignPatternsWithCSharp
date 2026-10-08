@@ -61,7 +61,19 @@ public abstract class Task
             DoTask();
             After();
             repetitionCount++;
-            Thread.Sleep(Interval * 1000);
+            // Wait only between repetitions, not after the last one.
+            if (repetitionCount < Repetition)
+            {
+                try
+                {
+                    Thread.Sleep(Interval * 1000);
+                }
+                catch (ThreadInterruptedException)
+                {
+                    // Someone asked this thread to stop: stop repeating, but still clean up.
+                    break;
+                }
+            }
         }
         Clean();
     }

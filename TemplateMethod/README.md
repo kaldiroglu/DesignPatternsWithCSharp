@@ -87,15 +87,15 @@ locale. What had to change:
 - **`final` became "not `virtual`".** See the section above. Each template method's doc
   comment says this where the Java one says `final`.
 - **The task demo does not wait.** Java's `Test` runs a print task ten times with a
-  one-second interval, so it takes about ten seconds. `Task.Test.Run()` does the same; the
+  one-second interval: nine waits, about nine seconds. `Task.Test.Run()` does the same; the
   runner calls `Task.Test.Run(interval: 0)` instead, which prints the same lines without the
-  waits. The `Run(int)` overload exists only for that. `Task.Run()` itself is unchanged: it
-  still sleeps `Interval` seconds after every repetition.
-- **`repetation` is spelled `Repetition`.** The Java field and constructor parameter are
-  spelled `repetation`; the C# property, parameter and loop counter use the correct
-  spelling. The Java protected fields `name`, `interval` and `repetation` are protected
-  properties `Name`, `Interval` and `Repetition`. Java's `catch (InterruptedException e)`
-  around `Thread.sleep` has no C# counterpart and is gone.
+  waits. The `Run(int)` overload exists only for that. `Task.Run()` itself waits
+  `Interval` seconds only between repetitions, as the Java does.
+- **Fields became properties.** The Java protected fields `name`, `interval` and
+  `repetition` are protected properties `Name`, `Interval` and `Repetition`.
+- **An interrupt stops the loop.** Java catches `InterruptedException`, keeps the interrupt
+  flag and stops repeating. C# catches `ThreadInterruptedException` and stops repeating;
+  .NET has no interrupt flag to keep. In both, `Clean()` still runs.
 - **The task's hooks stay public.** In Java `prepare`, `before`, `after`, `clean` and
   `doTask` are `public`, so in C# they are `public virtual` and `public abstract`, not
   `protected`.
