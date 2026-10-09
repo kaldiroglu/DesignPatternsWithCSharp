@@ -55,6 +55,16 @@ public class AirConditionerTests
         Assert.Equal(["AirConditioner is turned off.", ""], Printed.By(acSwitch.TurnOff));
     }
 
+    [Fact(DisplayName = "turning off keeps the room temperature: back on at 20, only the fan starts")]
+    public void TurnOffKeepsTheRoomTemperature()
+    {
+        var acSwitch = new ACSwitch();
+        acSwitch.TurnOn(20);                  // cools the room from 22 to 20
+        Printed.By(acSwitch.TurnOff);
+        Assert.Equal(["", "Fan is turned on. Target temperature is: 20"],
+            Printed.By(() => acSwitch.TurnOn(20)));
+    }
+
     [Fact(DisplayName = "the heater and the cooler need the air conditioner to be on")]
     public void HeaterAndCoolerNeedPower()
     {

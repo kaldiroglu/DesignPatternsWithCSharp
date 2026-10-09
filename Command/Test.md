@@ -4,7 +4,7 @@
 
 For further enquiry please contact Akin Kaldiroglu at akin@kaldiroglu.dev
 
-66 xUnit tests in one project, `tests/Command.Tests`. All of them are **unit tests**: no
+67 xUnit tests in one project, `tests/Command.Tests`. All of them are **unit tests**: no
 process boundary, no network. Some tests read C# source files of the library. They find the
 files from the test file's own path (`CallerFilePath`), so they do not depend on the working
 directory.
@@ -23,14 +23,14 @@ became `Printed.cs`.
 | `Account/ProblemTests.cs` | `account.ProblemTest` | 10 | 10 | Stage one undoes one step only, and two of its fields start with `last`. Stage two has 8 public operations, 3 of them banking, and two switches with 4 `case` labels. Stage three moves both switches into the teller. The reversal: undo takes back half a transfer and 300.00 lira vanish. |
 | `Account/SolutionTests.cs` | `account.SolutionTest` | 9 | 9 | One undo takes back a whole transfer. Undo and redo. `CloseOut` gives back the 750.00 it took. A failed request is not recorded. A transfer is all or nothing. The teller names no operation. A new operation is one class. Standing orders. `Execute` takes no arguments. |
 | `Gof/MenuTests.cs` | `gof.MenuTest` | 14 | 14 | Before the pattern, the menu item names `Application` and `Document` and branches on its label; `paste` fails on the first click. With the pattern, the toolkit classes name no receiver, `ICommand` has one method, and paste, open, macro, `SimpleCommand`, `SetCommand` and `Menu.Click` work. |
-| `Ac/AirConditionerTests.cs` | `ac.AirConditionerTest` | 10 | 10 | What the switch and the four commands print. The switch holds four `ICommand` fields. `Undo` and `Redo` print nothing. |
+| `Ac/AirConditionerTests.cs` | `ac.AirConditionerTest` | 11 | 11 | What the switch and the four commands print. The switch holds four `ICommand` fields. `Undo` and `Redo` print nothing. |
 | `Lender/Problem1/Problem1Tests.cs` | `lender.problem1.Problem1Test` | 3 | 3 | `Lend` takes the concrete `Borrower` class. `Main.Run` prints one loan. |
 | `Lender/Problem2/Problem2Tests.cs` | `lender.problem2.Problem2Test` | 4 | 4 | `Lend` takes the `IBorrower` interface, and a borrower written in the test works. |
 | `Lender/Pattern/PatternTests.cs` | `lender.pattern.PatternTest` | 5 | 5 | `Lend` takes an `ICommand` and names no concrete command. The amount arrives at `Execute`. The tax office ignores the amount. |
 | `Lender/Lambda/LambdaTests.cs` | `lender.lambda.LambdaTest` | 3 | 3 | `Lend` takes an `Action<int>` (Java: `IntConsumer`). A lambda receives the money. Same output as the pattern version. |
 | `Ac/Lambda/LambdaSwitchTests.cs` | `ac.lambda.LambdaSwitchTest` | 3 | 3 | The switch holds three `Action<Temperature>` fields and one `Action`, and no `ICommand`. Same output as `Person`. |
 | `Account/Lambda/LambdaTransactionTests.cs` | `account.lambda.LambdaTransactionTest` | 5 | 5 | Same output and journal lines as the transaction classes. The close-out gives back 750.00. A failed transfer changes nothing. Undo and redo. |
-| **Total** | | **66** | **66** | |
+| **Total** | | **67** | **67** | |
 
 The helpers:
 
@@ -89,7 +89,7 @@ C# form:
 ```bash
 cd ~/"Development/NET/Design Patterns/Design Patterns with CSharp/Command"
 
-# all 66
+# all 67
 ~/.dotnet/dotnet test Command.sln
 
 # one class

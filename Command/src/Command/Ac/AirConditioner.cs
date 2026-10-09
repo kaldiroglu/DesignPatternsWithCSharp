@@ -33,8 +33,7 @@ public class AirConditioner
         {
             Console.WriteLine("AirConditioner is turned off.\n");
             _isOn = false;
-            _currentTemperature = 0;
-            _targetTemperature = 0;
+            _targetTemperature = 0;    // the room keeps its temperature
         }
         else
             Console.WriteLine("AirConditioner is already off!\n");

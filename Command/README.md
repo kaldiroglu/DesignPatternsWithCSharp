@@ -60,7 +60,7 @@ removing a ticket; nothing needs reversing.
   each on its own.
 - `net10.0`, nullable reference types on, implicit usings on — set once in
   `Directory.Build.props` and inherited by both projects.
-- **A test project, `Command.Tests`**, with 66 xUnit tests ported from the Java JUnit tests.
+- **A test project, `Command.Tests`**, with 67 xUnit tests ported from the Java JUnit tests.
 
 ## Differences from the Java original
 
@@ -105,7 +105,7 @@ same lines as the versions with command classes. Runner names: `lender-lambda`, 
 
 ## Tests
 
-`tests/Command.Tests` holds 66 xUnit tests, one test class for each Java test class, with
+`tests/Command.Tests` holds 67 xUnit tests, one test class for each Java test class, with
 the same assertions and the same expected values. Every Java test is ported. `Test.md`
 lists what is tested and every place where a check had to take a different C# form.
 
