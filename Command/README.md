@@ -60,7 +60,7 @@ removing a ticket; nothing needs reversing.
   each on its own.
 - `net10.0`, nullable reference types on, implicit usings on — set once in
   `Directory.Build.props` and inherited by both projects.
-- **A test project, `Command.Tests`**, with 55 xUnit tests ported from the Java JUnit tests.
+- **A test project, `Command.Tests`**, with 61 xUnit tests ported from the Java JUnit tests.
 
 ## Differences from the Java original
 
@@ -84,9 +84,17 @@ The port is faithful in behavior. What had to change:
 - **The `main` methods became `Run()` methods** called by `Command.Demo`, which takes the
   example's name as an argument.
 
+## The lambda versions
+
+`Lender.Lambda` and `Ac.Lambda` mirror the Java `lender.lambda` and `ac.lambda`. The lender
+takes an `Action<int>` (the Java takes an `IntConsumer`), and its borrower and tax office
+are lambdas. The air conditioner's switch holds method groups of the air conditioner, as
+three `Action<Temperature>` and one `Action`, and has no `Undo` or `Redo`. Both print the
+same lines as the versions with command classes. Runner names: `lender-lambda`, `ac-lambda`.
+
 ## Tests
 
-`tests/Command.Tests` holds 55 xUnit tests, one test class for each Java test class, with
+`tests/Command.Tests` holds 61 xUnit tests, one test class for each Java test class, with
 the same assertions and the same expected values. Every Java test is ported. `Test.md`
 lists what is tested and every place where a check had to take a different C# form.
 
@@ -113,7 +121,7 @@ cd "~/Development/NET/Design Patterns/Design Patterns with CSharp/Command"
 ```
 
 The runner accepts: `account-problem`, `account-solution`, `gof`, `gof-problem`,
-`gof-solution`, `lender-problem1`, `lender-problem2`, `lender-pattern`, `ac`, `hw-remote`,
+`gof-solution`, `lender-problem1`, `lender-problem2`, `lender-pattern`, `lender-lambda`, `ac`, `ac-lambda`, `hw-remote`,
 `hw-kitchen`, `hw-macro`.
 
 Run the tests with `~/.dotnet/dotnet test Command.sln`.

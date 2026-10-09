@@ -4,7 +4,7 @@
 
 For further enquiry please contact Akin Kaldiroglu at akin@kaldiroglu.dev
 
-55 xUnit tests in one project, `tests/Command.Tests`. All of them are **unit tests**: no
+61 xUnit tests in one project, `tests/Command.Tests`. All of them are **unit tests**: no
 process boundary, no network. Some tests read C# source files of the library. They find the
 files from the test file's own path (`CallerFilePath`), so they do not depend on the working
 directory.
@@ -27,7 +27,9 @@ became `Printed.cs`.
 | `Lender/Problem1/Problem1Tests.cs` | `lender.problem1.Problem1Test` | 3 | 3 | `Lend` takes the concrete `Borrower` class. `Main.Run` prints one loan. |
 | `Lender/Problem2/Problem2Tests.cs` | `lender.problem2.Problem2Test` | 4 | 4 | `Lend` takes the `IBorrower` interface, and a borrower written in the test works. |
 | `Lender/Pattern/PatternTests.cs` | `lender.pattern.PatternTest` | 5 | 5 | `Lend` takes an `ICommand` and names no concrete command. The amount arrives at `Execute`. The tax office ignores the amount. |
-| **Total** | | **55** | **55** | |
+| `Lender/Lambda/LambdaTests.cs` | `lender.lambda.LambdaTest` | 3 | 3 | `Lend` takes an `Action<int>` (Java: `IntConsumer`). A lambda receives the money. Same output as the pattern version. |
+| `Ac/Lambda/LambdaSwitchTests.cs` | `ac.lambda.LambdaSwitchTest` | 3 | 3 | The switch holds three `Action<Temperature>` fields and one `Action`, and no `ICommand`. Same output as `Person`. |
+| **Total** | | **61** | **61** | |
 
 The helpers:
 
@@ -86,7 +88,7 @@ C# form:
 ```bash
 cd ~/"Development/NET/Design Patterns/Design Patterns with CSharp/Command"
 
-# all 55
+# all 61
 ~/.dotnet/dotnet test Command.sln
 
 # one class
