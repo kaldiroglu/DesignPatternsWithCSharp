@@ -20,7 +20,7 @@ name, and number for number. When a figure differs, the port is wrong.
 
 The seven structural patterns — `Adapter`, `Bridge`, `Composite`, `Decorator`, `Facade`,
 `Flyweight`, `Proxy` — are ported. Of the behavioral family, **`Command`, `Strategy`,
-`Iterator`, `TemplateMethod`, `State`, `Observer` and `Visitor` are ported** (no test project for any of them: the author asked for none on 2026-10-02). The
+`Iterator`, `TemplateMethod`, `State`, `Observer`, `Visitor` and `ChainOfResponsibility` are ported** (no test project for any of them: the author asked for none on 2026-10-02). The
 Strategy demo runner prints the figures the Java tests assert, so compare against it. `creational` exists in the Java repository and is still
 empty. **A new family
 adds pattern folders beside the existing ones; it does not need a new repository, and

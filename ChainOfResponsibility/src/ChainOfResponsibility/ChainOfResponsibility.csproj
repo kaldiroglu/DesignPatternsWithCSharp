@@ -1,0 +1,11 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <!-- Class library holding every Chain of Responsibility example: the expense approval in
+       its three naive stages and its chain, GoF's context-sensitive help, the three homework
+       exercises, and the earlier examples (a call center, and help topics from specific to
+       general). -->
+  <PropertyGroup>
+    <AssemblyName>ChainOfResponsibility</AssemblyName>
+  </PropertyGroup>
+
+</Project>

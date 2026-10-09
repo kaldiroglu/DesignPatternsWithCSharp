@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <AssemblyName>ChainOfResponsibility.Demo</AssemblyName>
+    <RootNamespace>dev.kaldiroglu.ChainOfResponsibility.Demo</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ChainOfResponsibility\ChainOfResponsibility.csproj" />
+  </ItemGroup>
+
+</Project>
