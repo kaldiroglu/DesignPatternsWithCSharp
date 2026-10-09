@@ -71,7 +71,7 @@ from the book, because that shape is what the GoF slides show.
   on its own.
 - `net10.0`, nullable reference types on, implicit usings on — set once in
   `Directory.Build.props` and inherited by both projects.
-- **A test project, `Iterator.Tests`**, with 36 xUnit tests ported from the Java JUnit tests.
+- **A test project, `Iterator.Tests`**, with 37 xUnit tests ported from the Java JUnit tests.
 
 ## Differences from the Java original
 
@@ -156,7 +156,7 @@ a Turkish locale. What had to change:
 
 ## Tests
 
-`tests/Iterator.Tests` holds 36 xUnit tests, one test class for each Java test class, with
+`tests/Iterator.Tests` holds 37 xUnit tests, one test class for each Java test class, with
 the same assertions and the same expected values. Every Java test is ported. `Test.md`
 lists what is tested and every place where a check had to take a different C# form.
 

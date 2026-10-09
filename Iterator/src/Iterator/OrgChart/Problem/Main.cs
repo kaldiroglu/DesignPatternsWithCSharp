@@ -12,15 +12,17 @@ namespace dev.kaldiroglu.Iterator.OrgChart.Problem;
 /// </remarks>
 public static class Main
 {
-    internal static CallbackDepartment Company(string salesHead)
+    public static CallbackDepartment Company(string salesHead) => Company(salesHead, "Can", "Elif");
+
+    public static CallbackDepartment Company(string salesHead, string exporter, string supporter)
     {
         var sales = new CallbackDepartment("Sales")
             .Add(new Employee(salesHead, "head of sales"))
             .Add(new Employee("Ali", "sales"))
-            .Add(new CallbackDepartment("Export").Add(new Employee("Can", "export")));
+            .Add(new CallbackDepartment("Export").Add(new Employee(exporter, "export")));
         var operations = new CallbackDepartment("Operations")
             .Add(new Employee("Mert", "head of operations"))
-            .Add(new CallbackDepartment("Support").Add(new Employee("Elif", "support")));
+            .Add(new CallbackDepartment("Support").Add(new Employee(supporter, "support")));
         return new CallbackDepartment("Head office")
             .Add(new Employee("Ayse", "CEO")).Add(sales).Add(operations);
     }
@@ -44,8 +46,12 @@ public static class Main
         before.ForEachMemberByLevel(byLevel.Add);
         Console.WriteLine("Stage three, level by level: " + Show(byLevel.Select(e => e.ToString())));
 
+        // three people are new after the reorganization
+        var after = Company("Zeynep", "Burak", "Ece");
+        var report = new ChangeReport();
         Console.WriteLine("HR compares two charts: "
-            + (new ChangeReport().FirstDifference(before, Company("Zeynep")) ?? "none"));
+            + (report.FirstDifference(before, after) ?? "none"));
+        Console.WriteLine("All changes: " + Show(report.AllDifferences(before, after)));
         Console.WriteLine("A callback walks one chart at a time,"
             + " so the report first copied both charts whole.");
     }

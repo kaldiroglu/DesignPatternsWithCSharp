@@ -98,6 +98,21 @@ public class ProblemTests
         Assert.Equal("Deniz (head of sales) -> Zeynep (head of sales)", change);
     }
 
+    [Fact(DisplayName = "stage three: Main's reorganized chart has three new people, and all three are reported")]
+    public void TheProblemReportFindsAllThreeChanges()
+    {
+        var report = new ChangeReport();
+        var before = Main.Company("Deniz");
+        var after = Main.Company("Zeynep", "Burak", "Ece");
+
+        Assert.Equal("Deniz (head of sales) -> Zeynep (head of sales)", report.FirstDifference(before, after));
+        Assert.Equal(
+            ["Deniz (head of sales) -> Zeynep (head of sales)",
+             "Can (export) -> Burak (export)",
+             "Elif (support) -> Ece (support)"],
+            report.AllDifferences(before, after));
+    }
+
     [Fact(DisplayName = "stage three: the change report answers none for equal charts and sees a size change")]
     public void TheProblemReportHandlesEqualAndShorterCharts()
     {

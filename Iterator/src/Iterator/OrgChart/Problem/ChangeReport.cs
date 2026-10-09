@@ -37,4 +37,30 @@ public sealed class ChangeReport
 
         return null;
     }
+
+    /// <summary>Every difference. Again both charts are copied whole before anything is compared.</summary>
+    public List<string> AllDifferences(CallbackDepartment before, CallbackDepartment after)
+    {
+        var old = new List<Employee>();
+        before.ForEachMember(old.Add);
+        var current = new List<Employee>();
+        after.ForEachMember(current.Add);
+
+        var changes = new List<string>();
+        int shared = Math.Min(old.Count, current.Count);
+        for (int i = 0; i < shared; i++)
+        {
+            if (!old[i].Equals(current[i]))
+            {
+                changes.Add(old[i] + " -> " + current[i]);
+            }
+        }
+
+        if (old.Count != current.Count)
+        {
+            changes.Add("the charts have different sizes");
+        }
+
+        return changes;
+    }
 }
