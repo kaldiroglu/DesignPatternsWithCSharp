@@ -2,6 +2,7 @@
 // them apart; a plain `using` would make `Main` ambiguous.
 using AccountProblem = dev.kaldiroglu.Command.Account.Problem.Main;
 using AccountSolution = dev.kaldiroglu.Command.Account.Solution.Main;
+using AccountLambda = dev.kaldiroglu.Command.Account.Lambda.Main;
 using GofMain = dev.kaldiroglu.Command.Gof.Main;
 using GofProblem = dev.kaldiroglu.Command.Gof.Problem.Main;
 using GofSolution = dev.kaldiroglu.Command.Gof.Solution.Main;
@@ -33,6 +34,7 @@ public static class Program
     {
         ["account-problem"] = ("THE TELLER", AccountProblem.Run),
         ["account-solution"] = ("THE TELLER", AccountSolution.Run),
+        ["account-lambda"] = ("THE TELLER", AccountLambda.Run),
         ["gof"] = ("GOF'S MENUS", GofMain.Run),
         ["gof-problem"] = ("GOF'S MENUS", GofProblem.Run),
         ["gof-solution"] = ("GOF'S MENUS", GofSolution.Run),
