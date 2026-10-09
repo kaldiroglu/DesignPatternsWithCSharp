@@ -9,13 +9,13 @@ using dev.kaldiroglu.TemplateMethod.Export.Domain;
 /// Stage one: <b>each format has its own copy of the whole algorithm.</b>
 /// <para>
 /// Check the user, build the header, build a line per sale, name the file, write the audit
-/// record. <see cref="StandaloneHtmlExport"/> does the same five things in the same order,
-/// with different text in two of them.
+/// record. <see cref="StandaloneHtmlExport"/> does the same five things in the same order.
+/// Three of them differ: the header, the lines and the file extension.
 /// </para>
 /// <para>
-/// It works. What it costs: four of the five steps are the same in every copy, so a fix to
-/// the permission check or the audit line must be made in every class, and a missed copy
-/// is a silent difference.
+/// It works. What it costs: the other two steps, the permission check and the audit line,
+/// are the same in every copy, so a fix to either must be made in every class, and a missed
+/// copy is a silent difference.
 /// </para>
 /// </summary>
 public sealed class StandaloneCsvExport(AuditLog audit)
