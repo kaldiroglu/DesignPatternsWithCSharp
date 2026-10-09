@@ -1,0 +1,10 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <!-- Class library holding every Memento example: the game checkpoint in its three naive
+       stages and its memento, GoF's constraint solver, the three homework exercises, and the
+       earlier examples (a GUI component, and two threaded originators). -->
+  <PropertyGroup>
+    <AssemblyName>Memento</AssemblyName>
+  </PropertyGroup>
+
+</Project>

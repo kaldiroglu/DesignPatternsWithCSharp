@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <AssemblyName>Memento.Demo</AssemblyName>
+    <RootNamespace>dev.kaldiroglu.Memento.Demo</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Memento\Memento.csproj" />
+  </ItemGroup>
+
+</Project>
