@@ -9,14 +9,14 @@ public class GoldCallTaker : AbstractCallTaker
     public override void Answer(ICustomer customer)
     {
         Console.WriteLine("GoldCallTaker received a customer.");
-        if (customer is VipCustomer)
-        {
-            next!.Answer(customer);
-        }
-        else
+        if (customer is GoldCustomer)
         {
             customer.AskAQuestion();
             customer.ReceiveAnswer("Here is your GOLD answer!");
+        }
+        else
+        {
+            next!.Answer(customer);
         }
         Console.WriteLine();
     }

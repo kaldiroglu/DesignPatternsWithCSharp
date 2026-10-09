@@ -5,10 +5,6 @@ public abstract class AbstractCallTaker : ICallTaker
 {
     protected ICallTaker? next;
 
-    // NOTE: this field is never used: no call taker sets or reads it. The Java has the
-    // same unused field.
-    protected ICustomer? customer;
-
     public AbstractCallTaker(ICallTaker? next)
     {
         this.next = next;
@@ -18,12 +14,6 @@ public abstract class AbstractCallTaker : ICallTaker
     {
         get => next;
         set => next = value;
-    }
-
-    public ICustomer? Customer
-    {
-        get => customer;
-        set => customer = value;
     }
 
     /// <summary>

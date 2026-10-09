@@ -110,8 +110,8 @@ same shape as the Java's, but not the same lines. What had to change:
   whose limit is at least the amount. When there is none, the answer is "no one may approve
   it", as in the Java.
 - **Accessors became properties**: `AuditLog.Seen`, `AbstractHelp.Description`,
-  `IHelp.OtherHelp` (Java's `getOtherHelp` and `setOtherHelp`), and
-  `AbstractCallTaker.Next` and `Customer` (two getter and setter pairs). `HelpHandler.HasHelp()`
+  `IHelp.OtherHelp` (Java's `getOtherHelp`), and `AbstractCallTaker.Next` (a getter and
+  setter pair). `HelpHandler.HasHelp()`
   stays a method, as it is in GoF.
 - **Lists are returned as `IReadOnlyList<T>`**: `AuditLog.Seen` (a copy, as Java's
   `List.copyOf`), `RequestQueue.ProcessAll()` and `NoteSlot.Pay()`.
@@ -134,19 +134,6 @@ same shape as the Java's, but not the same lines. What had to change:
 - **The `main` methods became `Run()` methods** called by `ChainOfResponsibility.Demo`. The
   homework demos are only in the runner, and they print lists as `[a, b, c]`, as Java's
   `List.toString()` does.
-- **Old behavior is kept on purpose, each with a `// NOTE:` comment that says the Java does
-  the same**:
-  - `CallCenter.StandardCallTaker` passes on only a `GoldCustomer`. A `VipCustomer` is
-    answered by the standard desk, with "Here is your answer!", and never reaches the VIP
-    desk.
-  - `CallCenter.AbstractCallTaker.customer` is never used.
-  - In `Pattern.Test`, every predecessor is `null`, because each handler is built before
-    its predecessor exists.
-  - `Pattern.ConcreteHandler3` returns `new Help3()` every time, not its field `help`.
-  - `Pattern.ConcreteHandler1` sets the other help on the object that `ConcreteHandler2` has
-    already set. For a `GENERIC` request, Help2 is lost, and `Show` prints only "Help3" and
-    then "Help1".
-  - `Pattern.AbstractHelp.Show()` follows at most two links.
 - **Names that clash, and how they are resolved.**
   - The namespace `Expense` holds two records named `Expense`, in `Expense.Problem` and
     `Expense.Solution`. Inside each of those namespaces the plain name means that

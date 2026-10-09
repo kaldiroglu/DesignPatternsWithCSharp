@@ -9,15 +9,9 @@ public class Test
 {
     public static void Run()
     {
-        IHandler? handler1 = null;
-        IHandler? handler2 = null;
-        IHandler? handler3 = null;
-
-        // NOTE: each handler is built before its predecessor exists, so every predecessor
-        // passed here is null. The Java has the same behavior.
-        handler3 = new ConcreteHandler3(null, handler2);
-        handler2 = new ConcreteHandler2(handler3, handler1);
-        handler1 = new ConcreteHandler1(handler2, null);
+        IHandler handler3 = new ConcreteHandler3(null);
+        IHandler handler2 = new ConcreteHandler2(handler3);
+        IHandler handler1 = new ConcreteHandler1(handler2);
 
         IHelp help = handler1.HandleRequest(Context.MORE_SPECIFIC);
         help.Show();

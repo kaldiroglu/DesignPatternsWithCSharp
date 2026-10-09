@@ -5,5 +5,8 @@ public interface IHelp
 {
     void Show();
 
-    IHelp? OtherHelp { get; set; }
+    /// <summary>Adds help at the end of this help's list, so no help already there is replaced.</summary>
+    void AddHelp(IHelp help);
+
+    IHelp? OtherHelp { get; }
 }
