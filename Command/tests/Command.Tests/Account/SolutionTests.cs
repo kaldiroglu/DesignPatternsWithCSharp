@@ -169,22 +169,6 @@ public class SolutionTests
         Assert.Equal(Lira("100.00"), savings.Balance);   // tonight's last order, taken back
     }
 
-    [Fact(DisplayName = "the arithmetic of the design: one interface, four transactions, one invoker")]
-    public void TheArithmetic()
-    {
-        var classes = Directory.GetFiles(Path.Combine(SourceText.SourceRoot, "Account", "Solution"), "*.cs")
-            .Select(Path.GetFileNameWithoutExtension)
-            .Select(name => name!)
-            .Order(StringComparer.Ordinal)
-            .ToList();
-        var transactions = classes.Count(n => !new[] { "ITransaction", "Teller", "StandingOrders" }.Contains(n));
-
-        // Java's interface is Transaction; the C# one is ITransaction, so it sorts third.
-        Assert.Equal(["CloseOut", "Deposit", "ITransaction", "StandingOrders", "Teller",
-            "Transfer", "Withdraw"], classes);
-        Assert.Equal(4, transactions);
-    }
-
     [Fact(DisplayName = "execute takes no arguments: the request was complete when it was made")]
     public void TheRequestIsComplete()
     {

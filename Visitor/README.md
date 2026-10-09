@@ -32,7 +32,7 @@ when a new kind of item is added, every visitor that does not handle it stops co
 | `Visitor.Factory` | A company's employees and its boss get a health check. `Boss` is not an `Employee`, so a visitor can visit classes that have no common parent. `HR` creates random employees. |
 | `Visitor.Interpreter` | Interpreter, taught as a section of the Visitor deck (Design Patterns, pp. 243–255): a rule language for a shop. `IRule` is the abstract expression; `CategoryIs` and `PriceBelow` are terminal expressions; `And`, `Or` and `Not` are nonterminal ones. Each interprets itself against a `Product`. The Java `Rule` is a `sealed` interface; C# cannot close an interface, so `IRule` is open and each record is sealed. |
 | `Visitor.Animal` | A dog and a cat, and a feeder. `Problem` tests the type in `Feed`; `Pattern1` lets the animal's `Accept` choose the right `Feed` overload; `Pattern2` has one feeder per animal, and an animal refuses the wrong feeder. |
-| `Visitor.Pattern` | An earlier outline of GoF's nodes. Its methods are empty, as in the Java, so there is nothing to run. |
+| `Visitor.Pattern` | An earlier outline of GoF's nodes. Its methods are empty, as in the Java, so `Main` only names the two node classes and their methods. |
 
 ### Things worth stopping on
 
@@ -95,20 +95,23 @@ it stops compiling.
   `Checkout`, `Gof`, `Hw`, `File`, `Factory`, `Animal` and `Pattern`. Sources mirror
   namespaces: `src/Visitor/Checkout/Solution/…`.
 - **A console runner, `Visitor.Demo`**, that runs the Java original's `main` methods — the
-  checkout, GoF's compiler, the three file examples, the health check and the three animal
-  examples — and, in addition, the three homework exercises, each on its own.
+  checkout's three stages, its visitors and its switch, GoF's compiler before and after the
+  pattern, the short outline, the three file examples, the health check, the rule language,
+  the three animal examples and the three homework exercises — each on its own.
 - `net10.0`, nullable reference types on, implicit usings on — set once in
   `Directory.Build.props` and inherited by both projects.
 - **A test project, `Visitor.Tests`**, with xUnit tests ported from the Java tests. See `Test.md`.
 
 ## Differences from the Java original
 
-The port is faithful in behavior. The output of `checkout`, `gof`, `animal-problem`,
-`animal-pattern1` and `animal-pattern2` is byte for byte the output of the Java `main`
-methods. The homework output is byte for byte the output of a Java driver that makes the
-same calls. These outputs are the same under a Turkish and a Swedish locale. The file
-examples and `factory` choose at random, so their output has the same shape as the Java's,
-but not the same lines. What had to change:
+The port is faithful in behavior. The output of every runner entry that does not choose at
+random is byte for byte the output of the Java `main` method it ports, with two exceptions
+that come from C# names: `checkout-problem` says an item is held as an `IItem`, so
+`TaxOf(IItem)` is called, where the Java says `Item` and `taxOf(Item)`; and
+`pattern-problem` names the methods `TypeCheck`, `GenerateCode` and `PrettyPrint`. These
+outputs are the same under a Turkish and a Swedish locale. The file examples and `factory`
+choose at random, so their output has the same shape as the Java's, but not the same lines.
+What had to change:
 
 - **Interfaces take the `I` prefix**: `IItem` (in `Problem`, `Problem.Methods`, `Solution`
   and `Modern`), `IItemVisitor<R>`, `INode` (in `Gof.Problem`, `Gof.Solution` and
@@ -128,8 +131,8 @@ but not the same lines. What had to change:
   `_` arm that throws. See the section above. The Java variable `sealed` in `Main` is named
   `records`, because `sealed` is a C# keyword.
 - **The printers in `Hw.AccountPrint` take a `TextWriter`** where the Java takes a
-  `java.io.PrintWriter`. The runner passes `Console.Out` to `TextPrinter`, and a
-  `StringWriter` to `HtmlPrinter`, as the Java driver does.
+  `java.io.PrintWriter`. `Hw.AccountPrint.Main` passes `Console.Out` to both printers, as
+  the Java `main` passes one `PrintWriter` over `System.out`.
 - **`Folder`'s varargs constructor is `params IEntry[] children`.**
 - **`Math.random()` is `Random.Shared.NextDouble()`**, in the three file examples and in
   `HR`, with the same thresholds.
@@ -153,14 +156,12 @@ but not the same lines. What had to change:
   `List.copyOf` or `Stream.toList()`. Parameters that take a list are `IReadOnlyList<T>`;
   the Java problem nodes' `Set<String>` and `List<String>` are `ISet<string>` and
   `IList<string>`, because the nodes add to them.
-- **The runner prints lists as `[a, b, c]`**, as Java's `List.toString()` does, in GoF's
-  `Main`.
+- **The `Main` classes print lists as `[a, b, c]`**, as Java's `List.toString()` does.
 - **Number formats do not depend on the machine's locale.** Numbers that are printed are
   formatted with the invariant culture. Under a Swedish locale, -20000 and -20 would
   otherwise print with the minus sign U+2212.
 - **The `main` methods became `Run()` methods** called by `Visitor.Demo`. The commented-out
   lines in the Java (the animal `Test` classes and the `Feeder` overloads) are not ported.
-  The homework demos are only in the runner.
 - **`HR.GetAnEmployee` ends with `return e!;`.** The Java can return `null` in theory; the
   random number is always 0 to 9, so one of the ten cases always sets `e`. The `!` tells
   the compiler so.
@@ -215,9 +216,10 @@ cd ~/"Development/NET/Design Patterns/Design Patterns with CSharp/Visitor"
 ~/.dotnet/dotnet run --project src/Visitor.Demo -- checkout
 ```
 
-The runner accepts: `checkout`, `gof`, `file-problem1`, `file-problem2`, `file-pattern1`,
-`factory`, `interpreter`, `animal-problem`, `animal-pattern1`, `animal-pattern2`, `hw-accountprint`,
-`hw-filetree`, `hw-expression`.
+The runner accepts: `checkout-methods`, `checkout-problem`, `checkout`, `checkout-modern`,
+`gof-problem`, `gof-solution`, `gof`, `pattern-problem`, `file-problem1`, `file-problem2`,
+`file-pattern1`, `factory`, `interpreter`, `animal-problem`, `animal-pattern1`,
+`animal-pattern2`, `hw-accountprint`, `hw-filetree`, `hw-expression`.
 
 ```bash
 # run the tests

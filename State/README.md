@@ -29,7 +29,7 @@ of failed deliveries, so that a new shipment starts again at zero.
 | `State.Account` | A bank account that is `Active`, `Overdrawn`, `Frozen` or `Closed`. |
 | `State.Elevator` | An elevator that is stopped, going up or going down. The caller sets the state. |
 | `State.Person` | A person who says hello and goodbye in a happy or a sad way. |
-| `State.Pattern` | An earlier outline of GoF's TCP example. Its methods are empty, as in the Java, so there is nothing to run. |
+| `State.Pattern` | An earlier outline of GoF's TCP example. Its methods are empty, as in the Java, so `Main` only names the three state classes. |
 | `State.Hw` | The three homework exercises: an air conditioner whose states decide the next state (`AirConditioner`), a document whose transitions are one central table (`Document`), and a vending machine with a coin slot (`Vending`). |
 
 ### Things worth stopping on
@@ -76,19 +76,21 @@ implements the interface member.
   `Gof`, `Door`, `Account`, `Elevator`, `Person`, `Pattern` and `Hw`. Sources mirror
   namespaces: `src/State/Order/Solution/…`.
 - **A console runner, `State.Demo`**, that runs the Java original's `main` methods — the
-  order, GoF's connection, the three doors, the account, the elevator and the person — and,
-  in addition, the three homework exercises, each on its own.
+  order's problem and solution, GoF's connection before and after the pattern, the short
+  outline, the three doors, the account, the elevator, the person and the three homework
+  exercises — each on its own.
 - `net10.0`, nullable reference types on, implicit usings on — set once in
   `Directory.Build.props` and inherited by both projects.
 - **A test project, `State.Tests`**, with 31 xUnit tests ported from the Java JUnit tests.
 
 ## Differences from the Java original
 
-The port is faithful in behavior. The output of `order`, `gof`, `door-problem`,
-`door-pattern1`, `door-pattern2`, `account`, `elevator` and `person` is byte for byte the
-output of the Java `main` methods. The homework output is byte for byte the output of a
-Java driver that makes the same calls. The whole runner prints the same under a Turkish and
-a Swedish locale. What had to change:
+The port is faithful in behavior. The output of every runner entry is byte for byte the
+output of the Java `main` method it ports, with two exceptions that come from C# names.
+`gof-solution` prints `State after ActiveOpen`, where the Java prints `activeOpen`, and
+`pattern` prints `TCPClosed implements ITCPState`, where the Java prints `TCPState`, because
+C# interfaces take the `I` prefix. The whole runner prints the same under a Turkish and a
+Swedish locale. What had to change:
 
 - **Interfaces take the `I` prefix**: `IOrderState`, `IDoorState` (in both door patterns),
   `IAccountStatus`, `IElevatorState`, `IEmotionalState`, `IVendingState`, and the outline's
@@ -135,8 +137,8 @@ a Swedish locale. What had to change:
   In `State.Demo`, one level up, the plain name would mean the namespace, so the runner uses
   aliases (`OrderMain`, `DoorPattern1Test`, `AccountTest` and so on). The homework enum
   `Hw.Document.Action` shares its name with `System.Action`; inside its namespace the enum
-  wins, and the runner reaches it through the alias `DocumentAction`, because the runner's
-  own table uses `System.Action`. `SwitchingOrder.Status` and `Document.Status` are
+  wins, so `Hw.Document.Main` uses it by its plain name, and the runner's own table uses
+  `System.Action`. `SwitchingOrder.Status` and `Document.Status` are
   properties whose type is also named `Status`, which C# allows. The root namespace ends in
   `State`, and many classes have a property called `State`; the two never meet, because
   inside a class the property is found first.
@@ -168,8 +170,7 @@ a Swedish locale. What had to change:
   `ConcreteTCPConnection` suppresses that one warning around the field, and keeps the field
   and the empty methods as the Java has them.
 - **The `main` methods became `Run()` methods** called by `State.Demo`. The commented-out
-  lines in the account's Java `Test` are not ported. The homework demos are only in the
-  runner.
+  lines in the account's Java `Test` are not ported.
 - **The `uml/` diagrams and the `CD1.png` / `SD1.png` images in the Java packages are not
   ported yet.**
 
@@ -202,8 +203,9 @@ cd ~/"Development/NET/Design Patterns/Design Patterns with CSharp/State"
 ~/.dotnet/dotnet run --project src/State.Demo -- order
 ```
 
-The runner accepts: `order`, `gof`, `door-problem`, `door-pattern1`, `door-pattern2`,
-`account`, `elevator`, `person`, `hw-airconditioner`, `hw-document`, `hw-vending`.
+The runner accepts: `order-problem`, `order`, `gof-problem`, `gof-solution`, `gof`,
+`pattern`, `door-problem`, `door-pattern1`, `door-pattern2`, `account`, `elevator`,
+`person`, `hw-airconditioner`, `hw-document`, `hw-vending`.
 
 Run the tests with `~/.dotnet/dotnet test State.sln`.
 

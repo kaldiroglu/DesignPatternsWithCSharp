@@ -9,6 +9,8 @@ using dev.kaldiroglu.Iterator.Gof.Solution;
 using Xunit;
 using GofList = dev.kaldiroglu.Iterator.Gof.Solution.List<dev.kaldiroglu.Iterator.Gof.Employee>;
 using List = System.Collections.Generic.List<string>;
+// Gof.Problem and Gof.Solution each have a Main too; this file means the one in Gof.
+using Main = dev.kaldiroglu.Iterator.Gof.Main;
 
 /// <summary>
 /// GoF's list example. The 3 pairs and the 9 pairs on the Part 2 slides are asserted here,

@@ -63,7 +63,8 @@ public class FontDialogTest
     [Fact]
     public void MainOutput()
     {
-        IReadOnlyList<string> lines = By(Main.Run);
+        // Gof.Problem and Gof.Solution have a Main of their own, so the name is written in full.
+        IReadOnlyList<string> lines = By(global::dev.kaldiroglu.Mediator.Gof.Main.Run);
         Assert.Equal(new[]
         {
             "Before the pattern",

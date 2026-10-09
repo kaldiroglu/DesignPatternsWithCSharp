@@ -57,9 +57,11 @@ objects and implements none of them.
 - **One class library, `Strategy`**, holding every example as nested namespaces — `Gof`,
   `Pricing`, `Sorting`, `Freight` and `Hw`. Sources mirror namespaces:
   `src/Strategy/Pricing/Solution/…`.
-- **A console runner, `Strategy.Demo`.** The Java original has no `main` methods for
-  Strategy; its figures are asserted by tests. The runner prints the same figures from the
-  same inputs, one example at a time or all of them in the order the course presents them.
+- **A console runner, `Strategy.Demo`.** Each example package has a static class `Main`
+  with a `Run()` method, ported from the Java `main` in the same package; it prints the
+  same lines. The runner calls them one at a time or all in the order the course presents
+  them. Two entries are only in this runner: `gof` sets GoF's compositors beside the naive
+  composition, and `sorting` sets the naive sorter beside the context in one table.
 - `net10.0`, nullable reference types on, implicit usings on — set once in
   `Directory.Build.props` and inherited by both projects.
 - **A test project, `Strategy.Tests`**, with 51 xUnit tests ported from the Java JUnit tests.
@@ -145,8 +147,9 @@ cd ~/"Development/NET/Design Patterns/Design Patterns with CSharp/Strategy"
 ~/.dotnet/dotnet run --project src/Strategy.Demo -- freight
 ```
 
-The runner accepts: `gof`, `pricing-problem`, `pricing-solution`, `sorting`, `freight`,
-`hw-seating`, `hw-latefee`, `hw-validation`.
+The runner accepts: `gof`, `gof-layout`, `gof-problem`, `gof-solution`,
+`pricing-problem`, `pricing-solution`, `sorting`, `sorting-problem`, `sorting-subclassing`,
+`sorting-pattern`, `freight`, `hw-seating`, `hw-latefee`, `hw-validation`.
 
 Run the tests with `~/.dotnet/dotnet test Strategy.sln`.
 

@@ -66,16 +66,17 @@ from the book, because that shape is what the GoF slides show.
   `OrgChart`, `Gof`, `FileSystem` and `Hw`. Sources mirror namespaces:
   `src/Iterator/OrgChart/Solution/…`.
 - **A console runner, `Iterator.Demo`**, that runs the Java original's `main` methods —
-  the org chart, GoF's lists and the file system — and, in addition, the three naive org
-  charts, the `yield` walk and the three homework exercises, each on its own.
+  the org chart's problem and solution, GoF's lists with their problem and solution, the
+  file system and the three homework exercises — and, in addition, the `yield` walk, each
+  on its own.
 - `net10.0`, nullable reference types on, implicit usings on — set once in
   `Directory.Build.props` and inherited by both projects.
 - **A test project, `Iterator.Tests`**, with 34 xUnit tests ported from the Java JUnit tests.
 
 ## Differences from the Java original
 
-The port is faithful in behavior. The output of `orgchart`, `gof` and `filesystem` is byte
-for byte the output of the Java `main` methods, and the whole runner prints the same under
+The port is faithful in behavior. The output of every runner entry except `orgchart-yield`
+is byte for byte the output of the Java `main` method it ports, and the whole runner prints the same under
 a Turkish locale. What had to change:
 
 - **`Iterable`/`Iterator` became `IEnumerable<T>`/`IEnumerator<T>`.** Each Java iterator is
@@ -147,6 +148,10 @@ a Turkish locale. What had to change:
   lists as `[a, b, c]`, as Java's `List.toString()` does.
 - **The `main` methods became `Run()` methods** called by `Iterator.Demo`. The
   commented-out lines in the Java `Test` are not ported.
+- **`hw.bom`'s `Main` builds the bicycle itself.** The Java `Main` takes it from the
+  Composite package's `ProductCatalog.cityBicycle()` and then sets 36 spokes per wheel with
+  `changeQuantity`. The copied types have neither, so the C# `Main` builds the same tree
+  with 36 spokes from the start, as the homework tests do. The printed lines are the same.
 - **The `uml/` diagrams in the Java packages are not ported yet.**
 
 ## Tests
@@ -177,8 +182,8 @@ cd ~/"Development/NET/Design Patterns/Design Patterns with CSharp/Iterator"
 ~/.dotnet/dotnet run --project src/Iterator.Demo -- orgchart
 ```
 
-The runner accepts: `orgchart-problem`, `orgchart`, `orgchart-yield`, `gof`, `filesystem`,
-`hw-bom`, `hw-calendar`, `hw-paging`.
+The runner accepts: `orgchart-problem`, `orgchart`, `orgchart-yield`, `gof`, `gof-problem`,
+`gof-solution`, `filesystem`, `hw-bom`, `hw-calendar`, `hw-paging`.
 
 Run the tests with `~/.dotnet/dotnet test Iterator.sln`.
 

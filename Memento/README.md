@@ -7,7 +7,7 @@ For further enquiry please contact Akin Kaldiroglu at akin@kaldiroglu.dev
 The C# port of the Memento material from **Design Patterns with Java**
 (`kaldiroglu/DesignPatternsWithJava`, package root `dev.kaldiroglu.dp.behavioral.memento`).
 Every class that repository carries is here, in the same shape, under the root namespace
-`dev.kaldiroglu.Memento`: 31 Java files and 31 C# files in the library, one for one, and
+`dev.kaldiroglu.Memento`: 39 Java files and 39 C# files in the library, one for one, and
 the runner `Memento.Demo`.
 
 ## What Memento is for
@@ -25,8 +25,8 @@ mementos must be restored in the reverse order they were made.
 
 | Namespace | What it shows |
 |---|---|
-| `Memento.Game` | The main worked example: a game checkpoint. A player has health, a position and an inventory. The promise: loading gives back exactly what the player had at the checkpoint. `Problem.Setters` is stage one: the game reads and writes every field through public getters and setters, so anyone can set health to 999. `Problem.History` is stage two: the player keeps its own save slots. `Problem.Copy` is stage three: the game keeps a copy of the player, but the copy shares the inventory list with the player. `Solution` has the originator `Player`, the memento `Player.ICheckpoint`, the caretaker `Game`, and `Main`, which runs stage one, stage three and the memento. |
-| `Memento.Gof` | GoF's own example (Design Patterns, pp. 283–291): a constraint solver keeps a line with one bend between two boxes. `Problem` undoes a move by moving the box back, and the bend does not come back. In `Solution`, `MoveCommand` (the caretaker) takes a memento from `ConstraintSolver` (the originator) before the move and gives it back on undo. `Main` runs the same steps in both designs. |
+| `Memento.Game` | The main worked example: a game checkpoint. A player has health, a position and an inventory. The promise: loading gives back exactly what the player had at the checkpoint. `Problem.Setters` is stage one: the game reads and writes every field through public getters and setters, so anyone can set health to 999. `Problem.History` is stage two: the player keeps its own save slots. `Problem.Copy` is stage three: the game keeps a copy of the player, but the copy shares the inventory list with the player. `Solution` has the originator `Player`, the memento `Player.ICheckpoint`, the caretaker `Game`, and `Main`, which runs stage one, stage three and the memento. Each stage also has a `Main` of its own. |
+| `Memento.Gof` | GoF's own example (Design Patterns, pp. 283–291): a constraint solver keeps a line with one bend between two boxes. `Problem` undoes a move by moving the box back, and the bend does not come back. In `Solution`, `MoveCommand` (the caretaker) takes a memento from `ConstraintSolver` (the originator) before the move and gives it back on undo. `Main` runs the same steps in both designs; `Problem.Main` and `Solution.Main` run one design each. |
 | `Memento.Hw` | The three homework exercises: a `TextEditor` with undo and redo kept by a `History` (`Editor`), a `Batch` of transfers that gives every `Account` its memento back when one transfer fails (`Rollback`), and a `Sheet` whose memento holds only the cells one edit changed (`Incremental`). |
 | `Memento.Gui` | A window whose state is one object, `GuiComponentState`, kept by a `GuiComponentMemento`. `Test` saves, moves and resizes the window, then undoes. |
 | `Memento.Pattern1` | An originator whose state changes every second on one thread, and a caretaker thread that keeps mementos in a stack, saves every two seconds and undoes every fifth time. `Memento` is a class of its own, with a public `State`. |
@@ -88,18 +88,19 @@ The load methods' XML comments say so.
   `Gof`, `Hw`, `Gui`, `Pattern1` and `Pattern2`. Sources mirror namespaces:
   `src/Memento/Game/Solution/…`.
 - **A console runner, `Memento.Demo`**, that runs the Java original's `main` methods — the
-  game, GoF's constraint solver, the GUI component and the two threaded examples — and, in
-  addition, the three homework exercises, each on its own.
+  game's three stages and the memento, GoF's constraint solver before and after the pattern,
+  the three homework exercises, the GUI component and the two threaded examples — each on
+  its own.
 - `net10.0`, nullable reference types on, implicit usings on — set once in
   `Directory.Build.props` and inherited by both projects.
 - **An xUnit project, `Memento.Tests`**, in `tests/Memento.Tests`. It is described in `Test.md`.
 
 ## Differences from the Java original
 
-The port is faithful in behavior. The output of `game`, `gof` and `gui` is byte for byte the
-output of the Java `main` methods. The homework output is byte for byte the output of a Java
-driver that makes the same calls. These outputs are the same under a US English, a Turkish
-and a Swedish locale. `pattern1` and `pattern2` run two threads each, so the order of their
+The port is faithful in behavior. The output of `game-setters`, `game-history`,
+`game-copy`, `game`, `gof-problem`, `gof-solution`, `gof`, `hw-editor`, `hw-rollback`,
+`hw-incremental` and `gui` is byte for byte the output of the Java `main` methods. These
+outputs are the same under a US English, a Turkish and a Swedish locale. `pattern1` and `pattern2` run two threads each, so the order of their
 lines changes from run to run in both languages. In the runs checked, the C# and the Java
 printed the same number of lines, the same number of saves and state changes, and the same
 undo lines on the error stream (`state-6` and `state-16` for `pattern1`, `state-6` for
@@ -158,8 +159,7 @@ undo lines on the error stream (`state-6` and `state-16` for `pattern1`, `state-
   prints "Caretaker: Nothing to undo."
 - **Number formats do not depend on the machine's locale.** Numbers that are printed are
   formatted with the invariant culture.
-- **The `main` methods became `Run()` methods** called by `Memento.Demo`. The homework
-  demos are only in the runner.
+- **The `main` methods became `Run()` methods** called by `Memento.Demo`.
 - **Names that clash, and how they are resolved.**
   - The root namespace is `dev.kaldiroglu.Memento`, and `Pattern1` has a class named
     `Memento`, as in the Java. Inside `dev.kaldiroglu.Memento.Pattern1` the plain name
@@ -177,9 +177,14 @@ undo lines on the error stream (`state-6` and `state-16` for `pattern1`, `state-
     `Problem.Setters.Player` and `Problem.Copy.Game`: from inside `Game.Solution`, `Problem`
     is found as a sibling namespace. The Java writes their full package names.
   - `Gof.Main` writes `Problem.Graphic` and `Solution.Graphic` in the same way.
-  - Five examples have a class named `Main` or `Test`, as in the Java. `Main` and `Test` are
-    static classes with a `Run()` method, which C# allows. In `Memento.Demo` the runner
-    reaches them through aliases: `GameMain`, `GofMain`, `GuiTest`, `Pattern1Test` and
+  - Inside `Game.Problem.Setters` and `Game.Problem.Copy`, the plain names `Player` and
+    `Game` mean that stage's classes, so their `Main` classes write `new Game()` as the Java
+    does.
+  - Thirteen namespaces have a class named `Main` or `Test`, as in the Java. `Main` and
+    `Test` are static classes with a `Run()` method, which C# allows. In `Memento.Demo` the
+    runner reaches them through aliases: `GameSettersMain`, `GameHistoryMain`,
+    `GameCopyMain`, `GameMain`, `GofProblemMain`, `GofSolutionMain`, `GofMain`,
+    `EditorMain`, `RollbackMain`, `IncrementalMain`, `GuiTest`, `Pattern1Test` and
     `Pattern2Test`.
 - **The `uml/` diagrams, the `CD1.png` and `SD1.png` images and the per-package `README.md`
   files in the Java packages are not ported yet.** This README carries their content.
@@ -210,8 +215,9 @@ cd ~/"Development/NET/Design Patterns/Design Patterns with CSharp/Memento"
 ~/.dotnet/dotnet run --project src/Memento.Demo -- game
 ```
 
-The runner accepts: `game`, `gof`, `hw-editor`, `hw-rollback`, `hw-incremental`, `gui`,
-`pattern1`, `pattern2`.
+The runner accepts: `game-setters`, `game-history`, `game-copy`, `game`, `gof-problem`,
+`gof-solution`, `gof`, `hw-editor`, `hw-rollback`, `hw-incremental`, `gui`, `pattern1`,
+`pattern2`.
 
 Run the tests:
 

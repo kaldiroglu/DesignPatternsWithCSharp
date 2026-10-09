@@ -85,18 +85,18 @@ the subject itself.
   `Gof`, `Publisher`, `Payment` and `Hw`. Sources mirror namespaces:
   `src/Observer/Price/Solution/…`.
 - **A console runner, `Observer.Demo`**, that runs the Java original's `main` methods — the
-  price, GoF's clocks, the magazines and the invoice — and, in addition, the C# `event`
-  version of the price feed and the three homework exercises, each on its own.
+  price's problem and solution, GoF's clocks before and after the pattern, the magazines,
+  the invoice and the three homework exercises — and, in addition, the C# `event` version
+  of the price feed, each on its own.
 - `net10.0`, nullable reference types on, implicit usings on — set once in
   `Directory.Build.props` and inherited by both projects.
 - **A test project, `Observer.Tests`** (xUnit), under `tests/`. See `Test.md`.
 
 ## Differences from the Java original
 
-The port is faithful in behavior. The output of `price`, `gof` and `payment` is byte for
-byte the output of the Java `main` methods. The output of `publisher` is the same apart from
-the date and time, which are the current ones. The homework output is byte for byte the
-output of a Java driver that makes the same calls. The whole runner prints the same under a
+The port is faithful in behavior. The output of every runner entry that ports a Java `main`
+is byte for byte the output of that `main`. The output of `publisher` is the same apart from
+the date and time, which are the current ones. The whole runner prints the same under a
 Turkish and a Swedish locale. What had to change:
 
 - **Interfaces take the `I` prefix**: `IPriceListener`, `IObserver` (twice: GoF's and the
@@ -145,12 +145,13 @@ Turkish and a Swedish locale. What had to change:
   invariant culture; `String.format("%02d")` is `{0:00}`.
 - **The `main` methods became `Run()` methods** called by `Observer.Demo`. The
   commented-out lines in the Java `Test` classes of `payment` and `publisher` are not
-  ported. The homework demos are only in the runner.
+  ported.
 - **Names that clash, and how they are resolved.** The namespaces `Publisher`, `Auction`
   and `Inbox` each hold a class with the same name. Inside each namespace the plain name
   means the class, because a type in the current namespace wins. In `Observer.Demo` the
-  runner reaches them through aliases (`PublisherTest`, `Auction`, `Inbox`), and the
-  `Main` and `Test` classes through `PriceMain`, `GofMain` and `PaymentTest`. The root
+  runner reaches them through aliases (`PublisherTest`, `AuctionMain`, `InboxMain`), and
+  the other `Main` and `Test` classes through `PriceMain`, `GofMain`, `PaymentTest` and so
+  on. The root
   namespace ends in `Observer`, but no type is named `Observer`: the interfaces are
   `IObserver`, so the namespace and the types never meet. `Payment.IObserver` and
   `Gof.Solution.IObserver` do not clash with `System.IObserver<T>`, because a generic type
@@ -184,8 +185,8 @@ cd ~/"Development/NET/Design Patterns/Design Patterns with CSharp/Observer"
 ~/.dotnet/dotnet run --project src/Observer.Demo -- price
 ```
 
-The runner accepts: `price`, `price-event`, `gof`, `publisher`, `payment`,
-`hw-accountlog`, `hw-auction`, `hw-inbox`.
+The runner accepts: `price-problem`, `price`, `price-event`, `gof-problem`,
+`gof-solution`, `gof`, `publisher`, `payment`, `hw-accountlog`, `hw-auction`, `hw-inbox`.
 
 To run the tests:
 

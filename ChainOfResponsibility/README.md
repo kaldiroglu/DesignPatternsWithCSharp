@@ -8,7 +8,7 @@ The C# port of the Chain of Responsibility material from **Design Patterns with 
 (`kaldiroglu/DesignPatternsWithJava`, package root
 `dev.kaldiroglu.dp.behavioral.chainOfResponsibility`). Every class that repository carries
 is here, in the same shape, under the root namespace `dev.kaldiroglu.ChainOfResponsibility`:
-54 Java files and 56 C# files. The two extra files are `Hw.Maintenance.RequestKind` and
+60 Java files and 62 C# files. The two extra files are `Hw.Maintenance.RequestKind` and
 `Hw.Middleware.MiddlewareChain`; the differences below say why.
 
 ## What Chain of Responsibility is for
@@ -76,19 +76,19 @@ ASP.NET Core's class of the same name.
   namespaces — `Expense`, `Gof`, `Hw`, `CallCenter` and `Pattern`. Sources mirror
   namespaces: `src/ChainOfResponsibility/Expense/Solution/…`.
 - **A console runner, `ChainOfResponsibility.Demo`**, that runs the Java original's `main`
-  methods — the expense approval, GoF's help, the call center and the help topics — and, in
-  addition, the three homework exercises, each on its own.
+  methods — the expense approval before and after the pattern, GoF's help, the three
+  homework exercises, the call center and the help topics — each on its own.
 - `net10.0`, nullable reference types on, implicit usings on — set once in
   `Directory.Build.props` and inherited by both projects.
 - **An xUnit project, `ChainOfResponsibility.Tests`**, in `tests/ChainOfResponsibility.Tests`. It is described in `Test.md`.
 
 ## Differences from the Java original
 
-The port is faithful in behavior. The output of `expense`, `gof` and `pattern` is byte for
-byte the output of the Java `main` methods. The homework output is byte for byte the output
-of a Java driver that makes the same calls, and a call-center driver that sends one VIP and
-one gold customer prints the same lines in both languages. These outputs are the same under a
-Turkish and a Swedish locale. `callcenter` chooses customers at random, so its output has the
+The port is faithful in behavior. The output of `expense-problem`, `expense`,
+`gof-problem`, `gof-solution`, `gof`, `hw-maintenance`, `hw-middleware`,
+`hw-cashdispenser` and `pattern` is byte for byte the output of the Java `main` methods, and
+a call-center driver that sends one VIP and one gold customer prints the same lines in both
+languages. These outputs are the same under a Turkish and a Swedish locale. `callcenter` chooses customers at random, so its output has the
 same shape as the Java's, but not the same lines. What had to change:
 
 - **Interfaces take the `I` prefix**: `ICallTaker`, `ICustomer`, `IHandler` and `IHelp`.
@@ -132,8 +132,7 @@ same shape as the Java's, but not the same lines. What had to change:
   formatted with the invariant culture, and `Expense.Solution.Main` parses the amounts with
   it.
 - **The `main` methods became `Run()` methods** called by `ChainOfResponsibility.Demo`. The
-  homework demos are only in the runner, and they print lists as `[a, b, c]`, as Java's
-  `List.toString()` does.
+  homework demos print lists as `[a, b, c]`, as Java's `List.toString()` does.
 - **Names that clash, and how they are resolved.**
   - The namespace `Expense` holds two records named `Expense`, in `Expense.Problem` and
     `Expense.Solution`. Inside each of those namespaces the plain name means that
@@ -147,10 +146,13 @@ same shape as the Java's, but not the same lines. What had to change:
     framework, so nothing else in scope has these names.
   - `Pattern.Context` and `Hw.Middleware.HttpRequest` do not meet any type that implicit
     usings bring in.
-  - Three examples have a class named `Main` or `Test`, as in the Java. `Main` is a static
+  - Ten namespaces have a class named `Main` or `Test`, as in the Java. `Main` is a static
     class with a `Run()` method, which C# allows. In `ChainOfResponsibility.Demo` the runner
-    reaches them through aliases: `ExpenseMain`, `GofMain`, `CallCenterTest` and
-    `PatternTest`.
+    reaches them through aliases: `ExpenseProblemMain`, `ExpenseMain`, `GofMain`,
+    `GofProblemMain`, `GofSolutionMain`, `MaintenanceMain`, `MiddlewareMain`,
+    `CashDispenserMain`, `CallCenterTest` and `PatternTest`. `Gof.Main` sits next to the
+    namespaces `Gof.Problem` and `Gof.Solution`, which have a `Main` each, so a file that
+    imports all three writes it as `global::dev.kaldiroglu.ChainOfResponsibility.Gof.Main`.
 - **The `uml/` diagrams, the `CD1.png`, `ClassDiagram1.png`, `SD1.png` and
   `SequenceDiagram*.png` images, and the per-package `README.md` files in the Java packages
   are not ported yet.** This README carries their content.
@@ -180,8 +182,8 @@ cd ~/"Development/NET/Design Patterns/Design Patterns with CSharp/ChainOfRespons
 ~/.dotnet/dotnet run --project src/ChainOfResponsibility.Demo -- expense
 ```
 
-The runner accepts: `expense`, `gof`, `hw-maintenance`, `hw-middleware`,
-`hw-cashdispenser`, `callcenter`, `pattern`.
+The runner accepts: `expense-problem`, `expense`, `gof-problem`, `gof-solution`, `gof`,
+`hw-maintenance`, `hw-middleware`, `hw-cashdispenser`, `callcenter`, `pattern`.
 
 Run the tests:
 

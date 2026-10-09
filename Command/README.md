@@ -55,10 +55,12 @@ removing a ticket; nothing needs reversing.
   `Account`, `Gof`, `Lender`, `Ac` and `Hw`. Sources mirror namespaces:
   `src/Command/Account/Solution/…`.
 - **A console runner, `Command.Demo`**, that runs the examples which have a `main` method
-  in the Java original — the three lender steps and the air conditioner — each on its own.
+  in the Java original — the teller's problem and solution, GoF's receivers, problem and
+  solution, the three lender steps, the air conditioner and the three homework solutions —
+  each on its own.
 - `net10.0`, nullable reference types on, implicit usings on — set once in
   `Directory.Build.props` and inherited by both projects.
-- **A test project, `Command.Tests`**, with 56 xUnit tests ported from the Java JUnit tests.
+- **A test project, `Command.Tests`**, with 55 xUnit tests ported from the Java JUnit tests.
 
 ## Differences from the Java original
 
@@ -84,7 +86,7 @@ The port is faithful in behavior. What had to change:
 
 ## Tests
 
-`tests/Command.Tests` holds 56 xUnit tests, one test class for each Java test class, with
+`tests/Command.Tests` holds 55 xUnit tests, one test class for each Java test class, with
 the same assertions and the same expected values. Every Java test is ported. `Test.md`
 lists what is tested and every place where a check had to take a different C# form.
 
@@ -110,7 +112,9 @@ cd "~/Development/NET/Design Patterns/Design Patterns with CSharp/Command"
 ~/.dotnet/dotnet run --project src/Command.Demo -- lender-pattern
 ```
 
-The runner accepts: `lender-problem1`, `lender-problem2`, `lender-pattern`, `ac`.
+The runner accepts: `account-problem`, `account-solution`, `gof`, `gof-problem`,
+`gof-solution`, `lender-problem1`, `lender-problem2`, `lender-pattern`, `ac`, `hw-remote`,
+`hw-kitchen`, `hw-macro`.
 
 Run the tests with `~/.dotnet/dotnet test Command.sln`.
 

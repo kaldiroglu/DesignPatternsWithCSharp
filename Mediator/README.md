@@ -7,7 +7,7 @@ For further enquiry please contact Akin Kaldiroglu at akin@kaldiroglu.dev
 The C# port of the Mediator material from **Design Patterns with Java**
 (`kaldiroglu/DesignPatternsWithJava`, package root `dev.kaldiroglu.dp.behavioral.mediator`).
 Every class that repository carries is here, in the same shape, under the root namespace
-`dev.kaldiroglu.Mediator`: 33 Java files and 33 C# files in the library, one for one, and
+`dev.kaldiroglu.Mediator`: 41 Java files and 41 C# files in the library, one for one, and
 the runner `Mediator.Demo`.
 
 ## What Mediator is for
@@ -25,8 +25,8 @@ meet in the mediator.
 
 | Namespace | What it shows |
 |---|---|
-| `Mediator.Chat` | The main worked example: a team chat with messages to everyone and private messages. The promise: a private message is seen only by the person it is sent to. `Problem.Direct` is stage one: every member holds every other member (4 members, 12 references). `Problem.Directory` is stage two: one shared `Directory`, but every sender applies the rules itself. `Problem.Bus` is stage three: a `MessageBus` delivers every message to every client, and each client decides what to show. `Solution` has the mediator `ChatRoom`, the colleague `IParticipant`, the concrete colleagues `Member` and `Guest`, and `Main`, which runs stage one, stage three and the room. |
-| `Mediator.Gof` | GoF's own example (Design Patterns, pp. 273–282): a font dialog. `Problem.FontDialog` has widgets that call each other. `Solution` has the mediator `DialogDirector`, the concrete mediator `FontDialogDirector`, the colleague `Widget`, and the general widgets `ListBox`, `EntryField` and `Button`. `Main` runs the same steps in both designs. |
+| `Mediator.Chat` | The main worked example: a team chat with messages to everyone and private messages. The promise: a private message is seen only by the person it is sent to. `Problem.Direct` is stage one: every member holds every other member (4 members, 12 references). `Problem.Directory` is stage two: one shared `Directory`, but every sender applies the rules itself. `Problem.Bus` is stage three: a `MessageBus` delivers every message to every client, and each client decides what to show. `Solution` has the mediator `ChatRoom`, the colleague `IParticipant`, the concrete colleagues `Member` and `Guest`, and `Main`, which runs stage one, stage three and the room. Each stage also has a `Main` of its own. |
+| `Mediator.Gof` | GoF's own example (Design Patterns, pp. 273–282): a font dialog. `Problem.FontDialog` has widgets that call each other. `Solution` has the mediator `DialogDirector`, the concrete mediator `FontDialogDirector`, the colleague `Widget`, and the general widgets `ListBox`, `EntryField` and `Button`. `Main` runs the same steps in both designs; `Problem.Main` and `Solution.Main` run one design each. |
 | `Mediator.Hw` | The three homework exercises: a bank branch where a `QueueManager` pairs customers with tellers (`BankQueue`), an airport where a `ControlTower` gives the runway to one aircraft at a time (`AirTraffic`), and a meeting-room `BookingForm` that is the mediator of its own fields (`BookingForm`). |
 | `Mediator.Traffic` | Cars at a junction ask a traffic police officer for permission to pass. Each car runs on its own thread. `Test` creates five cars. |
 
@@ -51,17 +51,18 @@ step happen inside one lock, and the car proceeds or waits outside it.
 - **One class library, `Mediator`**, holding every example as nested namespaces — `Chat`,
   `Gof`, `Hw` and `Traffic`. Sources mirror namespaces: `src/Mediator/Chat/Solution/…`.
 - **A console runner, `Mediator.Demo`**, that runs the Java original's `main` methods — the
-  chat, GoF's font dialog and the traffic junction — and, in addition, the three homework
-  exercises, each on its own.
+  chat's three stages and the room, GoF's font dialog before and after the pattern, the
+  three homework exercises and the traffic junction — each on its own.
 - `net10.0`, nullable reference types on, implicit usings on — set once in
   `Directory.Build.props` and inherited by both projects.
 - **An xUnit project, `Mediator.Tests`**, in `tests/Mediator.Tests`. It is described in `Test.md`.
 
 ## Differences from the Java original
 
-The port is faithful in behavior. The output of `chat` and `gof` is byte for byte the output
-of the Java `main` methods. The homework output is byte for byte the output of a Java driver
-that makes the same calls. These outputs are the same under a Turkish and a Swedish locale.
+The port is faithful in behavior. The output of `chat-direct`, `chat-directory`,
+`chat-bus`, `chat`, `gof-problem`, `gof-solution`, `gof`, `hw-bankqueue`, `hw-airtraffic`
+and `hw-bookingform` is byte for byte the output of the Java `main` methods. These outputs
+are the same under a Turkish and a Swedish locale.
 `traffic` runs on five threads, so the order of its lines changes from run to run in both
 languages; its first 14 lines (the junction, the officer and the five cars) are the same as
 the Java's, and in the runs checked each car asked once and passed once in both languages. What had to change:
@@ -113,8 +114,7 @@ the Java's, and in the runs checked each car asked once and passed once in both 
   asks again.
 - **Number formats do not depend on the machine's locale.** Numbers that are printed are
   formatted with the invariant culture.
-- **The `main` methods became `Run()` methods** called by `Mediator.Demo`. The homework
-  demos are only in the runner. `traffic` runs last when every example runs, because its
+- **The `main` methods became `Run()` methods** called by `Mediator.Demo`. `traffic` runs last when every example runs, because its
   threads go on printing after its `Run()` returns.
 - **Names that clash, and how they are resolved.**
   - Three classes are named `Member`, in `Chat.Problem.Direct`, `Chat.Problem.Directory` and
@@ -128,15 +128,19 @@ the Java's, and in the runs checked each car asked once and passed once in both 
     the example's class, because a type in the current namespace is found before a type that a
     `using` brings in.
   - The namespace `Hw.BookingForm` holds the class `BookingForm`. Inside the namespace the
-    plain name means the class. The runner reaches it through the alias `BookingFormClass`.
+    plain name means the class, so `Hw.BookingForm.Main` writes `new BookingForm()`.
   - `Chat.Problem.Bus.Message` and the two `Button` classes (`Gof.Solution.Button`, and
     `Button` nested in `Gof.Problem.FontDialog`) do not meet any type that implicit usings
     bring in. The library uses no UI framework.
   - The root namespace is `dev.kaldiroglu.Mediator`, and no type is named `Mediator`, so the
     name always means the namespace.
-  - Three examples have a class named `Main` or `Test`, as in the Java. `Main` is a static
-    class with a `Run()` method, which C# allows. In `Mediator.Demo` the runner reaches them
-    through aliases: `ChatMain`, `GofMain` and `TrafficTest`.
+  - Eleven namespaces have a class named `Main` or `Test`, as in the Java. `Main` is a
+    static class with a `Run()` method, which C# allows. In `Mediator.Demo` the runner
+    reaches them through aliases: `ChatDirectMain`, `ChatDirectoryMain`, `ChatBusMain`,
+    `ChatMain`, `GofProblemMain`, `GofSolutionMain`, `GofMain`, `BankQueueMain`,
+    `AirTrafficMain`, `BookingFormMain` and `TrafficTest`. `Gof.Main` sits next to the
+    namespaces `Gof.Problem` and `Gof.Solution`, which have a `Main` each, so a file that
+    imports all three writes it as `global::dev.kaldiroglu.Mediator.Gof.Main`.
 - **The `uml/` diagrams, the `CD.png` image and the per-package `README.md` files in the Java
   packages are not ported yet.** This README carries their content.
 
@@ -165,8 +169,8 @@ cd ~/"Development/NET/Design Patterns/Design Patterns with CSharp/Mediator"
 ~/.dotnet/dotnet run --project src/Mediator.Demo -- chat
 ```
 
-The runner accepts: `chat`, `gof`, `hw-bankqueue`, `hw-airtraffic`, `hw-bookingform`,
-`traffic`.
+The runner accepts: `chat-direct`, `chat-directory`, `chat-bus`, `chat`, `gof-problem`,
+`gof-solution`, `gof`, `hw-bankqueue`, `hw-airtraffic`, `hw-bookingform`, `traffic`.
 
 Run the tests:
 

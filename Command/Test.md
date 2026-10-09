@@ -4,7 +4,7 @@
 
 For further enquiry please contact Akin Kaldiroglu at akin@kaldiroglu.dev
 
-56 xUnit tests in one project, `tests/Command.Tests`. All of them are **unit tests**: no
+55 xUnit tests in one project, `tests/Command.Tests`. All of them are **unit tests**: no
 process boundary, no network. Some tests read C# source files of the library. They find the
 files from the test file's own path (`CallerFilePath`), so they do not depend on the working
 directory.
@@ -21,13 +21,13 @@ became `Printed.cs`.
 | File | Java class | Java tests | C# tests | What it checks |
 |---|---|---|---|---|
 | `Account/ProblemTests.cs` | `account.ProblemTest` | 10 | 10 | Stage one undoes one step only, and two of its fields start with `last`. Stage two has 8 public operations, 3 of them banking, and two switches with 4 `case` labels. Stage three moves both switches into the teller. The reversal: undo takes back half a transfer and 300.00 lira vanish. |
-| `Account/SolutionTests.cs` | `account.SolutionTest` | 10 | 10 | One undo takes back a whole transfer. Undo and redo. `CloseOut` gives back the 750.00 it took. A failed request is not recorded. A transfer is all or nothing. The teller names no operation. A new operation is one class. Standing orders. Four transactions, one interface, one invoker. `Execute` takes no arguments. |
+| `Account/SolutionTests.cs` | `account.SolutionTest` | 9 | 9 | One undo takes back a whole transfer. Undo and redo. `CloseOut` gives back the 750.00 it took. A failed request is not recorded. A transfer is all or nothing. The teller names no operation. A new operation is one class. Standing orders. `Execute` takes no arguments. |
 | `Gof/MenuTests.cs` | `gof.MenuTest` | 14 | 14 | Before the pattern, the menu item names `Application` and `Document` and branches on its label; `paste` fails on the first click. With the pattern, the toolkit classes name no receiver, `ICommand` has one method, and paste, open, macro, `SimpleCommand`, `SetCommand` and `Menu.Click` work. |
 | `Ac/AirConditionerTests.cs` | `ac.AirConditionerTest` | 10 | 10 | What the switch and the four commands print. The switch holds four `ICommand` fields. `Undo` and `Redo` print nothing. |
 | `Lender/Problem1/Problem1Tests.cs` | `lender.problem1.Problem1Test` | 3 | 3 | `Lend` takes the concrete `Borrower` class. `Main.Run` prints one loan. |
 | `Lender/Problem2/Problem2Tests.cs` | `lender.problem2.Problem2Test` | 4 | 4 | `Lend` takes the `IBorrower` interface, and a borrower written in the test works. |
 | `Lender/Pattern/PatternTests.cs` | `lender.pattern.PatternTest` | 5 | 5 | `Lend` takes an `ICommand` and names no concrete command. The amount arrives at `Execute`. The tax office ignores the amount. |
-| **Total** | | **56** | **56** | |
+| **Total** | | **55** | **55** | |
 
 The helpers:
 
@@ -70,9 +70,6 @@ C# form:
   declaration order. It still checks four fields and two that start with `last`.
 - **The interface has three methods.** Java counts `execute`, `undo` and `description`. In
   C# `Description` is a property; its getter `get_Description` is the third method.
-- **The file list in `theArithmetic`.** Java's interface is `Transaction`; the C# one is
-  `ITransaction`, so the sorted list of files is `CloseOut, Deposit, ITransaction,
-  StandingOrders, Teller, Transfer, Withdraw`. Four of them are transactions, as in Java.
 - **Type tests.** Java checks that the teller contains no `instanceof`; the C# test checks
   that it contains neither of the words `is` and `as`.
 - **Names in the source.** `transfer`, `withdraw(`, `deposit(` and `record(` are
@@ -89,7 +86,7 @@ C# form:
 ```bash
 cd ~/"Development/NET/Design Patterns/Design Patterns with CSharp/Command"
 
-# all 56
+# all 55
 ~/.dotnet/dotnet test Command.sln
 
 # one class

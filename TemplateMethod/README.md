@@ -70,8 +70,8 @@ method is left as it is.
   `Export`, `Gof`, `Pattern`, `Task` and `Hw`. Sources mirror namespaces:
   `src/TemplateMethod/Export/Solution/…`.
 - **A console runner, `TemplateMethod.Demo`**, that runs the Java original's `main`
-  methods — the export, GoF's applications, the short form and the task — and, in addition,
-  the three homework exercises, each on its own.
+  methods — the export's problem and solution, GoF's applications before and after the
+  pattern, the short form, the task and the three homework exercises — each on its own.
 - `net10.0`, nullable reference types on, implicit usings on — set once in
   `Directory.Build.props` and inherited by both projects.
 - **An xUnit test project, `TemplateMethod.Tests`**, with the Java tests ported one class
@@ -79,11 +79,10 @@ method is left as it is.
 
 ## Differences from the Java original
 
-The port is faithful in behavior. The output of `export`, `gof`, `pattern` and `task` is
-byte for byte the output of the Java `main` methods. The homework has no `main` in Java, so
-its output was compared with a short Java program that calls the Java classes and prints the
-same lines; those are identical too. The whole runner prints the same under a Turkish
-locale. What had to change:
+The port is faithful in behavior. The output of every runner entry is byte for byte the
+output of the Java `main` method it ports, with one exception: the last line of
+`export-problem` names the method `RecordAudit`, as C# writes it, where the Java names
+`recordAudit`. The whole runner prints the same under a Turkish locale. What had to change:
 
 - **`final` became "not `virtual`".** See the section above. Each template method's doc
   comment says this where the Java one says `final`.
@@ -145,9 +144,11 @@ locale. What had to change:
   because `Verify` does.
 - **`endsWith` is `EndsWith(…, StringComparison.Ordinal)`**, which compares the way Java
   does on every locale.
-- **The `main` methods became `Run()` methods** called by `TemplateMethod.Demo`, and the
-  runner prints lists as `[a, b, c]`, as Java's `List.toString()` does. The homework demos
-  are only in the runner.
+- **The `main` methods became `Run()` methods** called by `TemplateMethod.Demo`, and they
+  print lists as `[a, b, c]`, as Java's `List.toString()` does. `Hw.RecordFile.Main` prints
+  each customer as a Java record prints, `Customer[name=Ayse, city=Istanbul]`, because a C#
+  record prints differently. Java's anonymous `StringReader` subclass that remembers being
+  closed is a private nested class there.
 - **The `uml/` diagrams and the `CD1.png` / `ClassDiagram1.png` images in the Java packages
   are not ported yet.**
 
@@ -177,8 +178,8 @@ cd ~/"Development/NET/Design Patterns/Design Patterns with CSharp/TemplateMethod
 ~/.dotnet/dotnet run --project src/TemplateMethod.Demo -- export
 ```
 
-The runner accepts: `export`, `gof`, `pattern`, `task`, `hw-callcenter`, `hw-onboarding`,
-`hw-recordfile`.
+The runner accepts: `export-problem`, `export`, `gof-problem`, `gof-solution`, `gof`,
+`pattern`, `task`, `hw-callcenter`, `hw-onboarding`, `hw-recordfile`.
 
 Run the tests. They take about ten seconds, because one test waits nine:
 

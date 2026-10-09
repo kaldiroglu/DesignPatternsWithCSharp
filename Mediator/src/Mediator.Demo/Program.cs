@@ -1,12 +1,15 @@
-using dev.kaldiroglu.Mediator.Hw.AirTraffic;
-using dev.kaldiroglu.Mediator.Hw.BankQueue;
-// The namespace Hw.BookingForm holds the class BookingForm, as the Java package bookingform
-// does. The alias names the class, so the runner never has to choose between the two.
-using BookingFormClass = dev.kaldiroglu.Mediator.Hw.BookingForm.BookingForm;
 // Most examples have a class called Main or Test, as the Java original does. Aliases name
 // them apart.
+using ChatDirectMain = dev.kaldiroglu.Mediator.Chat.Problem.Direct.Main;
+using ChatDirectoryMain = dev.kaldiroglu.Mediator.Chat.Problem.Directory.Main;
+using ChatBusMain = dev.kaldiroglu.Mediator.Chat.Problem.Bus.Main;
 using ChatMain = dev.kaldiroglu.Mediator.Chat.Solution.Main;
+using GofProblemMain = dev.kaldiroglu.Mediator.Gof.Problem.Main;
+using GofSolutionMain = dev.kaldiroglu.Mediator.Gof.Solution.Main;
 using GofMain = dev.kaldiroglu.Mediator.Gof.Main;
+using BankQueueMain = dev.kaldiroglu.Mediator.Hw.BankQueue.Main;
+using AirTrafficMain = dev.kaldiroglu.Mediator.Hw.AirTraffic.Main;
+using BookingFormMain = dev.kaldiroglu.Mediator.Hw.BookingForm.Main;
 using TrafficTest = dev.kaldiroglu.Mediator.Traffic.Test;
 
 namespace dev.kaldiroglu.Mediator.Demo;
@@ -14,10 +17,9 @@ namespace dev.kaldiroglu.Mediator.Demo;
 /// <summary>
 /// Runs the Mediator examples.
 /// <para>
-/// <c>chat</c>, <c>gof</c> and <c>traffic</c> are the Java original's <c>main</c> methods and
-/// print the same output. <c>traffic</c> runs five cars on five threads, so the order of its
-/// lines changes from run to run. The three homework exercises have no <c>main</c> in Java
-/// and are only in this runner.
+/// Every example is one of the Java original's <c>main</c> methods and prints the same
+/// output. <c>traffic</c> runs five cars on five threads, so the order of its lines changes
+/// from run to run.
 /// </para>
 /// <para>
 /// Each example runs on its own — <c>dotnet run -- gof</c> — and with no argument all of them
@@ -29,11 +31,16 @@ public static class Program
 {
     private static readonly Dictionary<string, (string Group, Action Run)> Examples = new()
     {
+        ["chat-direct"] = ("A TEAM CHAT AND ITS PRIVATE MESSAGES", ChatDirectMain.Run),
+        ["chat-directory"] = ("A TEAM CHAT AND ITS PRIVATE MESSAGES", ChatDirectoryMain.Run),
+        ["chat-bus"] = ("A TEAM CHAT AND ITS PRIVATE MESSAGES", ChatBusMain.Run),
         ["chat"] = ("A TEAM CHAT AND ITS PRIVATE MESSAGES", ChatMain.Run),
+        ["gof-problem"] = ("GOF'S FONT DIALOG", GofProblemMain.Run),
+        ["gof-solution"] = ("GOF'S FONT DIALOG", GofSolutionMain.Run),
         ["gof"] = ("GOF'S FONT DIALOG", GofMain.Run),
-        ["hw-bankqueue"] = ("HOMEWORK", BankQueueHomework),
-        ["hw-airtraffic"] = ("HOMEWORK", AirTrafficHomework),
-        ["hw-bookingform"] = ("HOMEWORK", BookingFormHomework),
+        ["hw-bankqueue"] = ("HOMEWORK", BankQueueMain.Run),
+        ["hw-airtraffic"] = ("HOMEWORK", AirTrafficMain.Run),
+        ["hw-bookingform"] = ("HOMEWORK", BookingFormMain.Run),
         ["traffic"] = ("A TRAFFIC POLICE OFFICER AT A JUNCTION", TrafficTest.Run)
     };
 
@@ -65,73 +72,6 @@ public static class Program
             run();
         }
     }
-
-    // ------------------------------------------------------------ homework
-
-    /// <summary>
-    /// Teller 1 is free before anyone comes, so Ayse is called at once. Mert and Deniz wait
-    /// until Teller 2 and then Teller 1 are free again.
-    /// </summary>
-    private static void BankQueueHomework()
-    {
-        QueueManager queue = new QueueManager();
-        Teller teller1 = new Teller("Teller 1", queue), teller2 = new Teller("Teller 2", queue);
-        Customer ayse = new Customer("Ayse", queue), mert = new Customer("Mert", queue),
-                deniz = new Customer("Deniz", queue);
-        teller1.Free();
-        ayse.Arrive();
-        mert.Arrive();
-        deniz.Arrive();
-        teller2.Free();
-        teller1.Free();
-        foreach (string line in queue.Log)
-        {
-            Console.WriteLine(line);
-        }
-    }
-
-    /// <summary>
-    /// Three aircraft ask for the runway. The tower gives it to TK1 and keeps the other two
-    /// waiting; each one gets the runway when the one before it clears it.
-    /// </summary>
-    private static void AirTrafficHomework()
-    {
-        ControlTower tower = new ControlTower();
-        Aircraft tk1 = new Aircraft("TK1", "land", tower), pc2 = new Aircraft("PC2", "land", tower),
-                aj3 = new Aircraft("AJ3", "take off", tower);
-        tk1.Request();
-        pc2.Request();
-        aj3.Request();
-        tk1.Clear();
-        pc2.Clear();
-        foreach (string line in tower.Log)
-        {
-            Console.WriteLine(line);
-        }
-    }
-
-    /// <summary>
-    /// Six people do not fit in the small room, so Book is disabled and the form warns. In the
-    /// large room they fit, the warning goes, and the booking is made.
-    /// </summary>
-    private static void BookingFormHomework()
-    {
-        BookingFormClass form = new BookingFormClass();
-        form.ChooseRoom("Small");
-        form.ChooseDate("2026-10-12");
-        form.SetAttendees(6);
-        Console.WriteLine("book enabled " + Show(form.BookEnabled) + ", warning: " + form.Warning);
-        form.ChooseRoom("Large");
-        Console.WriteLine("book enabled " + Show(form.BookEnabled) + ", warning: '" + form.Warning + "'");
-        form.ClickBook();
-        Console.WriteLine(Show(form.Booked));
-    }
-
-    /// <summary>Prints a boolean the way Java does: <c>true</c> or <c>false</c>, not <c>True</c>.</summary>
-    private static string Show(bool value) => value ? "true" : "false";
-
-    /// <summary>Prints a list the way Java's <c>List.toString()</c> does: <c>[a, b, c]</c>.</summary>
-    private static string Show(IEnumerable<string> items) => "[" + string.Join(", ", items) + "]";
 
     // ---------------------------------------------------------------- output
 
