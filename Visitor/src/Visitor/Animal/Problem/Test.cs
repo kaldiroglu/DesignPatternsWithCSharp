@@ -12,18 +12,14 @@ public static class Test
         Feeder feeder = new Feeder();
 
         IAnimal a = new Dog();
-        // NOTE: the comment below is wrong. This line prints "Woof". The Java has the same
-        // comment and the same output.
-        a.Eat(); // Prints "Gnaws bones"
+        a.Eat(); // Prints "Woof"
 
         feeder.Feed(a);
 
         Console.WriteLine();
 
         a = new Cat();
-        // NOTE: the comment below is wrong. This line prints "Meeoow". The Java has the same
-        // comment and the same output.
-        a.Eat(); // Prints "Gnaws bones"
+        a.Eat(); // Prints "Meeoow"
 
         feeder.Feed(a);
     }

@@ -17,7 +17,7 @@ public static class Test
 
         HealthVisitor hv = new HealthVisitor();
 
-        company.SetVisitor(hv);
+        company.Accept(hv);
 
         Boss boss = new Boss("Memet Emmi", 52);
         boss.Accept(hv);

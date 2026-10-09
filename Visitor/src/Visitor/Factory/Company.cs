@@ -22,9 +22,8 @@ public class Company
         }
     }
 
-    // NOTE: the name says "set", but the method applies the visitor to every employee at
-    // once and keeps nothing. The Java has the same name and the same behavior.
-    public void SetVisitor(IVisitor hv)
+    /// <summary>Applies the visitor to every employee.</summary>
+    public void Accept(IVisitor hv)
     {
         foreach (Employee employee in employees)
             employee.Accept(hv);

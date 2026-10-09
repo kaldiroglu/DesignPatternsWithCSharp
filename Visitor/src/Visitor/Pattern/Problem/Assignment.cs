@@ -6,7 +6,7 @@ public class Assignment : INode
     {
     }
 
-    public void GeneratoCode()
+    public void GenerateCode()
     {
     }
 

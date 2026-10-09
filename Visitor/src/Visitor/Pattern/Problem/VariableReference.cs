@@ -6,7 +6,7 @@ public class VariableReference : INode
     {
     }
 
-    public void GeneratoCode()
+    public void GenerateCode()
     {
     }
 

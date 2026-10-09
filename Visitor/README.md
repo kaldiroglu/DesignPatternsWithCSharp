@@ -161,16 +161,6 @@ but not the same lines. What had to change:
 - **The `main` methods became `Run()` methods** called by `Visitor.Demo`. The commented-out
   lines in the Java (the animal `Test` classes and the `Feeder` overloads) are not ported.
   The homework demos are only in the runner.
-- **Old behavior is kept on purpose, each with a `// NOTE:` comment that says the Java does
-  the same**:
-  - `Factory.Secretary` never assigns `managerServed`, so `Serve()` prints
-    `Secretary Sevim serves her manager: null`. C# would print an empty string for `null`,
-    so the port writes `"null"` itself. No demo calls `Serve()`.
-  - `Factory.Company.SetVisitor` does not store the visitor: it applies it to every
-    employee at once. The name is kept.
-  - `Pattern.Problem.INode` has a method misspelled `GeneratoCode`; the name is kept.
-  - `Animal.Problem.Test` keeps the comments `// Prints "Gnaws bones"`. They are wrong: the
-    program prints `Woof` and `Meeoow`.
 - **`HR.GetAnEmployee` ends with `return e!;`.** The Java can return `null` in theory; the
   random number is always 0 to 9, so one of the ten cases always sets `e`. The `!` tells
   the compiler so.

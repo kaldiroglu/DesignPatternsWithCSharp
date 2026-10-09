@@ -8,9 +8,7 @@ public interface INode
 {
     void TypeCheck();
 
-    // NOTE: "Generato" is a misspelling of "Generate". The Java has the same name, and it is
-    // kept so that the two match.
-    void GeneratoCode();
+    void GenerateCode();
 
     void PrettyPrint();
 }
