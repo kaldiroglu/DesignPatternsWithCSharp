@@ -11,7 +11,7 @@ public static class Main
         Action<int> borrower = money =>
             Console.WriteLine("Borrowing " + money.ToString(System.Globalization.CultureInfo.InvariantCulture)
                               + " and spending for family!");
-        Action<int> taxOffice = _ => Console.WriteLine("Receiving for the tax payment!");
+        Action<int> taxOffice = money => Console.WriteLine("Receiving for the tax payment: " + money);
 
         var lender = new Lender();
         lender.Lend(borrower, 1000);

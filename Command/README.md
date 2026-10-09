@@ -100,8 +100,9 @@ undo needs lives in an object. Runner name: `account-lambda`.
 `Lender.Lambda` and `Ac.Lambda` mirror the Java `lender.lambda` and `ac.lambda`. The lender
 takes an `Action<int>` (the Java takes an `IntConsumer`), and its borrower and tax office
 are lambdas. The air conditioner's switch holds method groups of the air conditioner, as
-three `Action<Temperature>` and one `Action`, and has no `Undo` or `Redo`. Both print the
-same lines as the versions with command classes. Runner names: `lender-lambda`, `ac-lambda`.
+three `Action<Temperature>` and one `Action`, and has no `Undo` or `Redo`. The air
+conditioner prints the same lines as the version with command classes; the lender's tax
+office also prints the amount it receives. Runner names: `lender-lambda`, `ac-lambda`.
 
 ## Tests
 

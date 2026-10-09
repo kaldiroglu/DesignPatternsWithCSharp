@@ -2,7 +2,6 @@ namespace dev.kaldiroglu.Command.Tests.Lender.Lambda;
 
 using dev.kaldiroglu.Command.Lender.Lambda;
 using Xunit;
-using PatternMain = dev.kaldiroglu.Command.Lender.Pattern.Main;
 
 /// <summary>The lender with the command as a function. Ported from the Java <c>LambdaTest</c>.</summary>
 public class LambdaTests
@@ -23,11 +22,10 @@ public class LambdaTests
         Assert.Equal([1000, 2000], received);
     }
 
-    [Fact(DisplayName = "Main prints the same two lines as the version with command classes")]
-    public void SameOutputAsThePattern()
+    [Fact(DisplayName = "Main prints the borrower's line, and the tax office's line with the amount it received")]
+    public void MainPrintsTheTwoLines()
     {
-        Assert.Equal(Printed.By(PatternMain.Run), Printed.By(Main.Run));
-        Assert.Equal(["Borrowing 1000 and spending for family!", "Receiving for the tax payment!"],
+        Assert.Equal(["Borrowing 1000 and spending for family!", "Receiving for the tax payment: 2000"],
             Printed.By(Main.Run));
     }
 }
