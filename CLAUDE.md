@@ -20,8 +20,10 @@ name, and number for number. When a figure differs, the port is wrong.
 
 The seven structural patterns — `Adapter`, `Bridge`, `Composite`, `Decorator`, `Facade`,
 `Flyweight`, `Proxy` — are ported. Of the behavioral family, **`Command`, `Strategy`,
-`Iterator`, `TemplateMethod`, `State`, `Observer`, `Visitor`, `ChainOfResponsibility`, `Mediator` and `Memento` are ported** (no test project for any of them: the author asked for none on 2026-10-02). The
-Strategy demo runner prints the figures the Java tests assert, so compare against it. `creational` exists in the Java repository and is still
+`Iterator`, `TemplateMethod`, `State`, `Observer`, `Visitor`, `ChainOfResponsibility`, `Mediator` and `Memento` are ported**. Each has a `tests/<Pattern>.Tests` project since 2026-10-09: the Java tests,
+ported one class for one class (an earlier "no tests" request was lifted on that day).
+Java tests that exercise JDK-only types (Swing, `Thread.State`, `FileVisitor`) are not
+ported; each pattern's `Test.md` lists them. `creational` exists in the Java repository and is still
 empty. **A new family
 adds pattern folders beside the existing ones; it does not need a new repository, and
 nothing in this file is structural-specific.** The C# folder is named for the pattern, not
@@ -67,8 +69,9 @@ cd Bridge && ./render-uml.sh                               # needs `brew install
 ```
 
 - **Every pattern port targets `net10.0`, and a whole-solution `dotnet test` is green.**
-  It was nine suites and 264 tests when the structural family was complete; that figure is
-  a snapshot and will move, so read the run rather than this line. `Flyweight` was the last
+  It was nine suites and 264 tests when the structural family was complete, and 19 suites
+  and 631 tests on 2026-10-09 with the behavioral family; those figures are snapshots and
+  will move, so read the run rather than this line. `Flyweight` was the last
   project on `net8.0` and failed the run on its own, because `~/.dotnet` carries no .NET 8
   runtime; only `/usr/local/share/dotnet` does. If a project is ever pinned back below 10,
   expect that run to die with "You must install or update .NET to run this application"

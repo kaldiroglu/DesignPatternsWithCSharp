@@ -80,7 +80,7 @@ implements the interface member.
   in addition, the three homework exercises, each on its own.
 - `net10.0`, nullable reference types on, implicit usings on — set once in
   `Directory.Build.props` and inherited by both projects.
-- There is no test project, as requested.
+- **A test project, `State.Tests`**, with 31 xUnit tests ported from the Java JUnit tests.
 
 ## Differences from the Java original
 
@@ -173,6 +173,17 @@ a Swedish locale. What had to change:
 - **The `uml/` diagrams and the `CD1.png` / `SD1.png` images in the Java packages are not
   ported yet.**
 
+## Tests
+
+`tests/State.Tests` holds 31 xUnit tests, one test class for each Java test class, with the
+same assertions and the same expected values. The Java known-uses tests check JDK types and
+are replaced by two tests of the .NET rows of the same table. `Test.md` lists what is tested
+and every change from the Java.
+
+```bash
+~/.dotnet/dotnet test State.sln
+```
+
 ## Run it with
 
 The `dotnet` on `PATH` cannot build this repository — a tracked `global.json` at the root
@@ -194,7 +205,7 @@ cd ~/"Development/NET/Design Patterns/Design Patterns with CSharp/State"
 The runner accepts: `order`, `gof`, `door-problem`, `door-pattern1`, `door-pattern2`,
 `account`, `elevator`, `person`, `hw-airconditioner`, `hw-document`, `hw-vending`.
 
-There are no tests to run.
+Run the tests with `~/.dotnet/dotnet test State.sln`.
 
 From the repository root, `~/.dotnet/dotnet build "Design Patterns with CSharp.sln"`
 builds State along with every other pattern.

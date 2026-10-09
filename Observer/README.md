@@ -89,7 +89,7 @@ the subject itself.
   version of the price feed and the three homework exercises, each on its own.
 - `net10.0`, nullable reference types on, implicit usings on — set once in
   `Directory.Build.props` and inherited by both projects.
-- There is no test project, as requested.
+- **A test project, `Observer.Tests`** (xUnit), under `tests/`. See `Test.md`.
 
 ## Differences from the Java original
 
@@ -161,6 +161,11 @@ Turkish and a Swedish locale. What had to change:
 - **The `uml/` diagrams and the `ClassDiagram1.png`, `SequenceDiagram1.png` and `CD1.png`
   images in the Java packages are not ported yet.**
 
+## Tests
+
+28 xUnit tests in `tests/Observer.Tests`, ported from the Java JUnit tests. `Test.md` lists
+what they check and the Java tests that are not ported.
+
 ## Run it with
 
 The `dotnet` on `PATH` cannot build this repository — a tracked `global.json` at the root
@@ -182,7 +187,11 @@ cd ~/"Development/NET/Design Patterns/Design Patterns with CSharp/Observer"
 The runner accepts: `price`, `price-event`, `gof`, `publisher`, `payment`,
 `hw-accountlog`, `hw-auction`, `hw-inbox`.
 
-There are no tests to run.
+To run the tests:
+
+```bash
+~/.dotnet/dotnet test Observer.sln
+```
 
 From the repository root, `~/.dotnet/dotnet build "Design Patterns with CSharp.sln"`
 builds Observer along with every other pattern.

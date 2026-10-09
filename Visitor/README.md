@@ -99,7 +99,7 @@ it stops compiling.
   examples — and, in addition, the three homework exercises, each on its own.
 - `net10.0`, nullable reference types on, implicit usings on — set once in
   `Directory.Build.props` and inherited by both projects.
-- There is no test project, as requested.
+- **A test project, `Visitor.Tests`**, with xUnit tests ported from the Java tests. See `Test.md`.
 
 ## Differences from the Java original
 
@@ -185,6 +185,18 @@ but not the same lines. What had to change:
 - **The `uml/` diagrams, the `CD1.png`, `CD2.png`, `CD3.png` and `SD1.png` images, and the
   `ReadMe.txt` notes in the Java packages are not ported yet.**
 
+## Tests
+
+`tests/Visitor.Tests` holds 44 xUnit tests, ported from the Java JUnit tests: one C# test
+class for each Java test class. They check every figure the deck quotes for the checkout,
+GoF's compiler, the file and health-check examples, the rule language and the expression
+homework. Where C# differs from Java (no sealed interface, `is` in place of `instanceof`,
+.NET types in place of the JDK's known uses), the change is listed in `Test.md`.
+
+```bash
+~/.dotnet/dotnet test Visitor.sln
+```
+
 ## Run it with
 
 The `dotnet` on `PATH` cannot build this repository — a tracked `global.json` at the root
@@ -207,7 +219,10 @@ The runner accepts: `checkout`, `gof`, `file-problem1`, `file-problem2`, `file-p
 `factory`, `interpreter`, `animal-problem`, `animal-pattern1`, `animal-pattern2`, `hw-accountprint`,
 `hw-filetree`, `hw-expression`.
 
-There are no tests to run.
+```bash
+# run the tests
+~/.dotnet/dotnet test Visitor.sln
+```
 
 From the repository root, `~/.dotnet/dotnet build "Design Patterns with CSharp.sln"`
 builds Visitor along with every other pattern.

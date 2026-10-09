@@ -74,7 +74,8 @@ method is left as it is.
   the three homework exercises, each on its own.
 - `net10.0`, nullable reference types on, implicit usings on — set once in
   `Directory.Build.props` and inherited by both projects.
-- There is no test project, as requested.
+- **An xUnit test project, `TemplateMethod.Tests`**, with the Java tests ported one class
+  for one class. See `Test.md`.
 
 ## Differences from the Java original
 
@@ -150,6 +151,14 @@ locale. What had to change:
 - **The `uml/` diagrams and the `CD1.png` / `ClassDiagram1.png` images in the Java packages
   are not ported yet.**
 
+## Tests
+
+`tests/TemplateMethod.Tests` holds 35 xUnit tests, ported from the Java JUnit tests: the
+export's three stages and its template method, GoF's applications, the repeated task and
+the homework. `TaskTests.TheClientPrintsTenTimesWithNineWaits` waits nine seconds, as the
+Java test does; every other test is fast. `Test.md` lists each class and the checks that
+differ from the Java.
+
 ## Run it with
 
 The `dotnet` on `PATH` cannot build this repository — a tracked `global.json` at the root
@@ -171,7 +180,11 @@ cd ~/"Development/NET/Design Patterns/Design Patterns with CSharp/TemplateMethod
 The runner accepts: `export`, `gof`, `pattern`, `task`, `hw-callcenter`, `hw-onboarding`,
 `hw-recordfile`.
 
-There are no tests to run.
+Run the tests. They take about ten seconds, because one test waits nine:
+
+```bash
+~/.dotnet/dotnet test TemplateMethod.sln
+```
 
 From the repository root, `~/.dotnet/dotnet build "Design Patterns with CSharp.sln"`
 builds Template Method along with every other pattern.

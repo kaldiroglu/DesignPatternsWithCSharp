@@ -9,6 +9,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Memento", "src\Memento\Meme
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Memento.Demo", "src\Memento.Demo\Memento.Demo.csproj", "{9BF94430-FF9F-41C1-91EA-37F61419FC50}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{0AB3BF05-4346-4AA6-1389-037BE0695223}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Memento.Tests", "tests\Memento.Tests\Memento.Tests.csproj", "{EFADFCFA-C617-4BB3-8AA9-176033BD0893}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -43,6 +47,18 @@ Global
 		{9BF94430-FF9F-41C1-91EA-37F61419FC50}.Release|x64.Build.0 = Release|Any CPU
 		{9BF94430-FF9F-41C1-91EA-37F61419FC50}.Release|x86.ActiveCfg = Release|Any CPU
 		{9BF94430-FF9F-41C1-91EA-37F61419FC50}.Release|x86.Build.0 = Release|Any CPU
+		{EFADFCFA-C617-4BB3-8AA9-176033BD0893}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EFADFCFA-C617-4BB3-8AA9-176033BD0893}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EFADFCFA-C617-4BB3-8AA9-176033BD0893}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{EFADFCFA-C617-4BB3-8AA9-176033BD0893}.Debug|x64.Build.0 = Debug|Any CPU
+		{EFADFCFA-C617-4BB3-8AA9-176033BD0893}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{EFADFCFA-C617-4BB3-8AA9-176033BD0893}.Debug|x86.Build.0 = Debug|Any CPU
+		{EFADFCFA-C617-4BB3-8AA9-176033BD0893}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EFADFCFA-C617-4BB3-8AA9-176033BD0893}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EFADFCFA-C617-4BB3-8AA9-176033BD0893}.Release|x64.ActiveCfg = Release|Any CPU
+		{EFADFCFA-C617-4BB3-8AA9-176033BD0893}.Release|x64.Build.0 = Release|Any CPU
+		{EFADFCFA-C617-4BB3-8AA9-176033BD0893}.Release|x86.ActiveCfg = Release|Any CPU
+		{EFADFCFA-C617-4BB3-8AA9-176033BD0893}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -50,5 +66,6 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{117558D3-207D-4FE4-8CE3-5DFCDB71FC3F} = {827E0CD3-B72D-47B6-A68D-7590B98EB39B}
 		{9BF94430-FF9F-41C1-91EA-37F61419FC50} = {827E0CD3-B72D-47B6-A68D-7590B98EB39B}
+		{EFADFCFA-C617-4BB3-8AA9-176033BD0893} = {0AB3BF05-4346-4AA6-1389-037BE0695223}
 	EndGlobalSection
 EndGlobal

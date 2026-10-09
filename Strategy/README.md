@@ -62,7 +62,7 @@ objects and implements none of them.
   same inputs, one example at a time or all of them in the order the course presents them.
 - `net10.0`, nullable reference types on, implicit usings on — set once in
   `Directory.Build.props` and inherited by both projects.
-- There is no test project yet.
+- **A test project, `Strategy.Tests`**, with 51 xUnit tests ported from the Java JUnit tests.
 
 ## Differences from the Java original
 
@@ -117,6 +117,16 @@ assert, and the output is the same under a Turkish locale. What had to change:
 - **The namespace for `hw.latefee` is `Hw.LateFee`.**
 - **The `uml/` diagrams in the Java packages are not ported yet.**
 
+## Tests
+
+`tests/Strategy.Tests` holds 51 xUnit tests, one test class for each Java test class, with
+the same assertions and the same expected values. Every Java test is ported. `Test.md`
+lists what is tested and every place where a check had to take a different C# form.
+
+```bash
+~/.dotnet/dotnet test Strategy.sln
+```
+
 ## Run it with
 
 The `dotnet` on `PATH` cannot build this repository — a tracked `global.json` at the root
@@ -138,7 +148,7 @@ cd ~/"Development/NET/Design Patterns/Design Patterns with CSharp/Strategy"
 The runner accepts: `gof`, `pricing-problem`, `pricing-solution`, `sorting`, `freight`,
 `hw-seating`, `hw-latefee`, `hw-validation`.
 
-There are no tests to run yet.
+Run the tests with `~/.dotnet/dotnet test Strategy.sln`.
 
 From the repository root, `~/.dotnet/dotnet build "Design Patterns with CSharp.sln"`
 builds Strategy along with every other pattern.

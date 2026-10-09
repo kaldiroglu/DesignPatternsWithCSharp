@@ -58,7 +58,7 @@ removing a ticket; nothing needs reversing.
   in the Java original — the three lender steps and the air conditioner — each on its own.
 - `net10.0`, nullable reference types on, implicit usings on — set once in
   `Directory.Build.props` and inherited by both projects.
-- There is no test project yet.
+- **A test project, `Command.Tests`**, with 56 xUnit tests ported from the Java JUnit tests.
 
 ## Differences from the Java original
 
@@ -82,6 +82,16 @@ The port is faithful in behavior. What had to change:
 - **The `main` methods became `Run()` methods** called by `Command.Demo`, which takes the
   example's name as an argument.
 
+## Tests
+
+`tests/Command.Tests` holds 56 xUnit tests, one test class for each Java test class, with
+the same assertions and the same expected values. Every Java test is ported. `Test.md`
+lists what is tested and every place where a check had to take a different C# form.
+
+```bash
+~/.dotnet/dotnet test Command.sln
+```
+
 ## Run it with
 
 The `dotnet` on `PATH` cannot build this repository — a tracked `global.json` at the root
@@ -102,7 +112,7 @@ cd "~/Development/NET/Design Patterns/Design Patterns with CSharp/Command"
 
 The runner accepts: `lender-problem1`, `lender-problem2`, `lender-pattern`, `ac`.
 
-There are no tests to run yet.
+Run the tests with `~/.dotnet/dotnet test Command.sln`.
 
 From the repository root, `~/.dotnet/dotnet build "Design Patterns with CSharp.sln"`
 builds Command along with every other pattern.

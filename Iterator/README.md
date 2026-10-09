@@ -70,7 +70,7 @@ from the book, because that shape is what the GoF slides show.
   charts, the `yield` walk and the three homework exercises, each on its own.
 - `net10.0`, nullable reference types on, implicit usings on — set once in
   `Directory.Build.props` and inherited by both projects.
-- There is no test project, as requested.
+- **A test project, `Iterator.Tests`**, with 34 xUnit tests ported from the Java JUnit tests.
 
 ## Differences from the Java original
 
@@ -149,6 +149,16 @@ a Turkish locale. What had to change:
   commented-out lines in the Java `Test` are not ported.
 - **The `uml/` diagrams in the Java packages are not ported yet.**
 
+## Tests
+
+`tests/Iterator.Tests` holds 34 xUnit tests, one test class for each Java test class, with
+the same assertions and the same expected values. Every Java test is ported. `Test.md`
+lists what is tested and every place where a check had to take a different C# form.
+
+```bash
+~/.dotnet/dotnet test Iterator.sln
+```
+
 ## Run it with
 
 The `dotnet` on `PATH` cannot build this repository — a tracked `global.json` at the root
@@ -170,7 +180,7 @@ cd ~/"Development/NET/Design Patterns/Design Patterns with CSharp/Iterator"
 The runner accepts: `orgchart-problem`, `orgchart`, `orgchart-yield`, `gof`, `filesystem`,
 `hw-bom`, `hw-calendar`, `hw-paging`.
 
-There are no tests to run.
+Run the tests with `~/.dotnet/dotnet test Iterator.sln`.
 
 From the repository root, `~/.dotnet/dotnet build "Design Patterns with CSharp.sln"`
 builds Iterator along with every other pattern.

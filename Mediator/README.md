@@ -55,7 +55,7 @@ step happen inside one lock, and the car proceeds or waits outside it.
   exercises, each on its own.
 - `net10.0`, nullable reference types on, implicit usings on — set once in
   `Directory.Build.props` and inherited by both projects.
-- There is no test project, as requested.
+- **An xUnit project, `Mediator.Tests`**, in `tests/Mediator.Tests`. It is described in `Test.md`.
 
 ## Differences from the Java original
 
@@ -140,6 +140,13 @@ the Java's, and in the runs checked each car asked once and passed once in both 
 - **The `uml/` diagrams, the `CD.png` image and the per-package `README.md` files in the Java
   packages are not ported yet.** This README carries their content.
 
+## Tests
+
+`tests/Mediator.Tests` holds 25 xUnit tests in 9 test classes. They are ported from the
+JUnit tests of the Java repository, one C# test class for each Java test class, with the
+same expected values, except where `Test.md` notes a change. `Test.md` lists what each
+class tests, and the Java tests that are not ported, with the reason.
+
 ## Run it with
 
 The `dotnet` on `PATH` cannot build this repository — a tracked `global.json` at the root
@@ -161,7 +168,11 @@ cd ~/"Development/NET/Design Patterns/Design Patterns with CSharp/Mediator"
 The runner accepts: `chat`, `gof`, `hw-bankqueue`, `hw-airtraffic`, `hw-bookingform`,
 `traffic`.
 
-There are no tests to run.
+Run the tests:
+
+```bash
+~/.dotnet/dotnet test Mediator.sln
+```
 
 From the repository root, `~/.dotnet/dotnet build "Design Patterns with CSharp.sln"`
 builds Mediator along with every other pattern.
