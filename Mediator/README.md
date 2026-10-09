@@ -43,8 +43,8 @@ no other widget. The whole behavior of the dialog is in `FontDialogDirector.Widg
 
 **A shared mediator is where threads meet.** `Hw.AirTraffic.ControlTower` locks every
 public method, so the check "is the runway free?" and the step "give it to this aircraft"
-happen together. `Traffic.TrafficPolice` does not lock, and two cars can pass at the same
-time. The `// NOTE:` comments in `Traffic` mark each place.
+happen together. `Traffic.TrafficPolice` does the same for the junction: the check and the
+step happen inside one lock, and the car proceeds or waits outside it.
 
 ## Architecture
 
@@ -76,8 +76,7 @@ the Java's, and in the runs checked each car asked once and passed once in both 
   `Text`, `Selection` and `Enabled`. A setter the Java keeps package-private is `internal set`
   (`Customer.Number`, and `Enabled` on the button in `Gof.Problem.FontDialog`). Methods that
   do more than set a value stay methods: `SetText`, `Type`, `SetAttendees`, `ChooseRoom`.
-  `Junction.IsBusy()` and `SetBusy()` stay methods, so the two separate steps of the race
-  condition stay visible.
+  `Junction.IsBusy()` and `SetBusy()` stay methods, as in the Java.
 - **Public fields became get-only properties.** `FontDialog` and `FontDialogDirector` have
   public `final` fields in the Java (`log`, `fontList`, `fontName`, `ok`, `cancel`). Here
   they are `Log`, `FontList`, `FontName`, `Ok` and `Cancel`. `Log` is the list itself, as
@@ -109,18 +108,9 @@ the Java's, and in the runs checked each car asked once and passed once in both 
 - **`stopp()` is `Stop()`.** The Java spells it with two p's because `Car` extends `Thread`
   there, and `Thread.stop()` is `final`, so a car cannot declare a method with that name.
   A C# car does not extend `Thread`, so the method has its plain name.
-- **The faults in `Traffic` are ported as they are, each with a `// NOTE:` comment**, and the
-  Java has the same behavior in each case:
-  - `TrafficPolice.AskPermitToPass` checks `junction.IsBusy()` and then calls
-    `SetBusy(true)` as two steps without a lock, so two cars can pass at the same time.
-  - `vehicles` is a `List` that is changed from several threads without a lock.
-  - `Junction.busy` is not `volatile`.
-  - `Car.WaitForAWhile` calls `AskPermitToPass` again, which may call `WaitForAWhile` again:
-    recursion, not a loop.
-  - `TrafficPolice.name` and `Car.moving` are set and never read.
-- **`Thread.currentThread().sleep(1000)` is `Thread.Sleep(1000)`**, and
-  `InterruptedException` is `ThreadInterruptedException`, written to `Console.Error` as
-  `printStackTrace()` writes to `System.err`.
+- **`Thread.sleep(1000)` is `Thread.Sleep(1000)`**, and `InterruptedException` is
+  `ThreadInterruptedException`. The Java sets the interrupt flag again; the C# car simply
+  asks again.
 - **Number formats do not depend on the machine's locale.** Numbers that are printed are
   formatted with the invariant culture.
 - **The `main` methods became `Run()` methods** called by `Mediator.Demo`. The homework

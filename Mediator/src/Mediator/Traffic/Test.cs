@@ -24,7 +24,7 @@ public class Test
 
         for (int i = 0; i < numberOfCars; i++)
         {
-            Car car = new Car("Car" + i, junction, police, true);
+            Car car = new Car("Car" + i, junction, police);
             cars[i] = car;
         }
 

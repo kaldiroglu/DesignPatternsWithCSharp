@@ -3,9 +3,7 @@ namespace dev.kaldiroglu.Mediator.Traffic;
 /// <summary>The shared resource: a junction that one car at a time may pass.</summary>
 public class Junction
 {
-    // NOTE: busy is read and written by several threads, and it is not volatile, so a thread
-    // may not see another thread's change at once. The Java field is not volatile either, and
-    // has the same behavior.
+    // Read and written only inside TrafficPolice's lock.
     private bool busy;
 
     public Junction(string name)

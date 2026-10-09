@@ -11,19 +11,16 @@ namespace dev.kaldiroglu.Mediator.Traffic;
 /// </remarks>
 public class Car : IVehicle
 {
-    // NOTE: moving is set in the constructor and in Stop(), and never read. The Java field is
-    // never read either.
-    private bool moving;
     private readonly Junction junction;
     private readonly ITrafficMediator mediator;
     private readonly Thread thread;
+    private bool waiting;
 
-    public Car(string name, Junction junction, ITrafficMediator mediator, bool moving)
+    public Car(string name, Junction junction, ITrafficMediator mediator)
     {
         thread = new Thread(Run) { Name = name };
         this.junction = junction;
         this.mediator = mediator;
-        this.moving = moving;
         Approach();
         mediator.Receive(this);
     }
@@ -39,7 +36,7 @@ public class Car : IVehicle
 
     public void Approach()
     {
-        Console.WriteLine("Car " + Name + " is approaching to junction " + junction.Name);
+        Console.WriteLine("Car " + Name + " is approaching junction " + junction.Name);
     }
 
     public void Proceed()
@@ -50,31 +47,32 @@ public class Car : IVehicle
 
     public void Stop()
     {
-        moving = false;
         Console.WriteLine("Car " + Name + " has stopped.");
     }
 
+    /// <summary>Waits, then lets <see cref="Run"/> ask again. It does not call the mediator itself.</summary>
     public void WaitForAWhile()
     {
         Console.WriteLine("Car " + Name + " is waiting.");
+        waiting = true;
         try
         {
             Thread.Sleep(1000);
         }
-        catch (ThreadInterruptedException e)
+        catch (ThreadInterruptedException)
         {
-            Console.Error.WriteLine(e);
+            // The car was interrupted: it simply asks again.
         }
-        // NOTE: the car asks again by calling the mediator, and the mediator may call
-        // WaitForAWhile again. This is recursion, not a loop: each wait adds two frames to the
-        // stack. The Java has the same behavior.
-        mediator.AskPermitToPass(this);
     }
 
-    /// <summary>What the car's thread does: ask the mediator for permission to pass.</summary>
+    /// <summary>What the car's thread does: ask the mediator until it may pass.</summary>
     public void Run()
     {
         Console.WriteLine("Car " + Name + " is asking permit to pass junction " + junction.Name);
-        mediator.AskPermitToPass(this);
+        do
+        {
+            waiting = false;
+            mediator.AskPermitToPass(this);
+        } while (waiting);
     }
 }
