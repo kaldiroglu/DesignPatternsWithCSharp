@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <AssemblyName>Visitor.Demo</AssemblyName>
+    <RootNamespace>dev.kaldiroglu.Visitor.Demo</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Visitor\Visitor.csproj" />
+  </ItemGroup>
+
+</Project>
