@@ -29,8 +29,8 @@ mementos must be restored in the reverse order they were made.
 | `Memento.Gof` | GoF's own example (Design Patterns, pp. 283–291): a constraint solver keeps a line with one bend between two boxes. `Problem` undoes a move by moving the box back, and the bend does not come back. In `Solution`, `MoveCommand` (the caretaker) takes a memento from `ConstraintSolver` (the originator) before the move and gives it back on undo. `Main` runs the same steps in both designs. |
 | `Memento.Hw` | The three homework exercises: a `TextEditor` with undo and redo kept by a `History` (`Editor`), a `Batch` of transfers that gives every `Account` its memento back when one transfer fails (`Rollback`), and a `Sheet` whose memento holds only the cells one edit changed (`Incremental`). |
 | `Memento.Gui` | A window whose state is one object, `GuiComponentState`, kept by a `GuiComponentMemento`. `Test` saves, moves and resizes the window, then undoes. |
-| `Memento.Pattern1` | An originator whose state changes every second on one thread, and a caretaker that saves every two seconds and undoes every fifth time on another thread. `Memento` is a class of its own. |
-| `Memento.Pattern2` | The same, with the memento nested in the originator, so it reads the originator's private state. |
+| `Memento.Pattern1` | An originator whose state changes every second on one thread, and a caretaker thread that keeps mementos in a stack, saves every two seconds and undoes every fifth time. `Memento` is a class of its own, with a public `State`. |
+| `Memento.Pattern2` | The same, with the memento nested in the originator, so only the originator can read it. |
 
 ### Things worth stopping on
 
@@ -118,16 +118,11 @@ undo lines on the error stream (`state-6` and `state-16` for `pattern1`, `state-
   and `GuiComponentMemento.State`. `Originator.State` in `Pattern1` is a get-only property;
   `SetState` stays a method because it also prints. `SetMemento`, `SetOriginator` and
   `Line()` stay methods, as in the Java.
-- **`Pattern1.Originator.Memento` is a property, but `Pattern2.Originator.GetMemento()` is a
-  method.** In `Pattern2` the memento is a nested class named `Memento`, and a class cannot
-  have a member with the same name as a nested type.
-- **`Pattern2.Originator.Memento` and `GetMemento()` are `internal`.** The Java inner class
-  is package-private, and `internal` is the closest C# access. A public method cannot return
-  an internal type, so `GetMemento()` is `internal` too, and so is the `Caretaker`
-  constructor that takes it. `Test.OriginatorTrigger` is `internal` for the same reason.
-- **The Java inner class is a C# nested class.** A Java inner class has a hidden reference
-  to the originator that created it; a C# nested class has none. The memento did not use it,
-  because it gets its originator through `SetOriginator`, so nothing changes.
+- **`Pattern2`'s memento is a private class behind an empty public interface.** The Java
+  memento is nested in `Originator` with a private field, which only `Originator` can read.
+  A C# outer class cannot read a nested class's private members, so `Originator.IMemento` is
+  an empty public interface for the caretaker, and the state is in a private nested class
+  `Memento`, the same idiom as the other mementos in this port.
 - **Lists are `List<string>`, returned as `IReadOnlyList<string>`**, each a copy, as Java's
   `List.copyOf` gives. The examples print lists as `[a, b]`, as Java's `List.toString()`
   does.
@@ -158,14 +153,9 @@ undo lines on the error stream (`state-6` and `state-16` for `pattern1`, `state-
   `printStackTrace()` does. One difference: an exception that ends a Java thread prints a
   stack trace and the other threads go on; in C# it ends the whole program. No example
   throws on a thread.
-- **The faults of the earlier examples are kept, each with a `// NOTE:` comment.** In `Gui`,
-  the state object is created once in the constructor and the setters never update it, so
-  `SaveState()` always saves the starting values; and the memento keeps the same state
-  object, not a copy. In `Pattern1` and `Pattern2`, `Undo()` uses `position - 2` and never
-  decreases `position`, so a second undo goes to the same state as the first, and undo after
-  a single save throws `ArgumentOutOfRangeException` where the Java throws
-  `IndexOutOfBoundsException`. Undo messages go to `Console.Error`, as the Java's go to
-  `System.err`.
+- **Undo messages go to `Console.Error`**, as the Java's go to `System.err`. In `Pattern1`
+  and `Pattern2` the caretaker keeps its mementos in a `Stack<T>`; undo after a single save
+  prints "Caretaker: Nothing to undo."
 - **Number formats do not depend on the machine's locale.** Numbers that are printed are
   formatted with the invariant culture.
 - **The `main` methods became `Run()` methods** called by `Memento.Demo`. The homework
@@ -176,7 +166,8 @@ undo lines on the error stream (`state-6` and `state-16` for `pattern1`, `state-
     `Memento` means the class, because a type in the current namespace is found before an
     enclosing namespace. Nothing outside `Pattern1` names that class, so the clash never
     reaches other code. `ConstraintSolver.Memento` and `Pattern2.Originator.Memento` are
-    nested classes; inside their enclosing class the plain name means the nested class.
+    private nested classes; inside their enclosing class the plain name means the nested
+    class.
   - Four classes are named `Player`, in `Game.Problem.Setters`, `Game.Problem.History`,
     `Game.Problem.Copy` and `Game.Solution`, and three are named `Game`, in
     `Game.Problem.Setters`, `Game.Problem.Copy` and `Game.Solution`, as in the Java. The

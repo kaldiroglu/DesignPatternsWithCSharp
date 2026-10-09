@@ -8,7 +8,6 @@ namespace dev.kaldiroglu.Memento.Pattern1;
 public static class Test
 {
     private static Originator? originator;
-    private static Memento? memento;
 
     /// <summary>
     /// Starts the two threads and waits for them. The Java <c>main</c> returns at once and the
@@ -18,12 +17,11 @@ public static class Test
     public static void Run()
     {
         originator = new Originator("state-0");
-        memento = originator.Memento;
 
         OriginatorTrigger trigger = new OriginatorTrigger();
         trigger.Start();
 
-        Caretaker caretaker = new Caretaker(memento);
+        Caretaker caretaker = new Caretaker(originator);
         caretaker.Start();
 
         trigger.Join();

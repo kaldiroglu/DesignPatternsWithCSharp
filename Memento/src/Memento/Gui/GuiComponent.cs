@@ -9,7 +9,6 @@ namespace dev.kaldiroglu.Memento.Gui;
 public class GuiComponent
 {
     private GuiComponentMemento? memento;
-    private GuiComponentState state;
 
     public GuiComponent(string name, int x, int y, int length, int width)
     {
@@ -18,10 +17,6 @@ public class GuiComponent
         Y = y;
         Length = length;
         Width = width;
-        // NOTE: the state object is created once, here. The setters below do not update it,
-        // so SaveState() always saves the starting values. Move the window to x=20, save,
-        // move it to x=50 and undo: x is 0, not 20. The Java has the same behavior.
-        state = new GuiComponentState(x, y, length, width);
     }
 
     public void SetMemento(GuiComponentMemento memento)
@@ -39,14 +34,15 @@ public class GuiComponent
 
     public int Width { get; set; }
 
+    /// <summary>Saves a new state object with the current values, so later changes cannot reach it.</summary>
     public void SaveState()
     {
-        memento!.State = state;
+        memento!.State = new GuiComponentState(X, Y, Length, Width);
     }
 
     public void Undo()
     {
-        state = memento!.State!;
+        GuiComponentState state = memento!.State!;
         X = state.X;
         Y = state.Y;
         Length = state.Length;

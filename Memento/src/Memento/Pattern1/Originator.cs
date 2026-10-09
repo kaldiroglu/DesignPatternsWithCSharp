@@ -1,16 +1,14 @@
 namespace dev.kaldiroglu.Memento.Pattern1;
 
-/// <summary>The <b>Originator</b>: holds one state, and creates its memento.</summary>
+/// <summary>The <b>Originator</b>: it creates a memento of its state, and restores itself from one.</summary>
 public class Originator
 {
     private readonly object sync = new object();
     private volatile string state;
-    private readonly Memento memento = new Memento();
 
     public Originator(string state)
     {
         this.state = state;
-        memento.SetOriginator(this);
     }
 
     public string State => state;
@@ -25,7 +23,18 @@ public class Originator
         }
     }
 
-    public Memento Memento => memento;
+    public Memento CreateMemento()
+    {
+        lock (sync)
+        {
+            return new Memento(state);
+        }
+    }
+
+    public void Restore(Memento memento)
+    {
+        SetState(memento.State);
+    }
 
     public override string ToString()
     {
