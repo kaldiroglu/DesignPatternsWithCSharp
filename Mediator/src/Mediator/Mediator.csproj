@@ -1,0 +1,10 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <!-- Class library holding every Mediator example: the team chat in its three naive stages
+       and its chat room, GoF's font dialog, the three homework exercises, and the earlier
+       example (a traffic police officer at a junction). -->
+  <PropertyGroup>
+    <AssemblyName>Mediator</AssemblyName>
+  </PropertyGroup>
+
+</Project>
