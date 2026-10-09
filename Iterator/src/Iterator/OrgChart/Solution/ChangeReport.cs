@@ -36,4 +36,36 @@ public sealed class ChangeReport
             }
         }
     }
+
+    /// <summary>
+    /// Every difference, in walk order. The same two iterators, moved forward together, but
+    /// this time to the end of both charts.
+    /// </summary>
+    public List<string> AllDifferences(Department before, Department after)
+    {
+        var changes = new List<string>();
+        using IEnumerator<Employee> old = before.GetEnumerator();
+        using IEnumerator<Employee> current = after.GetEnumerator();
+
+        while (true)
+        {
+            bool oldHasNext = old.MoveNext();
+            bool currentHasNext = current.MoveNext();
+            if (!oldHasNext || !currentHasNext)
+            {
+                if (oldHasNext || currentHasNext)
+                {
+                    changes.Add("the charts have different sizes");
+                }
+                return changes;
+            }
+
+            Employee was = old.Current;
+            Employee @is = current.Current;
+            if (!was.Equals(@is))
+            {
+                changes.Add(was + " -> " + @is);
+            }
+        }
+    }
 }

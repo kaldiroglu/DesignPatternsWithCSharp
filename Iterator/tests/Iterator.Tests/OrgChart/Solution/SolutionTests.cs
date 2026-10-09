@@ -55,7 +55,11 @@ public class SolutionTests
             "  Mert (head of operations)",
             "  Can (export)",
             "  Elif (support)",
-            "First change: Deniz (head of sales) -> Zeynep (head of sales)"], lines);
+            "First change: Deniz (head of sales) -> Zeynep (head of sales)",
+            "All changes:",
+            "  Deniz (head of sales) -> Zeynep (head of sales)",
+            "  Can (export) -> Burak (export)",
+            "  Elif (support) -> Ece (support)"], lines);
     }
 
     [Fact(DisplayName = "the two orders differ only in rows 4 and 5: Can is one level lower than Mert")]
@@ -84,6 +88,29 @@ public class SolutionTests
         var change = new ChangeReport().FirstDifference(Main.Company("Deniz"), Main.Company("Zeynep"));
 
         Assert.Equal("Deniz (head of sales) -> Zeynep (head of sales)", change);
+    }
+
+    [Fact(DisplayName = "with three people new, the first difference is still only the head of sales")]
+    public void TheFirstDifferenceStopsAtTheFirstOfThree()
+    {
+        Assert.Equal("Deniz (head of sales) -> Zeynep (head of sales)",
+            new ChangeReport().FirstDifference(Main.Company("Deniz"), Main.Company("Zeynep", "Burak", "Ece")));
+    }
+
+    [Fact(DisplayName = "all differences walks both charts to the end and finds the three new people")]
+    public void AllDifferencesFindsAllThree()
+    {
+        var report = new ChangeReport();
+
+        Assert.Equal(
+            ["Deniz (head of sales) -> Zeynep (head of sales)",
+             "Can (export) -> Burak (export)",
+             "Elif (support) -> Ece (support)"],
+            report.AllDifferences(Main.Company("Deniz"), Main.Company("Zeynep", "Burak", "Ece")));
+        Assert.Empty(report.AllDifferences(Main.Company("Deniz"), Main.Company("Deniz")));
+        Assert.Equal(["the charts have different sizes"],
+            report.AllDifferences(Main.Company("Deniz"),
+                new Department("Head office").Add(new Employee("Ayse", "CEO"))));
     }
 
     [Fact(DisplayName = "the change report answers none for equal charts and sees a size change")]
