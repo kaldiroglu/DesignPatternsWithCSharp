@@ -147,9 +147,6 @@ same shape as the Java's, but not the same lines. What had to change:
     already set. For a `GENERIC` request, Help2 is lost, and `Show` prints only "Help3" and
     then "Help1".
   - `Pattern.AbstractHelp.Show()` follows at most two links.
-- **The comment on `Links` says "one that times"**, as the Java does, although
-  `PoweredBy` adds a header and does not time anything. It is kept so that the two stay the
-  same; the fix belongs in the Java first.
 - **Names that clash, and how they are resolved.**
   - The namespace `Expense` holds two records named `Expense`, in `Expense.Problem` and
     `Expense.Solution`. Inside each of those namespaces the plain name means that
