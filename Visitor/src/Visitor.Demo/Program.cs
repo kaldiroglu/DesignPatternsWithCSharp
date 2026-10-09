@@ -10,6 +10,7 @@ using FileProblem1Test = dev.kaldiroglu.Visitor.File.Problem1.Test;
 using FileProblem2Test = dev.kaldiroglu.Visitor.File.Problem2.Test;
 using FilePattern1Test = dev.kaldiroglu.Visitor.File.Pattern1.Test;
 using FactoryTest = dev.kaldiroglu.Visitor.Factory.Test;
+using InterpreterMain = dev.kaldiroglu.Visitor.Interpreter.Main;
 using AnimalProblemTest = dev.kaldiroglu.Visitor.Animal.Problem.Test;
 using AnimalPattern1Test = dev.kaldiroglu.Visitor.Animal.Pattern1.Test;
 using AnimalPattern2Test = dev.kaldiroglu.Visitor.Animal.Pattern2.Test;
@@ -20,7 +21,7 @@ namespace dev.kaldiroglu.Visitor.Demo;
 /// Runs the Visitor examples.
 /// <para>
 /// <c>checkout</c>, <c>gof</c>, <c>file-problem1</c>, <c>file-problem2</c>,
-/// <c>file-pattern1</c>, <c>factory</c>, <c>animal-problem</c>, <c>animal-pattern1</c> and
+/// <c>file-pattern1</c>, <c>factory</c>, <c>interpreter</c>, <c>animal-problem</c>, <c>animal-pattern1</c> and
 /// <c>animal-pattern2</c> are the Java original's <c>main</c> methods and print the same
 /// output. The file examples and <c>factory</c> choose at random, so their output changes
 /// from run to run. The three homework exercises have no <c>main</c> in Java and are only in
@@ -41,6 +42,7 @@ public static class Program
         ["file-problem2"] = ("TEXT FILES AND XML FILES", FileProblem2Test.Run),
         ["file-pattern1"] = ("TEXT FILES AND XML FILES", FilePattern1Test.Run),
         ["factory"] = ("A HEALTH CHECK IN A COMPANY", FactoryTest.Run),
+        ["interpreter"] = ("INTERPRETER: A RULE LANGUAGE", InterpreterMain.Run),
         ["animal-problem"] = ("ANIMALS AND FEEDERS", AnimalProblemTest.Run),
         ["animal-pattern1"] = ("ANIMALS AND FEEDERS", AnimalPattern1Test.Run),
         ["animal-pattern2"] = ("ANIMALS AND FEEDERS", AnimalPattern2Test.Run),

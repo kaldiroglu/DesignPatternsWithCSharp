@@ -30,6 +30,7 @@ when a new kind of item is added, every visitor that does not handle it stops co
 | `Visitor.Hw` | The three homework exercises: printers for bank accounts that write to an output they are given (`AccountPrint`), a folder tree that walks itself (`FileTree`), and an arithmetic expression that gains a `Neg` node and a `DepthCounter` operation (`Expression`). |
 | `Visitor.File` | Text files and XML files that must be checked before they are read. `Domain` has the files only; `Problem1` tests types in the client; `Problem2` moves the type tests into `FileOperator`; `Pattern1` has `File.Accept(IVisitor)` and `FileVisitor`. |
 | `Visitor.Factory` | A company's employees and its boss get a health check. `Boss` is not an `Employee`, so a visitor can visit classes that have no common parent. `HR` creates random employees. |
+| `Visitor.Interpreter` | Interpreter, taught as a section of the Visitor deck (Design Patterns, pp. 243–255): a rule language for a shop. `IRule` is the abstract expression; `CategoryIs` and `PriceBelow` are terminal expressions; `And`, `Or` and `Not` are nonterminal ones. Each interprets itself against a `Product`. The Java `Rule` is a `sealed` interface; C# cannot close an interface, so `IRule` is open and each record is sealed. |
 | `Visitor.Animal` | A dog and a cat, and a feeder. `Problem` tests the type in `Feed`; `Pattern1` lets the animal's `Accept` choose the right `Feed` overload; `Pattern2` has one feeder per animal, and an animal refuses the wrong feeder. |
 | `Visitor.Pattern` | An earlier outline of GoF's nodes. Its methods are empty, as in the Java, so there is nothing to run. |
 
@@ -213,7 +214,7 @@ cd ~/"Development/NET/Design Patterns/Design Patterns with CSharp/Visitor"
 ```
 
 The runner accepts: `checkout`, `gof`, `file-problem1`, `file-problem2`, `file-pattern1`,
-`factory`, `animal-problem`, `animal-pattern1`, `animal-pattern2`, `hw-accountprint`,
+`factory`, `interpreter`, `animal-problem`, `animal-pattern1`, `animal-pattern2`, `hw-accountprint`,
 `hw-filetree`, `hw-expression`.
 
 There are no tests to run.
