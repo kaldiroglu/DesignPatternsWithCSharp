@@ -5,7 +5,6 @@ namespace dev.kaldiroglu.State.Tests.Order;
 
 using dev.kaldiroglu.State.Order.Solution;
 using OrderContext = global::dev.kaldiroglu.State.Order.Solution.Order;
-using OrderMain = global::dev.kaldiroglu.State.Order.Solution.Main;
 
 /// <summary>
 /// The order with State objects. Every figure the Part 3 slides quote about the order is
@@ -168,16 +167,22 @@ public class SolutionTests
     }
 
     [Fact]
-    public void MainOutput()
+    public void SecondShipmentMainOutput()
     {
-        var lines = Printed.By(OrderMain.Run);
+        var lines = Printed.By(SecondShipmentMain.Run);
 
-        Assert.Equal(5, lines.Count);
+        Assert.Equal(4, lines.Count);
         Assert.StartsWith("Enum constants: ", lines[0]);
         Assert.EndsWith("shipped TR-2, delivery attempt 4 failed]", lines[0]);
         Assert.Equal("  status now: SHIPPED", lines[1]);
         Assert.EndsWith("shipped TR-2, delivery attempt 1 failed]", lines[2]);
         Assert.Equal("  state now: Shipped[trackingNumber=TR-2, failedAttempts=1]", lines[3]);
-        Assert.Equal("Cancel a shipped order: cannot cancel a shipped order", lines[4]);
+    }
+
+    [Fact]
+    public void RefusedRequestMainOutput()
+    {
+        Assert.Equal(["Cancel a shipped order: cannot cancel a shipped order"],
+            Printed.By(RefusedRequestMain.Run));
     }
 }

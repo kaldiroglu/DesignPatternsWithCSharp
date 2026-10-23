@@ -8,9 +8,9 @@ namespace dev.kaldiroglu.State.Order.Solution;
 /// </summary>
 /// <remarks>
 /// The Java original's <c>main</c>. Run it with
-/// <c>dotnet run --project src/State.Demo -- order</c>.
+/// <c>dotnet run --project src/State.Demo -- order-second-shipment</c>.
 /// </remarks>
-public static class Main
+public static class SecondShipmentMain
 {
     public static void Run()
     {
@@ -35,15 +35,6 @@ public static class Main
         after.FailDelivery();
         Console.WriteLine("State objects:  " + Show(after.Events));
         Console.WriteLine("  state now: " + after.State);
-
-        try
-        {
-            after.Cancel();
-        }
-        catch (InvalidOperationException refused)
-        {
-            Console.WriteLine("Cancel a shipped order: " + refused.Message);
-        }
     }
 
     /// <summary>Prints a list the way Java's <c>List.toString()</c> does: <c>[a, b, c]</c>.</summary>

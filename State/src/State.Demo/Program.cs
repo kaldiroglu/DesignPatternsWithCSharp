@@ -1,8 +1,13 @@
-// Several examples have a class called Main or Test, as the Java original does, and several
+// Several examples have a class called Main or Test, as the Java original does, the order's
+// problem and solution both have a SecondShipmentMain, and several
 // namespaces share a name with their main class (Order, Door, Account, Elevator, Person).
 // Aliases name them apart.
-using OrderMain = dev.kaldiroglu.State.Order.Solution.Main;
-using OrderProblemMain = dev.kaldiroglu.State.Order.Problem.Main;
+using OrderProblemStageOneMain = dev.kaldiroglu.State.Order.Problem.StageOneMain;
+using OrderProblemStageTwoMain = dev.kaldiroglu.State.Order.Problem.StageTwoMain;
+using OrderProblemStageThreeMain = dev.kaldiroglu.State.Order.Problem.StageThreeMain;
+using OrderProblemSecondShipmentMain = dev.kaldiroglu.State.Order.Problem.SecondShipmentMain;
+using OrderRefusedRequestMain = dev.kaldiroglu.State.Order.Solution.RefusedRequestMain;
+using OrderSecondShipmentMain = dev.kaldiroglu.State.Order.Solution.SecondShipmentMain;
 using GofMain = dev.kaldiroglu.State.Gof.Main;
 using GofProblemMain = dev.kaldiroglu.State.Gof.Problem.Main;
 using GofSolutionMain = dev.kaldiroglu.State.Gof.Solution.Main;
@@ -34,8 +39,12 @@ public static class Program
 {
     private static readonly Dictionary<string, (string Group, Action Run)> Examples = new()
     {
-        ["order-problem"] = ("AN ONLINE ORDER", OrderProblemMain.Run),
-        ["order"] = ("AN ONLINE ORDER", OrderMain.Run),
+        ["order-problem-stage-one"] = ("AN ONLINE ORDER", OrderProblemStageOneMain.Run),
+        ["order-problem-stage-two"] = ("AN ONLINE ORDER", OrderProblemStageTwoMain.Run),
+        ["order-problem-stage-three"] = ("AN ONLINE ORDER", OrderProblemStageThreeMain.Run),
+        ["order-problem-second-shipment"] = ("AN ONLINE ORDER", OrderProblemSecondShipmentMain.Run),
+        ["order-second-shipment"] = ("AN ONLINE ORDER", OrderSecondShipmentMain.Run),
+        ["order-refused-request"] = ("AN ONLINE ORDER", OrderRefusedRequestMain.Run),
         ["gof-problem"] = ("GOF'S TCP CONNECTION", GofProblemMain.Run),
         ["gof-solution"] = ("GOF'S TCP CONNECTION", GofSolutionMain.Run),
         ["gof"] = ("GOF'S TCP CONNECTION", GofMain.Run),

@@ -23,7 +23,7 @@ of failed deliveries, so that a new shipment starts again at zero.
 
 | Namespace | What it shows |
 |---|---|
-| `State.Order` | The main worked example: an online order that is placed, paid, shipped, delivered or cancelled. A courier gets three delivery attempts; after three failures the parcel goes back to the warehouse and can be shipped again. `Problem` is three naive stages: four boolean flags (`FlagOrder`), one status field with a switch in every method (`SwitchingOrder`, `Status`), and an enum constant with its own behavior per status (`EnumOrder`, `OrderStatus`). `Solution` has the context `Order`, the state `IOrderState` and the five states `Placed`, `Paid`, `Shipped`, `Delivered` and `Cancelled`. `Main` runs the same story with stage three and with State objects. |
+| `State.Order` | The main worked example: an online order that is placed, paid, shipped, delivered or cancelled. A courier gets three delivery attempts; after three failures the parcel goes back to the warehouse and can be shipped again. `Problem` is three naive stages: four boolean flags (`FlagOrder`), one status field with a switch in every method (`SwitchingOrder`, `Status`), and an enum constant with its own behavior per status (`EnumOrder`, `OrderStatus`). `Solution` has the context `Order`, the state `IOrderState` and the five states `Placed`, `Paid`, `Shipped`, `Delivered` and `Cancelled`. Each slide has its own runnable class: `StageOneMain`, `StageTwoMain`, `StageThreeMain` and `SecondShipmentMain` in `Problem` (`SampleOrder` builds the order after its first shipment), and `SecondShipmentMain` (the same story with stage three and with State objects) and `RefusedRequestMain` in `Solution`. |
 | `State.Gof` | GoF's own example (Design Patterns, pp. 305–313). `Problem.TCPConnection` switches over three states in every operation. `Solution` has the context `TCPConnection`, the abstract state `TCPState`, and `TCPClosed`, `TCPListen` and `TCPEstablished`, each a single shared object. |
 | `State.Door` | A door that is open or closed. `Problem` uses a boolean and an `if`. In `Pattern1` the states change the door's state, and each state knows the other one. In `Pattern2` a central `DoorStateManager` changes it, and only the manager knows all the states. |
 | `State.Account` | A bank account that is `Active`, `Overdrawn`, `Frozen` or `Closed`. |
@@ -81,7 +81,7 @@ implements the interface member.
   exercises — each on its own.
 - `net10.0`, nullable reference types on, implicit usings on — set once in
   `Directory.Build.props` and inherited by both projects.
-- **A test project, `State.Tests`**, with 31 xUnit tests ported from the Java JUnit tests.
+- **A test project, `State.Tests`**, with 36 xUnit tests ported from the Java JUnit tests.
 
 ## Differences from the Java original
 
@@ -135,7 +135,7 @@ Swedish locale. What had to change:
   `Account`, `Elevator` and `Person` each hold a class with the same name. Inside each
   namespace the plain name means the class, because a type in the current namespace wins.
   In `State.Demo`, one level up, the plain name would mean the namespace, so the runner uses
-  aliases (`OrderMain`, `DoorPattern1Test`, `AccountTest` and so on). The homework enum
+  aliases (`OrderSecondShipmentMain`, `DoorPattern1Test`, `AccountTest` and so on). The homework enum
   `Hw.Document.Action` shares its name with `System.Action`; inside its namespace the enum
   wins, so `Hw.Document.Main` uses it by its plain name, and the runner's own table uses
   `System.Action`. `SwitchingOrder.Status` and `Document.Status` are
@@ -176,7 +176,7 @@ Swedish locale. What had to change:
 
 ## Tests
 
-`tests/State.Tests` holds 31 xUnit tests, one test class for each Java test class, with the
+`tests/State.Tests` holds 36 xUnit tests, one test class for each Java test class, with the
 same assertions and the same expected values. The Java known-uses tests check JDK types and
 are replaced by two tests of the .NET rows of the same table. `Test.md` lists what is tested
 and every change from the Java.
@@ -200,10 +200,12 @@ cd ~/"Development/NET/Design Patterns/Design Patterns with CSharp/State"
 ~/.dotnet/dotnet run --project src/State.Demo
 
 # one example on its own
-~/.dotnet/dotnet run --project src/State.Demo -- order
+~/.dotnet/dotnet run --project src/State.Demo -- order-second-shipment
 ```
 
-The runner accepts: `order-problem`, `order`, `gof-problem`, `gof-solution`, `gof`,
+The runner accepts: `order-problem-stage-one`, `order-problem-stage-two`,
+`order-problem-stage-three`, `order-problem-second-shipment`, `order-second-shipment`,
+`order-refused-request`, `gof-problem`, `gof-solution`, `gof`,
 `pattern`, `door-problem`, `door-pattern1`, `door-pattern2`, `account`, `elevator`,
 `person`, `hw-airconditioner`, `hw-document`, `hw-vending`.
 

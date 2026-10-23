@@ -151,4 +151,39 @@ public class ProblemTests
             Assert.Empty(type.GetFields(Declared | BindingFlags.Instance));
         }
     }
+
+    [Fact]
+    public void StageOneMainOutput()
+    {
+        Assert.Equal(["Stage one, four flags:   [paid, shipped TR-1, delivered]"],
+            Printed.By(StageOneMain.Run));
+    }
+
+    [Fact]
+    public void StageTwoMainOutput()
+    {
+        Assert.Equal(["Stage two, one switch:   cannot cancel a shipped order"],
+            Printed.By(StageTwoMain.Run));
+    }
+
+    [Fact]
+    public void StageThreeMainOutput()
+    {
+        var lines = Printed.By(StageThreeMain.Run);
+
+        Assert.Single(lines);
+        Assert.EndsWith("delivery attempt 3 failed, back to the warehouse] -> PAID", lines[0]);
+    }
+
+    [Fact]
+    public void SecondShipmentMainOutput()
+    {
+        Assert.Equal(
+            [
+                "Stage three, second shipment: [shipped TR-2, delivery attempt 4 failed, "
+                    + "delivery attempt 5 failed, delivery attempt 6 failed] -> SHIPPED",
+                "The count was not reset, so it never equals 3 again: the courier has no limit."
+            ],
+            Printed.By(SecondShipmentMain.Run));
+    }
 }
