@@ -69,9 +69,10 @@ method is left as it is.
 - **One class library, `TemplateMethod`**, holding every example as nested namespaces —
   `Export`, `Gof`, `Pattern`, `Task` and `Hw`. Sources mirror namespaces:
   `src/TemplateMethod/Export/Solution/…`.
-- **A console runner, `TemplateMethod.Demo`**, that runs the Java original's `main`
-  methods — the export's problem and solution, GoF's applications before and after the
-  pattern, the short form, the task and the three homework exercises — each on its own.
+- **A console runner, `TemplateMethod.Demo`**, with one entry for each runnable class:
+  the export's stages one and two and its missing audit, the solution's three exports and
+  its two audit logs, GoF's applications before and after the pattern, the short form, the
+  task and the three homework exercises — each on its own.
 - `net10.0`, nullable reference types on, implicit usings on — set once in
   `Directory.Build.props` and inherited by both projects.
 - **An xUnit test project, `TemplateMethod.Tests`**, with the Java tests ported one class
@@ -81,7 +82,7 @@ method is left as it is.
 
 The port is faithful in behavior. The output of every runner entry is byte for byte the
 output of the Java `main` method it ports, with one exception: the last line of
-`export-problem` names the method `RecordAudit`, as C# writes it, where the Java names
+`export-problem-missing-audit` names the method `RecordAudit`, as C# writes it, where the Java names
 `recordAudit`. The whole runner prints the same under a Turkish locale. What had to change:
 
 - **`final` became "not `virtual`".** See the section above. Each template method's doc
@@ -154,7 +155,7 @@ output of the Java `main` method it ports, with one exception: the last line of
 
 ## Tests
 
-`tests/TemplateMethod.Tests` holds 35 xUnit tests, ported from the Java JUnit tests: the
+`tests/TemplateMethod.Tests` holds 40 xUnit tests, ported from the Java JUnit tests: the
 export's three stages and its template method, GoF's applications, the repeated task and
 the homework. `TaskTests.TheClientPrintsTenTimesWithNineWaits` waits nine seconds, as the
 Java test does; every other test is fast. `Test.md` lists each class and the checks that
@@ -175,11 +176,13 @@ cd ~/"Development/NET/Design Patterns/Design Patterns with CSharp/TemplateMethod
 ~/.dotnet/dotnet run --project src/TemplateMethod.Demo
 
 # one example on its own
-~/.dotnet/dotnet run --project src/TemplateMethod.Demo -- export
+~/.dotnet/dotnet run --project src/TemplateMethod.Demo -- export-audit-logs
 ```
 
-The runner accepts: `export-problem`, `export`, `gof-problem`, `gof-solution`, `gof`,
-`pattern`, `task`, `hw-callcenter`, `hw-onboarding`, `hw-recordfile`.
+The runner accepts: `export-problem-stage-one`, `export-problem-stage-two`,
+`export-problem-missing-audit`, `export-three-exports`, `export-audit-logs`, `gof-problem`,
+`gof-solution`, `pattern`, `task`, `hw-callcenter`, `hw-onboarding`, `hw-recordfile`.
+Each entry prints what one slide of the deck shows.
 
 Run the tests. They take about ten seconds, because one test waits nine:
 

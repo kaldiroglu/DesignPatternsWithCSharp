@@ -5,10 +5,10 @@ namespace dev.kaldiroglu.TemplateMethod.Task;
 /// before / the task / after as many times as asked, waiting <see cref="Interval"/> seconds
 /// after each repetition, then clean up.
 /// <para>
-/// <see cref="Run"/> is the template method. In Java it is <c>final</c>; in C# it is a public
-/// method without <c>virtual</c>, so no subclass can override it. <see cref="DoTask"/> is
-/// abstract. <see cref="Prepare"/>, <see cref="Before"/>, <see cref="After"/> and
-/// <see cref="Clean"/> are hooks with a default: <c>virtual</c>, and public, as in the Java.
+/// <see cref="Run"/> is the template method. It is a public method without <c>virtual</c>,
+/// so no subclass can override it. <see cref="DoTask"/> is abstract. <see cref="Prepare"/>,
+/// <see cref="Before"/>, <see cref="After"/> and
+/// <see cref="Clean"/> are hooks with a default: <c>virtual</c>, and public.
 /// </para>
 /// </summary>
 public abstract class Task
@@ -18,7 +18,7 @@ public abstract class Task
     /// <summary>The wait after each repetition, in seconds.</summary>
     protected int Interval { get; set; }
 
-    /// <summary>How many times the task runs. The Java field is spelled <c>repetation</c>.</summary>
+    /// <summary>How many times the task runs.</summary>
     protected int Repetition { get; set; }
 
     protected Task(string name, int interval, int repetition)

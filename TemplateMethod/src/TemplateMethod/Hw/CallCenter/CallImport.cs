@@ -5,9 +5,8 @@ namespace dev.kaldiroglu.TemplateMethod.Hw.CallCenter;
 /// <para>
 /// The five steps are fixed: retrieve the metadata, store it, retrieve the audio, verify the
 /// audio against the metadata, store the audio. Only the two "retrieve" steps depend on the
-/// call center, so only they are abstract. <see cref="Run"/> is the template method. In Java
-/// it is <c>final</c>; here it is a public method without <c>virtual</c>. Either way, no call
-/// center can skip the verification.
+/// call center, so only they are abstract. <see cref="Run"/> is the template method, a public method
+/// without <c>virtual</c>, so no call center can skip the verification.
 /// </para>
 /// </summary>
 public abstract class CallImport

@@ -46,7 +46,7 @@ public class HomeworkTests
 
     /// <summary>
     /// Verification is private and the template method is final, so no call center can skip
-    /// it. Java's <c>final</c> is "not <c>virtual</c>" in C#.
+    /// it.
     /// </summary>
     [Fact]
     public void VerificationCannotBeSkipped()

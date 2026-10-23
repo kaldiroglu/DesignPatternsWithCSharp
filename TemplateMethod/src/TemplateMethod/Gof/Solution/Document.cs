@@ -29,8 +29,8 @@ public abstract class Document
     /// A primitive operation: read the file's contents in this document's own way.
     /// <para>
     /// <c>protected internal</c>, not <c>protected</c>: <see cref="Application"/> calls it, and
-    /// is not a subclass of <c>Document</c>. In Java <c>protected</c> also opens a member to
-    /// its package; in C# <c>protected internal</c> opens it to the assembly.
+    /// is not a subclass of <c>Document</c>. <c>protected internal</c> opens it to the whole
+    /// assembly as well.
     /// </para>
     /// </summary>
     protected internal abstract void DoRead(List<string> events);

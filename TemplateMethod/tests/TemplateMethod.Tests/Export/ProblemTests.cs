@@ -66,9 +66,8 @@ public class ProblemTests
     }
 
     /// <summary>
-    /// Stage two: every format is a branch in this class, in three switches. The Java counts
-    /// <c>switch (format)</c> statements and their <c>case</c> labels; the C# writes switch
-    /// expressions, so this counts <c>format switch</c> and the arms that name a format.
+    /// Stage two: every format is a branch in this class, in three switches. The class
+    /// writes switch expressions, so this counts <c>format switch</c> and the arms that name a format.
     /// </summary>
     [Fact]
     public void StageTwoHasThreeSwitches()
@@ -129,4 +128,32 @@ public class ProblemTests
 
         Assert.Empty(audit.Lines);
     }
+
+    /// <summary>StageOneMain prints an audit log with both exports.</summary>
+    [Fact]
+    public void StageOneMainPrintsTwoAuditLines() =>
+        Assert.Equal(["Stage one, a copy per format, audit log: [Deniz exported sales-october.csv "
+                + "(2 rows), Deniz exported sales-october.html (2 rows)]"],
+            Printed.By(StageOneMain.Run));
+
+    /// <summary>StageTwoMain prints an audit log with both exports.</summary>
+    [Fact]
+    public void StageTwoMainPrintsTwoAuditLines() =>
+        Assert.Equal(["Stage two, one class with a switch, audit log: [Deniz exported "
+                + "sales-october.csv (2 rows), Deniz exported sales-october.html (2 rows)]"],
+            Printed.By(StageTwoMain.Run));
+
+    /// <summary>MissingAuditMain prints the Markdown file and an audit log with the CSV export only.</summary>
+    [Fact]
+    public void MissingAuditMainPrintsOneAuditLine() =>
+        Assert.Equal([
+                "Stage three, the Markdown file:",
+                "| customer | amount |",
+                "|---|---|",
+                "| Ayse | 1200 |",
+                "| Deniz | 800 |",
+                "Stage three, a CSV and a Markdown export, audit log: [Deniz exported "
+                    + "sales-october.csv (2 rows)]",
+                "The Markdown export is missing: MarkdownExport never calls RecordAudit."],
+            Printed.By(MissingAuditMain.Run));
 }

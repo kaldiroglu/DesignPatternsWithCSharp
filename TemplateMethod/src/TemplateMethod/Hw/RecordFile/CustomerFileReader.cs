@@ -5,7 +5,7 @@ public sealed class CustomerFileReader : RecordFileReader<Customer>
 {
     protected override Customer Parse(string line)
     {
-        string[] parts = SplitLikeJava(line);
+        string[] parts = SplitDroppingEmptyEnds(line);
         if (parts.Length != 2)
         {
             throw new ArgumentException("not a customer: " + line);
@@ -14,10 +14,10 @@ public sealed class CustomerFileReader : RecordFileReader<Customer>
     }
 
     /// <summary>
-    /// Java's <c>line.split(";")</c> drops empty parts at the end, so <c>"Ayse;"</c> is one
-    /// part there and an error. C#'s <c>Split</c> keeps them, so they are removed here.
+    /// Splits the line at <c>;</c> and drops empty parts at the end, so <c>"Ayse;"</c> is one
+    /// part and an error. <c>string.Split</c> keeps them, so they are removed here.
     /// </summary>
-    private static string[] SplitLikeJava(string line)
+    private static string[] SplitDroppingEmptyEnds(string line)
     {
         string[] parts = line.Split(';');
         int count = parts.Length;

@@ -5,7 +5,7 @@ namespace dev.kaldiroglu.TemplateMethod.Hw.RecordFile;
 /// reader even when a line fails; the subclass only parses one line.
 /// </summary>
 /// <remarks>
-/// The Java original's <c>main</c>. Run it with
+/// Run it with
 /// <c>dotnet run --project src/TemplateMethod.Demo -- hw-recordfile</c>.
 /// </remarks>
 public static class Main
@@ -29,13 +29,13 @@ public static class Main
     }
 
     /// <summary>
-    /// Prints the customers the way Java prints a list of records:
-    /// <c>[Customer[name=Ayse, city=Istanbul]]</c>. A C# record prints differently.
+    /// Prints the customers as <c>[Customer[name=Ayse, city=Istanbul]]</c>. A C# record
+    /// prints <c>Customer { Name = Ayse, City = Istanbul }</c>, so the text is built here.
     /// </summary>
     private static string Show(IEnumerable<Customer> customers) =>
         "[" + string.Join(", ", customers.Select(c => "Customer[name=" + c.Name + ", city=" + c.City + "]")) + "]";
 
-    /// <summary>A reader that remembers whether it was closed. Java uses an anonymous subclass here.</summary>
+    /// <summary>A reader that remembers whether it was closed.</summary>
     private sealed class ClosingReader(string text) : StringReader(text)
     {
         public bool Closed { get; private set; }

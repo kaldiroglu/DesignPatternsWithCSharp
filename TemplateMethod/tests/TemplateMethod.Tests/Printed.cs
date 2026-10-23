@@ -5,7 +5,7 @@ public static class Printed
 {
     /// <summary>
     /// Runs the action and returns what it printed, one line per element. A final line break
-    /// does not add an empty line at the end, as with Java's <c>String.lines()</c>.
+    /// does not add an empty line at the end.
     /// </summary>
     public static List<string> By(Action action)
     {

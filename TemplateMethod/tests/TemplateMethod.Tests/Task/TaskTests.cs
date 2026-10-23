@@ -56,7 +56,7 @@ public class TaskTests
     /// <summary>
     /// An interrupt during the wait stops repeating, and still cleans up.
     /// <para>
-    /// The Java test also checks that the thread keeps its interrupt flag. .NET has no
+    /// One could also check that the thread keeps its interrupt flag, but .NET has no
     /// interrupt flag: the pending interrupt is used up when <c>Thread.Sleep</c> throws
     /// <c>ThreadInterruptedException</c>. So the C# test checks the opposite fact: after the
     /// run, the thread can sleep again without an exception. The test runs on its own thread,
@@ -102,15 +102,14 @@ public class TaskTests
         Assert.DoesNotContain("*** in clean() ***", lines);
     }
 
-    /// <summary>The Java test writes this as an anonymous subclass.</summary>
+    /// <summary>A task whose step always throws.</summary>
     private sealed class FailingTask() : TaskBase("Failing", 0, 3)
     {
         public override void DoTask() => throw new InvalidOperationException("the device is off");
     }
 
     /// <summary>
-    /// Run is final, DoTask is the only abstract step, and the four hooks are public. Java's
-    /// <c>final</c> is "not <c>virtual</c>" in C#.
+    /// Run is final, DoTask is the only abstract step, and the four hooks are public.
     /// </summary>
     [Fact]
     public void TheKindsOfMethod()

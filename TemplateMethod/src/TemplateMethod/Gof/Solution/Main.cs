@@ -5,7 +5,7 @@ namespace dev.kaldiroglu.TemplateMethod.Gof.Solution;
 /// <see cref="Application.OpenDocument"/>; the spreadsheet adds its step through the hook.
 /// </summary>
 /// <remarks>
-/// The Java original's <c>main</c>. Run it with
+/// Run it with
 /// <c>dotnet run --project src/TemplateMethod.Demo -- gof-solution</c>.
 /// </remarks>
 public static class Main
@@ -23,6 +23,6 @@ public static class Main
         Console.WriteLine("Documents the spreadsheet opened: " + sheet.Documents.Count);
     }
 
-    /// <summary>Prints a list the way Java's <c>List.toString()</c> does: <c>[a, b, c]</c>.</summary>
+    /// <summary>Prints a list as <c>[a, b, c]</c>.</summary>
     private static string Show(IEnumerable<string> items) => "[" + string.Join(", ", items) + "]";
 }

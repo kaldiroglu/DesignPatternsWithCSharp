@@ -12,9 +12,8 @@ namespace dev.kaldiroglu.TemplateMethod.Hw.RecordFile;
 public abstract class RecordFileReader<T>
 {
     /// <summary>
-    /// The template method. Not <c>virtual</c>, so no subclass can override it (Java's
-    /// <c>final</c>). The <c>using</c> statement closes the reader, as Java's
-    /// try-with-resources does.
+    /// The template method. Not <c>virtual</c>, so no subclass can override it. The
+    /// <c>using</c> statement closes the reader, even when a line fails.
     /// </summary>
     public IReadOnlyList<T> ReadAll(TextReader source)
     {

@@ -8,7 +8,7 @@ using dev.kaldiroglu.TemplateMethod.Export.Domain;
 /// <summary>
 /// The <b>AbstractClass</b>: the export algorithm, written once.
 /// <para>
-/// <see cref="Export"/> is the <b>template method</b>. In Java it is <c>final</c>. In C# a
+/// <see cref="Export"/> is the <b>template method</b>. In C# a
 /// method is not virtual unless it says so, so the template method is simply a public method
 /// without <c>virtual</c>: no subclass can change the order of the steps or leave one out.
 /// The permission check is always first and the audit line is always last. Compare
@@ -35,8 +35,7 @@ public abstract class ReportExporter
     }
 
     /// <summary>
-    /// The template method. Not <c>virtual</c>, so it cannot be overridden: this is what
-    /// Java's <c>final</c> says.
+    /// The template method. Not <c>virtual</c>, so it cannot be overridden.
     /// </summary>
     public Export Export(User user, Report report)
     {

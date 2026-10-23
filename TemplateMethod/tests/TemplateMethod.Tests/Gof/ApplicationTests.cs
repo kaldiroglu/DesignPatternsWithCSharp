@@ -9,7 +9,8 @@ using DrawApplication = global::dev.kaldiroglu.TemplateMethod.Gof.Solution.DrawA
 using SpreadsheetApplication = global::dev.kaldiroglu.TemplateMethod.Gof.Solution.SpreadsheetApplication;
 using ProblemDraw = global::dev.kaldiroglu.TemplateMethod.Gof.Problem.DrawApplication;
 using ProblemSpreadsheet = global::dev.kaldiroglu.TemplateMethod.Gof.Problem.SpreadsheetApplication;
-using GofMain = global::dev.kaldiroglu.TemplateMethod.Gof.Main;
+using ProblemMain = global::dev.kaldiroglu.TemplateMethod.Gof.Problem.Main;
+using SolutionMain = global::dev.kaldiroglu.TemplateMethod.Gof.Solution.Main;
 
 /// <summary>GoF's application framework, before and after the pattern.</summary>
 public class ApplicationTests
@@ -23,15 +24,28 @@ public class ApplicationTests
 
     private static string Show(IEnumerable<string> items) => "[" + string.Join(", ", items) + "]";
 
-    /// <summary>Gof.Main opens one file of each kind, and ignores the file the drawing program cannot open.</summary>
+    /// <summary>Gof.Problem.Main opens one file of each kind, and ignores the file the drawing program cannot open.</summary>
     [Fact]
-    public void MainPrintsBothApplications()
+    public void ProblemMainPrintsBothApplications()
     {
-        List<string> lines = Printed.By(GofMain.Run);
+        List<string> lines = Printed.By(ProblemMain.Run);
 
         Assert.Equal([
             "Draw:        " + Show(DrawEvents),
-            "Spreadsheet: " + Show(SpreadsheetEvents)], lines);
+            "Spreadsheet: " + Show(SpreadsheetEvents),
+            "The same steps are written twice, once in each class."], lines);
+    }
+
+    /// <summary>Gof.Solution.Main prints the same steps, and the spreadsheet opened 1 document.</summary>
+    [Fact]
+    public void SolutionMainPrintsBothApplications()
+    {
+        List<string> lines = Printed.By(SolutionMain.Run);
+
+        Assert.Equal([
+            "Draw:        " + Show(DrawEvents),
+            "Spreadsheet: " + Show(SpreadsheetEvents),
+            "Documents the spreadsheet opened: 1"], lines);
     }
 
     /// <summary>Before the pattern: each application writes the whole algorithm and gets the same steps.</summary>
@@ -77,7 +91,7 @@ public class ApplicationTests
 
     /// <summary>
     /// OpenDocument is final; CanOpenDocument and DoCreateDocument are abstract; the hook is
-    /// not. Java's <c>final</c> is "not <c>virtual</c>" in C#.
+    /// not.
     /// </summary>
     [Fact]
     public void TheKindsOfMethod()
@@ -114,7 +128,7 @@ public class ApplicationTests
         Assert.Empty(refuses.Events);
     }
 
-    /// <summary>The Java test writes this as an anonymous subclass.</summary>
+    /// <summary>An application that opens any file but creates no document.</summary>
     private sealed class RefusingApplication : Application
     {
         protected override bool CanOpenDocument(string name) => true;

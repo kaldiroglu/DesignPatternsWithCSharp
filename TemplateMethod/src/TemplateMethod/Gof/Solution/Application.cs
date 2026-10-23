@@ -13,8 +13,8 @@ namespace dev.kaldiroglu.TemplateMethod.Gof.Solution;
 ///   nothing here.</item>
 /// </list>
 /// <para>
-/// In Java it is <c>final</c>. In C# it is a public method without <c>virtual</c>, which
-/// says the same thing: an application can change a step but not the order of the steps.
+/// It is a public method without <c>virtual</c>: an application can change a step but not
+/// the order of the steps.
 /// </para>
 /// </summary>
 public abstract class Application

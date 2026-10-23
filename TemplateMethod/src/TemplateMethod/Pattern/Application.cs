@@ -5,9 +5,8 @@ namespace dev.kaldiroglu.TemplateMethod.Pattern;
 /// checks the file with <see cref="CanOpenDocument"/>, creates the document with
 /// <see cref="CreateDocument"/>, and adds it with <see cref="AddDocument"/>.
 /// <para>
-/// The Java methods here have package access and are not <c>final</c>, so a subclass in the
-/// package could override any of them. The port keeps that: they are <c>internal</c>, and
-/// <c>OpenDocument</c> and <c>AddDocument</c> are <c>virtual</c>. The <c>Gof</c> namespace
+/// The methods here are <c>internal</c>, and <c>OpenDocument</c> and <c>AddDocument</c> are
+/// <c>virtual</c>, so a subclass in the assembly can override them. The <c>Gof</c> namespace
 /// has the closed form, where the template method is not <c>virtual</c>.
 /// </para>
 /// </summary>

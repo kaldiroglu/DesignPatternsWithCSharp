@@ -18,8 +18,7 @@ public abstract class Onboarding
     private readonly List<string> steps = [];
 
     /// <summary>
-    /// The template method. Not <c>virtual</c>, so no subclass can override it (Java's
-    /// <c>final</c>).
+    /// The template method. Not <c>virtual</c>, so no subclass can override it.
     /// </summary>
     public IReadOnlyList<string> Start(string person)
     {

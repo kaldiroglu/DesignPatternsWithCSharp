@@ -32,14 +32,13 @@ public class SolutionTests
             "Deniz exported sales-october.md (2 rows)"], audit.Lines);
     }
 
-    /// <summary>Main prints stage three's audit log with 1 line and the template method's with 3.</summary>
+    /// <summary>ThreeExportsMain prints the CSV, HTML and Markdown files.</summary>
     [Fact]
-    public void MainPrintsBothAuditLogs()
+    public void ThreeExportsMainPrintsTheThreeFiles()
     {
-        List<string> lines = Printed.By(global::dev.kaldiroglu.TemplateMethod.Export.Solution.Main.Run);
+        List<string> lines = Printed.By(global::dev.kaldiroglu.TemplateMethod.Export.Solution.ThreeExportsMain.Run);
 
         Assert.Equal([
-            "Stage three, two exports, audit log: [Deniz exported sales-october.csv (2 rows)]",
             "--- sales-october.csv",
             "customer,amount",
             "Ayse,1200",
@@ -54,7 +53,18 @@ public class SolutionTests
             "| customer | amount |",
             "|---|---|",
             "| Ayse | 1200 |",
-            "| Deniz | 800 |",
+            "| Deniz | 800 |"],
+            lines);
+    }
+
+    /// <summary>AuditLogsMain prints stage three's audit log with 1 line and the template method's with 3.</summary>
+    [Fact]
+    public void AuditLogsMainPrintsBothAuditLogs()
+    {
+        List<string> lines = Printed.By(global::dev.kaldiroglu.TemplateMethod.Export.Solution.AuditLogsMain.Run);
+
+        Assert.Equal([
+            "Stage three, two exports, audit log: [Deniz exported sales-october.csv (2 rows)]",
             "Template method, three exports, audit log: [Deniz exported sales-october.csv (2 rows), "
                 + "Deniz exported sales-october.html (2 rows), Deniz exported sales-october.md (2 rows)]"],
             lines);
@@ -77,8 +87,7 @@ public class SolutionTests
     }
 
     /// <summary>
-    /// The template method Export is final, and no subclass declares one. Java's <c>final</c>
-    /// is "not <c>virtual</c>" in C#.
+    /// The template method Export is final, and no subclass declares one.
     /// </summary>
     [Fact]
     public void TheTemplateMethodIsFinal()
@@ -110,7 +119,7 @@ public class SolutionTests
         Assert.Equal("H\nAyse\nDeniz\n", noFooter.Export(Deniz, SalesReport).Content);
     }
 
-    /// <summary>The Java test writes this as an anonymous subclass.</summary>
+    /// <summary>An exporter that does not override the footer hook.</summary>
     private sealed class NoFooterExporter() : ReportExporter(new AuditLog())
     {
         protected override string Header() => "H\n";

@@ -8,7 +8,7 @@ public abstract class Document
         Name = name;
     }
 
-    /// <summary>A protected field with a public getter in Java.</summary>
+    /// <summary>The document's name. A subclass sets it; any caller can read it.</summary>
     public string Name { get; protected set; }
 
     internal abstract void Open();

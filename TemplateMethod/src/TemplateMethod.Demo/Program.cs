@@ -1,8 +1,9 @@
-// Several examples have a class called Main or Test, as the Java original does.
-// Aliases name them apart.
-using ExportMain = dev.kaldiroglu.TemplateMethod.Export.Solution.Main;
-using ExportProblemMain = dev.kaldiroglu.TemplateMethod.Export.Problem.Main;
-using GofMain = dev.kaldiroglu.TemplateMethod.Gof.Main;
+// Several examples have a class called Main or Test. Aliases name them apart.
+using ExportStageOneMain = dev.kaldiroglu.TemplateMethod.Export.Problem.StageOneMain;
+using ExportStageTwoMain = dev.kaldiroglu.TemplateMethod.Export.Problem.StageTwoMain;
+using ExportMissingAuditMain = dev.kaldiroglu.TemplateMethod.Export.Problem.MissingAuditMain;
+using ExportThreeExportsMain = dev.kaldiroglu.TemplateMethod.Export.Solution.ThreeExportsMain;
+using ExportAuditLogsMain = dev.kaldiroglu.TemplateMethod.Export.Solution.AuditLogsMain;
 using GofProblemMain = dev.kaldiroglu.TemplateMethod.Gof.Problem.Main;
 using GofSolutionMain = dev.kaldiroglu.TemplateMethod.Gof.Solution.Main;
 using CallCenterMain = dev.kaldiroglu.TemplateMethod.Hw.CallCenter.Main;
@@ -16,12 +17,12 @@ namespace dev.kaldiroglu.TemplateMethod.Demo;
 /// <summary>
 /// Runs the Template Method examples.
 /// <para>
-/// Every entry is one of the Java original's <c>main</c> methods and prints the same output.
+/// Each entry runs one example and prints what one slide of the deck shows.
 /// <c>task</c> runs with an interval of 0 seconds instead of 1, so it prints the same lines
 /// without waiting ten seconds.
 /// </para>
 /// <para>
-/// Each example runs on its own — <c>dotnet run -- gof</c> — and with no argument all of them
+/// Each example runs on its own — <c>dotnet run -- gof-solution</c> — and with no argument all of them
 /// run in the order the course presents them.
 /// </para>
 /// </summary>
@@ -29,11 +30,13 @@ public static class Program
 {
     private static readonly Dictionary<string, (string Group, Action Run)> Examples = new()
     {
-        ["export-problem"] = ("THE REPORT EXPORT", ExportProblemMain.Run),
-        ["export"] = ("THE REPORT EXPORT", ExportMain.Run),
+        ["export-problem-stage-one"] = ("THE REPORT EXPORT", ExportStageOneMain.Run),
+        ["export-problem-stage-two"] = ("THE REPORT EXPORT", ExportStageTwoMain.Run),
+        ["export-problem-missing-audit"] = ("THE REPORT EXPORT", ExportMissingAuditMain.Run),
+        ["export-three-exports"] = ("THE REPORT EXPORT", ExportThreeExportsMain.Run),
+        ["export-audit-logs"] = ("THE REPORT EXPORT", ExportAuditLogsMain.Run),
         ["gof-problem"] = ("GOF'S APPLICATIONS AND DOCUMENTS", GofProblemMain.Run),
         ["gof-solution"] = ("GOF'S APPLICATIONS AND DOCUMENTS", GofSolutionMain.Run),
-        ["gof"] = ("GOF'S APPLICATIONS AND DOCUMENTS", GofMain.Run),
         ["pattern"] = ("APPLICATION AND DOCUMENT, SHORT FORM", PatternTest.Run),
         ["task"] = ("A REPEATED TASK", () => TaskTest.Run(interval: 0)),
         ["hw-callcenter"] = ("HOMEWORK", CallCenterMain.Run),

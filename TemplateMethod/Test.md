@@ -4,7 +4,7 @@
 
 For further enquiry please contact Akin Kaldiroglu at akin@kaldiroglu.dev
 
-35 xUnit tests in one project, `tests/TemplateMethod.Tests`. They are ported from the Java
+40 xUnit tests in one project, `tests/TemplateMethod.Tests`. They are ported from the Java
 JUnit tests in `dev.kaldiroglu.dp.behavioral.templateMethod`: one C# test class for each
 Java test class, and one C# test for each Java test, with the same name in PascalCase and
 the same expected values. All of them are **unit tests**: no files, no network, no other
@@ -14,12 +14,12 @@ process. One test is slow on purpose (see below).
 
 | File | Java | C# | What it checks |
 |---|---|---|---|
-| `Export/ProblemTests.cs` | 8 | 8 | The three naive stages of the report export. Stage one copies the permission check and the audit line into every class; stage two has three switches on the format; in stage three the Markdown export never calls `RecordAudit`, so the audit log has one line after two exports. |
-| `Export/SolutionTests.cs` | 7 | 7 | The template method: three exports, three audit lines; `Export` is not `virtual`; `Header`, `Row` and `Extension` are `protected abstract`; `Footer` is a hook; the subclasses never mention the permission or the audit; the exact output of `Export.Solution.Main.Run()`. |
-| `Gof/ApplicationTests.cs` | 7 | 7 | GoF's applications before and after the pattern produce the same events; `OpenDocument` is not `virtual`; only the spreadsheet overrides the hook; a `null` document stops the algorithm; the exact output of `Gof.Main.Run()`. |
+| `Export/ProblemTests.cs` | 11 | 11 | The three naive stages of the report export. Stage one copies the permission check and the audit line into every class; stage two has three switches on the format; in stage three the Markdown export never calls `RecordAudit`, so the audit log has one line after two exports; the exact output of `StageOneMain`, `StageTwoMain` and `MissingAuditMain`. |
+| `Export/SolutionTests.cs` | 8 | 8 | The template method: three exports, three audit lines; `Export` is not `virtual`; `Header`, `Row` and `Extension` are `protected abstract`; `Footer` is a hook; the subclasses never mention the permission or the audit; the exact output of `ThreeExportsMain` and `AuditLogsMain`. |
+| `Gof/ApplicationTests.cs` | 8 | 8 | GoF's applications before and after the pattern produce the same events; `OpenDocument` is not `virtual`; only the spreadsheet overrides the hook; a `null` document stops the algorithm; the exact output of `Gof.Problem.Main` and `Gof.Solution.Main`. |
 | `Task/TaskTests.cs` | 6 | 6 | The repeated task: ten prints with nine one-second waits, the order of the steps, an interrupt, a failing task that skips `Clean`, and which methods each task overrides. |
 | `Hw/HomeworkTests.cs` | 7 | 7 | The three homework solutions: call centers and the private `Verify` step, the onboarding equipment hook, and the record file reader that closes its reader when a line fails. |
-| **Total** | **35** | **35** | |
+| **Total** | **40** | **40** | |
 
 The `Pattern` namespace (the short `Application` and `Document` version) has no Java test,
 so it has no C# test either.
@@ -75,7 +75,7 @@ equivalent:
 ```bash
 cd ~/"Development/NET/Design Patterns/Design Patterns with CSharp/TemplateMethod"
 
-# all 35 (about ten seconds)
+# all 40 (about ten seconds)
 ~/.dotnet/dotnet test TemplateMethod.sln
 
 # one class
