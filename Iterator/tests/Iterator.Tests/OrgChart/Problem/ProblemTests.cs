@@ -121,4 +121,19 @@ public class ProblemTests
         Assert.Equal("the charts have different sizes",
             new ChangeReport().FirstDifference(CallbackCompany(Deniz), shorter));
     }
+
+    [Fact(DisplayName = "ChangeReportMain prints the first change, then all three, as the solution does")]
+    public void ChangeReportMainPrintsTheChanges()
+    {
+        var lines = Printed.By(ChangeReportMain.Run);
+
+        Assert.Equal([
+            "First change: Deniz (head of sales) -> Zeynep (head of sales)",
+            "All changes:",
+            "  Deniz (head of sales) -> Zeynep (head of sales)",
+            "  Can (export) -> Burak (export)",
+            "  Elif (support) -> Ece (support)",
+            "A callback walks one chart at a time, so the report first copied both charts whole."],
+            lines);
+    }
 }

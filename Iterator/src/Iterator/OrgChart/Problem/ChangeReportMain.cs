@@ -16,13 +16,14 @@ public static class ChangeReportMain
         // three people are new after the reorganization
         var after = SampleCompany.Build("Zeynep", "Burak", "Ece");
         var report = new ChangeReport();
-        Console.WriteLine("HR compares two charts: "
+        Console.WriteLine("First change: "
             + (report.FirstDifference(before, after) ?? "none"));
-        Console.WriteLine("All changes: " + Show(report.AllDifferences(before, after)));
+        Console.WriteLine("All changes:");
+        foreach (string change in report.AllDifferences(before, after))
+        {
+            Console.WriteLine("  " + change);
+        }
         Console.WriteLine("A callback walks one chart at a time,"
             + " so the report first copied both charts whole.");
     }
-
-    /// <summary>Prints a list as <c>[a, b, c]</c>.</summary>
-    private static string Show(IEnumerable<string> items) => "[" + string.Join(", ", items) + "]";
 }
