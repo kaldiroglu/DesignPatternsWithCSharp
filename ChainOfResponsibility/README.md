@@ -8,7 +8,7 @@ The C# port of the Chain of Responsibility material from **Design Patterns with 
 (`kaldiroglu/DesignPatternsWithJava`, package root
 `dev.kaldiroglu.dp.behavioral.chainOfResponsibility`). Every class that repository carries
 is here, in the same shape, under the root namespace `dev.kaldiroglu.ChainOfResponsibility`:
-60 Java files and 62 C# files. The two extra files are `Hw.Maintenance.RequestKind` and
+64 Java files and 66 C# files. The two extra files are `Hw.Maintenance.RequestKind` and
 `Hw.Middleware.MiddlewareChain`; the differences below say why.
 
 ## What Chain of Responsibility is for
@@ -27,7 +27,7 @@ say so.
 
 | Namespace | What it shows |
 |---|---|
-| `ChainOfResponsibility.Expense` | The main worked example: Elif leads the team (up to 1,000), Burak manages (10,000), Cem directs (50,000) and Deniz is the CFO (200,000). `Problem.ApprovalService` is stage one: one method with every name, limit and rule. `Problem.TeamLead`, `Manager`, `Director` and `Cfo` are stage two: each approver creates the next one by class. `Problem.LimitTable` is stage three: a table of limits, which chooses by amount alone. `Solution` has the handler `ExpenseHandler`, the concrete handlers `Approver` and `AuditLog`, and `Main`, which runs six expenses through every design. |
+| `ChainOfResponsibility.Expense` | The main worked example: Elif leads the team (up to 1,000), Burak manages (10,000), Cem directs (50,000) and Deniz is the CFO (200,000). `Problem.ApprovalService` is stage one: one method with every name, limit and rule. `Problem.TeamLead`, `Manager`, `Director` and `Cfo` are stage two: each approver creates the next one by class. `Problem.LimitTable` is stage three: a table of limits, which chooses by amount alone. `StageOneMain`, `StageTwoMain` and `StageThreeMain` run one stage each on six expenses. `Solution` has the handler `ExpenseHandler`, the concrete handlers `Approver` and `AuditLog`, `SixExpensesMain`, which runs six expenses through every design, and `AuditLogMain`, which prints that the audit log saw all 6. |
 | `ChainOfResponsibility.Gof` | GoF's own example (Design Patterns, pp. 223–232): context-sensitive help. `Problem.HelpDesk` knows every control by name. `Solution` has `HelpHandler`, `Widget`, `Button`, `Dialog` and `Application`; each widget's parent is its successor. |
 | `ChainOfResponsibility.Hw` | The three homework exercises: a maintenance queue that hands requests to developers (`Maintenance`), a middleware chain where every link may act (`Middleware`), and a cash machine where each slot pays part of the amount (`CashDispenser`). |
 | `ChainOfResponsibility.CallCenter` | Customers call a call center. Every call reaches the standard desk first, then the gold desk, then the VIP desk. `Test` creates random customers. |
@@ -84,8 +84,9 @@ ASP.NET Core's class of the same name.
 
 ## Differences from the Java original
 
-The port is faithful in behavior. The output of `expense-problem`, `expense`,
-`gof-problem`, `gof-solution`, `gof`, `hw-maintenance`, `hw-middleware`,
+The port is faithful in behavior. The output of `expense-problem-stage-one`,
+`expense-problem-stage-two`, `expense-problem-stage-three`, `expense-six-expenses`,
+`expense-audit-log`, `gof-problem`, `gof-solution`, `hw-maintenance`, `hw-middleware`,
 `hw-cashdispenser` and `pattern` is byte for byte the output of the Java `main` methods, and
 a call-center driver that sends one VIP and one gold customer prints the same lines in both
 languages. These outputs are the same under a Turkish and a Swedish locale. `callcenter` chooses customers at random, so its output has the
@@ -129,14 +130,14 @@ same shape as the Java's, but not the same lines. What had to change:
 - **`Math.random()` is `Random.Shared.NextDouble()`** in `CallCenter.Test`, with the same
   thresholds.
 - **Number formats do not depend on the machine's locale.** Numbers that are printed are
-  formatted with the invariant culture, and `Expense.Solution.Main` parses the amounts with
-  it.
+  formatted with the invariant culture, and `Expense.Solution.SixExpensesMain` and
+  `AuditLogMain` parse the amounts with it.
 - **The `main` methods became `Run()` methods** called by `ChainOfResponsibility.Demo`. The
   homework demos print lists as `[a, b, c]`, as Java's `List.toString()` does.
 - **Names that clash, and how they are resolved.**
   - The namespace `Expense` holds two records named `Expense`, in `Expense.Problem` and
     `Expense.Solution`. Inside each of those namespaces the plain name means that
-    namespace's record. `Expense.Solution.Main` writes the problem's record as
+    namespace's record. `Expense.Solution.SixExpensesMain` writes the problem's record as
     `Problem.Expense`: from inside `Expense.Solution`, `Problem` is found as a sibling
     namespace. The Java writes it with its full package name.
   - The namespace `Hw.Middleware` holds the delegate `Middleware`. Inside the namespace the
@@ -146,20 +147,20 @@ same shape as the Java's, but not the same lines. What had to change:
     framework, so nothing else in scope has these names.
   - `Pattern.Context` and `Hw.Middleware.HttpRequest` do not meet any type that implicit
     usings bring in.
-  - Ten namespaces have a class named `Main` or `Test`, as in the Java. `Main` is a static
+  - Seven namespaces have a class named `Main` or `Test`, as in the Java. `Main` is a static
     class with a `Run()` method, which C# allows. In `ChainOfResponsibility.Demo` the runner
-    reaches them through aliases: `ExpenseProblemMain`, `ExpenseMain`, `GofMain`,
-    `GofProblemMain`, `GofSolutionMain`, `MaintenanceMain`, `MiddlewareMain`,
-    `CashDispenserMain`, `CallCenterTest` and `PatternTest`. `Gof.Main` sits next to the
-    namespaces `Gof.Problem` and `Gof.Solution`, which have a `Main` each, so a file that
-    imports all three writes it as `global::dev.kaldiroglu.ChainOfResponsibility.Gof.Main`.
+    reaches them through aliases: `GofProblemMain`, `GofSolutionMain`, `MaintenanceMain`,
+    `MiddlewareMain`, `CashDispenserMain`, `CallCenterTest` and `PatternTest`. The expense
+    example has one runnable class per slide: `StageOneMain`, `StageTwoMain`,
+    `StageThreeMain`, `SixExpensesMain` and `AuditLogMain`. `Gof.Problem` and `Gof.Solution`
+    have a `Main` each, so a test that uses both writes each with its full name.
 - **The `uml/` diagrams, the `CD1.png`, `ClassDiagram1.png`, `SD1.png` and
   `SequenceDiagram*.png` images, and the per-package `README.md` files in the Java packages
   are not ported yet.** This README carries their content.
 
 ## Tests
 
-`tests/ChainOfResponsibility.Tests` holds 34 xUnit tests in 7 test classes. They are ported from the
+`tests/ChainOfResponsibility.Tests` holds 39 xUnit tests in 7 test classes. They are ported from the
 JUnit tests of the Java repository, one C# test class for each Java test class, with the
 same expected values, except where `Test.md` notes a change. `Test.md` lists what each
 class tests, and the Java tests that are not ported, with the reason.
@@ -179,11 +180,12 @@ cd ~/"Development/NET/Design Patterns/Design Patterns with CSharp/ChainOfRespons
 ~/.dotnet/dotnet run --project src/ChainOfResponsibility.Demo
 
 # one example on its own
-~/.dotnet/dotnet run --project src/ChainOfResponsibility.Demo -- expense
+~/.dotnet/dotnet run --project src/ChainOfResponsibility.Demo -- expense-six-expenses
 ```
 
-The runner accepts: `expense-problem`, `expense`, `gof-problem`, `gof-solution`, `gof`,
-`hw-maintenance`, `hw-middleware`, `hw-cashdispenser`, `callcenter`, `pattern`.
+The runner accepts: `expense-problem-stage-one`, `expense-problem-stage-two`,
+`expense-problem-stage-three`, `expense-six-expenses`, `expense-audit-log`, `gof-problem`,
+`gof-solution`, `hw-maintenance`, `hw-middleware`, `hw-cashdispenser`, `callcenter`, `pattern`.
 
 Run the tests:
 

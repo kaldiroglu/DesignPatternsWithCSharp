@@ -19,7 +19,7 @@ public class SolutionTest
         new Expense("Emre", 500_000, "a new office")
     ];
 
-    /// <summary>The chain of Expense.Solution.Main: the audit log first, then the four approvers.</summary>
+    /// <summary>The chain of the runnable classes: the audit log first, then the four approvers.</summary>
     private static AuditLog Chain()
     {
         AuditLog audit = new AuditLog();
@@ -132,11 +132,11 @@ public class SolutionTest
         Assert.Equal(0, CountOf(approver, "new "));
     }
 
-    /// <summary>Main prints each design's answer for the six expenses, then that the audit log saw 6.</summary>
+    /// <summary>SixExpensesMain prints each design's answer for the six expenses.</summary>
     [Fact]
-    public void MainOutput()
+    public void SixExpensesMainOutput()
     {
-        IReadOnlyList<string> lines = By(Main.Run);
+        IReadOnlyList<string> lines = By(SixExpensesMain.Run);
         Assert.Equal(new[]
         {
             "Emre, 800, books",
@@ -168,8 +168,14 @@ public class SolutionTest
             "  stage one:   no one may approve it",
             "  stage two:   no one may approve it",
             "  stage three: no one may approve it",
-            "  chain:       no one may approve it",
-            "The audit log saw 6 expenses."
+            "  chain:       no one may approve it"
         }, lines);
+    }
+
+    /// <summary>AuditLogMain prints that the audit log saw all 6 expenses.</summary>
+    [Fact]
+    public void AuditLogMainOutput()
+    {
+        Assert.Equal(new[] { "The audit log saw 6 expenses." }, By(AuditLogMain.Run));
     }
 }

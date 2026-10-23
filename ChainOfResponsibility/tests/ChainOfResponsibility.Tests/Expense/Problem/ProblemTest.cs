@@ -14,7 +14,7 @@ public class ProblemTest
 {
     private const string Source = "Expense/Problem/";
 
-    /// <summary>The six expenses of Expense.Solution.Main, in its order.</summary>
+    /// <summary>The six expenses of the runnable classes, in their order.</summary>
     internal static readonly IReadOnlyList<Expense> Six =
     [
         new Expense("Emre", 800, "books"),
@@ -123,5 +123,50 @@ public class ProblemTest
         LimitTable table = Table();
         int own = Six.Count(e => table.Approve(e) == "approved by " + e.Submitter);
         Assert.Equal(2, own);
+    }
+
+    /// <summary>StageOneMain prints stage one's answer for each of the six expenses.</summary>
+    [Fact]
+    public void StageOneMainOutput()
+    {
+        Assert.Equal(new[]
+        {
+            "Emre, 800, books", "  stage one:   approved by Elif",
+            "Emre, 5000, a laptop", "  stage one:   approved by Burak",
+            "Burak, 5000, a conference", "  stage one:   approved by Cem",
+            "Emre, 30000, a server", "  stage one:   approved by Cem",
+            "Cem, 30000, a training course", "  stage one:   approved by Deniz",
+            "Emre, 500000, a new office", "  stage one:   no one may approve it"
+        }, By(StageOneMain.Run));
+    }
+
+    /// <summary>StageTwoMain prints stage two's answer for each of the six expenses.</summary>
+    [Fact]
+    public void StageTwoMainOutput()
+    {
+        Assert.Equal(new[]
+        {
+            "Emre, 800, books", "  stage two:   approved by Elif",
+            "Emre, 5000, a laptop", "  stage two:   approved by Burak",
+            "Burak, 5000, a conference", "  stage two:   approved by Cem",
+            "Emre, 30000, a server", "  stage two:   approved by Cem",
+            "Cem, 30000, a training course", "  stage two:   approved by Deniz",
+            "Emre, 500000, a new office", "  stage two:   no one may approve it"
+        }, By(StageTwoMain.Run));
+    }
+
+    /// <summary>StageThreeMain marks the two expenses approved by the person who spent them.</summary>
+    [Fact]
+    public void StageThreeMainOutput()
+    {
+        Assert.Equal(new[]
+        {
+            "Emre, 800, books", "  stage three: approved by Elif",
+            "Emre, 5000, a laptop", "  stage three: approved by Burak",
+            "Burak, 5000, a conference", "  stage three: approved by Burak  <- his own expense",
+            "Emre, 30000, a server", "  stage three: approved by Cem",
+            "Cem, 30000, a training course", "  stage three: approved by Cem  <- his own expense",
+            "Emre, 500000, a new office", "  stage three: no one may approve it"
+        }, By(StageThreeMain.Run));
     }
 }

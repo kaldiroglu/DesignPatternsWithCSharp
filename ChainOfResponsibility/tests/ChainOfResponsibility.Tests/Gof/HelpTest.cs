@@ -1,6 +1,5 @@
 namespace dev.kaldiroglu.ChainOfResponsibility.Tests.Gof;
 
-using dev.kaldiroglu.ChainOfResponsibility.Gof;
 using dev.kaldiroglu.ChainOfResponsibility.Gof.Problem;
 using dev.kaldiroglu.ChainOfResponsibility.Gof.Solution;
 using Xunit;
@@ -64,23 +63,41 @@ public class HelpTest
         Assert.Equal(4, CountOf(code, "\" =>") + CountOf(code, "\" or \""));
     }
 
-    /// <summary>Main asks three controls in both designs and prints the same lines.</summary>
+    /// <summary>The problem's Main asks the help desk about four controls.</summary>
     [Fact]
-    public void MainOutput()
+    public void ProblemMainOutput()
     {
-        // Gof.Problem and Gof.Solution have a Main of their own, so the name is written in full.
-        IReadOnlyList<string> lines = By(global::dev.kaldiroglu.ChainOfResponsibility.Gof.Main.Run);
+        // Gof.Problem and Gof.Solution both have a Main, so the name is written in full.
         Assert.Equal(new[]
         {
-            "Before the pattern",
-            "  print button: Help: print the document.",
-            "  ok button:    Help: " + PrintDialog,
-            "  font button:  Help: " + Editor,
-            "With the chain",
-            "  print button: Help: print the document.",
-            "  ok button:    Help: " + PrintDialog,
-            "  font button:  Help: " + Editor
+            "print button: Help: print the document.",
+            "ok button: Help: " + PrintDialog,
+            "printer list: Help: " + PrintDialog,
+            "font button: Help: " + Editor,
+            "A new button is one more case in HelpDesk.helpFor."
+        }, By(global::dev.kaldiroglu.ChainOfResponsibility.Gof.Problem.Main.Run));
+    }
+
+    /// <summary>
+    /// The solution's Main asks four controls in the chain; the first three get the help
+    /// desk's answers.
+    /// </summary>
+    [Fact]
+    public void SolutionMainOutput()
+    {
+        IReadOnlyList<string> lines = By(global::dev.kaldiroglu.ChainOfResponsibility.Gof.Solution.Main.Run);
+        Assert.Equal(new[]
+        {
+            "print button (has help):        Help: print the document.",
+            "ok button (asks its dialog):    Help: " + PrintDialog,
+            "font button (asks the editor):  Help: " + Editor,
+            "no help anywhere in the chain:  No help is available."
         }, lines);
-        Assert.Equal(lines.Skip(1).Take(3), lines.Skip(5).Take(3));
+        HelpDesk desk = new HelpDesk();
+        string[] controls = ["print button", "ok button", "font button"];
+        for (int i = 0; i < controls.Length; i++)
+        {
+            Assert.EndsWith(desk.HelpFor(controls[i]), lines[i]);
+        }
     }
 }

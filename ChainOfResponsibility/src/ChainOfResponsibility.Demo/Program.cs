@@ -1,7 +1,9 @@
 // Most examples have a class called Main or Test. Aliases name them apart.
-using ExpenseProblemMain = dev.kaldiroglu.ChainOfResponsibility.Expense.Problem.Main;
-using ExpenseMain = dev.kaldiroglu.ChainOfResponsibility.Expense.Solution.Main;
-using GofMain = dev.kaldiroglu.ChainOfResponsibility.Gof.Main;
+using StageOneMain = dev.kaldiroglu.ChainOfResponsibility.Expense.Problem.StageOneMain;
+using StageTwoMain = dev.kaldiroglu.ChainOfResponsibility.Expense.Problem.StageTwoMain;
+using StageThreeMain = dev.kaldiroglu.ChainOfResponsibility.Expense.Problem.StageThreeMain;
+using SixExpensesMain = dev.kaldiroglu.ChainOfResponsibility.Expense.Solution.SixExpensesMain;
+using AuditLogMain = dev.kaldiroglu.ChainOfResponsibility.Expense.Solution.AuditLogMain;
 using GofProblemMain = dev.kaldiroglu.ChainOfResponsibility.Gof.Problem.Main;
 using GofSolutionMain = dev.kaldiroglu.ChainOfResponsibility.Gof.Solution.Main;
 using MaintenanceMain = dev.kaldiroglu.ChainOfResponsibility.Hw.Maintenance.Main;
@@ -27,11 +29,13 @@ public static class Program
 {
     private static readonly Dictionary<string, (string Group, Action Run)> Examples = new()
     {
-        ["expense-problem"] = ("WHO APPROVES AN EXPENSE", ExpenseProblemMain.Run),
-        ["expense"] = ("WHO APPROVES AN EXPENSE", ExpenseMain.Run),
+        ["expense-problem-stage-one"] = ("WHO APPROVES AN EXPENSE", StageOneMain.Run),
+        ["expense-problem-stage-two"] = ("WHO APPROVES AN EXPENSE", StageTwoMain.Run),
+        ["expense-problem-stage-three"] = ("WHO APPROVES AN EXPENSE", StageThreeMain.Run),
+        ["expense-six-expenses"] = ("WHO APPROVES AN EXPENSE", SixExpensesMain.Run),
+        ["expense-audit-log"] = ("WHO APPROVES AN EXPENSE", AuditLogMain.Run),
         ["gof-problem"] = ("GOF'S CONTEXT-SENSITIVE HELP", GofProblemMain.Run),
         ["gof-solution"] = ("GOF'S CONTEXT-SENSITIVE HELP", GofSolutionMain.Run),
-        ["gof"] = ("GOF'S CONTEXT-SENSITIVE HELP", GofMain.Run),
         ["hw-maintenance"] = ("HOMEWORK", MaintenanceMain.Run),
         ["hw-middleware"] = ("HOMEWORK", MiddlewareMain.Run),
         ["hw-cashdispenser"] = ("HOMEWORK", CashDispenserMain.Run),
