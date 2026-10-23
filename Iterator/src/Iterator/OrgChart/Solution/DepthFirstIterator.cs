@@ -16,7 +16,8 @@ namespace dev.kaldiroglu.Iterator.OrgChart.Solution;
 /// </para>
 /// <para>
 /// This is GoF implementation issue 7 (iterators for composites): an external iterator over
-/// a recursive structure must remember the path it took, here as a stack.
+/// a recursive structure must remember where it is in the tree. Here the stack of departments
+/// still to visit does that.
 /// </para>
 /// <para>
 /// A C# developer would usually write this walk with <c>yield return</c>, and the compiler
