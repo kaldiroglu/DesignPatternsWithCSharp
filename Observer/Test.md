@@ -4,7 +4,7 @@
 
 For further enquiry please contact Akin Kaldiroglu at akin@kaldiroglu.dev
 
-28 xUnit tests in one project, `tests/Observer.Tests`. All of them are **unit tests**: no
+33 xUnit tests in one project, `tests/Observer.Tests`. All of them are **unit tests**: no
 process boundary, no filesystem, no network. They are a port of the JUnit tests in
 `Design Patterns with Java`, package `dev.kaldiroglu.dp.behavioral.observer`: one C# test
 class for each Java test class, the same test names in PascalCase, the same assertions and
@@ -14,13 +14,15 @@ the same expected values.
 
 - **The price example, Part 1.** The feed that calls every screen, the screens that poll,
   and the screens that poll ten times a second: 100 reads, three of the four changes seen,
-  and the alert at 105 never fires.
+  and the alert at 105 never fires. `StageOneMain`, `StageTwoMain` and `FastSpikeMain` each
+  print the line their slide quotes.
 - **The price example, Part 3.** The `PriceFeed` with `IPriceListener`: every change is
   seen, the alert fires, a lambda can listen, a listener can leave during a notification,
-  and the price is set before the listeners are told. `Main.Run()` prints the two lines the
-  slides quote.
+  and the price is set before the listeners are told. `ListenersMain.Run()` and
+  `TwoWaysMain.Run()` print the lines the slides quote.
 - **GoF's clock timer.** Before and after the pattern, the same screen; the pull model; the
-  timer has no field of a clock type.
+  timer has no field of a clock type. `Problem.Main` and `Solution.Main` print what their
+  slides show.
 - **The magazines and the invoice.** What each subscriber prints, and that the port's
   `Observable` tells the accountant before the boss, who was added first.
 - **The .NET known uses** that the deck's table names.
@@ -32,13 +34,13 @@ restores it in `finally`, so the project turns off xUnit's parallel run in `Asse
 
 | File | Java tests | C# tests |
 |---|---|---|
-| `Price/ProblemTests.cs` | 4 | 4 |
-| `Price/SolutionTests.cs` | 8 | 8 |
-| `Gof/ClockTimerTests.cs` | 6 | 6 |
+| `Price/ProblemTests.cs` | 7 | 7 |
+| `Price/SolutionTests.cs` | 9 | 9 |
+| `Gof/ClockTimerTests.cs` | 7 | 7 |
 | `Publisher/PublisherTests.cs` | 3 | 3 |
 | `Payment/InvoiceTests.cs` | 5 | 4 |
 | `KnownUsesTests.cs` | 3 | 3 (different content, see below) |
-| **Total** | **29** | **28** |
+| **Total** | **34** | **33** |
 
 ## Java tests not ported, or changed
 

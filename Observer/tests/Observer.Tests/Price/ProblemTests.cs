@@ -102,5 +102,36 @@ namespace dev.kaldiroglu.Observer.Tests.Price
             Assert.Equal(1, feed.Reads - readsBefore);
             Assert.Empty(chart.Points);
         }
+
+        // StageOneMain prints every price on the chart, and the alert fired.
+        [Fact]
+        public void StageOneMainOutput()
+        {
+            Assert.Equal(new[]
+            {
+                "Stage one, the feed calls every screen: chart [102, 106, 100, 103], alert fired: true",
+            }, Printed.By(StageOneMain.Run));
+        }
+
+        // StageTwoMain prints the same price twice, then the change.
+        [Fact]
+        public void StageTwoMainOutput()
+        {
+            Assert.Equal(new[]
+            {
+                "Stage two, the screens poll every second: chart [100, 100, 102]",
+            }, Printed.By(StageTwoMain.Run));
+        }
+
+        // FastSpikeMain prints three changes seen, no alert, and 100 reads.
+        [Fact]
+        public void FastSpikeMainOutput()
+        {
+            Assert.Equal(new[]
+            {
+                "Stage three, ten polls a second for ten seconds: chart [102, 100, 103], "
+                    + "alert fired: false, reads 100",
+            }, Printed.By(FastSpikeMain.Run));
+        }
     }
 }

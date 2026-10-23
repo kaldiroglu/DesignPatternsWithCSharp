@@ -2,7 +2,8 @@ namespace dev.kaldiroglu.Observer.Tests.Gof
 {
     using global::dev.kaldiroglu.Observer.Gof.Solution;
     using Xunit;
-    using GofMain = global::dev.kaldiroglu.Observer.Gof.Main;
+    using ProblemMain = global::dev.kaldiroglu.Observer.Gof.Problem.Main;
+    using SolutionMain = global::dev.kaldiroglu.Observer.Gof.Solution.Main;
     using ProblemClockTimer = global::dev.kaldiroglu.Observer.Gof.Problem.ClockTimer;
 
     /// <summary>GoF's clock timer (Design Patterns, pp. 293-303), before and after the pattern.</summary>
@@ -93,20 +94,29 @@ namespace dev.kaldiroglu.Observer.Tests.Gof
             }
         }
 
-        // Main prints both screens and one observer left.
+        // problem.Main prints two ticks of both clocks, drawn by the timer.
         [Fact]
-        public void MainOutput()
+        public void ProblemMainOutput()
         {
-            var lines = Printed.By(GofMain.Run);
-
             Assert.Equal(new[]
             {
-                "Timer draws its clocks: [digital 00:00:01, analog second hand at 6 degrees, "
-                    + "digital 00:00:02, analog second hand at 12 degrees]",
-                "Clocks observe the timer: [digital 00:00:01, analog second hand at 6 degrees, "
-                    + "digital 00:00:02, analog second hand at 12 degrees, digital 00:00:03]",
-                "Observers left: 1",
-            }, lines);
+                "digital 00:00:01", "analog second hand at 6 degrees",
+                "digital 00:00:02", "analog second hand at 12 degrees",
+            }, Printed.By(ProblemMain.Run));
+        }
+
+        // solution.Main prints two observers, three ticks with the analog clock closed after two, and one observer left.
+        [Fact]
+        public void SolutionMainOutput()
+        {
+            Assert.Equal(new[]
+            {
+                "Observers: 2",
+                "digital 00:00:01", "analog second hand at 6 degrees",
+                "digital 00:00:02", "analog second hand at 12 degrees",
+                "digital 00:00:03",
+                "Observers after the analog clock is closed: 1",
+            }, Printed.By(SolutionMain.Run));
         }
     }
 }

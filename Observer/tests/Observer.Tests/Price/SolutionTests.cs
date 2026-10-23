@@ -3,7 +3,6 @@ namespace dev.kaldiroglu.Observer.Tests.Price
     using System.Reflection;
     using global::dev.kaldiroglu.Observer.Price.Solution;
     using Xunit;
-    using PriceMain = global::dev.kaldiroglu.Observer.Price.Solution.Main;
 
     /// <summary>
     /// The price feed with listeners. Every figure the Part 3 slides quote about it is
@@ -133,11 +132,11 @@ namespace dev.kaldiroglu.Observer.Tests.Price
             }
         }
 
-        // Main prints 100 reads and no alert for polling, and every change and the alert for listeners.
+        // TwoWaysMain prints 100 reads and no alert for polling, and every change and the alert for listeners.
         [Fact]
-        public void MainOutput()
+        public void TwoWaysMainOutput()
         {
-            var lines = Printed.By(PriceMain.Run);
+            var lines = Printed.By(TwoWaysMain.Run);
 
             Assert.Equal(new[]
             {
@@ -145,6 +144,17 @@ namespace dev.kaldiroglu.Observer.Tests.Price
                 "Listeners: chart [102, 106, 100, 103], alert fired: true, ticker ACME 103 up, "
                     + "lambda [100->102, 102->106, 106->100, 100->103]",
             }, lines);
+        }
+
+        // ListenersMain prints every change, the alert, the ticker and the lambda's log.
+        [Fact]
+        public void ListenersMainOutput()
+        {
+            Assert.Equal(new[]
+            {
+                "Listeners: chart [102, 106, 100, 103], alert fired: true, ticker ACME 103 up, "
+                    + "lambda [100->102, 102->106, 106->100, 100->103]",
+            }, Printed.By(ListenersMain.Run));
         }
     }
 }

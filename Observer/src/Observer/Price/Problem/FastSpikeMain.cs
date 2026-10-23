@@ -1,34 +1,18 @@
 namespace dev.kaldiroglu.Observer.Price.Problem;
 
 /// <summary>
-/// Runs the three stages. Stage one sees every price but knows every screen; stage three
-/// polls ten times a second and misses a spike to 106, so the alert at 105 never fires.
+/// Stage three meets a fast spike. The screens poll ten times a second and act only on a
+/// change, but the price goes to 106 and back to 100 between two polls, so the alert at 105
+/// never fires.
 /// </summary>
 /// <remarks>
 /// The Java original's <c>main</c>. Run it with
-/// <c>dotnet run --project src/Observer.Demo -- price-problem</c>.
+/// <c>dotnet run --project src/Observer.Demo -- price-problem-fast-spike</c>.
 /// </remarks>
-public static class Main
+public static class FastSpikeMain
 {
     public static void Run()
     {
-        var chart = new Chart();
-        var alert = new PriceAlert(105);
-        var direct = new DirectPriceFeed(chart, new Ticker(), alert);
-        foreach (int price in new[] { 102, 106, 100, 103 })
-        {
-            direct.SetPrice(price);
-        }
-        Console.WriteLine("Stage one, the feed calls every screen: chart " + Show(chart.Points)
-                + ", alert fired: " + Show(alert.Fired));
-        var feed = new PriceFeed(100);
-        var polled = new Chart();
-        var polling = new PollingReaders(feed, polled, new Ticker(), new PriceAlert(105));
-        polling.Poll();
-        polling.Poll();
-        feed.SetPrice(102);
-        polling.Poll();
-        Console.WriteLine("Stage two, the screens poll every second: chart " + Show(polled.Points));
         var fast = new PriceFeed(100);
         var changes = new Chart();
         var missed = new PriceAlert(105);

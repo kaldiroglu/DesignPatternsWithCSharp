@@ -1,10 +1,12 @@
 using dev.kaldiroglu.Observer.Price.Solution;
 // Several examples have a class called Main or Test, as the Java original does, and three
 // namespaces share a name with their main class (Publisher, Auction, Inbox). Aliases name
-// them apart.
-using PriceMain = dev.kaldiroglu.Observer.Price.Solution.Main;
-using PriceProblemMain = dev.kaldiroglu.Observer.Price.Problem.Main;
-using GofMain = dev.kaldiroglu.Observer.Gof.Main;
+// them apart. The price example has one runnable class per slide.
+using PriceStageOneMain = dev.kaldiroglu.Observer.Price.Problem.StageOneMain;
+using PriceStageTwoMain = dev.kaldiroglu.Observer.Price.Problem.StageTwoMain;
+using PriceFastSpikeMain = dev.kaldiroglu.Observer.Price.Problem.FastSpikeMain;
+using PriceListenersMain = dev.kaldiroglu.Observer.Price.Solution.ListenersMain;
+using PriceTwoWaysMain = dev.kaldiroglu.Observer.Price.Solution.TwoWaysMain;
 using GofProblemMain = dev.kaldiroglu.Observer.Gof.Problem.Main;
 using GofSolutionMain = dev.kaldiroglu.Observer.Gof.Solution.Main;
 using PaymentTest = dev.kaldiroglu.Observer.Payment.Test;
@@ -32,12 +34,14 @@ public static class Program
 {
     private static readonly Dictionary<string, (string Group, Action Run)> Examples = new()
     {
-        ["price-problem"] = ("A STOCK PRICE", PriceProblemMain.Run),
-        ["price"] = ("A STOCK PRICE", PriceMain.Run),
+        ["price-problem-stage-one"] = ("A STOCK PRICE", PriceStageOneMain.Run),
+        ["price-problem-stage-two"] = ("A STOCK PRICE", PriceStageTwoMain.Run),
+        ["price-problem-fast-spike"] = ("A STOCK PRICE", PriceFastSpikeMain.Run),
+        ["price-listeners"] = ("A STOCK PRICE", PriceListenersMain.Run),
+        ["price-two-ways"] = ("A STOCK PRICE", PriceTwoWaysMain.Run),
         ["price-event"] = ("A STOCK PRICE", PriceWithEvent),
         ["gof-problem"] = ("GOF'S CLOCK TIMER", GofProblemMain.Run),
         ["gof-solution"] = ("GOF'S CLOCK TIMER", GofSolutionMain.Run),
-        ["gof"] = ("GOF'S CLOCK TIMER", GofMain.Run),
         ["publisher"] = ("MAGAZINES AND SUBSCRIBERS", PublisherTest.Run),
         ["payment"] = ("AN INVOICE WITH AN OBSERVABLE BASE CLASS", PaymentTest.Run),
         ["hw-accountlog"] = ("HOMEWORK", AccountLogMain.Run),
@@ -77,10 +81,10 @@ public static class Program
     // ------------------------------------------------------- C# only
 
     /// <summary>
-    /// The same four prices as the <c>price</c> example, sent with a C# <c>event</c> instead
+    /// The same four prices as the <c>price-listeners</c> example, sent with a C# <c>event</c> instead
     /// of a list of listeners. The chart, the ticker and the alert are the same classes; each
     /// one is attached with <c>+=</c> through its <c>PriceChanged</c> method. The result is
-    /// the same as in the second line of <c>price</c>.
+    /// the same as in <c>price-listeners</c>.
     /// </summary>
     private static void PriceWithEvent()
     {

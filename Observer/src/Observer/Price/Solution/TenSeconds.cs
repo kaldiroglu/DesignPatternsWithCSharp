@@ -1,18 +1,14 @@
 namespace dev.kaldiroglu.Observer.Price.Solution;
 
 /// <summary>
-/// The same ten seconds of prices, read by stage three's polling readers and by listeners.
-/// The price spikes from 100 to 106 and back to 100 between two polls.
+/// The same ten seconds of prices, read two ways. The price spikes from 100 to 106 and back to
+/// 100 between two polls.
 /// </summary>
-/// <remarks>
-/// The Java original's <c>main</c>. Run it with
-/// <c>dotnet run --project src/Observer.Demo -- price</c>.
-/// </remarks>
-public static class Main
+internal static class TenSeconds
 {
-    public static void Run()
+    /// <summary>Stage three's readers poll ten times a second: 100 polls in ten seconds.</summary>
+    internal static string Polling()
     {
-        // Stage three: readers poll ten times a second (100 polls in ten seconds).
         var feed = new Problem.PriceFeed(100);
         var chart = new Problem.Chart();
         var ticker = new Problem.Ticker();
@@ -26,10 +22,13 @@ public static class Main
             if (tenth == 80) feed.SetPrice(103);
             readers.Poll();
         }
-        Console.WriteLine("Polling:   chart " + Show(chart.Points) + ", alert fired: " + Show(alert.Fired)
-                + ", reads " + (feed.Reads - readsBefore));
+        return "Polling:   chart " + Show(chart.Points) + ", alert fired: " + Show(alert.Fired)
+                + ", reads " + (feed.Reads - readsBefore);
+    }
 
-        // The Observer pattern: the feed tells its listeners.
+    /// <summary>The Observer pattern: the feed tells its listeners, one of them a lambda.</summary>
+    internal static string Listeners()
+    {
         var observed = new PriceFeed("ACME", 100);
         var observedChart = new Chart();
         var observedTicker = new Ticker();
@@ -44,13 +43,13 @@ public static class Main
         observed.SetPrice(106);
         observed.SetPrice(100);
         observed.SetPrice(103);
-        Console.WriteLine("Listeners: chart " + Show(observedChart.Points) + ", alert fired: "
-                + Show(observedAlert.Fired) + ", ticker " + observedTicker.Shown + ", lambda " + Show(log));
+        return "Listeners: chart " + Show(observedChart.Points) + ", alert fired: "
+                + Show(observedAlert.Fired) + ", ticker " + observedTicker.Shown + ", lambda " + Show(log);
     }
 
     /// <summary>Prints a list the way Java's <c>List.toString()</c> does: <c>[a, b, c]</c>.</summary>
-    internal static string Show<T>(IEnumerable<T> items) => "[" + string.Join(", ", items) + "]";
+    private static string Show<T>(IEnumerable<T> items) => "[" + string.Join(", ", items) + "]";
 
     /// <summary>Prints a <c>bool</c> the way Java does: <c>true</c> or <c>false</c>.</summary>
-    internal static string Show(bool value) => value ? "true" : "false";
+    private static string Show(bool value) => value ? "true" : "false";
 }

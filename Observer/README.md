@@ -25,7 +25,7 @@ knowing any of them by class.
 
 | Namespace | What it shows |
 |---|---|
-| `Observer.Price` | The main worked example: a stock price with three readers — a chart, a ticker and an alert that must fire when the price reaches 105. `Problem` is three naive stages: the feed calls every reader itself (`DirectPriceFeed`), the readers poll the feed once a second (`PollingReaders`), and the readers poll ten times a second and act only on a change (`ChangeOnlyReaders`). `Solution` has the subject `PriceFeed`, the observer `IPriceListener`, the event `PriceChange`, and the observers `Chart`, `Ticker` and `PriceAlert`. `Main` runs the same prices through stage three and through listeners. `PriceFeedWithEvent` is the C# `event` form of the same subject. |
+| `Observer.Price` | The main worked example: a stock price with three readers — a chart, a ticker and an alert that must fire when the price reaches 105. `Problem` is three naive stages: the feed calls every reader itself (`DirectPriceFeed`), the readers poll the feed once a second (`PollingReaders`), and the readers poll ten times a second and act only on a change (`ChangeOnlyReaders`). `Solution` has the subject `PriceFeed`, the observer `IPriceListener`, the event `PriceChange`, and the observers `Chart`, `Ticker` and `PriceAlert`. Each slide has its own runnable class: `StageOneMain`, `StageTwoMain` and `FastSpikeMain` in `Problem`, `ListenersMain` and `TwoWaysMain` in `Solution` (`TwoWaysMain` runs the same prices through stage three and through listeners). `PriceFeedWithEvent` is the C# `event` form of the same subject. |
 | `Observer.Gof` | GoF's own example (Design Patterns, pp. 293–303). `Problem.ClockTimer` draws both clocks itself. `Solution` has `Subject`, `IObserver`, the concrete subject `ClockTimer`, and the concrete observers `DigitalClock` and `AnalogClock`, which pull the time after they are told something changed. |
 | `Observer.Publisher` | A publisher prints magazines (`Newsweek`, `FourFourTwo`), and people and institutions subscribe to them (`IndividualSubscriber`, `InstitutionalSubscriber`). When a new issue comes out, every subscriber receives it. |
 | `Observer.Payment` | An invoice tells the boss and the accountant when a payment is made. In Java it uses the JDK's `java.util.Observable` and `java.util.Observer`; here it uses a small `Observable` class and `IObserver` interface written for the port. |
@@ -68,7 +68,7 @@ made, so raising an event calls the handlers that were there when it started —
 `PriceFeed` makes by hand. `EventHandler<T>` does not require `T` to extend `EventArgs`, so
 the `PriceChange` record is the event data as it is. The runner's `price-event` example
 attaches the same `Chart`, `Ticker` and `PriceAlert` with `+=` and prints the same result as
-the second line of `price`. It is the only class here with no Java counterpart, and the
+`price-listeners`. It is the only class here with no Java counterpart, and the
 runner prints it after the Java examples' output, so that output is unchanged.
 
 **`IObservable<T>` and `IObserver<T>`.** .NET has a pair of interfaces in `System` with
@@ -150,8 +150,8 @@ Turkish and a Swedish locale. What had to change:
   and `Inbox` each hold a class with the same name. Inside each namespace the plain name
   means the class, because a type in the current namespace wins. In `Observer.Demo` the
   runner reaches them through aliases (`PublisherTest`, `AuctionMain`, `InboxMain`), and
-  the other `Main` and `Test` classes through `PriceMain`, `GofMain`, `PaymentTest` and so
-  on. The root
+  the other `Main` and `Test` classes through `PriceStageOneMain`, `GofProblemMain`,
+  `PaymentTest` and so on. The root
   namespace ends in `Observer`, but no type is named `Observer`: the interfaces are
   `IObserver`, so the namespace and the types never meet. `Payment.IObserver` and
   `Gof.Solution.IObserver` do not clash with `System.IObserver<T>`, because a generic type
@@ -182,11 +182,13 @@ cd ~/"Development/NET/Design Patterns/Design Patterns with CSharp/Observer"
 ~/.dotnet/dotnet run --project src/Observer.Demo
 
 # one example on its own
-~/.dotnet/dotnet run --project src/Observer.Demo -- price
+~/.dotnet/dotnet run --project src/Observer.Demo -- price-two-ways
 ```
 
-The runner accepts: `price-problem`, `price`, `price-event`, `gof-problem`,
-`gof-solution`, `gof`, `publisher`, `payment`, `hw-accountlog`, `hw-auction`, `hw-inbox`.
+The runner accepts: `price-problem-stage-one`, `price-problem-stage-two`,
+`price-problem-fast-spike`, `price-listeners`, `price-two-ways`, `price-event`,
+`gof-problem`, `gof-solution`, `publisher`, `payment`, `hw-accountlog`, `hw-auction`,
+`hw-inbox`.
 
 To run the tests:
 
