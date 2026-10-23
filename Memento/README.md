@@ -97,9 +97,9 @@ The load methods' XML comments say so.
 
 ## Differences from the Java original
 
-The port is faithful in behavior. The output of `game-setters`, `game-history`,
-`game-copy`, `game`, `gof-problem`, `gof-solution`, `gof`, `hw-editor`, `hw-rollback`,
-`hw-incremental` and `gui` is byte for byte the output of the Java `main` methods. These
+The port is faithful in behavior. The output of `game-problem-setters`,
+`game-problem-history`, `game-problem-copy`, `game`, `gof-problem`, `gof-solution`,
+`hw-editor`, `hw-rollback`, `hw-incremental` and `gui` is byte for byte the output of the Java `main` methods. These
 outputs are the same under a US English, a Turkish and a Swedish locale. `pattern1` and `pattern2` run two threads each, so the order of their
 lines changes from run to run in both languages. In the runs checked, the C# and the Java
 printed the same number of lines, the same number of saves and state changes, and the same
@@ -176,22 +176,20 @@ undo lines on the error stream (`state-6` and `state-16` for `pattern1`, `state-
     current namespace is found first. `Game.Solution.Main` writes the stage classes as
     `Problem.Setters.Player` and `Problem.Copy.Game`: from inside `Game.Solution`, `Problem`
     is found as a sibling namespace. The Java writes their full package names.
-  - `Gof.Main` writes `Problem.Graphic` and `Solution.Graphic` in the same way.
   - Inside `Game.Problem.Setters` and `Game.Problem.Copy`, the plain names `Player` and
     `Game` mean that stage's classes, so their `Main` classes write `new Game()` as the Java
     does.
-  - Thirteen namespaces have a class named `Main` or `Test`, as in the Java. `Main` and
+  - Twelve namespaces have a class named `Main` or `Test`, as in the Java. `Main` and
     `Test` are static classes with a `Run()` method, which C# allows. In `Memento.Demo` the
     runner reaches them through aliases: `GameSettersMain`, `GameHistoryMain`,
-    `GameCopyMain`, `GameMain`, `GofProblemMain`, `GofSolutionMain`, `GofMain`,
-    `EditorMain`, `RollbackMain`, `IncrementalMain`, `GuiTest`, `Pattern1Test` and
+    `GameCopyMain`, `GameMain`, `GofProblemMain`, `GofSolutionMain`, `EditorMain`, `RollbackMain`, `IncrementalMain`, `GuiTest`, `Pattern1Test` and
     `Pattern2Test`.
 - **The `uml/` diagrams, the `CD1.png` and `SD1.png` images and the per-package `README.md`
   files in the Java packages are not ported yet.** This README carries their content.
 
 ## Tests
 
-`tests/Memento.Tests` holds 27 xUnit tests in 9 test classes. They are ported from the
+`tests/Memento.Tests` holds 31 xUnit tests in 9 test classes. They are ported from the
 JUnit tests of the Java repository, one C# test class for each Java test class, with the
 same expected values, except where `Test.md` notes a change. `Test.md` lists what each
 class tests, and the Java tests that are not ported, with the reason.
@@ -215,9 +213,9 @@ cd ~/"Development/NET/Design Patterns/Design Patterns with CSharp/Memento"
 ~/.dotnet/dotnet run --project src/Memento.Demo -- game
 ```
 
-The runner accepts: `game-setters`, `game-history`, `game-copy`, `game`, `gof-problem`,
-`gof-solution`, `gof`, `hw-editor`, `hw-rollback`, `hw-incremental`, `gui`, `pattern1`,
-`pattern2`.
+The runner accepts: `game-problem-setters`, `game-problem-history`, `game-problem-copy`,
+`game`, `gof-problem`, `gof-solution`, `hw-editor`, `hw-rollback`, `hw-incremental`, `gui`,
+`pattern1`, `pattern2`. Each prints the output of one slide.
 
 Run the tests:
 

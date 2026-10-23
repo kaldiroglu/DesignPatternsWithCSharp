@@ -5,7 +5,6 @@ using GameCopyMain = dev.kaldiroglu.Memento.Game.Problem.Copy.Main;
 using GameMain = dev.kaldiroglu.Memento.Game.Solution.Main;
 using GofProblemMain = dev.kaldiroglu.Memento.Gof.Problem.Main;
 using GofSolutionMain = dev.kaldiroglu.Memento.Gof.Solution.Main;
-using GofMain = dev.kaldiroglu.Memento.Gof.Main;
 using EditorMain = dev.kaldiroglu.Memento.Hw.Editor.Main;
 using RollbackMain = dev.kaldiroglu.Memento.Hw.Rollback.Main;
 using IncrementalMain = dev.kaldiroglu.Memento.Hw.Incremental.Main;
@@ -30,13 +29,12 @@ public static class Program
 {
     private static readonly Dictionary<string, (string Group, Action Run)> Examples = new()
     {
-        ["game-setters"] = ("A GAME CHECKPOINT", GameSettersMain.Run),
-        ["game-history"] = ("A GAME CHECKPOINT", GameHistoryMain.Run),
-        ["game-copy"] = ("A GAME CHECKPOINT", GameCopyMain.Run),
+        ["game-problem-setters"] = ("A GAME CHECKPOINT", GameSettersMain.Run),
+        ["game-problem-history"] = ("A GAME CHECKPOINT", GameHistoryMain.Run),
+        ["game-problem-copy"] = ("A GAME CHECKPOINT", GameCopyMain.Run),
         ["game"] = ("A GAME CHECKPOINT", GameMain.Run),
         ["gof-problem"] = ("GOF'S CONSTRAINT SOLVER", GofProblemMain.Run),
         ["gof-solution"] = ("GOF'S CONSTRAINT SOLVER", GofSolutionMain.Run),
-        ["gof"] = ("GOF'S CONSTRAINT SOLVER", GofMain.Run),
         ["hw-editor"] = ("HOMEWORK", EditorMain.Run),
         ["hw-rollback"] = ("HOMEWORK", RollbackMain.Run),
         ["hw-incremental"] = ("HOMEWORK", IncrementalMain.Run),

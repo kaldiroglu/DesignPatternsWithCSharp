@@ -5,6 +5,7 @@ namespace dev.kaldiroglu.Memento.Tests.Game.Problem.Copy;
 using dev.kaldiroglu.Memento.Game.Problem.Copy;
 using Xunit;
 using static dev.kaldiroglu.Memento.Tests.Methods;
+using static dev.kaldiroglu.Memento.Tests.Printed;
 
 /// <summary>Stage three: the game keeps a copy of the player, and the copy shares the inventory list.</summary>
 public class CopyTest
@@ -42,5 +43,18 @@ public class CopyTest
     public void NoPublicSetters()
     {
         Assert.Empty(PublicSettersOf(typeof(Player)));
+    }
+
+    /// <summary>Main prints the play: after loading the player carries <c>[shield, potion]</c>.</summary>
+    [Fact]
+    public void MainOutput()
+    {
+        Assert.Equal(new[]
+        {
+            "At the checkpoint: health 100, at bridge, carrying [sword, shield]",
+            "In the cave:       health 0, at cave, carrying [shield, potion]",
+            "After loading:     health 100, at bridge, carrying [shield, potion]",
+            "Health and place are back, but the inventory is the one from the cave."
+        }, By(Main.Run));
     }
 }

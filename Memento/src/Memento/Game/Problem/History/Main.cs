@@ -6,7 +6,7 @@ namespace dev.kaldiroglu.Memento.Game.Problem.History;
 /// </summary>
 /// <remarks>
 /// Run it with
-/// <c>dotnet run --project src/Memento.Demo -- game-history</c>.
+/// <c>dotnet run --project src/Memento.Demo -- game-problem-history</c>.
 /// </remarks>
 public static class Main
 {

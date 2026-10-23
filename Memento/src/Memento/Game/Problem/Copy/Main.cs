@@ -6,7 +6,7 @@ namespace dev.kaldiroglu.Memento.Game.Problem.Copy;
 /// </summary>
 /// <remarks>
 /// Run it with
-/// <c>dotnet run --project src/Memento.Demo -- game-copy</c>.
+/// <c>dotnet run --project src/Memento.Demo -- game-problem-copy</c>.
 /// </remarks>
 public static class Main
 {

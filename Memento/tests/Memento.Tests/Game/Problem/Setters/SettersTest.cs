@@ -5,6 +5,7 @@ namespace dev.kaldiroglu.Memento.Tests.Game.Problem.Setters;
 using dev.kaldiroglu.Memento.Game.Problem.Setters;
 using Xunit;
 using static dev.kaldiroglu.Memento.Tests.Methods;
+using static dev.kaldiroglu.Memento.Tests.Printed;
 
 /// <summary>Stage one: the game reads every field out and writes every field back.</summary>
 public class SettersTest
@@ -46,5 +47,18 @@ public class SettersTest
         player.Health = 999;
         Assert.Equal(999, player.Health);
         Assert.Equal(new[] { "set_Health", "set_Inventory", "set_Position" }, PublicSettersOf(typeof(Player)));
+    }
+
+    /// <summary>Main prints the play, then <c>Health</c> set to 999 from outside the player.</summary>
+    [Fact]
+    public void MainOutput()
+    {
+        Assert.Equal(new[]
+        {
+            "At the checkpoint: health 100, at bridge, carrying [sword, shield]",
+            "In the cave:       health 0, at cave, carrying [shield, potion]",
+            "After loading:     health 100, at bridge, carrying [sword, shield]",
+            "Any code may call setHealth(999): health 999, at bridge, carrying [sword, shield]"
+        }, By(Main.Run));
     }
 }

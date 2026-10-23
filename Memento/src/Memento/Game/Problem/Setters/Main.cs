@@ -6,7 +6,7 @@ namespace dev.kaldiroglu.Memento.Game.Problem.Setters;
 /// </summary>
 /// <remarks>
 /// Run it with
-/// <c>dotnet run --project src/Memento.Demo -- game-setters</c>.
+/// <c>dotnet run --project src/Memento.Demo -- game-problem-setters</c>.
 /// </remarks>
 public static class Main
 {

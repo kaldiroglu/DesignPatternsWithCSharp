@@ -97,20 +97,27 @@ public class ConstraintSolverTest
         Assert.DoesNotContain(fields, f => f.FieldType == memento);
     }
 
-    /// <summary>Main prints the bend at each step in both designs.</summary>
+    /// <summary>Problem.Main prints the bend at each step: after undo it is still at 20.</summary>
     [Fact]
-    public void MainOutput()
+    public void ProblemMainOutput()
     {
         Assert.Equal(new[]
         {
-            "Before the pattern",
-            "  at the start: A 0 -> bend 50 -> B 100",
-            "  after move:   A 0 -> bend 20 -> B 40",
-            "  after undo:   A 0 -> bend 20 -> B 100",
-            "With a memento",
-            "  at the start: A 0 -> bend 50 -> B 100",
-            "  after move:   A 0 -> bend 20 -> B 40",
-            "  after undo:   A 0 -> bend 50 -> B 100"
-        }, By(global::dev.kaldiroglu.Memento.Gof.Main.Run));
+            "At the start: A 0 -> bend 50 -> B 100",
+            "After move:   A 0 -> bend 20 -> B 40",
+            "After undo:   A 0 -> bend 20 -> B 100"
+        }, By(global::dev.kaldiroglu.Memento.Gof.Problem.Main.Run));
+    }
+
+    /// <summary>Solution.Main prints the bend at each step: after undo it is at 50 again.</summary>
+    [Fact]
+    public void SolutionMainOutput()
+    {
+        Assert.Equal(new[]
+        {
+            "At the start: A 0 -> bend 50 -> B 100",
+            "After move:   A 0 -> bend 20 -> B 40",
+            "After undo:   A 0 -> bend 50 -> B 100"
+        }, By(global::dev.kaldiroglu.Memento.Gof.Solution.Main.Run));
     }
 }

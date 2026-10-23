@@ -4,6 +4,7 @@ using System.Reflection;
 using dev.kaldiroglu.Memento.Game.Problem.History;
 using Xunit;
 using static dev.kaldiroglu.Memento.Tests.Methods;
+using static dev.kaldiroglu.Memento.Tests.Printed;
 
 /// <summary>Stage two: the player keeps its own checkpoints.</summary>
 public class HistoryTest
@@ -37,5 +38,18 @@ public class HistoryTest
         Assert.Contains(
             typeof(Player).GetFields(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.DeclaredOnly),
             f => f.FieldType.IsGenericType && f.FieldType.GetGenericTypeDefinition() == typeof(Stack<>));
+    }
+
+    /// <summary>Main prints the play: loading is correct, and the player keeps the saves.</summary>
+    [Fact]
+    public void MainOutput()
+    {
+        Assert.Equal(new[]
+        {
+            "At the checkpoint: health 100, at bridge, carrying [sword, shield]",
+            "In the cave:       health 0, at cave, carrying [shield, potion]",
+            "After loading:     health 100, at bridge, carrying [sword, shield]",
+            "The save slots are a field of Player, not of the game."
+        }, By(Main.Run));
     }
 }
