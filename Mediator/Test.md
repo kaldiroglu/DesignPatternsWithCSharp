@@ -4,9 +4,9 @@
 
 For further enquiry please contact Akin Kaldiroglu at akin@kaldiroglu.dev
 
-25 xUnit tests in one project, `tests/Mediator.Tests`. All of them are **unit tests**: no
+31 xUnit tests in one project, `tests/Mediator.Tests`. All of them are **unit tests**: no
 process boundary, no network, no threads and no sleeping. Two tests read source files of
-the library, and three tests capture `Console.Out`.
+the library, and eight tests capture `Console.Out`.
 
 The tests are ported from the JUnit tests of the Java repository
 (`src/test/java/dev/kaldiroglu/dp/behavioral/mediator`). Each Java test class has one C#
@@ -31,17 +31,17 @@ PascalCase, and the expected values are the same. The Java `@DisplayName` text i
 
 | File | Tests | What it tests |
 |---|---|---|
-| `Chat/Problem/Direct/DirectTest.cs` | 3 | Stage one: four members hold 12 references; a fifth member is added to one list only. |
-| `Chat/Problem/Directory/DirectoryTest.cs` | 3 | Stage two: one directory; every sender applies the block rule, written twice in `Member`. |
-| `Chat/Problem/Bus/BusTest.cs` | 3 | Stage three: the bus delivers a private message to 3 clients, and the guest client shows it. |
-| `Chat/Solution/SolutionTest.cs` | 4 | The chat room delivers to Mert only, keeps the blocks, is the only reference a member holds; `Main.Run()` output. |
-| `Gof/FontDialogTest.cs` | 5 | GoF's font dialog with a director; who holds whom before and after; `Main.Run()` output. |
+| `Chat/Problem/Direct/DirectTest.cs` | 4 | Stage one: four members hold 12 references; a fifth member is added to one list only; `Main.Run()` output. |
+| `Chat/Problem/Directory/DirectoryTest.cs` | 4 | Stage two: one directory; every sender applies the block rule, written twice in `Member`; `Main.Run()` output. |
+| `Chat/Problem/Bus/BusTest.cs` | 4 | Stage three: the bus delivers a private message to 3 clients, and the guest client shows it; `Main.Run()` output. |
+| `Chat/Solution/SolutionTest.cs` | 5 | The chat room delivers to Mert only, keeps the blocks, is the only reference a member holds; the output of `ReferencesMain.Run()` and `TwoWaysMain.Run()`. |
+| `Gof/FontDialogTest.cs` | 7 | GoF's font dialog with a director; who holds whom before and after; both designs give the same results; the output of `Problem.Main.Run()` and `Solution.Main.Run()`. |
 | `Traffic/TrafficPoliceTest.cs` | 1 | One vehicle in the junction at a time, with a recording vehicle instead of `Car`. |
 | `Hw/BankQueue/QueueManagerTest.cs` | 2 | Homework 1: customers and tellers paired in arrival order; neither holds the other. |
 | `Hw/AirTraffic/ControlTowerTest.cs` | 2 | Homework 2: one aircraft on the runway at a time; every public member takes the lock. |
 | `Hw/BookingForm/BookingFormTest.cs` | 2 | Homework 3: Book needs a room, a date and people who fit; a small room warns. |
 
-Java has 10 test classes and 26 test methods. 9 classes and 25 methods are ported.
+Java has 10 test classes and 32 test methods. 9 classes and 31 methods are ported.
 
 ## Java tests not ported
 

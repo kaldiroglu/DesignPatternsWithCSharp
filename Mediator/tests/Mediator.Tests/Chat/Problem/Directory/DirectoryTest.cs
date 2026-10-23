@@ -48,4 +48,17 @@ public class DirectoryTest
         Assert.Equal(2, CountOf(member, "blocked.Contains(Name)"));
         Assert.Equal(0, CountOf(CodeOf("Chat/Problem/Directory/Directory.cs"), "blocked"));
     }
+
+    /// <summary>Main prints one directory of three members, and the block applied by the sender.</summary>
+    [Fact]
+    public void MainOutput()
+    {
+        Assert.Equal(new[]
+        {
+            "Members in the directory: 3",
+            "Elif's inbox: [Burak: Lunch at one?]",
+            "Mert's inbox: [Elif (private): Your review is late.]  (Burak is blocked)",
+            "The block is checked in Member.say and Member.whisper, by the sender."
+        }, By(dev.kaldiroglu.Mediator.Chat.Problem.Directory.Main.Run));
+    }
 }

@@ -1,7 +1,7 @@
 namespace dev.kaldiroglu.Mediator.Tests.Chat.Solution;
 
-// These directives are inside the namespace, so that Member and Main mean the room's
-// classes and not anything found further out.
+// These directives are inside the namespace, so that Member means the room's class and
+// not anything found further out.
 using dev.kaldiroglu.Mediator.Chat.Solution;
 using Xunit;
 using static dev.kaldiroglu.Mediator.Tests.Fields;
@@ -56,13 +56,20 @@ public class SolutionTest
         Assert.Equal(1, HeldBy(typeof(Member)).Count(t => t == typeof(ChatRoom)));
     }
 
-    /// <summary>Main runs stage one, stage three and the room, and prints the figures on the slides.</summary>
+    /// <summary>ReferencesMain prints the twelve references of stage one.</summary>
     [Fact]
-    public void MainOutput()
+    public void ReferencesMainOutput()
+    {
+        Assert.Equal(new[] { "Stage one: 4 members hold 12 references to each other." },
+            By(ReferencesMain.Run));
+    }
+
+    /// <summary>TwoWaysMain sends the same private message through the bus and the room, and prints the table on the slide.</summary>
+    [Fact]
+    public void TwoWaysMainOutput()
     {
         Assert.Equal(new[]
         {
-            "Stage one: 4 members hold 12 references to each other.",
             "Stage three: Elif sends Mert a private message.",
             "  delivered to: [Burak, Mert, Can]",
             "  Mert shows:   [Elif (private): Your review is late.]",
@@ -76,6 +83,6 @@ public class SolutionTest
             "  Elif shows:   [Burak: Lunch at one?]",
             "  Mert shows:   [Elif (private): Your review is late.]",
             "  Can shows:    [Burak: Lunch at one?]"
-        }, By(Main.Run));
+        }, By(TwoWaysMain.Run));
     }
 }

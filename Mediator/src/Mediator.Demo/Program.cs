@@ -2,10 +2,10 @@
 using ChatDirectMain = dev.kaldiroglu.Mediator.Chat.Problem.Direct.Main;
 using ChatDirectoryMain = dev.kaldiroglu.Mediator.Chat.Problem.Directory.Main;
 using ChatBusMain = dev.kaldiroglu.Mediator.Chat.Problem.Bus.Main;
-using ChatMain = dev.kaldiroglu.Mediator.Chat.Solution.Main;
+using ChatReferencesMain = dev.kaldiroglu.Mediator.Chat.Solution.ReferencesMain;
+using ChatTwoWaysMain = dev.kaldiroglu.Mediator.Chat.Solution.TwoWaysMain;
 using GofProblemMain = dev.kaldiroglu.Mediator.Gof.Problem.Main;
 using GofSolutionMain = dev.kaldiroglu.Mediator.Gof.Solution.Main;
-using GofMain = dev.kaldiroglu.Mediator.Gof.Main;
 using BankQueueMain = dev.kaldiroglu.Mediator.Hw.BankQueue.Main;
 using AirTrafficMain = dev.kaldiroglu.Mediator.Hw.AirTraffic.Main;
 using BookingFormMain = dev.kaldiroglu.Mediator.Hw.BookingForm.Main;
@@ -20,7 +20,7 @@ namespace dev.kaldiroglu.Mediator.Demo;
 /// from run to run.
 /// </para>
 /// <para>
-/// Each example runs on its own — <c>dotnet run -- gof</c> — and with no argument all of them
+/// Each example runs on its own — <c>dotnet run -- gof-problem</c> — and with no argument all of them
 /// run in the order the course presents them. <c>traffic</c> is last, because its threads go
 /// on printing after its <c>Run()</c> returns.
 /// </para>
@@ -29,13 +29,13 @@ public static class Program
 {
     private static readonly Dictionary<string, (string Group, Action Run)> Examples = new()
     {
-        ["chat-direct"] = ("A TEAM CHAT AND ITS PRIVATE MESSAGES", ChatDirectMain.Run),
-        ["chat-directory"] = ("A TEAM CHAT AND ITS PRIVATE MESSAGES", ChatDirectoryMain.Run),
-        ["chat-bus"] = ("A TEAM CHAT AND ITS PRIVATE MESSAGES", ChatBusMain.Run),
-        ["chat"] = ("A TEAM CHAT AND ITS PRIVATE MESSAGES", ChatMain.Run),
+        ["chat-problem-direct"] = ("A TEAM CHAT AND ITS PRIVATE MESSAGES", ChatDirectMain.Run),
+        ["chat-problem-directory"] = ("A TEAM CHAT AND ITS PRIVATE MESSAGES", ChatDirectoryMain.Run),
+        ["chat-problem-bus"] = ("A TEAM CHAT AND ITS PRIVATE MESSAGES", ChatBusMain.Run),
+        ["chat-references"] = ("A TEAM CHAT AND ITS PRIVATE MESSAGES", ChatReferencesMain.Run),
+        ["chat-two-ways"] = ("A TEAM CHAT AND ITS PRIVATE MESSAGES", ChatTwoWaysMain.Run),
         ["gof-problem"] = ("GOF'S FONT DIALOG", GofProblemMain.Run),
         ["gof-solution"] = ("GOF'S FONT DIALOG", GofSolutionMain.Run),
-        ["gof"] = ("GOF'S FONT DIALOG", GofMain.Run),
         ["hw-bankqueue"] = ("HOMEWORK", BankQueueMain.Run),
         ["hw-airtraffic"] = ("HOMEWORK", AirTrafficMain.Run),
         ["hw-bookingform"] = ("HOMEWORK", BookingFormMain.Run),

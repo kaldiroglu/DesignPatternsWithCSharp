@@ -8,7 +8,7 @@ namespace dev.kaldiroglu.Mediator.Chat.Problem.Directory;
 /// </summary>
 /// <remarks>
 /// Run it with
-/// <c>dotnet run --project src/Mediator.Demo -- chat-directory</c>.
+/// <c>dotnet run --project src/Mediator.Demo -- chat-problem-directory</c>.
 /// </remarks>
 public static class Main
 {

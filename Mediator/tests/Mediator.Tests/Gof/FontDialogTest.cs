@@ -1,6 +1,5 @@
 namespace dev.kaldiroglu.Mediator.Tests.Gof;
 
-using dev.kaldiroglu.Mediator.Gof;
 using dev.kaldiroglu.Mediator.Gof.Problem;
 using dev.kaldiroglu.Mediator.Gof.Solution;
 using Xunit;
@@ -59,22 +58,50 @@ public class FontDialogTest
         Assert.Equal(new[] { typeof(DialogDirector) }, HeldBy(typeof(Widget)));
     }
 
-    /// <summary>Main runs the same steps in both designs and prints the same lines.</summary>
+    /// <summary>Both designs give the same field, the same OK button and the same result for the same steps.</summary>
     [Fact]
-    public void MainOutput()
+    public void BothDesignsBehaveTheSame()
     {
-        // Gof.Problem and Gof.Solution have a Main of their own, so the name is written in full.
-        IReadOnlyList<string> lines = By(global::dev.kaldiroglu.Mediator.Gof.Main.Run);
+        FontDialog before = new FontDialog();
+        FontDialogDirector after = new FontDialogDirector();
+        before.FontList.Select("Helvetica");
+        after.FontList.Select("Helvetica");
+        Assert.Equal(before.FontName.Text, after.FontName.Text);
+        Assert.Equal(before.Ok.Enabled, after.Ok.Enabled);
+
+        before.FontName.SetText("");
+        after.FontName.Type("");
+        Assert.Equal(before.Ok.Enabled, after.Ok.Enabled);
+
+        before.FontName.SetText("Times");
+        before.Ok.Click(before.FontName.Text);
+        after.FontName.Type("Times");
+        after.Ok.Click();
+        Assert.Equal(before.Log, after.Log);
+    }
+
+    /// <summary>The problem's Main prints the three steps without a director.</summary>
+    [Fact]
+    public void ProblemMainOutput()
+    {
         Assert.Equal(new[]
         {
-            "Before the pattern",
-            "  after selecting: field 'Helvetica', OK enabled true",
-            "  after clearing:  OK enabled false",
-            "  after OK:        [font set to Times]",
-            "With a director",
-            "  after selecting: field 'Helvetica', OK enabled true",
-            "  after clearing:  OK enabled false",
-            "  after OK:        [font set to Times]"
-        }, lines);
+            "After selecting: field 'Helvetica', OK enabled true",
+            "After clearing:  OK enabled false",
+            "After OK:        [font set to Times]",
+            "ListBox holds the EntryField, and EntryField holds the Button."
+        }, By(global::dev.kaldiroglu.Mediator.Gof.Problem.Main.Run));
+    }
+
+    /// <summary>The solution's Main prints the same three steps with a director, then Cancel.</summary>
+    [Fact]
+    public void SolutionMainOutput()
+    {
+        Assert.Equal(new[]
+        {
+            "After selecting: field 'Helvetica', OK enabled true",
+            "After clearing:  OK enabled false",
+            "After OK and Cancel: [font set to Times, dialog closed]"
+        }, By(global::dev.kaldiroglu.Mediator.Gof.Solution.Main.Run));
     }
 }

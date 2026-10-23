@@ -1,40 +1,24 @@
-using System.Globalization;
 using dev.kaldiroglu.Mediator.Chat.Problem.Bus;
 
 namespace dev.kaldiroglu.Mediator.Chat.Solution;
 
 /// <summary>
-/// Runs the chat through stage one, stage three and the chat room.
+/// Sends the same private message from Elif to Mert two ways: through the message bus of
+/// stage three, and through the chat room.
 /// <para>
 /// The promise: a private message is seen only by the person it is sent to. Elif, Burak and
-/// Mert are on the team; Can joins as a guest.
+/// Mert are on the team; Can joins as a guest. Then Mert blocks Burak, and Burak says
+/// something to everyone.
 /// </para>
 /// </summary>
 /// <remarks>
 /// Run it with
-/// <c>dotnet run --project src/Mediator.Demo -- chat</c>.
+/// <c>dotnet run --project src/Mediator.Demo -- chat-two-ways</c>.
 /// </remarks>
-public static class Main
+public static class TwoWaysMain
 {
     public static void Run()
     {
-        // stage one: everyone holds everyone
-        // Inside this namespace the plain name Member means the room's member, so stage one's
-        // member is written Problem.Direct.Member.
-        Problem.Direct.Member elif = new("Elif"), burak = new("Burak"), mert = new("Mert"),
-                selin = new("Selin");
-        List<Problem.Direct.Member> team = [elif, burak, mert, selin];
-        for (int i = 0; i < team.Count; i++)
-        {
-            for (int j = i + 1; j < team.Count; j++)
-            {
-                team[i].Meet(team[j]);
-            }
-        }
-        int references = team.Sum(m => m.References);
-        Console.WriteLine("Stage one: " + Number(team.Count) + " members hold " + Number(references)
-                + " references to each other.");
-
         // stage three: a bus, and clients that filter
         MessageBus bus = new MessageBus();
         ChatClient elifClient = new("Elif"), burakClient = new("Burak"), mertClient = new("Mert");
@@ -53,25 +37,23 @@ public static class Main
 
         // the mediator
         ChatRoom room = new ChatRoom();
-        Member elif2 = new Member("Elif", room);
-        Member burak2 = new Member("Burak", room);
-        Member mert2 = new Member("Mert", room);
+        Member elif = new Member("Elif", room);
+        Member burak = new Member("Burak", room);
+        Member mert = new Member("Mert", room);
         Guest can = new Guest("Can", room);
-        elif2.Whisper("Mert", "Your review is late.");
+        elif.Whisper("Mert", "Your review is late.");
         Console.WriteLine("Chat room: Elif sends Mert a private message.");
         Console.WriteLine("  delivered to: " + Show(room.Deliveries));
-        Console.WriteLine("  Mert shows:   " + Show(mert2.Shown));
+        Console.WriteLine("  Mert shows:   " + Show(mert.Shown));
         Console.WriteLine("  Can shows:    " + Show(can.Shown));
 
-        mert2.Block("Burak");
-        burak2.Say("Lunch at one?");
+        mert.Block("Burak");
+        burak.Say("Lunch at one?");
         Console.WriteLine("Mert blocks Burak; Burak says something to everyone.");
-        Console.WriteLine("  Elif shows:   " + Show(elif2.Shown));
-        Console.WriteLine("  Mert shows:   " + Show(mert2.Shown));
+        Console.WriteLine("  Elif shows:   " + Show(elif.Shown));
+        Console.WriteLine("  Mert shows:   " + Show(mert.Shown));
         Console.WriteLine("  Can shows:    " + Show(can.Shown));
     }
-
-    private static string Number(int value) => value.ToString(CultureInfo.InvariantCulture);
 
     /// <summary>Prints a list as <c>[a, b, c]</c>.</summary>
     private static string Show(IEnumerable<string> items) => "[" + string.Join(", ", items) + "]";

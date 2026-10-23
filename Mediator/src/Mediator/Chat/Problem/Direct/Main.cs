@@ -8,7 +8,7 @@ namespace dev.kaldiroglu.Mediator.Chat.Problem.Direct;
 /// </summary>
 /// <remarks>
 /// Run it with
-/// <c>dotnet run --project src/Mediator.Demo -- chat-direct</c>.
+/// <c>dotnet run --project src/Mediator.Demo -- chat-problem-direct</c>.
 /// </remarks>
 public static class Main
 {

@@ -2,6 +2,7 @@ namespace dev.kaldiroglu.Mediator.Tests.Chat.Problem.Direct;
 
 using dev.kaldiroglu.Mediator.Chat.Problem.Direct;
 using Xunit;
+using static dev.kaldiroglu.Mediator.Tests.Printed;
 
 /// <summary>Stage one: every member holds every other member.</summary>
 public class DirectTest
@@ -54,5 +55,18 @@ public class DirectTest
         Assert.Equal(new[] { "Elif: Hello" }, can.Inbox);
         // One new line, held from both ends; three more lines are still missing.
         Assert.Equal(14, team.Sum(m => m.References) + can.References);
+    }
+
+    /// <summary>Main prints the twelve references, the private message, and the message Can missed.</summary>
+    [Fact]
+    public void MainOutput()
+    {
+        Assert.Equal(new[]
+        {
+            "References held by four members: 12",
+            "Mert's inbox:  [Elif (private): Your review is late.]",
+            "Burak's inbox: []",
+            "Can's inbox:   [Elif: Hello]  (Burak's lunch message is missing)"
+        }, By(dev.kaldiroglu.Mediator.Chat.Problem.Direct.Main.Run));
     }
 }

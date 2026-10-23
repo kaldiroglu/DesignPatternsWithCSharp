@@ -6,7 +6,7 @@ namespace dev.kaldiroglu.Mediator.Chat.Problem.Bus;
 /// </summary>
 /// <remarks>
 /// Run it with
-/// <c>dotnet run --project src/Mediator.Demo -- chat-bus</c>.
+/// <c>dotnet run --project src/Mediator.Demo -- chat-problem-bus</c>.
 /// </remarks>
 public static class Main
 {

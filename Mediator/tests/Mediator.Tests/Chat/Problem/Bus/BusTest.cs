@@ -3,6 +3,7 @@ namespace dev.kaldiroglu.Mediator.Tests.Chat.Problem.Bus;
 using dev.kaldiroglu.Mediator.Chat.Problem.Bus;
 using Xunit;
 using static dev.kaldiroglu.Mediator.Tests.Fields;
+using static dev.kaldiroglu.Mediator.Tests.Printed;
 
 /// <summary>Stage three: a message bus, and clients that decide what to show.</summary>
 public class BusTest
@@ -48,5 +49,18 @@ public class BusTest
         Type[] clients = [typeof(IClient), typeof(ChatClient), typeof(GuestClient)];
         Assert.False(HoldsAny(typeof(ChatClient), clients));
         Assert.False(HoldsAny(typeof(GuestClient), clients));
+    }
+
+    /// <summary>Main prints the table on the slide: delivered to three clients, and the guest shows the private message.</summary>
+    [Fact]
+    public void MainOutput()
+    {
+        Assert.Equal(new[]
+        {
+            "Delivered to: [Burak, Mert, Can]",
+            "Mert shows:   [Elif (private): Your review is late.]",
+            "Burak shows:  []",
+            "Can shows:    [Elif: Your review is late.]  (a private message for Mert)"
+        }, By(dev.kaldiroglu.Mediator.Chat.Problem.Bus.Main.Run));
     }
 }
