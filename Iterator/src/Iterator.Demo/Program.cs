@@ -14,6 +14,7 @@ using GofTwoIterators = dev.kaldiroglu.Iterator.Gof.Solution.TwoIteratorsMain;
 using GofPolymorphicIteration = dev.kaldiroglu.Iterator.Gof.Solution.PolymorphicIterationMain;
 using GofInternalIterator = dev.kaldiroglu.Iterator.Gof.Solution.InternalIteratorMain;
 using FileSystemTest = dev.kaldiroglu.Iterator.FileSystem.Test;
+using RobustMain = dev.kaldiroglu.Iterator.Robust.Main;
 using BomMain = dev.kaldiroglu.Iterator.Hw.Bom.Main;
 using CalendarMain = dev.kaldiroglu.Iterator.Hw.Calendar.Main;
 using PagingMain = dev.kaldiroglu.Iterator.Hw.Paging.Main;
@@ -46,6 +47,7 @@ public static class Program
         ["gof-two-iterators"] = ("GOF'S LISTS", GofTwoIterators.Run),
         ["gof-polymorphic-iteration"] = ("GOF'S LISTS", GofPolymorphicIteration.Run),
         ["gof-internal-iterator"] = ("GOF'S LISTS", GofInternalIterator.Run),
+        ["robust"] = ("WHEN THE COLLECTION CHANGES", RobustMain.Run),
         ["filesystem"] = ("THE FILE SYSTEM", FileSystemTest.Run),
         ["hw-bom"] = ("HOMEWORK", BomMain.Run),
         ["hw-calendar"] = ("HOMEWORK", CalendarMain.Run),

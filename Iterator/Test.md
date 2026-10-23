@@ -4,7 +4,7 @@
 
 For further enquiry please contact Akin Kaldiroglu at akin@kaldiroglu.dev
 
-42 xUnit tests in one project, `tests/Iterator.Tests`. All of them are **unit tests**: no
+51 xUnit tests in one project, `tests/Iterator.Tests`. All of them are **unit tests**: no
 process boundary, no network, no real file system (the file system example is objects in
 memory).
 
@@ -23,7 +23,8 @@ ported; none is left out.
 | `Gof/ListIteratorTests.cs` | `gof.ListIteratorTest` | 12 | 12 | One cursor gives 3 pairs; two iterators give 9. `Problem.Main`, `TwoIteratorsMain`, `PolymorphicIterationMain` and `InternalIteratorMain` each print what their slide quotes. One client walks an array list and a chain list. The reverse iterator. `CurrentItem` after the end throws. The internal iterator stops after 2 or walks to the end. Lists grow past 4 slots. |
 | `FileSystem/DirectoryIteratorTests.cs` | `fileSystem.DirectoryIteratorTest` | 4 | 4 | `FileSystem.Test.Run` prints the four elements of Dev and the two files in Reports. A folder is one element. `Elements` is `internal` and read-only. `DirectoryIterator` is in the same namespace as `Directory`. |
 | `Hw/HomeworkTests.cs` | `hw.HomeworkTest` | 6 | 6 | Two wheels of 36 spokes give one line of 72 spokes. Only parts come out. The part iterator ends. Business days skip the weekend and a holiday. A paged walk that stops early fetches 2 pages; a full walk fetches 4. |
-| **Total** | | **42** | **42** | |
+| `Robust/RobustEnumeratorTests.cs` | `robust.RobustIteratorTest` | 8 | 9 | What an enumerator does when the collection changes during the walk. This is not a line-for-line port: the Java test checks the JDK's collections, this one checks .NET's. `List<T>` and `Dictionary` (on `Add`) throw `InvalidOperationException`; `Dictionary.Remove` does not. `ConcurrentQueue<T>` walks a snapshot. `ConcurrentDictionary` never throws. Replacing an element of a `List<T>` fails; an array sees it. `RemoveAll` and walking a copy are safe. `Robust.Main.Run` prints the ten lines the slide quotes. |
+| **Total** | | **50** | **51** | |
 
 The helpers:
 
@@ -81,7 +82,7 @@ C# form:
 ```bash
 cd ~/"Development/NET/Design Patterns/Design Patterns with CSharp/Iterator"
 
-# all 42
+# all 51
 ~/.dotnet/dotnet test Iterator.sln
 
 # one class

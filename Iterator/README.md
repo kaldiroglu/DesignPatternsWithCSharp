@@ -71,13 +71,15 @@ from the book, because that shape is what the GoF slides show.
   on its own.
 - `net10.0`, nullable reference types on, implicit usings on — set once in
   `Directory.Build.props` and inherited by both projects.
-- **A test project, `Iterator.Tests`**, with 42 xUnit tests ported from the Java JUnit tests.
+- **A test project, `Iterator.Tests`**, with 51 xUnit tests ported from the Java JUnit tests.
 
 ## Differences from the Java original
 
 The port is faithful in behavior. The output of every runner entry except `orgchart-yield`
-is byte for byte the output of the Java `main` method it ports, and the whole runner prints the same under
-a Turkish locale. What had to change:
+and `robust` is byte for byte the output of the Java `main` method it ports, and the whole
+runner prints the same under a Turkish locale. `robust` runs the same walks on .NET's own
+collections, so its lines name `List<T>`, `Dictionary` and `ConcurrentQueue<T>`, and its
+answers differ where the two libraries differ. What had to change:
 
 - **`Iterable`/`Iterator` became `IEnumerable<T>`/`IEnumerator<T>`.** Each Java iterator is
   a class implementing `IEnumerator<T>` with `MoveNext`, `Current`, `Reset` and `Dispose`.
@@ -154,7 +156,7 @@ a Turkish locale. What had to change:
 
 ## Tests
 
-`tests/Iterator.Tests` holds 42 xUnit tests, one test class for each Java test class, with
+`tests/Iterator.Tests` holds 51 xUnit tests, one test class for each Java test class, with
 the same assertions and the same expected values. Every Java test is ported. `Test.md`
 lists what is tested and every place where a check had to take a different C# form.
 
@@ -183,7 +185,7 @@ cd ~/"Development/NET/Design Patterns/Design Patterns with CSharp/Iterator"
 The runner accepts: `orgchart-problem-stage-one`, `orgchart-problem-stage-two`,
 `orgchart-problem-stage-three`, `orgchart-problem-change-report`, `orgchart-two-orders`,
 `orgchart-change-report`, `orgchart-yield`, `gof-problem`, `gof-two-iterators`,
-`gof-polymorphic-iteration`, `gof-internal-iterator`, `filesystem`, `hw-bom`,
+`gof-polymorphic-iteration`, `gof-internal-iterator`, `robust`, `filesystem`, `hw-bom`,
 `hw-calendar`, `hw-paging`. Each one prints what one slide shows.
 
 Run the tests with `~/.dotnet/dotnet test Iterator.sln`.
