@@ -182,7 +182,8 @@ cd ~/"Development/NET/Design Patterns/Design Patterns with CSharp/Iterator"
 ~/.dotnet/dotnet run --project src/Iterator.Demo -- orgchart
 ```
 
-The runner accepts: `orgchart-problem`, `orgchart`, `orgchart-yield`, `gof`, `gof-problem`,
+The runner accepts: `orgchart-stage-one`, `orgchart-stage-two`,
+`orgchart-stage-three`, `orgchart-change-report`, `orgchart`, `orgchart-yield`, `gof`, `gof-problem`,
 `gof-solution`, `filesystem`, `hw-bom`, `hw-calendar`, `hw-paging`.
 
 Run the tests with `~/.dotnet/dotnet test Iterator.sln`.

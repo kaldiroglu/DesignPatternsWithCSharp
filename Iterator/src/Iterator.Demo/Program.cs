@@ -1,7 +1,10 @@
 using dev.kaldiroglu.Iterator.OrgChart.Solution;
 // Every example package has a class named Main, as the Java original does. Aliases name them
 // apart.
-using OrgChartProblemMain = dev.kaldiroglu.Iterator.OrgChart.Problem.Main;
+using StageOneMain = dev.kaldiroglu.Iterator.OrgChart.Problem.StageOneMain;
+using StageTwoMain = dev.kaldiroglu.Iterator.OrgChart.Problem.StageTwoMain;
+using StageThreeMain = dev.kaldiroglu.Iterator.OrgChart.Problem.StageThreeMain;
+using ChangeReportMain = dev.kaldiroglu.Iterator.OrgChart.Problem.ChangeReportMain;
 using OrgChartMain = dev.kaldiroglu.Iterator.OrgChart.Solution.Main;
 using GofMain = dev.kaldiroglu.Iterator.Gof.Main;
 using GofProblemMain = dev.kaldiroglu.Iterator.Gof.Problem.Main;
@@ -29,7 +32,10 @@ public static class Program
 {
     private static readonly Dictionary<string, (string Group, Action Run)> Examples = new()
     {
-        ["orgchart-problem"] = ("THE ORG CHART", OrgChartProblemMain.Run),
+        ["orgchart-stage-one"] = ("THE ORG CHART", StageOneMain.Run),
+        ["orgchart-stage-two"] = ("THE ORG CHART", StageTwoMain.Run),
+        ["orgchart-stage-three"] = ("THE ORG CHART", StageThreeMain.Run),
+        ["orgchart-change-report"] = ("THE ORG CHART", ChangeReportMain.Run),
         ["orgchart"] = ("THE ORG CHART", OrgChartMain.Run),
         ["orgchart-yield"] = ("THE ORG CHART", OrgChartYield),
         ["gof"] = ("GOF'S LISTS", GofMain.Run),

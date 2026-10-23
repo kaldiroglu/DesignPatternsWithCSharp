@@ -102,8 +102,8 @@ public class ProblemTests
     public void TheProblemReportFindsAllThreeChanges()
     {
         var report = new ChangeReport();
-        var before = Main.Company("Deniz");
-        var after = Main.Company("Zeynep", "Burak", "Ece");
+        var before = SampleCompany.Build("Deniz");
+        var after = SampleCompany.Build("Zeynep", "Burak", "Ece");
 
         Assert.Equal("Deniz (head of sales) -> Zeynep (head of sales)", report.FirstDifference(before, after));
         Assert.Equal(
