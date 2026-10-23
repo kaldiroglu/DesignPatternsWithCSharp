@@ -7,6 +7,9 @@ namespace dev.kaldiroglu.Iterator.OrgChart.Problem;
 /// </summary>
 /// <remarks>
 /// <para>
+/// Open, because its internal lists are open to every caller.
+/// </para>
+/// <para>
 /// A department has members and sub-departments. Payroll, the phone book and every other
 /// program need "everyone in this department", so the department returns its two internal
 /// lists and each caller walks them.
