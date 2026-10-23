@@ -2,31 +2,15 @@ using dev.kaldiroglu.Command.Account.Domain;
 
 namespace dev.kaldiroglu.Command.Account.Problem;
 
-/// <summary>Runs the three stages, and shows the stage-three teller undoing only half of a transfer.</summary>
+/// <summary>Stage three: the teller transfers 300, and one undo takes back only half of it.</summary>
 /// <remarks>
 /// The Java original's <c>main</c>. Run it with
-/// <c>dotnet run --project src/Command.Demo -- account-problem</c>.
+/// <c>dotnet run --project src/Command.Demo -- account-problem-transfer-undo</c>.
 /// </remarks>
-public static class Main
+public static class TransferUndoMain
 {
     public static void Run()
     {
-        var one = new OneStepAccount("Deniz", Money.Of("1000.00"));
-        one.Deposit(Money.Of("500.00"));
-        one.Withdraw(Money.Of("200.00"));
-        one.Undo();
-        one.Undo();
-        Console.WriteLine("Stage one: deposit 500, withdraw 200, undo twice. Balance: "
-            + one.Balance + " (the second undo did nothing)");
-
-        var two = new HistoryAccount("Deniz", Money.Of("1000.00"));
-        two.Deposit(Money.Of("500.00"));
-        two.Withdraw(Money.Of("200.00"));
-        two.Undo();
-        two.Undo();
-        Console.WriteLine("Stage two: the same steps. Balance: " + two.Balance);
-        Console.WriteLine("Stage two journal: " + Show(two.Journal()));
-
         var deniz = new Domain.Account("Deniz", Money.Of("1000.00"));
         var emre = new Domain.Account("Emre", Money.Of("0.00"));
         var teller = new Teller();

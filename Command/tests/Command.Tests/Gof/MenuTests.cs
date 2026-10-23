@@ -237,4 +237,23 @@ public class MenuTests
         Assert.Equal(["Open", "Paste"], menu.Labels());
         Assert.Throws<ArgumentException>(() => menu.Click("paste"));
     }
+
+    // ------------------------------------------------------------ the classes the slides run
+
+    [Fact(DisplayName = "PasteCommandMain, run on p26: the menu item pastes through its command")]
+    public void PasteCommandMainPrints() =>
+        Assert.Equal(["Paste clicked. The report reads: HelloHello"],
+            Printed.By(PasteCommandMain.Run));
+
+    [Fact(DisplayName = "ThreeCommandsMain, named on p27: an open command and a macro of two pastes")]
+    public void ThreeCommandsMainPrints() =>
+        Assert.Equal(["Open clicked. Opened 'report': true",
+                "A macro of 2 commands clicked. The report reads: HelloHelloHello"],
+            Printed.By(ThreeCommandsMain.Run));
+
+    [Fact(DisplayName = "SimpleCommandMain, run on p28: a lambda pastes, and a wrong label is refused")]
+    public void SimpleCommandMainPrints() =>
+        Assert.Equal(["Menu [Paste, Paste again] clicked. The report reads: HelloHelloHello",
+                "A label the menu does not have is refused: no item labeled paste"],
+            Printed.By(SimpleCommandMain.Run));
 }

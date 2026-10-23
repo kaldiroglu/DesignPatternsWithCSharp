@@ -60,7 +60,7 @@ removing a ticket; nothing needs reversing.
   each on its own.
 - `net10.0`, nullable reference types on, implicit usings on — set once in
   `Directory.Build.props` and inherited by both projects.
-- **A test project, `Command.Tests`**, with 67 xUnit tests ported from the Java JUnit tests.
+- **A test project, `Command.Tests`**, with 78 xUnit tests ported from the Java JUnit tests.
 
 ## Differences from the Java original
 
@@ -89,12 +89,14 @@ The port is faithful in behavior. What had to change:
 `Account.Lambda` mirrors the Java `account.lambda`. `LambdaTransaction` is a record that holds
 one function each for `Execute`, `Undo` and `Description`; `Transactions` builds the deposit,
 withdrawal, transfer and close-out from lambdas, and passes them by name (`OnExecute:`,
-`OnUndo:`, `Describe:`), which Java cannot do. `Main` reuses the solution's `Teller` and
-`StandingOrders` and prints the same lines as `account-solution`. One difference from the
+`OnUndo:`, `Describe:`), which Java cannot do. `TransferMain`, `CloseOutMain` and
+`StandingOrdersMain` reuse the solution's `Teller` and `StandingOrders` and print the same
+lines as the classes of the same name in `Account.Solution`. One difference from the
 Java: a Java lambda cannot change a local variable, so the Java close-out shares a
 one-element array between its lambdas. A C# lambda can, so here the close-out's lambdas
 share the local `taken`; the compiler moves it into a hidden class. Either way the state that
-undo needs lives in an object. Runner name: `account-lambda`.
+undo needs lives in an object. Runner names: `account-lambda-transfer`,
+`account-lambda-close-out`, `account-lambda-standing-orders`.
 
 
 `Lender.Lambda` and `Ac.Lambda` mirror the Java `lender.lambda` and `ac.lambda`. The lender
@@ -106,7 +108,7 @@ office also prints the amount it receives. Runner names: `lender-lambda`, `ac-la
 
 ## Tests
 
-`tests/Command.Tests` holds 67 xUnit tests, one test class for each Java test class, with
+`tests/Command.Tests` holds 78 xUnit tests, one test class for each Java test class, with
 the same assertions and the same expected values. Every Java test is ported. `Test.md`
 lists what is tested and every place where a check had to take a different C# form.
 
@@ -132,9 +134,25 @@ cd "~/Development/NET/Design Patterns/Design Patterns with CSharp/Command"
 ~/.dotnet/dotnet run --project src/Command.Demo -- lender-pattern
 ```
 
-The runner accepts: `account-problem`, `account-solution`, `gof`, `gof-problem`,
-`gof-solution`, `lender-problem1`, `lender-problem2`, `lender-pattern`, `lender-lambda`, `ac`, `ac-lambda`, `account-lambda`, `hw-remote`,
-`hw-kitchen`, `hw-macro`.
+The runner has one entry for each slide that runs code:
+
+| Entry | Class | What it prints |
+|---|---|---|
+| `account-problem-stage-one` | `Account.Problem.StageOneMain` | Two undos leave 1500.00: the second undo did nothing |
+| `account-problem-stage-two` | `Account.Problem.StageTwoMain` | Both steps undone, and the journal |
+| `account-problem-transfer-undo` | `Account.Problem.TransferUndoMain` | One undo after a transfer takes back only the deposit |
+| `account-transfer` | `Account.Solution.TransferMain` | One undo takes back the whole transfer |
+| `account-close-out` | `Account.Solution.CloseOutMain` | Close out 750.00, undo, and 750.00 come back |
+| `account-standing-orders` | `Account.Solution.StandingOrdersMain` | Three orders wait until the night run |
+| `account-lambda-transfer`, `-close-out`, `-standing-orders` | `Account.Lambda.*Main` | The same three, with lambdas |
+| `gof` | `Gof.Main` | The receivers on their own |
+| `gof-problem` | `Gof.Problem.Main` | The switch on a label, and the misspelled `"paste"` |
+| `gof-paste-command` | `Gof.Solution.PasteCommandMain` | A menu item pastes through its command |
+| `gof-three-commands` | `Gof.Solution.ThreeCommandsMain` | An open command, and a macro of two pastes |
+| `gof-simple-command` | `Gof.Solution.SimpleCommandMain` | A `SimpleCommand`, and a label the menu does not have |
+
+and also `lender-problem1`, `lender-problem2`, `lender-pattern`, `lender-lambda`, `ac`,
+`ac-lambda`, `hw-remote`, `hw-kitchen` and `hw-macro`.
 
 Run the tests with `~/.dotnet/dotnet test Command.sln`.
 

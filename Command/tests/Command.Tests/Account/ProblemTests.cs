@@ -205,4 +205,27 @@ public class ProblemTests
         // It records nothing of its own.
         Assert.Equal(0, SourceText.CountOf(transfer, "Record("));
     }
+
+    // ------------------------------------------------------------ the classes the slides run
+
+    [Fact(DisplayName = "StageOneMain, run on p12: the second undo does nothing")]
+    public void StageOneMainPrints() =>
+        Assert.Equal(["Stage one: deposit 500, withdraw 200, undo twice. Balance: 1500.00"
+                      + " (the second undo did nothing)"],
+            Printed.By(StageOneMain.Run));
+
+    [Fact(DisplayName = "StageTwoMain, run on p13: both steps undone, and the journal")]
+    public void StageTwoMainPrints() =>
+        Assert.Equal(["Stage two: the same steps. Balance: 1000.00",
+                "Stage two journal: [deposit 500.00, withdraw 200.00, undo withdraw 200.00,"
+                + " undo deposit 500.00]"],
+            Printed.By(StageTwoMain.Run));
+
+    [Fact(DisplayName = "TransferUndoMain, run on p17: one undo takes back only the deposit")]
+    public void TransferUndoMainPrints() =>
+        Assert.Equal(["Stage three: transfer 300 from Deniz to Emre. Deniz 700.00, Emre 300.00",
+                "Undo pressed once. Deniz 700.00, Emre 0.00",
+                "Undo took back only the deposit. 300.00 lira left Deniz and arrived nowhere.",
+                "Journal: [withdraw 300.00 Deniz, deposit 300.00 Emre, undo deposit 300.00 Emre]"],
+            Printed.By(TransferUndoMain.Run));
 }

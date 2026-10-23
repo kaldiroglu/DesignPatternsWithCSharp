@@ -1,11 +1,12 @@
-// Every example package has a class named Main, as the Java original does. Aliases name
-// them apart; a plain `using` would make `Main` ambiguous.
-using AccountProblem = dev.kaldiroglu.Command.Account.Problem.Main;
-using AccountSolution = dev.kaldiroglu.Command.Account.Solution.Main;
-using AccountLambda = dev.kaldiroglu.Command.Account.Lambda.Main;
+// Most example packages have a class named Main, as the Java original does. Aliases name
+// them apart; a plain `using` would make `Main` ambiguous. The account and the GoF solution
+// have one class per slide, reached through their namespace aliases.
+using AccountProblem = dev.kaldiroglu.Command.Account.Problem;
+using AccountSolution = dev.kaldiroglu.Command.Account.Solution;
+using AccountLambda = dev.kaldiroglu.Command.Account.Lambda;
 using GofMain = dev.kaldiroglu.Command.Gof.Main;
 using GofProblem = dev.kaldiroglu.Command.Gof.Problem.Main;
-using GofSolution = dev.kaldiroglu.Command.Gof.Solution.Main;
+using GofSolution = dev.kaldiroglu.Command.Gof.Solution;
 using LenderProblem1 = dev.kaldiroglu.Command.Lender.Problem1.Main;
 using LenderProblem2 = dev.kaldiroglu.Command.Lender.Problem2.Main;
 using LenderPattern = dev.kaldiroglu.Command.Lender.Pattern.Main;
@@ -32,12 +33,20 @@ public static class Program
 {
     private static readonly Dictionary<string, (string Group, Action Run)> Examples = new()
     {
-        ["account-problem"] = ("THE TELLER", AccountProblem.Run),
-        ["account-solution"] = ("THE TELLER", AccountSolution.Run),
-        ["account-lambda"] = ("THE TELLER", AccountLambda.Run),
+        ["account-problem-stage-one"] = ("THE TELLER", AccountProblem.StageOneMain.Run),
+        ["account-problem-stage-two"] = ("THE TELLER", AccountProblem.StageTwoMain.Run),
+        ["account-problem-transfer-undo"] = ("THE TELLER", AccountProblem.TransferUndoMain.Run),
+        ["account-transfer"] = ("THE TELLER", AccountSolution.TransferMain.Run),
+        ["account-close-out"] = ("THE TELLER", AccountSolution.CloseOutMain.Run),
+        ["account-standing-orders"] = ("THE TELLER", AccountSolution.StandingOrdersMain.Run),
+        ["account-lambda-transfer"] = ("THE TELLER", AccountLambda.TransferMain.Run),
+        ["account-lambda-close-out"] = ("THE TELLER", AccountLambda.CloseOutMain.Run),
+        ["account-lambda-standing-orders"] = ("THE TELLER", AccountLambda.StandingOrdersMain.Run),
         ["gof"] = ("GOF'S MENUS", GofMain.Run),
         ["gof-problem"] = ("GOF'S MENUS", GofProblem.Run),
-        ["gof-solution"] = ("GOF'S MENUS", GofSolution.Run),
+        ["gof-paste-command"] = ("GOF'S MENUS", GofSolution.PasteCommandMain.Run),
+        ["gof-three-commands"] = ("GOF'S MENUS", GofSolution.ThreeCommandsMain.Run),
+        ["gof-simple-command"] = ("GOF'S MENUS", GofSolution.SimpleCommandMain.Run),
         ["lender-problem1"] = ("THE LENDER", LenderProblem1.Run),
         ["lender-problem2"] = ("THE LENDER", LenderProblem2.Run),
         ["lender-pattern"] = ("THE LENDER", LenderPattern.Run),

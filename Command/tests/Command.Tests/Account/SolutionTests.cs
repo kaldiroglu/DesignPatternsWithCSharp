@@ -178,4 +178,29 @@ public class SolutionTests
         // getter get_Description is the third method.
         Assert.Equal(3, typeof(ITransaction).GetMethods().Length);
     }
+
+    // ------------------------------------------------------------ the classes the slides run
+
+    [Fact(DisplayName = "TransferMain, run on p35 and p41: one undo takes back the whole transfer")]
+    public void TransferMainPrints() =>
+        Assert.Equal(["Transfer 300 from Deniz to Emre. Deniz 700.00, Emre 300.00",
+                "Undo pressed once. Deniz 1000.00, Emre 0.00",
+                "Undo took back the whole transfer."],
+            Printed.By(TransferMain.Run));
+
+    [Fact(DisplayName = "CloseOutMain, run on p38: close out 750, undo, and 750 come back")]
+    public void CloseOutMainPrints() =>
+        Assert.Equal(["Close out Deniz: balance 0.00",
+                "Undo: balance 750.00 (the command remembered what it took)"],
+            Printed.By(CloseOutMain.Run));
+
+    [Fact(DisplayName = "StandingOrdersMain, run on p42: three orders wait until the night run")]
+    public void StandingOrdersMainPrints() =>
+        Assert.Equal(["Standing orders",
+                "Morning: 3 orders waiting. Deniz still has 1000.00",
+                "Night: Deniz 500.00, Landlord 400.00, Savings 105.00. Orders waiting: 0",
+                "Night journal: [transfer 400.00 Deniz -> Landlord, transfer 100.00 Deniz -> Savings,"
+                + " deposit 5.00 Savings]",
+                "Next morning, undo the last order: Savings 100.00"],
+            Printed.By(StandingOrdersMain.Run));
 }

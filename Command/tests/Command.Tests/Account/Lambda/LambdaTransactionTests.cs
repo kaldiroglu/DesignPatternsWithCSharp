@@ -4,8 +4,8 @@ using dev.kaldiroglu.Command.Account.Domain;
 using dev.kaldiroglu.Command.Account.Solution;
 using Xunit;
 using static dev.kaldiroglu.Command.Account.Lambda.Transactions;
-using LambdaMain = dev.kaldiroglu.Command.Account.Lambda.Main;
-using SolutionMain = dev.kaldiroglu.Command.Account.Solution.Main;
+using LambdaRuns = dev.kaldiroglu.Command.Account.Lambda;
+using SolutionRuns = dev.kaldiroglu.Command.Account.Solution;
 
 /// <summary>
 /// The account's transactions written as lambdas, against the classes of <c>Solution</c>.
@@ -15,11 +15,17 @@ public class LambdaTransactionTests
 {
     private static Money Lira(string amount) => Money.Of(amount);
 
-    [Fact(DisplayName = "Main prints the same lines as the version with transaction classes")]
-    public void SameOutputAsTheClasses()
-    {
-        Assert.Equal(Printed.By(SolutionMain.Run), Printed.By(LambdaMain.Run));
-    }
+    [Fact(DisplayName = "TransferMain prints the same lines as the version with transaction classes")]
+    public void TransferPrintsTheSameAsTheClasses() =>
+        Assert.Equal(Printed.By(SolutionRuns.TransferMain.Run), Printed.By(LambdaRuns.TransferMain.Run));
+
+    [Fact(DisplayName = "CloseOutMain, run on p39, prints the same lines as the version with transaction classes")]
+    public void CloseOutPrintsTheSameAsTheClasses() =>
+        Assert.Equal(Printed.By(SolutionRuns.CloseOutMain.Run), Printed.By(LambdaRuns.CloseOutMain.Run));
+
+    [Fact(DisplayName = "StandingOrdersMain prints the same lines as the version with transaction classes")]
+    public void StandingOrdersPrintTheSameAsTheClasses() =>
+        Assert.Equal(Printed.By(SolutionRuns.StandingOrdersMain.Run), Printed.By(LambdaRuns.StandingOrdersMain.Run));
 
     [Fact(DisplayName = "each lambda transaction writes the same journal line as its class")]
     public void SameDescriptions()
