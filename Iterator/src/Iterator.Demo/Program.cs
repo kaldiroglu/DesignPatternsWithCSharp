@@ -1,14 +1,18 @@
-using dev.kaldiroglu.Iterator.OrgChart.Solution;
-// Every example package has a class named Main, as the Java original does. Aliases name them
-// apart.
-using StageOneMain = dev.kaldiroglu.Iterator.OrgChart.Problem.StageOneMain;
-using StageTwoMain = dev.kaldiroglu.Iterator.OrgChart.Problem.StageTwoMain;
-using StageThreeMain = dev.kaldiroglu.Iterator.OrgChart.Problem.StageThreeMain;
-using ChangeReportMain = dev.kaldiroglu.Iterator.OrgChart.Problem.ChangeReportMain;
-using OrgChartMain = dev.kaldiroglu.Iterator.OrgChart.Solution.Main;
-using GofMain = dev.kaldiroglu.Iterator.Gof.Main;
+using Department = dev.kaldiroglu.Iterator.OrgChart.Solution.Department;
+using DepthFirstWithYield = dev.kaldiroglu.Iterator.OrgChart.Solution.DepthFirstWithYield;
+using SampleCompany = dev.kaldiroglu.Iterator.OrgChart.Solution.SampleCompany;
+// Several example packages have runnable classes with the same name (Main, ChangeReportMain),
+// as the Java original does. Aliases name them apart.
+using ProblemStageOne = dev.kaldiroglu.Iterator.OrgChart.Problem.StageOneMain;
+using ProblemStageTwo = dev.kaldiroglu.Iterator.OrgChart.Problem.StageTwoMain;
+using ProblemStageThree = dev.kaldiroglu.Iterator.OrgChart.Problem.StageThreeMain;
+using ProblemChangeReport = dev.kaldiroglu.Iterator.OrgChart.Problem.ChangeReportMain;
+using SolutionTwoOrders = dev.kaldiroglu.Iterator.OrgChart.Solution.TwoOrdersMain;
+using SolutionChangeReport = dev.kaldiroglu.Iterator.OrgChart.Solution.ChangeReportMain;
 using GofProblemMain = dev.kaldiroglu.Iterator.Gof.Problem.Main;
-using GofSolutionMain = dev.kaldiroglu.Iterator.Gof.Solution.Main;
+using GofTwoIterators = dev.kaldiroglu.Iterator.Gof.Solution.TwoIteratorsMain;
+using GofPolymorphicIteration = dev.kaldiroglu.Iterator.Gof.Solution.PolymorphicIterationMain;
+using GofInternalIterator = dev.kaldiroglu.Iterator.Gof.Solution.InternalIteratorMain;
 using FileSystemTest = dev.kaldiroglu.Iterator.FileSystem.Test;
 using BomMain = dev.kaldiroglu.Iterator.Hw.Bom.Main;
 using CalendarMain = dev.kaldiroglu.Iterator.Hw.Calendar.Main;
@@ -19,12 +23,12 @@ namespace dev.kaldiroglu.Iterator.Demo;
 /// <summary>
 /// Runs the Iterator examples.
 /// <para>
-/// Every entry but one is a Java <c>main</c> method, ported as a class <c>Main</c> (or
-/// <c>Test</c>) with a <c>Run()</c> method, and prints the same output. <c>orgchart-yield</c>
+/// Every entry but one is a Java <c>main</c> method, ported as a static class with a
+/// <c>Run()</c> method, and prints the same output. <c>orgchart-yield</c>
 /// is only in this runner: the <c>yield</c> version of the depth-first walk.
 /// </para>
 /// <para>
-/// Each example runs on its own — <c>dotnet run -- gof</c> — and with no argument all of them
+/// Each example runs on its own — <c>dotnet run -- gof-problem</c> — and with no argument all of them
 /// run in the order the course presents them.
 /// </para>
 /// </summary>
@@ -32,15 +36,17 @@ public static class Program
 {
     private static readonly Dictionary<string, (string Group, Action Run)> Examples = new()
     {
-        ["orgchart-stage-one"] = ("THE ORG CHART", StageOneMain.Run),
-        ["orgchart-stage-two"] = ("THE ORG CHART", StageTwoMain.Run),
-        ["orgchart-stage-three"] = ("THE ORG CHART", StageThreeMain.Run),
-        ["orgchart-change-report"] = ("THE ORG CHART", ChangeReportMain.Run),
-        ["orgchart"] = ("THE ORG CHART", OrgChartMain.Run),
+        ["orgchart-problem-stage-one"] = ("THE ORG CHART", ProblemStageOne.Run),
+        ["orgchart-problem-stage-two"] = ("THE ORG CHART", ProblemStageTwo.Run),
+        ["orgchart-problem-stage-three"] = ("THE ORG CHART", ProblemStageThree.Run),
+        ["orgchart-problem-change-report"] = ("THE ORG CHART", ProblemChangeReport.Run),
+        ["orgchart-two-orders"] = ("THE ORG CHART", SolutionTwoOrders.Run),
+        ["orgchart-change-report"] = ("THE ORG CHART", SolutionChangeReport.Run),
         ["orgchart-yield"] = ("THE ORG CHART", OrgChartYield),
-        ["gof"] = ("GOF'S LISTS", GofMain.Run),
         ["gof-problem"] = ("GOF'S LISTS", GofProblemMain.Run),
-        ["gof-solution"] = ("GOF'S LISTS", GofSolutionMain.Run),
+        ["gof-two-iterators"] = ("GOF'S LISTS", GofTwoIterators.Run),
+        ["gof-polymorphic-iteration"] = ("GOF'S LISTS", GofPolymorphicIteration.Run),
+        ["gof-internal-iterator"] = ("GOF'S LISTS", GofInternalIterator.Run),
         ["filesystem"] = ("THE FILE SYSTEM", FileSystemTest.Run),
         ["hw-bom"] = ("HOMEWORK", BomMain.Run),
         ["hw-calendar"] = ("HOMEWORK", CalendarMain.Run),
@@ -80,7 +86,7 @@ public static class Program
 
     private static void OrgChartYield()
     {
-        Department company = OrgChartMain.Company("Deniz");
+        Department company = SampleCompany.Build("Deniz");
         var withYield = DepthFirstWithYield.Walk(company).ToList();
         Console.WriteLine("With yield return: " + string.Join(", ", withYield.Select(e => e.Name)));
         Console.WriteLine("Same order as DepthFirstIterator: "

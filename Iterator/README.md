@@ -71,7 +71,7 @@ from the book, because that shape is what the GoF slides show.
   on its own.
 - `net10.0`, nullable reference types on, implicit usings on — set once in
   `Directory.Build.props` and inherited by both projects.
-- **A test project, `Iterator.Tests`**, with 37 xUnit tests ported from the Java JUnit tests.
+- **A test project, `Iterator.Tests`**, with 41 xUnit tests ported from the Java JUnit tests.
 
 ## Differences from the Java original
 
@@ -100,9 +100,7 @@ a Turkish locale. What had to change:
   `System.Collections.Generic.List<T>`. Inside `Gof.Solution` the plain name means GoF's
   class, because a type in the current namespace wins over one brought in by a `using`; the
   two places there that need .NET's list write `System.Collections.Generic.List<string>` in
-  full, as the Java writes `java.util.List`. In `Gof.Main`, one namespace up, GoF's types
-  are written `Solution.List<Employee>`, `Solution.IIterator<Employee>` and so on, and the
-  plain `List<string>` is .NET's.
+  full, as the Java writes `java.util.List`.
 - **Interfaces take the `I` prefix**: GoF's `Iterator` is `IIterator<T>`, and the file
   system's `Storage` is `IStorage`.
 - **The file system's type parameter keeps the name `Storage`.** In
@@ -120,7 +118,7 @@ a Turkish locale. What had to change:
   returns `null`. C# has no such check, so the copy succeeds and is shallow. No example
   calls `Copy()`.
 - **`Optional<String>` became `string?`.** Both `ChangeReport` classes return `null` when
-  the charts are the same; `Main` prints `"none"` for it, as the Java prints
+  the charts are the same; `ChangeReportMain` prints `"none"` for it, as the Java prints
   `orElse("none")`.
 - **Package access became `internal`.** `Department.Members`/`Units`,
   `Directory.Elements` and `ChainList<T>.Head` are visible to the iterators through `internal`, which is the whole
@@ -144,7 +142,7 @@ a Turkish locale. What had to change:
   the types are copied into `Hw.Bom.Composite` and trimmed to what the homework needs. The
   roll-ups (cost, weight, part count), the caches, the parent links and the cycle check are
   left out. Each copied type says so in its doc comment.
-- **GoF's `Main` prints `false` in lower case**, as Java prints a `boolean`, and prints its
+- **`InternalIteratorMain` prints `false` in lower case**, as Java prints a `boolean`, and prints its
   lists as `[a, b, c]`, as Java's `List.toString()` does.
 - **The `main` methods became `Run()` methods** called by `Iterator.Demo`. The
   commented-out lines in the Java `Test` are not ported.
@@ -156,7 +154,7 @@ a Turkish locale. What had to change:
 
 ## Tests
 
-`tests/Iterator.Tests` holds 37 xUnit tests, one test class for each Java test class, with
+`tests/Iterator.Tests` holds 41 xUnit tests, one test class for each Java test class, with
 the same assertions and the same expected values. Every Java test is ported. `Test.md`
 lists what is tested and every place where a check had to take a different C# form.
 
@@ -179,12 +177,14 @@ cd ~/"Development/NET/Design Patterns/Design Patterns with CSharp/Iterator"
 ~/.dotnet/dotnet run --project src/Iterator.Demo
 
 # one example on its own
-~/.dotnet/dotnet run --project src/Iterator.Demo -- orgchart
+~/.dotnet/dotnet run --project src/Iterator.Demo -- orgchart-two-orders
 ```
 
-The runner accepts: `orgchart-stage-one`, `orgchart-stage-two`,
-`orgchart-stage-three`, `orgchart-change-report`, `orgchart`, `orgchart-yield`, `gof`, `gof-problem`,
-`gof-solution`, `filesystem`, `hw-bom`, `hw-calendar`, `hw-paging`.
+The runner accepts: `orgchart-problem-stage-one`, `orgchart-problem-stage-two`,
+`orgchart-problem-stage-three`, `orgchart-problem-change-report`, `orgchart-two-orders`,
+`orgchart-change-report`, `orgchart-yield`, `gof-problem`, `gof-two-iterators`,
+`gof-polymorphic-iteration`, `gof-internal-iterator`, `filesystem`, `hw-bom`,
+`hw-calendar`, `hw-paging`. Each one prints what one slide shows.
 
 Run the tests with `~/.dotnet/dotnet test Iterator.sln`.
 

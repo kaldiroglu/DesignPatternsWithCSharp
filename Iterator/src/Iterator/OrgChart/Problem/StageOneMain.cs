@@ -7,7 +7,7 @@ namespace dev.kaldiroglu.Iterator.OrgChart.Problem;
 /// </summary>
 /// <remarks>
 /// The Java original's <c>main</c>. Run it with
-/// <c>dotnet run --project src/Iterator.Demo -- orgchart-stage-one</c>.
+/// <c>dotnet run --project src/Iterator.Demo -- orgchart-problem-stage-one</c>.
 /// </remarks>
 public static class StageOneMain
 {

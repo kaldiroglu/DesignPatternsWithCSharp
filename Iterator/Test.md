@@ -4,7 +4,7 @@
 
 For further enquiry please contact Akin Kaldiroglu at akin@kaldiroglu.dev
 
-37 xUnit tests in one project, `tests/Iterator.Tests`. All of them are **unit tests**: no
+41 xUnit tests in one project, `tests/Iterator.Tests`. All of them are **unit tests**: no
 process boundary, no network, no real file system (the file system example is objects in
 memory).
 
@@ -19,11 +19,11 @@ ported; none is left out.
 | File | Java class | Java tests | C# tests | What it checks |
 |---|---|---|---|---|
 | `OrgChart/Problem/ProblemTests.cs` | `orgchart.problem.ProblemTest` | 7 | 7 | Stage one: payroll works, and a caller can remove a person from the real list. Stage two: a read-only copy, a new one on every call. Stage three: two orders of walking, and the change report that copies both charts. |
-| `OrgChart/Solution/SolutionTests.cs` | `orgchart.solution.SolutionTest` | 11 | 11 | `Main.Run` prints its 19 lines. The two orders differ only in rows 4 and 5. The change report: the first difference, and all three differences. Two iterators keep their own positions. No public list getter. The walk reads the live department. A change during the walk throws. Both iterators end cleanly. |
-| `Gof/ListIteratorTests.cs` | `gof.ListIteratorTest` | 9 | 9 | One cursor gives 3 pairs; two iterators give 9. `Gof.Main.Run` prints six lines. One client walks an array list and a chain list. The reverse iterator. `CurrentItem` after the end throws. The internal iterator stops after 2 or walks to the end. Lists grow past 4 slots. |
+| `OrgChart/Solution/SolutionTests.cs` | `orgchart.solution.SolutionTest` | 12 | 12 | `TwoOrdersMain.Run` prints the two orders in 14 lines; `ChangeReportMain.Run` prints the changes in 5. The two orders differ only in rows 4 and 5. The change report: the first difference, and all three differences. Two iterators keep their own positions. No public list getter. The walk reads the live department. A change during the walk throws. Both iterators end cleanly. |
+| `Gof/ListIteratorTests.cs` | `gof.ListIteratorTest` | 12 | 12 | One cursor gives 3 pairs; two iterators give 9. `Problem.Main`, `TwoIteratorsMain`, `PolymorphicIterationMain` and `InternalIteratorMain` each print what their slide quotes. One client walks an array list and a chain list. The reverse iterator. `CurrentItem` after the end throws. The internal iterator stops after 2 or walks to the end. Lists grow past 4 slots. |
 | `FileSystem/DirectoryIteratorTests.cs` | `fileSystem.DirectoryIteratorTest` | 4 | 4 | `FileSystem.Test.Run` prints the four elements of Dev and the two files in Reports. A folder is one element. `Elements` is `internal` and read-only. `DirectoryIterator` is in the same namespace as `Directory`. |
 | `Hw/HomeworkTests.cs` | `hw.HomeworkTest` | 6 | 6 | Two wheels of 36 spokes give one line of 72 spokes. Only parts come out. The part iterator ends. Business days skip the weekend and a holiday. A paged walk that stops early fetches 2 pages; a full walk fetches 4. |
-| **Total** | | **37** | **37** | |
+| **Total** | | **41** | **41** | |
 
 The helpers:
 
@@ -61,8 +61,6 @@ C# form:
   public, not protected and not private. The test project cannot call an `internal` member,
   so it reads the list through reflection before it tries to add to it. The Java "same
   package" check is a "same namespace" check.
-- **`Main.NAMES`.** Java's array is public. The C# `Gof.Main.Names` is private, so the test
-  reads it through reflection rather than writing the three names again.
 - **The bicycle.** Java takes the city bicycle from the Composite package
   (`ProductCatalog.cityBicycle()`, `Catalog.POWDER_COATING`). The C# port copies only the
   bill-of-materials types into `Hw.Bom.Composite`, not the catalog, so the test builds the
@@ -83,7 +81,7 @@ C# form:
 ```bash
 cd ~/"Development/NET/Design Patterns/Design Patterns with CSharp/Iterator"
 
-# all 37
+# all 41
 ~/.dotnet/dotnet test Iterator.sln
 
 # one class

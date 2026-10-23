@@ -2,29 +2,24 @@ namespace dev.kaldiroglu.Iterator.Tests.Gof;
 
 // The usings sit inside the namespace. GoF's list is named List<T>, as .NET's is; the alias
 // GofList names it apart, and the plain List<T> in this file is .NET's.
-using System.Reflection;
 using dev.kaldiroglu.Iterator.Gof;
 using dev.kaldiroglu.Iterator.Gof.Problem;
 using dev.kaldiroglu.Iterator.Gof.Solution;
 using Xunit;
 using GofList = dev.kaldiroglu.Iterator.Gof.Solution.List<dev.kaldiroglu.Iterator.Gof.Employee>;
 using List = System.Collections.Generic.List<string>;
-// Gof.Problem and Gof.Solution each have a Main too; this file means the one in Gof.
-using Main = dev.kaldiroglu.Iterator.Gof.Main;
+using ProblemMain = dev.kaldiroglu.Iterator.Gof.Problem.Main;
 
 /// <summary>
 /// GoF's list example. The 3 pairs and the 9 pairs on the Part 2 slides are asserted here,
-/// from the lists themselves and from <c>Gof.Main</c>'s output. Ported from the Java
+/// from the lists themselves and from the output of the runnable classes: <c>Problem.Main</c>,
+/// <c>TwoIteratorsMain</c>, <c>PolymorphicIterationMain</c> and <c>InternalIteratorMain</c>.
+/// Ported from the Java
 /// <c>gof.ListIteratorTest</c>.
 /// </summary>
 public class ListIteratorTests
 {
-    /// <summary>
-    /// The names <c>Gof.Main</c> uses. Java's <c>Main.NAMES</c> is public; the C# field is
-    /// private, so it is read through reflection rather than written out again here.
-    /// </summary>
-    private static string[] Names =>
-        (string[])typeof(Main).GetField("Names", BindingFlags.NonPublic | BindingFlags.Static)!.GetValue(null)!;
+    private static readonly string[] Names = ["Ayse", "Deniz", "Elif"];
 
     private static TList Filled<TList>(TList list) where TList : AbstractList<Employee>
     {
@@ -79,19 +74,38 @@ public class ListIteratorTests
         Assert.Equal(9, pairs.Count);
     }
 
-    [Fact(DisplayName = "gof.Main prints the pairs from both loops and the other iterators")]
-    public void MainPrintsBothResults()
+    [Fact(DisplayName = "problem.Main prints 3 pairs, because the inner loop moved the only cursor")]
+    public void ProblemMainPrintsThreePairs()
     {
-        var lines = Printed.By(Main.Run);
-
         Assert.Equal([
-            "One cursor:      [Ayse-Ayse, Ayse-Deniz, Ayse-Elif]",
-            "Two iterators:   [Ayse-Ayse, Ayse-Deniz, Ayse-Elif, Deniz-Ayse, Deniz-Deniz, "
-            + "Deniz-Elif, Elif-Ayse, Elif-Deniz, Elif-Elif]",
-            "Forward:         [Ayse, Deniz, Elif]",
-            "Backward:        [Elif, Deniz, Ayse]",
-            "Chain list:      [Ayse, Deniz, Elif]",
-            "First two:       [Ayse, Deniz], walked to the end: false"], lines);
+            "Expected 9 pairs, got 3: [Ayse-Ayse, Ayse-Deniz, Ayse-Elif]",
+            "The inner loop moved the only cursor, so the outer loop ended after Ayse."],
+            Printed.By(ProblemMain.Run));
+    }
+
+    [Fact(DisplayName = "TwoIteratorsMain prints all 9 pairs")]
+    public void TwoIteratorsMainPrintsNinePairs()
+    {
+        Assert.Equal([
+            "Two iterators, 9 pairs: [Ayse-Ayse, Ayse-Deniz, Ayse-Elif, Deniz-Ayse, "
+            + "Deniz-Deniz, Deniz-Elif, Elif-Ayse, Elif-Deniz, Elif-Elif]"],
+            Printed.By(TwoIteratorsMain.Run));
+    }
+
+    [Fact(DisplayName = "PolymorphicIterationMain walks a list backwards and walks a chain list")]
+    public void PolymorphicIterationMainPrintsBothWalks()
+    {
+        Assert.Equal([
+            "Backward: [Elif, Deniz, Ayse]",
+            "Chain list: [Ayse, Deniz, Elif]"],
+            Printed.By(PolymorphicIterationMain.Run));
+    }
+
+    [Fact(DisplayName = "InternalIteratorMain stops after two employees")]
+    public void InternalIteratorMainStopsAfterTwo()
+    {
+        Assert.Equal(["First two: [Ayse, Deniz], walked to the end: false"],
+            Printed.By(InternalIteratorMain.Run));
     }
 
     [Fact(DisplayName = "the same client walks an array list and a chain list without knowing which it has")]

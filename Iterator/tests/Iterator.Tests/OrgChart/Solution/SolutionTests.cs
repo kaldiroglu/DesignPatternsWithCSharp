@@ -8,7 +8,7 @@ using Xunit;
 
 /// <summary>
 /// The department that gives out iterators. Every output the Part 3 slides quote from
-/// <c>OrgChart.Solution.Main</c> is asserted here. Ported from the Java
+/// <c>TwoOrdersMain</c> and <c>ChangeReportMain</c> is asserted here. Ported from the Java
 /// <c>orgchart.solution.SolutionTest</c>.
 /// </summary>
 public class SolutionTests
@@ -35,10 +35,10 @@ public class SolutionTests
             .Any(t => t.IsGenericType && listTypes.Contains(t.GetGenericTypeDefinition()));
     }
 
-    [Fact(DisplayName = "Main prints the two orders and the first change, as the Part 3 slides quote them")]
-    public void MainPrintsWhatTheSlidesQuote()
+    [Fact(DisplayName = "TwoOrdersMain prints the two orders that the two-orders slide quotes")]
+    public void TwoOrdersMainPrintsWhatTheSlideQuotes()
     {
-        var lines = Printed.By(Main.Run);
+        var lines = Printed.By(TwoOrdersMain.Run);
 
         Assert.Equal([
             "Department by department:",
@@ -54,7 +54,15 @@ public class SolutionTests
             "  Ali (sales)",
             "  Mert (head of operations)",
             "  Can (export)",
-            "  Elif (support)",
+            "  Elif (support)"], lines);
+    }
+
+    [Fact(DisplayName = "ChangeReportMain prints the first change, then all three")]
+    public void ChangeReportMainPrintsTheChanges()
+    {
+        var lines = Printed.By(ChangeReportMain.Run);
+
+        Assert.Equal([
             "First change: Deniz (head of sales) -> Zeynep (head of sales)",
             "All changes:",
             "  Deniz (head of sales) -> Zeynep (head of sales)",
@@ -65,7 +73,7 @@ public class SolutionTests
     [Fact(DisplayName = "the two orders differ only in rows 4 and 5: Can is one level lower than Mert")]
     public void TheTwoOrdersDifferInRowsFourAndFive()
     {
-        var company = Main.Company("Deniz");
+        var company = SampleCompany.Build("Deniz");
 
         var byDepartment = Walk(company);
         var byLevel = Walk(company.ByLevel());
@@ -85,7 +93,7 @@ public class SolutionTests
     public void TheReportFindsTheNewHeadOfSales()
     {
         // Java returns Optional<String>; the C# port returns string?, with null for none.
-        var change = new ChangeReport().FirstDifference(Main.Company("Deniz"), Main.Company("Zeynep"));
+        var change = new ChangeReport().FirstDifference(SampleCompany.Build("Deniz"), SampleCompany.Build("Zeynep"));
 
         Assert.Equal("Deniz (head of sales) -> Zeynep (head of sales)", change);
     }
@@ -94,7 +102,7 @@ public class SolutionTests
     public void TheFirstDifferenceStopsAtTheFirstOfThree()
     {
         Assert.Equal("Deniz (head of sales) -> Zeynep (head of sales)",
-            new ChangeReport().FirstDifference(Main.Company("Deniz"), Main.Company("Zeynep", "Burak", "Ece")));
+            new ChangeReport().FirstDifference(SampleCompany.Build("Deniz"), SampleCompany.Build("Zeynep", "Burak", "Ece")));
     }
 
     [Fact(DisplayName = "all differences walks both charts to the end and finds the three new people")]
@@ -106,10 +114,10 @@ public class SolutionTests
             ["Deniz (head of sales) -> Zeynep (head of sales)",
              "Can (export) -> Burak (export)",
              "Elif (support) -> Ece (support)"],
-            report.AllDifferences(Main.Company("Deniz"), Main.Company("Zeynep", "Burak", "Ece")));
-        Assert.Empty(report.AllDifferences(Main.Company("Deniz"), Main.Company("Deniz")));
+            report.AllDifferences(SampleCompany.Build("Deniz"), SampleCompany.Build("Zeynep", "Burak", "Ece")));
+        Assert.Empty(report.AllDifferences(SampleCompany.Build("Deniz"), SampleCompany.Build("Deniz")));
         Assert.Equal(["the charts have different sizes"],
-            report.AllDifferences(Main.Company("Deniz"),
+            report.AllDifferences(SampleCompany.Build("Deniz"),
                 new Department("Head office").Add(new Employee("Ayse", "CEO"))));
     }
 
@@ -118,17 +126,17 @@ public class SolutionTests
     {
         var shorter = new Department("Head office").Add(new Employee("Ayse", "CEO"));
 
-        Assert.Null(new ChangeReport().FirstDifference(Main.Company("Deniz"), Main.Company("Deniz")));
+        Assert.Null(new ChangeReport().FirstDifference(SampleCompany.Build("Deniz"), SampleCompany.Build("Deniz")));
         Assert.Equal("the charts have different sizes",
-            new ChangeReport().FirstDifference(Main.Company("Deniz"), shorter));
+            new ChangeReport().FirstDifference(SampleCompany.Build("Deniz"), shorter));
         Assert.Equal("the charts have different sizes",
-            new ChangeReport().FirstDifference(shorter, Main.Company("Deniz")));
+            new ChangeReport().FirstDifference(shorter, SampleCompany.Build("Deniz")));
     }
 
     [Fact(DisplayName = "two iterators over the same department keep their own positions")]
     public void TwoIteratorsDoNotDisturbEachOther()
     {
-        var company = Main.Company("Deniz");
+        var company = SampleCompany.Build("Deniz");
         using var first = company.GetEnumerator();
         using var second = company.GetEnumerator();
 

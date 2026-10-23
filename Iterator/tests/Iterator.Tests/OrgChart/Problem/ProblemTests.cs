@@ -17,7 +17,7 @@ public class ProblemTests
     private static readonly Employee Mert = new("Mert", "head of operations");
     private static readonly Employee Elif = new("Elif", "support");
 
-    /// <summary>The same company as <c>OrgChart.Solution.Main</c>, built as stage three.</summary>
+    /// <summary>The same company as <c>OrgChart.Solution.SampleCompany</c>, built as stage three.</summary>
     private static CallbackDepartment CallbackCompany(Employee salesHead)
     {
         var export = new CallbackDepartment("Export").Add(Can);
@@ -98,7 +98,7 @@ public class ProblemTests
         Assert.Equal("Deniz (head of sales) -> Zeynep (head of sales)", change);
     }
 
-    [Fact(DisplayName = "stage three: Main's reorganized chart has three new people, and all three are reported")]
+    [Fact(DisplayName = "stage three: the reorganized chart has three new people, and all three are reported")]
     public void TheProblemReportFindsAllThreeChanges()
     {
         var report = new ChangeReport();

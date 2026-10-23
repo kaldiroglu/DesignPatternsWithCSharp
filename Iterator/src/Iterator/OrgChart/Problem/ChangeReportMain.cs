@@ -6,7 +6,7 @@ namespace dev.kaldiroglu.Iterator.OrgChart.Problem;
 /// </summary>
 /// <remarks>
 /// The Java original's <c>main</c>. Run it with
-/// <c>dotnet run --project src/Iterator.Demo -- orgchart-change-report</c>.
+/// <c>dotnet run --project src/Iterator.Demo -- orgchart-problem-change-report</c>.
 /// </remarks>
 public static class ChangeReportMain
 {
