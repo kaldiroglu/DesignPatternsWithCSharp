@@ -3,7 +3,10 @@ namespace dev.kaldiroglu.TemplateMethod.Export.Problem;
 // Inside the namespace, so that the record Export wins over the namespace Export.
 using dev.kaldiroglu.TemplateMethod.Export.Domain;
 
-/// <summary>Stage two: one class switches on the format. Both exports are audited.</summary>
+/// <summary>
+/// Stage two: one class switches on the format. Both of Deniz's exports are audited; Mert,
+/// who may not export, is refused and nothing is audited.
+/// </summary>
 /// <remarks>
 /// Run it with <c>dotnet run --project src/TemplateMethod.Demo -- export-problem-stage-two</c>.
 /// </remarks>
@@ -15,6 +18,10 @@ public static class StageTwoMain
         var exporter = new SwitchingExporter(audit);
         exporter.Export(SampleReport.Deniz, SampleReport.Report, Format.Csv);
         exporter.Export(SampleReport.Deniz, SampleReport.Report, Format.Html);
+        Console.WriteLine("Stage two, Mert asks for a CSV file: " + SampleReport.Refusal(
+            () => exporter.Export(SampleReport.Mert, SampleReport.Report, Format.Csv)));
+        Console.WriteLine("Stage two, Mert asks for an HTML file: " + SampleReport.Refusal(
+            () => exporter.Export(SampleReport.Mert, SampleReport.Report, Format.Html)));
         Console.WriteLine("Stage two, one class with a switch, audit log: " + Show(audit.Lines));
     }
 

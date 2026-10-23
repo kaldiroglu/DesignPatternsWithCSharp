@@ -18,6 +18,8 @@ public static class MissingAuditMain
         new CsvExport(audit).Export(SampleReport.Deniz, SampleReport.Report);
         Console.Write("Stage three, the Markdown file:\n"
                 + new MarkdownExport(audit).Export(SampleReport.Deniz, SampleReport.Report).Content);
+        Console.WriteLine("Stage three, Mert asks for a Markdown file: " + SampleReport.Refusal(
+            () => new MarkdownExport(audit).Export(SampleReport.Mert, SampleReport.Report)));
         Console.WriteLine("Stage three, a CSV and a Markdown export, audit log: " + Show(audit.Lines));
         Console.WriteLine("The Markdown export is missing: MarkdownExport never calls RecordAudit.");
     }
