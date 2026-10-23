@@ -6,7 +6,7 @@ namespace dev.kaldiroglu.Visitor.Checkout.Problem.Methods;
 /// </summary>
 /// <remarks>
 /// Run it with
-/// <c>dotnet run --project src/Visitor.Demo -- checkout-methods</c>.
+/// <c>dotnet run --project src/Visitor.Demo -- checkout-problem-stage-one</c>.
 /// </remarks>
 public static class Main
 {

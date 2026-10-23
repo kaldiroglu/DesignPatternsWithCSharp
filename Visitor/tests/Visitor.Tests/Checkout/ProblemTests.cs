@@ -102,4 +102,41 @@ public class ProblemTests
         Assert.Equal(3, Printed.CountOf(code, @"\bis\s+[A-Z]"));
         Assert.Matches(@"else\s*\{", code);
     }
+
+    [Fact]
+    public void StageOneMainOutput()
+    {
+        Assert.Equal(
+        [
+            "Novel 40 (tax 2)", "Coffee 100 (tax 1)", "Headphones 500 (tax 100)",
+            "Tax 103, shipping 50",
+            "Three operations, written in each of the three item classes."
+        ], Printed.By(Methods.Main.Run));
+    }
+
+    [Fact]
+    public void StageTwoMainOutput()
+    {
+        Assert.Equal(
+        [
+            "A book for 40, food for 100, electronics for 500: the correct tax is 2 + 1 + 100 = 103",
+            "Stage two, overloads:   tax 128 (each item is held as an IItem, so TaxOf(IItem) is called)"
+        ], Printed.By(P.StageTwoMain.Run));
+    }
+
+    [Fact]
+    public void StageThreeMainOutput()
+    {
+        Assert.Equal(["Stage three, type tests: tax 103, shipping 50"], Printed.By(P.StageThreeMain.Run));
+    }
+
+    [Fact]
+    public void GiftCardMainOutput()
+    {
+        Assert.Equal(
+        [
+            "A gift card for 100 is added. It has no tax and is not shipped.",
+            "Stage three, type tests: tax 123, shipping 60 (the else branch charges the standard rates)"
+        ], Printed.By(P.GiftCardMain.Run));
+    }
 }

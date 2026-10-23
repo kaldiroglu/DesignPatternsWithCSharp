@@ -1,6 +1,5 @@
 using System.Reflection;
 using Xunit;
-using G = global::dev.kaldiroglu.Visitor.Gof;
 using P = global::dev.kaldiroglu.Visitor.Gof.Problem;
 using S = global::dev.kaldiroglu.Visitor.Gof.Solution;
 
@@ -110,17 +109,24 @@ public class CompilerTests
             typeof(S.INodeVisitor).GetMethods().Select(m => m.Name).Order(StringComparer.Ordinal));
     }
 
-    [Fact]
-    public void MainOutput()
-    {
-        var lines = Printed.By(G.Main.Run);
+    /// <summary>What both designs print for y = 2, x = y + 1, z = w + x.</summary>
+    private static readonly string[] Body =
+    [
+        "y = 2", "x = y + 1", "z = w + x",
+        "Errors: [w is used before it is assigned]",
+        "Code:   [PUSH 2, STORE y, LOAD y, PUSH 1, ADD, STORE x, LOAD w, LOAD x, ADD, STORE z]"
+    ];
 
-        string[] body =
-        [
-            "  y = 2", "  x = y + 1", "  z = w + x",
-            "  errors: [w is used before it is assigned]",
-            "  code:   [PUSH 2, STORE y, LOAD y, PUSH 1, ADD, STORE x, LOAD w, LOAD x, ADD, STORE z]"
-        ];
-        Assert.Equal(["Before the pattern", .. body, "With visitors", .. body], lines);
+    [Fact]
+    public void ProblemMainOutput()
+    {
+        Assert.Equal([.. Body, "Each of the three jobs is written in all four node classes."],
+            Printed.By(P.Main.Run));
+    }
+
+    [Fact]
+    public void SolutionMainOutput()
+    {
+        Assert.Equal(Body, Printed.By(S.Main.Run));
     }
 }

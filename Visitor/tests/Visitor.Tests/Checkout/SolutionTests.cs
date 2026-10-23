@@ -175,4 +175,14 @@ public class SolutionTests
             "  Gift card   Gift card 100 (sent by e-mail)"
         ], lines);
     }
+
+    [Fact]
+    public void ModernMainOutput()
+    {
+        Assert.Equal(
+        [
+            "Novel 40: tax 2", "Coffee 100: tax 1", "Headphones 500: tax 100",
+            "Gift card 100: tax 0", "Total tax: 103"
+        ], Printed.By(M.Main.Run));
+    }
 }

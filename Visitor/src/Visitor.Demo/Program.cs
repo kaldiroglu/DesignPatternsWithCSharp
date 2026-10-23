@@ -1,10 +1,12 @@
-// Most examples have a class called Main or Test. Aliases name them apart. The namespace File would hide System.IO.File inside dev.kaldiroglu.Visitor, so
-// the file examples are always reached through these aliases too.
+// Most examples have a class called Main or Test. Aliases name them apart. The namespace
+// File would hide System.IO.File inside dev.kaldiroglu.Visitor, so the file examples are
+// always reached through these aliases too.
 using CheckoutMain = dev.kaldiroglu.Visitor.Checkout.Solution.Main;
 using CheckoutMethodsMain = dev.kaldiroglu.Visitor.Checkout.Problem.Methods.Main;
-using CheckoutProblemMain = dev.kaldiroglu.Visitor.Checkout.Problem.Main;
+using CheckoutStageTwoMain = dev.kaldiroglu.Visitor.Checkout.Problem.StageTwoMain;
+using CheckoutStageThreeMain = dev.kaldiroglu.Visitor.Checkout.Problem.StageThreeMain;
+using CheckoutGiftCardMain = dev.kaldiroglu.Visitor.Checkout.Problem.GiftCardMain;
 using CheckoutModernMain = dev.kaldiroglu.Visitor.Checkout.Modern.Main;
-using GofMain = dev.kaldiroglu.Visitor.Gof.Main;
 using GofProblemMain = dev.kaldiroglu.Visitor.Gof.Problem.Main;
 using GofSolutionMain = dev.kaldiroglu.Visitor.Gof.Solution.Main;
 using PatternProblemMain = dev.kaldiroglu.Visitor.Pattern.Problem.Main;
@@ -38,13 +40,14 @@ public static class Program
 {
     private static readonly Dictionary<string, (string Group, Action Run)> Examples = new()
     {
-        ["checkout-methods"] = ("A CHECKOUT", CheckoutMethodsMain.Run),
-        ["checkout-problem"] = ("A CHECKOUT", CheckoutProblemMain.Run),
+        ["checkout-problem-stage-one"] = ("A CHECKOUT", CheckoutMethodsMain.Run),
+        ["checkout-problem-stage-two"] = ("A CHECKOUT", CheckoutStageTwoMain.Run),
+        ["checkout-problem-stage-three"] = ("A CHECKOUT", CheckoutStageThreeMain.Run),
+        ["checkout-problem-gift-card"] = ("A CHECKOUT", CheckoutGiftCardMain.Run),
         ["checkout"] = ("A CHECKOUT", CheckoutMain.Run),
         ["checkout-modern"] = ("A CHECKOUT", CheckoutModernMain.Run),
         ["gof-problem"] = ("GOF'S COMPILER", GofProblemMain.Run),
         ["gof-solution"] = ("GOF'S COMPILER", GofSolutionMain.Run),
-        ["gof"] = ("GOF'S COMPILER", GofMain.Run),
         ["pattern-problem"] = ("GOF'S COMPILER, SHORT FORM", PatternProblemMain.Run),
         ["file-problem1"] = ("TEXT FILES AND XML FILES", FileProblem1Test.Run),
         ["file-problem2"] = ("TEXT FILES AND XML FILES", FileProblem2Test.Run),
