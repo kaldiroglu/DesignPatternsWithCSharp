@@ -10,9 +10,8 @@ public static class Test
     private static Originator? originator;
 
     /// <summary>
-    /// Starts the two threads and waits for them. The Java <c>main</c> returns at once and the
-    /// JVM waits for the threads; waiting here gives the same output, and lets the runner start
-    /// the next example only after this one has finished.
+    /// Starts the two threads and waits for them, so the runner starts the next example only
+    /// after this one has finished.
     /// </summary>
     public static void Run()
     {
@@ -29,9 +28,8 @@ public static class Test
     }
 
     /// <summary>
-    /// Changes the originator's state every second, on its own thread. In the Java it extends
-    /// <c>Thread</c>; here it holds one, as <see cref="Caretaker"/> does. The Java class is
-    /// package-private, so this one is <c>internal</c>.
+    /// Changes the originator's state every second, on its own thread. It holds a thread, as
+    /// <see cref="Caretaker"/> does, and it is <c>internal</c>.
     /// </summary>
     internal class OriginatorTrigger
     {

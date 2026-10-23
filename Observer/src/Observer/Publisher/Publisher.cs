@@ -30,9 +30,8 @@ public class Publisher
     public IPublication FourFourTwo => fourFourTwo;
 
     /// <summary>
-    /// The current date and time in the shape of Java's <c>Date.toString()</c>, for example
-    /// <c>Thu Oct 08 21:52:22 GMT+03:00 2026</c>. Java prints a time zone name such as
-    /// <c>CET</c> where it knows one; this prints the offset.
+    /// The current date and time, for example <c>Thu Oct 08 21:52:22 GMT+03:00 2026</c>. The
+    /// time zone is printed as an offset.
     /// </summary>
     private static string Today() =>
         DateTime.Now.ToString("ddd MMM dd HH:mm:ss 'GMT'zzz yyyy", CultureInfo.InvariantCulture);

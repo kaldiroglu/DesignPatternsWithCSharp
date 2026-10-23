@@ -4,7 +4,7 @@ namespace dev.kaldiroglu.Bridge.Notifications.Domain;
 /// Section headings for the demos, so each one stays about the design rather than layout, and
 /// the two messages every demo sends.
 /// <para>
-/// Java calls this class <c>Console</c>. That name is taken in .NET, and shadowing
+/// The class is not called <c>Console</c>. That name is taken in .NET, and shadowing
 /// <see cref="System.Console"/> inside the very namespace that writes to it would be a trap
 /// rather than a lesson. <c>Demo</c> is no better: the runnable project is
 /// <c>dev.kaldiroglu.Bridge.Demo</c>, and inside it a bare <c>Demo</c> binds to the namespace.

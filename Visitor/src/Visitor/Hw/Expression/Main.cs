@@ -4,7 +4,7 @@ namespace dev.kaldiroglu.Visitor.Hw.Expression;
 
 /// <summary>Runs three visitors over one expression: it is printed, evaluated and measured.</summary>
 /// <remarks>
-/// The Java original's <c>main</c>. Run it with
+/// Run it with
 /// <c>dotnet run --project src/Visitor.Demo -- hw-expression</c>.
 /// </remarks>
 public static class Main

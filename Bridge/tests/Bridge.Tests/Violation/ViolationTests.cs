@@ -76,7 +76,7 @@ public class ViolationTests
     [Fact(DisplayName = "C# made the author write virtual, and it still did not help")]
     public void OptingInIsNotSanctioning()
     {
-        // Java lets any method be overridden. C# requires `virtual` on the supertype first —
+        // C# requires `virtual` on the supertype first —
         // one more deliberate step, and no protection at all: the contract is still broken by
         // an override the author of AType explicitly permitted.
         var doIt = typeof(AType).GetMethod(nameof(AType.DoIt))!;

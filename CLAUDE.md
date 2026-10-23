@@ -101,6 +101,10 @@ library is itself the console app.
 
 These all cost real time at least once. In rough order of how quietly they fail:
 
+- **C# source files never mention Java.** Comments, doc comments and test names describe
+  the C# code on its own terms: no "the Java original's `main`", no "the way Java's
+  `List.toString()` does", no "ported from". Set by the user on 2026-10-23. This file and
+  the READMEs may still talk about Java; data such as `"JavaSort"` stays as it is.
 - **`Type.IsAbstract` is `true` for interfaces.** Anywhere a test counts "the abstract
   kinds", write `t.IsAbstract && !t.IsInterface` or the interface inflates the count by
   one. The Java original has no equivalent trap.

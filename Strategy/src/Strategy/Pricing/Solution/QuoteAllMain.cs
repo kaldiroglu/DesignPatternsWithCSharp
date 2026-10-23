@@ -2,7 +2,7 @@ namespace dev.kaldiroglu.Strategy.Pricing.Solution;
 
 /// <summary>One till prices one basket with all five rules.</summary>
 /// <remarks>
-/// The Java original's <c>main</c>. Run it with
+/// Run it with
 /// <c>dotnet run --project src/Strategy.Demo -- pricing-quote-all</c>.
 /// </remarks>
 public static class QuoteAllMain

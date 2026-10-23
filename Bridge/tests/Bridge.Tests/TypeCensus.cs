@@ -6,9 +6,8 @@ namespace dev.kaldiroglu.Bridge.Tests;
 /// <summary>
 /// Counts the types in a namespace, so the arithmetic on the slides fails when the code changes.
 /// <para>
-/// The Java suite walks the classpath directory for a package. The .NET equivalent is simpler,
-/// because a namespace is a queryable property of every type in a loaded assembly — but the
-/// point is the same one: listing the classes here and then asserting <c>2 + 3 == 5</c> would
+/// A namespace is a queryable property of every type in a loaded assembly, so the count is
+/// simple to take. Listing the classes here and then asserting <c>2 + 3 == 5</c> would
 /// prove something about integers, and would go on passing the day a fourth store is added and
 /// the slide still says five.
 /// </para>

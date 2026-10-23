@@ -5,8 +5,8 @@ namespace dev.kaldiroglu.Strategy.Pricing.Domain;
 /// <summary>
 /// An amount in minor-unit-safe decimal, so the examples never argue about rounding.
 /// <para>
-/// Every amount is held to two places and rounded half away from zero (Java's
-/// <c>HALF_UP</c>), which is what a till does. The type exists so a pricing rule can be read
+/// Every amount is held to two places and rounded half away from zero, which is what a till
+/// does. The type exists so a pricing rule can be read
 /// as arithmetic about money rather than as arithmetic about <c>double</c>.
 /// </para>
 /// </summary>

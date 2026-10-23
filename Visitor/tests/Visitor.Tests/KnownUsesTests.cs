@@ -6,8 +6,7 @@ namespace dev.kaldiroglu.Visitor.Tests;
 
 /// <summary>
 /// The first row of the deck's .NET known-uses table, checked against the running runtime.
-/// The Java KnownUsesTest checks JDK types (FileVisitor, ElementVisitor, TreeVisitor and the
-/// class-file API), which have no place in a .NET test. Roslyn's CSharpSyntaxWalker, the
+/// Roslyn's CSharpSyntaxWalker, the
 /// table's second row, is left out because it needs an extra package.
 /// </summary>
 public class KnownUsesTests

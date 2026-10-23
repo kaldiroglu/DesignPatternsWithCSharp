@@ -47,9 +47,7 @@ public class SolutionTest
     }
 
     /// <summary>
-    /// A class outside Player cannot read the checkpoint's health. The Java checks that the
-    /// fields health, inventory and position and the constructor of Checkpoint are private,
-    /// and that it has no methods. In C# the class Checkpoint is private to Player and holds
+    /// A class outside Player cannot read the checkpoint's health. The class Checkpoint is private to Player and holds
     /// Health, Inventory and Position; outside Player it is seen only as the empty interface
     /// ICheckpoint, which has no getters and no methods at all.
     /// </summary>

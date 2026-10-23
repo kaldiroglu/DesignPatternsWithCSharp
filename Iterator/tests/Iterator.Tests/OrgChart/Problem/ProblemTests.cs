@@ -6,7 +6,7 @@ using Xunit;
 
 /// <summary>
 /// The three attempts of Part 1: a department that gives out its lists, one that copies, and
-/// one that calls back. Ported from the Java <c>orgchart.problem.ProblemTest</c>.
+/// one that calls back.
 /// </summary>
 public class ProblemTests
 {
@@ -64,8 +64,7 @@ public class ProblemTests
         var everyone = company.Everyone();
 
         Assert.Equal([Ayse, Deniz, Ali, Can, Mert], everyone);
-        // Java's unmodifiable list throws UnsupportedOperationException. The C# list is
-        // read-only, and adding through ICollection<T> throws NotSupportedException.
+        // The list is read-only, and adding through ICollection<T> throws NotSupportedException.
         Assert.Throws<NotSupportedException>(() => ((ICollection<Employee>)everyone).Add(Elif));
         // Every call makes a new copy.
         Assert.NotSame(everyone, company.Everyone());
@@ -92,7 +91,7 @@ public class ProblemTests
     {
         var zeynep = new Employee("Zeynep", "head of sales");
 
-        // Java returns Optional<String>; the C# port returns string?, with null for none.
+        // The report returns string?, with null for none.
         var change = new ChangeReport().FirstDifference(CallbackCompany(Deniz), CallbackCompany(zeynep));
 
         Assert.Equal("Deniz (head of sales) -> Zeynep (head of sales)", change);

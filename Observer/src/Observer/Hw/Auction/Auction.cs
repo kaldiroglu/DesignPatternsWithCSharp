@@ -6,8 +6,7 @@ namespace dev.kaldiroglu.Observer.Hw.Auction;
 /// The homework question: what happens when a bidder decides to stop watching while it is
 /// being told about a bid? It calls <see cref="Unwatch"/> from inside its own update. If
 /// the auction looped over the real list, that would change the list during the loop and
-/// throw an exception — <c>ConcurrentModificationException</c> in Java,
-/// <see cref="InvalidOperationException"/> in C#. The auction loops over a copy, so the
+/// throw an <see cref="InvalidOperationException"/>. The auction loops over a copy, so the
 /// change takes effect from the next bid.
 /// </para>
 /// </summary>

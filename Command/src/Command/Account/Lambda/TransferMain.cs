@@ -10,7 +10,7 @@ using static dev.kaldiroglu.Command.Account.Lambda.Transactions;
 /// <c>Solution</c>, and one undo takes back the whole transfer.
 /// </summary>
 /// <remarks>
-/// The Java original's <c>main</c>. Run it with
+/// Run it with
 /// <c>dotnet run --project src/Command.Demo -- account-lambda-transfer</c>.
 /// </remarks>
 public static class TransferMain

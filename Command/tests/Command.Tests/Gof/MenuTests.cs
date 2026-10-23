@@ -8,8 +8,7 @@ using Xunit;
 using ProblemMenuItem = dev.kaldiroglu.Command.Gof.Problem.MenuItem;
 
 /// <summary>
-/// GoF's menu example, before and after the pattern. Ported from the Java
-/// <c>gof.MenuTest</c>.
+/// GoF's menu example, before and after the pattern.
 /// </summary>
 public class MenuTests
 {
@@ -24,7 +23,7 @@ public class MenuTests
 
     /// <summary>
     /// Whether the source of a file, comments removed, names one of these types as a whole
-    /// word. Java checks the <c>import</c> lines. C# needs no <c>using</c> line here: the
+    /// word. C# needs no <c>using</c> line here: the
     /// toolkit classes sit in a namespace inside <c>Gof</c>, so they see Application and
     /// Document without one. The closest check is the code itself.
     /// </summary>
@@ -43,8 +42,7 @@ public class MenuTests
             .Concat(type.GetMethods(Declared).Select(m => m.ReturnType));
 
     /// <summary>
-    /// A command made from a lambda. Java's <c>Command</c> is a functional interface, so its
-    /// tests write commands as lambdas; a C# lambda cannot implement <c>ICommand</c>.
+    /// A command made from a lambda, because a C# lambda cannot implement <c>ICommand</c>.
     /// </summary>
     private sealed class Run(Action action) : ICommand
     {

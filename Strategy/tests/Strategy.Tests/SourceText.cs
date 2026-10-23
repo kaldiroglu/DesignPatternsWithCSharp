@@ -5,9 +5,8 @@ namespace dev.kaldiroglu.Strategy.Tests;
 
 /// <summary>
 /// Reads the C# sources of the library, for the tests that count lines of code rather than
-/// types. The Java tests read their sources from a path relative to the Maven project; here the
-/// path is fixed at compile time with <c>CallerFilePath</c>, so the working directory does not
-/// matter.
+/// types. The path is fixed at compile time with <c>CallerFilePath</c>, so the working
+/// directory does not matter.
 /// </summary>
 public static class SourceText
 {

@@ -5,7 +5,7 @@ namespace dev.kaldiroglu.ChainOfResponsibility.Gof.Solution;
 /// its own help passes the request to its parent.
 /// </summary>
 /// <remarks>
-/// The Java original's <c>main</c>. Run it with
+/// Run it with
 /// <c>dotnet run --project src/ChainOfResponsibility.Demo -- gof-solution</c>.
 /// </remarks>
 public static class Main
@@ -17,8 +17,8 @@ public static class Main
         Button print = new Button(printDialog, "print the document.");
         Button ok = new Button(printDialog);
         Button font = new Button(new Dialog(editor, null));
-        // The Java passes null: this application has no help. The C# parameter is a
-        // non-nullable string, so null! says the same thing.
+        // This application has no help. The parameter is a non-nullable string, so null!
+        // passes null on purpose.
         Button lonely = new Button(new Dialog(new Application(null!), null));
 
         Console.WriteLine("print button (has help):        " + print.HandleHelp());

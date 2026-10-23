@@ -8,8 +8,7 @@ namespace dev.kaldiroglu.Strategy.Tests.Hw;
 
 /// <summary>
 /// Worked solutions for the three homework problems, so that every figure on the homework
-/// slides is one a test asserts. Ported from the Java <c>hw.HomeworkTest</c>; its three
-/// <c>@Nested</c> classes are nested classes here too.
+/// slides is one a test asserts. Each problem has its own nested class.
 /// </summary>
 public class HomeworkTests
 {

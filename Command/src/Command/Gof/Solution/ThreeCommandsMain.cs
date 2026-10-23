@@ -5,7 +5,7 @@ namespace dev.kaldiroglu.Command.Gof.Solution;
 /// PasteCommand, which only forwards, is in <see cref="PasteCommandMain"/>.
 /// </summary>
 /// <remarks>
-/// The Java original's <c>main</c>. Run it with
+/// Run it with
 /// <c>dotnet run --project src/Command.Demo -- gof-three-commands</c>.
 /// </remarks>
 public static class ThreeCommandsMain

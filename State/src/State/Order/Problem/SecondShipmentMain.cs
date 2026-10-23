@@ -5,7 +5,7 @@ namespace dev.kaldiroglu.State.Order.Problem;
 /// count was not reset, so the failures are attempts 4, 5 and 6 and the order stays shipped.
 /// </summary>
 /// <remarks>
-/// The Java original's <c>main</c>. Run it with
+/// Run it with
 /// <c>dotnet run --project src/State.Demo -- order-problem-second-shipment</c>.
 /// </remarks>
 public static class SecondShipmentMain
@@ -24,6 +24,6 @@ public static class SecondShipmentMain
         Console.WriteLine("The count was not reset, so it never equals 3 again: the courier has no limit.");
     }
 
-    /// <summary>Prints a list the way Java's <c>List.toString()</c> does: <c>[a, b, c]</c>.</summary>
+    /// <summary>Prints a list as <c>[a, b, c]</c>.</summary>
     private static string Show(IEnumerable<string> items) => "[" + string.Join(", ", items) + "]";
 }

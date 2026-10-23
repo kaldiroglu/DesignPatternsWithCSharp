@@ -5,7 +5,7 @@ namespace dev.kaldiroglu.Observer.Gof.Problem;
 /// would be an edit to the timer.
 /// </summary>
 /// <remarks>
-/// The Java original's <c>main</c>. Run it with
+/// Run it with
 /// <c>dotnet run --project src/Observer.Demo -- gof-problem</c>.
 /// </remarks>
 public static class Main

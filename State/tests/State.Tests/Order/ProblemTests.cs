@@ -7,7 +7,7 @@ using dev.kaldiroglu.State.Order.Problem;
 
 /// <summary>
 /// The three designs of Part 1: flags, a switch, and status objects. Every figure the Part 1
-/// slides quote about them is asserted here. Ported from the Java <c>ProblemTest</c>.
+/// slides quote about them is asserted here.
 /// </summary>
 public class ProblemTests
 {
@@ -75,8 +75,8 @@ public class ProblemTests
     {
         var code = Printed.CodeOf(Source + "SwitchingOrder.cs");
 
-        // Pay, Ship, Deliver and Cancel each switch on the status. Java writes
-        // "switch (status)"; the C# port uses switch expressions, "status switch".
+        // Pay, Ship, Deliver and Cancel each switch on the status, with a switch expression,
+        // "status switch".
         Assert.Equal(4, Printed.CountOf(code, "status switch"));
         Assert.DoesNotContain("default", code);
     }
@@ -126,7 +126,7 @@ public class ProblemTests
     [Fact]
     public void TheDataLivesInTheOrder()
     {
-        // Java declares two fields. The C# port declares two internal properties.
+        // The order declares two internal properties.
         var orderMembers = typeof(EnumOrder).GetProperties(Declared | BindingFlags.Instance)
             .Select(p => p.Name)
             .ToList();
@@ -139,8 +139,8 @@ public class ProblemTests
             .ToList();
         Assert.Equal(5, constants.Count);
 
-        // The status holds no data of its own. Its only instance field is the one behind Name,
-        // which Java's enum keeps in java.lang.Enum. Each constant's class declares none.
+        // The status holds no data of its own. Its only instance field is the one behind Name.
+        // Each constant's class declares none.
         var ownFields = typeof(OrderStatus).GetFields(Declared | BindingFlags.Instance)
             .Select(f => f.Name)
             .ToList();

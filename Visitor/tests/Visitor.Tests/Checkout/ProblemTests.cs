@@ -7,7 +7,7 @@ namespace dev.kaldiroglu.Visitor.Tests.Checkout;
 
 /// <summary>
 /// The three designs of Part 1: each item computes its own tax, one class with an overload
-/// per kind, and one class with type tests. Ported from the Java ProblemTest.
+/// per kind, and one class with type tests.
 /// </summary>
 public class ProblemTests
 {
@@ -93,12 +93,11 @@ public class ProblemTests
     [Fact]
     public void TheItemIsNotSealed()
     {
-        // Java asserts that Item is not sealed. A C# interface can never be sealed, so the
-        // check here is that IItem is an interface any class may implement.
+        // A C# interface can never be sealed, so the check here is that IItem is an interface any class may implement.
         Assert.True(typeof(P.IItem).IsInterface);
         Assert.False(typeof(P.IItem).IsSealed);
 
-        // Java counts "instanceof"; the C# type test is "item is Book".
+        // The type test is "item is Book".
         var code = Printed.WithoutStrings(Printed.CodeOf(Source + "TypeTestTax.cs"));
         Assert.Equal(3, Printed.CountOf(code, @"\bis\s+[A-Z]"));
         Assert.Matches(@"else\s*\{", code);

@@ -37,9 +37,8 @@ public class ControlTowerTest
     }
 
     /// <summary>
-    /// Every public method of the tower takes the lock. The Java checks the synchronized
-    /// modifier. The C# tower uses a lock statement on a private object, which leaves no mark
-    /// on the method, so this test reads the source: the body of each public member has a lock.
+    /// Every public method of the tower takes the lock. The tower uses a lock statement on a
+    /// private object, which leaves no mark on the method, so this test reads the source: the body of each public member has a lock.
     /// </summary>
     [Fact]
     public void EveryMethodIsSynchronized()

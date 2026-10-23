@@ -5,9 +5,7 @@ namespace dev.kaldiroglu.State.Tests;
 
 /// <summary>
 /// The .NET rows of the State deck's known-uses table, checked against the running runtime.
-/// The Java <c>KnownUsesTest</c> checks the JDK rows (<c>Thread.State</c>, <c>Future.State</c>
-/// and <c>FutureTask</c>); those types do not exist in .NET, so this class checks the two .NET
-/// rows of the same table instead.
+/// This class checks the two .NET rows of the table.
 /// </summary>
 public class KnownUsesTests
 {

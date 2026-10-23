@@ -3,8 +3,7 @@ using System.Reflection;
 namespace dev.kaldiroglu.Command.Tests;
 
 /// <summary>
-/// Helpers for the tests of examples that print to the console. Ported from the Java
-/// <c>lender.Printed</c> helper.
+/// Helpers for the tests of examples that print to the console.
 /// </summary>
 public static class Printed
 {
@@ -26,7 +25,7 @@ public static class Printed
     }
 
     /// <summary>
-    /// Splits text into lines the way Java's <c>String.lines()</c> does: a line ends at
+    /// Splits text into lines: a line ends at
     /// "\n", "\r" or "\r\n", and a line terminator at the very end does not start one more,
     /// empty line.
     /// </summary>

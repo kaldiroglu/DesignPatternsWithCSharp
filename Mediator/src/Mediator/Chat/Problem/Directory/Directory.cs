@@ -15,7 +15,7 @@ public sealed class Directory
         members.Add(member);
     }
 
-    /// <summary>A copy of the members, as Java's <c>List.copyOf</c> gives.</summary>
+    /// <summary>A copy of the members.</summary>
     public IReadOnlyList<Member> Members => members.ToList();
 
     /// <summary>The member with this name, or <c>null</c> when there is none.</summary>

@@ -43,8 +43,7 @@ public class RuleTests
     [Fact]
     public void FiveRuleClasses()
     {
-        // Java asserts that Rule is sealed and permits exactly five records. C# has no sealed
-        // interface, so IRule is open; the check is that the library has exactly these five
+        // C# has no sealed interface, so IRule is open; the check is that the library has exactly these five
         // implementations, each a sealed record.
         var rule = typeof(I.IRule);
         Assert.True(rule.IsInterface);

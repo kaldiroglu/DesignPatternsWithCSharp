@@ -9,8 +9,7 @@ namespace dev.kaldiroglu.ChainOfResponsibility.Hw.Middleware;
 /// the request and the rest of the chain.
 /// </para>
 /// <para>
-/// The Java is a functional interface with the method <c>handle</c> and a static method
-/// <c>chain</c>. A C# delegate cannot hold a method, so <c>chain</c> is
+/// A delegate cannot hold a method, so the method that builds a chain is
 /// <see cref="MiddlewareChain.Chain"/>.
 /// </para>
 /// </summary>

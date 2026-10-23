@@ -8,7 +8,7 @@ using OrderContext = global::dev.kaldiroglu.State.Order.Solution.Order;
 
 /// <summary>
 /// The order with State objects. Every figure the Part 3 slides quote about the order is
-/// asserted here. Ported from the Java <c>SolutionTest</c>.
+/// asserted here.
 /// </summary>
 public class SolutionTests
 {
@@ -120,8 +120,7 @@ public class SolutionTests
     }
 
     /// <summary>
-    /// Java checks a sealed interface that permits exactly five records. C# has no sealed
-    /// interface, so this checks the closest form the port uses: exactly five types in the
+    /// C# has no sealed interface, so this checks the closest form: exactly five types in the
     /// library implement <see cref="IOrderState"/>, each a sealed record.
     /// </summary>
     [Fact]

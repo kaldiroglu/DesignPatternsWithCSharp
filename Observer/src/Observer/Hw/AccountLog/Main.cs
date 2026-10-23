@@ -5,7 +5,7 @@ namespace dev.kaldiroglu.Observer.Hw.AccountLog;
 /// too large throws before any listener is told, so it is not recorded.
 /// </summary>
 /// <remarks>
-/// The Java original's <c>main</c>. Run it with
+/// Run it with
 /// <c>dotnet run --project src/Observer.Demo -- hw-accountlog</c>.
 /// </remarks>
 public static class Main

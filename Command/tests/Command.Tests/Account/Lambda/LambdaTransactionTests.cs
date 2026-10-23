@@ -9,7 +9,6 @@ using SolutionRuns = dev.kaldiroglu.Command.Account.Solution;
 
 /// <summary>
 /// The account's transactions written as lambdas, against the classes of <c>Solution</c>.
-/// Ported from the Java <c>LambdaTransactionTest</c>.
 /// </summary>
 public class LambdaTransactionTests
 {

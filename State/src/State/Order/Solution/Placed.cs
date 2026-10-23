@@ -17,6 +17,6 @@ public sealed record Placed() : IOrderState
         return new Cancelled();
     }
 
-    /// <summary>Prints the record the way Java prints it.</summary>
+    /// <summary>Prints the record as <c>Placed[]</c>.</summary>
     public override string ToString() => "Placed[]";
 }

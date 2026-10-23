@@ -5,7 +5,7 @@ namespace dev.kaldiroglu.Strategy.Hw.Seating;
 /// succeeds.
 /// </summary>
 /// <remarks>
-/// The Java original's <c>main</c>. Run it with
+/// Run it with
 /// <c>dotnet run --project src/Strategy.Demo -- hw-seating</c>.
 /// </remarks>
 public static class Main
@@ -30,6 +30,6 @@ public static class Main
             + " (no row has two free seats)");
     }
 
-    /// <summary>Prints a list the way Java's <c>List.toString()</c> does: <c>[a, b, c]</c>.</summary>
+    /// <summary>Prints a list as <c>[a, b, c]</c>.</summary>
     private static string Show(IEnumerable<string> items) => "[" + string.Join(", ", items) + "]";
 }

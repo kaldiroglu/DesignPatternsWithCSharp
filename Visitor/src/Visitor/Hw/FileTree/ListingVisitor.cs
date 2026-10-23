@@ -26,6 +26,6 @@ public sealed class ListingVisitor : IEntryVisitor
 
     public IReadOnlyList<string> Lines => lines.ToList();
 
-    /// <summary>Two spaces for each level, as Java's <c>"  ".repeat(depth)</c>.</summary>
+    /// <summary>Two spaces for each level.</summary>
     private string Indent() => new(' ', 2 * depth);
 }

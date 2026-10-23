@@ -1,7 +1,7 @@
 namespace dev.kaldiroglu.Observer.Payment;
 
 /// <summary>
-/// A stand-in for the JDK's <c>java.util.Observer</c>, which .NET does not have.
+/// An observer interface, written for this example: .NET does not have one in this shape.
 /// <para>
 /// One method, called by an <see cref="Observable"/> when it has changed. The first
 /// argument is the observable itself; the second is whatever it passed to

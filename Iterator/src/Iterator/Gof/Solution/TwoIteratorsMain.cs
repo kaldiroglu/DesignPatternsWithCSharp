@@ -5,12 +5,11 @@ namespace dev.kaldiroglu.Iterator.Gof.Solution;
 /// </summary>
 /// <remarks>
 /// <para>
-/// The Java original's <c>main</c>. Run it with
+/// Run it with
 /// <c>dotnet run --project src/Iterator.Demo -- gof-two-iterators</c>.
 /// </para>
 /// <para>
-/// In this namespace <c>List&lt;T&gt;</c> is GoF's list, so .NET's list is written in full,
-/// as Java writes <c>java.util.List</c>.
+/// In this namespace <c>List&lt;T&gt;</c> is GoF's list, so .NET's list is written in full.
 /// </para>
 /// </remarks>
 public static class TwoIteratorsMain
@@ -32,6 +31,6 @@ public static class TwoIteratorsMain
         Console.WriteLine("Two iterators, " + pairs.Count + " pairs: " + Show(pairs));
     }
 
-    /// <summary>Prints a list the way Java's <c>List.toString()</c> does: <c>[a, b, c]</c>.</summary>
+    /// <summary>Prints a list as <c>[a, b, c]</c>.</summary>
     private static string Show(IEnumerable<string> items) => "[" + string.Join(", ", items) + "]";
 }

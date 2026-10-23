@@ -48,6 +48,6 @@ public sealed class Member
     /// <summary>How many other members this member holds a reference to.</summary>
     public int References => others.Count;
 
-    /// <summary>A copy of the inbox, as Java's <c>List.copyOf</c> gives.</summary>
+    /// <summary>A copy of the inbox.</summary>
     public IReadOnlyList<string> Inbox => inbox.ToList();
 }

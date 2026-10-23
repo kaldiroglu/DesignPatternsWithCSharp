@@ -6,12 +6,12 @@ using System.Reflection;
 using dev.kaldiroglu.Command.Lender.Pattern;
 using Xunit;
 
-/// <summary>Step three: the lender runs any command. Ported from the Java <c>PatternTest</c>.</summary>
+/// <summary>Step three: the lender runs any command.</summary>
 public class PatternTests
 {
     /// <summary>
-    /// A command written in this test. Java uses a method reference; a C# lambda cannot
-    /// implement an interface, so it is a small class.
+    /// A command written in this test. A C# lambda cannot implement an interface, so it is a
+    /// small class.
     /// </summary>
     private sealed class Recorder(List<int> received) : ICommand
     {

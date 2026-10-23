@@ -5,7 +5,7 @@ namespace dev.kaldiroglu.Visitor.Pattern.Problem;
 /// them prints nothing; the full version is in <c>Visitor.Gof.Problem</c>.
 /// </summary>
 /// <remarks>
-/// The Java original's <c>main</c>. Run it with
+/// Run it with
 /// <c>dotnet run --project src/Visitor.Demo -- pattern-problem</c>. The lines name the
 /// methods as C# names them.
 /// </remarks>

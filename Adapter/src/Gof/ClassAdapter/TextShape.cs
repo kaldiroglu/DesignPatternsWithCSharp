@@ -6,7 +6,7 @@ namespace dev.kaldiroglu.Adapter.Gof.ClassAdapter;
 /// <b>Class Adapter</b> (GoF p. 146).
 ///
 /// <para>GoF writes this in C++ using multiple inheritance: <c>class TextShape : public Shape,
-/// private TextView</c>. Java has only single implementation inheritance, so the idiomatic class
+/// private TextView</c>. C# has only single implementation inheritance, so the idiomatic class
 /// adapter <b>extends the adaptee</b> (<see cref="TextView"/>) and <b>implements the target</b>
 /// (<see cref="Shape"/>).</para>
 ///

@@ -5,7 +5,7 @@ namespace dev.kaldiroglu.Mediator.Hw.AirTraffic;
 /// calls the next one when the runway is clear.
 /// </summary>
 /// <remarks>
-/// The Java original's <c>main</c>. Run it with
+/// Run it with
 /// <c>dotnet run --project src/Mediator.Demo -- hw-airtraffic</c>.
 /// </remarks>
 public static class Main

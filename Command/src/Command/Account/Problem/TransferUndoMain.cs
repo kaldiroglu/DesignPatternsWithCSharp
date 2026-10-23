@@ -4,7 +4,7 @@ namespace dev.kaldiroglu.Command.Account.Problem;
 
 /// <summary>Stage three: the teller transfers 300, and one undo takes back only half of it.</summary>
 /// <remarks>
-/// The Java original's <c>main</c>. Run it with
+/// Run it with
 /// <c>dotnet run --project src/Command.Demo -- account-problem-transfer-undo</c>.
 /// </remarks>
 public static class TransferUndoMain
@@ -25,6 +25,6 @@ public static class TransferUndoMain
         Console.WriteLine("Journal: " + Show(teller.Journal()));
     }
 
-    /// <summary>Prints a list the way Java's <c>List.toString()</c> does: <c>[a, b, c]</c>.</summary>
+    /// <summary>Prints a list as <c>[a, b, c]</c>.</summary>
     private static string Show(IEnumerable<string> items) => "[" + string.Join(", ", items) + "]";
 }

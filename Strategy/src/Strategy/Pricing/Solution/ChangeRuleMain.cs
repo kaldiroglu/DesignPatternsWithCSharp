@@ -2,7 +2,7 @@ namespace dev.kaldiroglu.Strategy.Pricing.Solution;
 
 /// <summary>The rule is a field, so the same till can be given another rule while it runs.</summary>
 /// <remarks>
-/// The Java original's <c>main</c>. Run it with
+/// Run it with
 /// <c>dotnet run --project src/Strategy.Demo -- pricing-change-rule</c>.
 /// </remarks>
 public static class ChangeRuleMain

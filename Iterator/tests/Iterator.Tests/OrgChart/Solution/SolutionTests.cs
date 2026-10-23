@@ -8,8 +8,7 @@ using Xunit;
 
 /// <summary>
 /// The department that gives out iterators. Every output the Part 3 slides quote from
-/// <c>TwoOrdersMain</c> and <c>ChangeReportMain</c> is asserted here. Ported from the Java
-/// <c>orgchart.solution.SolutionTest</c>.
+/// <c>TwoOrdersMain</c> and <c>ChangeReportMain</c> is asserted here.
 /// </summary>
 public class SolutionTests
 {
@@ -92,7 +91,7 @@ public class SolutionTests
     [Fact(DisplayName = "the change report moves two iterators together and stops at the first difference")]
     public void TheReportFindsTheNewHeadOfSales()
     {
-        // Java returns Optional<String>; the C# port returns string?, with null for none.
+        // The report returns string?, with null for none.
         var change = new ChangeReport().FirstDifference(SampleCompany.Build("Deniz"), SampleCompany.Build("Zeynep"));
 
         Assert.Equal("Deniz (head of sales) -> Zeynep (head of sales)", change);
@@ -140,8 +139,7 @@ public class SolutionTests
         using var first = company.GetEnumerator();
         using var second = company.GetEnumerator();
 
-        // Java's next() moves on and returns the element; C#'s MoveNext() moves on and
-        // Current returns it.
+        // MoveNext() moves on, and Current returns the element.
         first.MoveNext();
         first.MoveNext();
         first.MoveNext();
@@ -155,8 +153,8 @@ public class SolutionTests
     [Fact(DisplayName = "the department has no public getter for its members or sub-departments")]
     public void TheDepartmentGivesOutNoLists()
     {
-        // Java looks at public methods that return a List. In C# a getter is a property, so
-        // this looks at public methods and public properties that return a list type.
+        // A getter is a property, so this looks at public methods and public properties that
+        // return a list type.
         const BindingFlags flags = BindingFlags.Public | BindingFlags.Instance | BindingFlags.Static
                                    | BindingFlags.DeclaredOnly;
         var listGetters = typeof(Department).GetMethods(flags)
@@ -199,8 +197,7 @@ public class SolutionTests
 
         sales.Add(new Employee("Can", "sales"));
 
-        // Java throws ConcurrentModificationException. A .NET List<T> enumerator throws
-        // InvalidOperationException when its list changes during the walk.
+        // A List<T> enumerator throws InvalidOperationException when its list changes during the walk.
         Assert.Throws<InvalidOperationException>(() => walk.MoveNext());
     }
 
@@ -209,8 +206,8 @@ public class SolutionTests
     {
         var empty = new Department("Empty").Add(new Department("Also empty"));
 
-        // Java's next() past the end throws NoSuchElementException. In C# MoveNext() answers
-        // false, and Current then throws InvalidOperationException.
+        // Past the end, MoveNext() answers false, and Current then throws
+        // InvalidOperationException.
         using var depthFirst = empty.GetEnumerator();
         Assert.False(depthFirst.MoveNext());
         Assert.Throws<InvalidOperationException>(() => depthFirst.Current);

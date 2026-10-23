@@ -4,7 +4,7 @@ namespace dev.kaldiroglu.Command.Account.Problem;
 
 /// <summary>Stage one: the account remembers only its last move, so a second undo does nothing.</summary>
 /// <remarks>
-/// The Java original's <c>main</c>. Run it with
+/// Run it with
 /// <c>dotnet run --project src/Command.Demo -- account-problem-stage-one</c>.
 /// </remarks>
 public static class StageOneMain

@@ -7,7 +7,7 @@ using static dev.kaldiroglu.Command.Account.Lambda.Transactions;
 
 /// <summary>Close out an account, then undo: the command gives back what it took.</summary>
 /// <remarks>
-/// The Java original's <c>main</c>. Run it with
+/// Run it with
 /// <c>dotnet run --project src/Command.Demo -- account-lambda-close-out</c>.
 /// </remarks>
 public static class CloseOutMain

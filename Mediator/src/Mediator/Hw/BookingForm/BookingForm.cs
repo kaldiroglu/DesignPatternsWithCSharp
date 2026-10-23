@@ -65,6 +65,6 @@ public sealed class BookingForm
 
     public string Warning { get; private set; } = "";
 
-    /// <summary>A copy of the bookings, as Java's <c>List.copyOf</c> gives.</summary>
+    /// <summary>A copy of the bookings.</summary>
     public IReadOnlyList<string> Booked => booked.ToList();
 }

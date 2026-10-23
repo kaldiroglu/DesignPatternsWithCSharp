@@ -7,7 +7,7 @@ namespace dev.kaldiroglu.Visitor.Checkout.Solution;
 /// </para>
 /// </summary>
 /// <remarks>
-/// The Java original's <c>main</c>. Run it with
+/// Run it with
 /// <c>dotnet run --project src/Visitor.Demo -- checkout</c>.
 /// </remarks>
 public static class Main

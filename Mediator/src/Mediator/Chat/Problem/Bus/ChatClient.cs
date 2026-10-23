@@ -21,6 +21,6 @@ public sealed class ChatClient : IClient
         shown.Add(message.From + (message.IsPrivate ? " (private)" : "") + ": " + message.Text);
     }
 
-    /// <summary>A copy of what the client shows, as Java's <c>List.copyOf</c> gives.</summary>
+    /// <summary>A copy of what the client shows.</summary>
     public IReadOnlyList<string> Shown => shown.ToList();
 }

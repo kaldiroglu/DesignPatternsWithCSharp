@@ -5,7 +5,7 @@ namespace dev.kaldiroglu.Strategy.Pricing.Problem;
 /// campaign, so it names every checkout class.
 /// </summary>
 /// <remarks>
-/// The Java original's <c>main</c>. Run it with
+/// Run it with
 /// <c>dotnet run --project src/Strategy.Demo -- pricing-problem-best-campaign</c>.
 /// </remarks>
 public static class BestCampaignMain

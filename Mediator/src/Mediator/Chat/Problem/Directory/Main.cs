@@ -7,7 +7,7 @@ namespace dev.kaldiroglu.Mediator.Chat.Problem.Directory;
 /// because every sender checks it in its own sending code.
 /// </summary>
 /// <remarks>
-/// The Java original's <c>main</c>. Run it with
+/// Run it with
 /// <c>dotnet run --project src/Mediator.Demo -- chat-directory</c>.
 /// </remarks>
 public static class Main
@@ -31,6 +31,6 @@ public static class Main
         Console.WriteLine("The block is checked in Member.say and Member.whisper, by the sender.");
     }
 
-    /// <summary>Prints a list the way Java's <c>List.toString()</c> does: <c>[a, b, c]</c>.</summary>
+    /// <summary>Prints a list as <c>[a, b, c]</c>.</summary>
     private static string Show(IEnumerable<string> items) => "[" + string.Join(", ", items) + "]";
 }

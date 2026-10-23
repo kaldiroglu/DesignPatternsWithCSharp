@@ -9,8 +9,7 @@ using SwitchingConnection = global::dev.kaldiroglu.State.Gof.Problem.TCPConnecti
 
 /// <summary>
 /// GoF's TCP connection (Design Patterns, pp. 305-313), before and after the pattern. The
-/// Part 2 slides say the two versions give identical logs; this class checks it. Ported from
-/// the Java <c>TCPConnectionTest</c>.
+/// Part 2 slides say the two versions give identical logs; this class checks it.
 /// </summary>
 public class TCPConnectionTests
 {
@@ -125,8 +124,7 @@ public class TCPConnectionTests
             Assert.False(method.IsAbstract, request);
         }
 
-        // Java's changeState is package-private. The C# port makes it internal: not public,
-        // not protected, not private.
+        // ChangeState is internal: not public, not protected, not private.
         var changeState = typeof(TCPConnection).GetMethod("ChangeState",
             BindingFlags.Instance | BindingFlags.NonPublic, [typeof(TCPState)])!;
         Assert.NotNull(changeState);

@@ -1,5 +1,4 @@
-// Several examples have a class called Main or Test, as the Java original does. Aliases name
-// them apart.
+// Several examples have a class called Main or Test. Aliases name them apart.
 using GameSettersMain = dev.kaldiroglu.Memento.Game.Problem.Setters.Main;
 using GameHistoryMain = dev.kaldiroglu.Memento.Game.Problem.History.Main;
 using GameCopyMain = dev.kaldiroglu.Memento.Game.Problem.Copy.Main;
@@ -19,8 +18,7 @@ namespace dev.kaldiroglu.Memento.Demo;
 /// <summary>
 /// Runs the Memento examples.
 /// <para>
-/// Every example is one of the Java original's <c>main</c> methods and prints the same
-/// output. <c>pattern1</c> and <c>pattern2</c> run two threads each for about twenty
+/// <c>pattern1</c> and <c>pattern2</c> run two threads each for about twenty
 /// seconds, so their lines depend on the timing of the threads.
 /// </para>
 /// <para>

@@ -60,6 +60,6 @@ public class Active : IAccountStatus
         Console.WriteLine("Account is closed!");
     }
 
-    // A negative balance prints with a plain "-" on every machine, as in Java.
+    // A negative balance prints with a plain "-" on every machine.
     private static string Text(int value) => value.ToString(CultureInfo.InvariantCulture);
 }

@@ -7,8 +7,7 @@ namespace dev.kaldiroglu.Observer.Tests;
 
 /// <summary>
 /// The .NET rows of the Observer deck's known-uses table, checked against the running
-/// runtime. The Java KnownUsesTests checks the JDK rows (PropertyChangeSupport, Flow,
-/// ActionListener), which do not exist in .NET.
+/// runtime.
 /// </summary>
 public class KnownUsesTests
 {

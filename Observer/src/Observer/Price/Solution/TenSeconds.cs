@@ -47,9 +47,9 @@ internal static class TenSeconds
                 + Show(observedAlert.Fired) + ", ticker " + observedTicker.Shown + ", lambda " + Show(log);
     }
 
-    /// <summary>Prints a list the way Java's <c>List.toString()</c> does: <c>[a, b, c]</c>.</summary>
+    /// <summary>Prints a list as <c>[a, b, c]</c>.</summary>
     private static string Show<T>(IEnumerable<T> items) => "[" + string.Join(", ", items) + "]";
 
-    /// <summary>Prints a <c>bool</c> the way Java does: <c>true</c> or <c>false</c>.</summary>
+    /// <summary>Prints a <c>bool</c> as <c>true</c> or <c>false</c>.</summary>
     private static string Show(bool value) => value ? "true" : "false";
 }

@@ -10,8 +10,7 @@ namespace dev.kaldiroglu.Mediator.Hw.AirTraffic;
 /// </para>
 /// </summary>
 /// <remarks>
-/// The Java marks these methods <c>synchronized</c>. Here each one locks a private object,
-/// so no code outside the class can take the same lock.
+/// Each method locks a private object, so no code outside the class can take the same lock.
 /// </remarks>
 public sealed class ControlTower
 {
@@ -60,7 +59,7 @@ public sealed class ControlTower
         log.Add(aircraft.CallSign + " may " + aircraft.Intent);
     }
 
-    /// <summary>A copy of the log, as Java's <c>List.copyOf</c> gives.</summary>
+    /// <summary>A copy of the log.</summary>
     public IReadOnlyList<string> Log
     {
         get

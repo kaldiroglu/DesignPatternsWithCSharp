@@ -5,7 +5,7 @@ namespace dev.kaldiroglu.Memento.Game.Problem.History;
 /// but the save slots now live in the player class.
 /// </summary>
 /// <remarks>
-/// The Java original's <c>main</c>. Run it with
+/// Run it with
 /// <c>dotnet run --project src/Memento.Demo -- game-history</c>.
 /// </remarks>
 public static class Main

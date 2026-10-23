@@ -23,8 +23,8 @@ public class GuiTest
 
     /// <summary>
     /// The memento has a public State with a getter and a setter, so anyone can read the
-    /// window's state through it. The Java methods getState and setState are the C# property
-    /// State, whose accessors are the methods get_State and set_State.
+    /// window's state through it. The accessors of the property State are the methods
+    /// get_State and set_State.
     /// </summary>
     [Fact]
     public void TheMementoIsOpen()

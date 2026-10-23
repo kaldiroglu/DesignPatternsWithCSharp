@@ -34,8 +34,8 @@ public sealed record Shipped(string TrackingNumber, int FailedAttempts) : IOrder
     }
 
     /// <summary>
-    /// Prints the record the way Java prints it: <c>Shipped[trackingNumber=TR-2, failedAttempts=1]</c>.
-    /// A C# record would print <c>Shipped { TrackingNumber = TR-2, ... }</c>.
+    /// Prints the record as <c>Shipped[trackingNumber=TR-2, failedAttempts=1]</c>. A C# record
+    /// would otherwise print <c>Shipped { TrackingNumber = TR-2, ... }</c>.
     /// </summary>
     public override string ToString() =>
         "Shipped[trackingNumber=" + TrackingNumber + ", failedAttempts=" + FailedAttempts + "]";

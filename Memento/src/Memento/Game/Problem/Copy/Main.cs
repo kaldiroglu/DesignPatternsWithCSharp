@@ -5,7 +5,7 @@ namespace dev.kaldiroglu.Memento.Game.Problem.Copy;
 /// inventory list, so after loading the player carries [shield, potion], not [sword, shield].
 /// </summary>
 /// <remarks>
-/// The Java original's <c>main</c>. Run it with
+/// Run it with
 /// <c>dotnet run --project src/Memento.Demo -- game-copy</c>.
 /// </remarks>
 public static class Main

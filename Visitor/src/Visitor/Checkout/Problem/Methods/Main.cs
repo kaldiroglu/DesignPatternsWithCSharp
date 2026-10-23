@@ -5,7 +5,7 @@ namespace dev.kaldiroglu.Visitor.Checkout.Problem.Methods;
 /// are right; the cost is that every new operation is an edit to every item class.
 /// </summary>
 /// <remarks>
-/// The Java original's <c>main</c>. Run it with
+/// Run it with
 /// <c>dotnet run --project src/Visitor.Demo -- checkout-methods</c>.
 /// </remarks>
 public static class Main

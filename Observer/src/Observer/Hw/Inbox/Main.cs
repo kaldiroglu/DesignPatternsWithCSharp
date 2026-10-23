@@ -5,7 +5,7 @@ namespace dev.kaldiroglu.Observer.Hw.Inbox;
 /// also pulls the unread count, which is not in the message.
 /// </summary>
 /// <remarks>
-/// The Java original's <c>main</c>. Run it with
+/// Run it with
 /// <c>dotnet run --project src/Observer.Demo -- hw-inbox</c>.
 /// </remarks>
 public static class Main
@@ -24,6 +24,6 @@ public static class Main
         Console.WriteLine("After reading all: " + inbox.Unread + " unread");
     }
 
-    /// <summary>Prints a list the way Java's <c>List.toString()</c> does: <c>[a, b, c]</c>.</summary>
+    /// <summary>Prints a list as <c>[a, b, c]</c>.</summary>
     private static string Show(IEnumerable<string> items) => "[" + string.Join(", ", items) + "]";
 }

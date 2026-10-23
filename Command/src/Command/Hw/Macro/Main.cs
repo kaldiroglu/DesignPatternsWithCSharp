@@ -2,7 +2,7 @@ namespace dev.kaldiroglu.Command.Hw.Macro;
 
 /// <summary>Shows edits recorded in one editor and replayed in another, through a copy of each command.</summary>
 /// <remarks>
-/// The Java original's <c>main</c>. Run it with
+/// Run it with
 /// <c>dotnet run --project src/Command.Demo -- hw-macro</c>.
 /// </remarks>
 public static class Main

@@ -3,7 +3,7 @@ namespace dev.kaldiroglu.Command.Tests.Lender.Lambda;
 using dev.kaldiroglu.Command.Lender.Lambda;
 using Xunit;
 
-/// <summary>The lender with the command as a function. Ported from the Java <c>LambdaTest</c>.</summary>
+/// <summary>The lender with the command as a function.</summary>
 public class LambdaTests
 {
     [Fact(DisplayName = "lend takes an Action<int>, a function from an amount to nothing")]

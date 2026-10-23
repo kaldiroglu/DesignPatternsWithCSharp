@@ -5,8 +5,8 @@ namespace dev.kaldiroglu.Observer.Tests.Payment
 
     /// <summary>
     /// The invoice built on an Observable base class. The Part 3 slide says the boss is added
-    /// first and is told second; this class checks it. Java uses the JDK's
-    /// <c>java.util.Observable</c>; the C# port uses its own <c>Payment.Observable</c>.
+    /// first and is told second; this class checks it. The base class is
+    /// <c>Payment.Observable</c>, written for this example.
     /// </summary>
     public class InvoiceTests
     {

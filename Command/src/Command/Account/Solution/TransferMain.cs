@@ -7,7 +7,7 @@ namespace dev.kaldiroglu.Command.Account.Solution;
 /// whole transfer.
 /// </summary>
 /// <remarks>
-/// The Java original's <c>main</c>. Run it with
+/// Run it with
 /// <c>dotnet run --project src/Command.Demo -- account-transfer</c>.
 /// </remarks>
 public static class TransferMain

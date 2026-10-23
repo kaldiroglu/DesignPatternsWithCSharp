@@ -5,6 +5,6 @@ public sealed record Delivered() : IOrderState
 {
     public string Name => "delivered";
 
-    /// <summary>Prints the record the way Java prints it.</summary>
+    /// <summary>Prints the record as <c>Delivered[]</c>.</summary>
     public override string ToString() => "Delivered[]";
 }

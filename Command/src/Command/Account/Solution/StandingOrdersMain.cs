@@ -4,7 +4,7 @@ namespace dev.kaldiroglu.Command.Account.Solution;
 
 /// <summary>Three orders are made in the morning. Nothing happens until the night run.</summary>
 /// <remarks>
-/// The Java original's <c>main</c>. Run it with
+/// Run it with
 /// <c>dotnet run --project src/Command.Demo -- account-standing-orders</c>.
 /// </remarks>
 public static class StandingOrdersMain

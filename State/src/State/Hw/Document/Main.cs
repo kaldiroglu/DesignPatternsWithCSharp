@@ -5,7 +5,7 @@ namespace dev.kaldiroglu.State.Hw.Document;
 /// does not allow is refused, then the document is rejected once, approved and archived.
 /// </summary>
 /// <remarks>
-/// The Java original's <c>main</c>. Run it with
+/// Run it with
 /// <c>dotnet run --project src/State.Demo -- hw-document</c>. Inside this namespace,
 /// <c>Action</c> is the homework's enum, not <c>System.Action</c>.
 /// </remarks>

@@ -8,15 +8,13 @@ namespace dev.kaldiroglu.Iterator.Hw.Bom;
 /// </summary>
 /// <remarks>
 /// <para>
-/// The Java original's <c>main</c>. Run it with
+/// Run it with
 /// <c>dotnet run --project src/Iterator.Demo -- hw-bom</c>.
 /// </para>
 /// <para>
-/// Java takes the bicycle from <c>ProductCatalog.cityBicycle()</c> in the Composite package,
-/// built with 32 spokes per wheel, and then calls <c>wheel.changeQuantity(spoke, 36)</c>. The
-/// C# port copies only the bill-of-materials types, with no catalog and no
-/// <c>ChangeQuantity</c>, so the same tree is built here with 36 spokes from the start, as the
-/// homework tests do.
+/// The bicycle is the city bicycle of the Composite deck. <c>Assembly</c> has no
+/// <c>ChangeQuantity</c>, so the tree is built here with 36 spokes per wheel from the start,
+/// as the homework tests do.
 /// </para>
 /// </remarks>
 public static class Main

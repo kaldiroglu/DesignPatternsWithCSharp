@@ -22,6 +22,6 @@ public sealed class Guest : IParticipant
         shown.Add(from + ": " + text);
     }
 
-    /// <summary>A copy of what the guest sees, as Java's <c>List.copyOf</c> gives.</summary>
+    /// <summary>A copy of what the guest sees.</summary>
     public IReadOnlyList<string> Shown => shown.ToList();
 }

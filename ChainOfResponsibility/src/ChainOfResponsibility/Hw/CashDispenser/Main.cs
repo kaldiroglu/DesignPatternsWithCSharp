@@ -7,7 +7,7 @@ namespace dev.kaldiroglu.ChainOfResponsibility.Hw.CashDispenser;
 /// passes the rest on, so 380 and 260 leave 10 unpaid, although other notes would pay them.
 /// </summary>
 /// <remarks>
-/// The Java original's <c>main</c>. Run it with
+/// Run it with
 /// <c>dotnet run --project src/ChainOfResponsibility.Demo -- hw-cashdispenser</c>.
 /// </remarks>
 public static class Main
@@ -23,6 +23,6 @@ public static class Main
         }
     }
 
-    /// <summary>Prints a list the way Java's <c>List.toString()</c> does: <c>[a, b, c]</c>.</summary>
+    /// <summary>Prints a list as <c>[a, b, c]</c>.</summary>
     private static string Show(IEnumerable<string> items) => "[" + string.Join(", ", items) + "]";
 }

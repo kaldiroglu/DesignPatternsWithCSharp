@@ -5,7 +5,6 @@ namespace dev.kaldiroglu.Iterator.Hw.Paging;
 /// An empty page means there is nothing more.
 /// </summary>
 /// <remarks>
-/// Java declares this as a <c>@FunctionalInterface</c>. The C# form of a one-method interface
-/// that callers fill with a lambda is a delegate, so it is a delegate here.
+/// Callers fill it with a lambda, so it is a delegate.
 /// </remarks>
 public delegate IReadOnlyList<T> PageSource<T>(int number);

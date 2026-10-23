@@ -5,7 +5,7 @@ namespace dev.kaldiroglu.ChainOfResponsibility.Gof.Problem;
 /// a control it does not know gets the editor's general help.
 /// </summary>
 /// <remarks>
-/// The Java original's <c>main</c>. Run it with
+/// Run it with
 /// <c>dotnet run --project src/ChainOfResponsibility.Demo -- gof-problem</c>.
 /// </remarks>
 public static class Main

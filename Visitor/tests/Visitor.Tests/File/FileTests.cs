@@ -74,7 +74,7 @@ public class FileTests
     [Fact]
     public void TypeTestsAndCasts()
     {
-        // Java: "instanceof XMLFile" and "(TextFile) aFile". C#: "is XMLFile" and "(TextFile)aFile".
+        // A type test, "is XMLFile", and a cast, "(TextFile)aFile".
         var operatorCode = Printed.CodeOf(Source + "Problem2/FileOperator.cs");
         Assert.Contains("aFile is XMLFile", operatorCode);
         Assert.Contains("(TextFile)aFile", operatorCode);

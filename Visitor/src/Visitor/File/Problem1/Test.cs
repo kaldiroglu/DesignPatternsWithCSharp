@@ -5,7 +5,7 @@ namespace dev.kaldiroglu.Visitor.File.Problem1;
 /// file and casts it, to call <c>CheckFormat</c> or <c>Validate</c>.
 /// </summary>
 /// <remarks>
-/// The Java original's <c>main</c>. The output changes from run to run. Run it with
+/// The output changes from run to run. Run it with
 /// <c>dotnet run --project src/Visitor.Demo -- file-problem1</c>.
 /// </remarks>
 public static class Test

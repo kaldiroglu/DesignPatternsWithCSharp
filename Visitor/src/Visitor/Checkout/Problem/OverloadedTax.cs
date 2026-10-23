@@ -5,7 +5,7 @@ namespace dev.kaldiroglu.Visitor.Checkout.Problem;
 /// <para>
 /// The items stay clean, and the tax rules are in one place. But <see cref="Total"/> holds
 /// each item as an <c>IItem</c>. C# chooses between overloads at compile time, from the
-/// static type of the argument, as Java does, so <c>TaxOf(item)</c> always calls
+/// static type of the argument, so <c>TaxOf(item)</c> always calls
 /// <c>TaxOf(IItem)</c>. Without that method the loop does not compile; with it, every item is
 /// taxed at the standard rate.
 /// </para>

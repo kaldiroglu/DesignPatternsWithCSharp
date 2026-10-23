@@ -4,9 +4,9 @@ namespace dev.kaldiroglu.Strategy.Sorting.Pattern;
 
 /// <summary>Sorts arrays of three sizes through the context, which selects a sorter and implements none.</summary>
 /// <remarks>
-/// The Java original's <c>main</c>. Run it with
-/// <c>dotnet run --project src/Strategy.Demo -- sorting-pattern</c>. The random numbers
-/// differ from Java's for the same seed, but only the sizes and the sorter names are printed.
+/// Run it with
+/// <c>dotnet run --project src/Strategy.Demo -- sorting-pattern</c>. Only the sizes and the
+/// sorter names are printed, not the random numbers.
 /// </remarks>
 public static class Main
 {
@@ -36,7 +36,7 @@ public static class Main
         return list;
     }
 
-    /// <summary>Prints an array the way Java's <c>Arrays.toString</c> does: <c>[1.0, 3.0]</c>.</summary>
+    /// <summary>Prints an array as <c>[1.0, 3.0]</c>.</summary>
     private static string Show(double[] list) =>
         "[" + string.Join(", ", list.Select(d => d.ToString("0.0###############", CultureInfo.InvariantCulture))) + "]";
 }

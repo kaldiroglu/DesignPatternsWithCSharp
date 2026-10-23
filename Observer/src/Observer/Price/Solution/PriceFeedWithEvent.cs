@@ -2,7 +2,7 @@ namespace dev.kaldiroglu.Observer.Price.Solution;
 
 /// <summary>
 /// The same subject as <see cref="PriceFeed"/>, written the way a C# developer usually
-/// writes it: with the <c>event</c> keyword. <b>This class has no Java counterpart.</b>
+/// writes it: with the <c>event</c> keyword.
 /// <para>
 /// The language keeps the list of listeners. <c>+=</c> subscribes and <c>-=</c>
 /// unsubscribes, and only this class can raise the event. A delegate is immutable, so

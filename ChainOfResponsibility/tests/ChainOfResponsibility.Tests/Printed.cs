@@ -23,7 +23,7 @@ public static class Printed
         return LinesOf(buffer.ToString());
     }
 
-    /// <summary>Splits text into lines as Java's String.lines() does: no empty line after a final line break.</summary>
+    /// <summary>Splits text into lines, with no empty line after a final line break.</summary>
     public static IReadOnlyList<string> LinesOf(string text)
     {
         List<string> lines = text.Replace("\r\n", "\n").Split('\n').ToList();

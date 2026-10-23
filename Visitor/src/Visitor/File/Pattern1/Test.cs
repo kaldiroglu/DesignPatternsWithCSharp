@@ -5,7 +5,7 @@ namespace dev.kaldiroglu.Visitor.File.Pattern1;
 /// and the visitor checks it. There are no type tests and no casts.
 /// </summary>
 /// <remarks>
-/// The Java original's <c>main</c>. The output changes from run to run. Run it with
+/// The output changes from run to run. Run it with
 /// <c>dotnet run --project src/Visitor.Demo -- file-pattern1</c>.
 /// </remarks>
 public static class Test

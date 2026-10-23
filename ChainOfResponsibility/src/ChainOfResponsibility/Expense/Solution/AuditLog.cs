@@ -17,6 +17,6 @@ public sealed class AuditLog : ExpenseHandler
         return null;
     }
 
-    /// <summary>A copy of the expenses seen so far, as Java's <c>List.copyOf</c> gives.</summary>
+    /// <summary>A copy of the expenses seen so far.</summary>
     public IReadOnlyList<Expense> Seen => seen.ToList();
 }

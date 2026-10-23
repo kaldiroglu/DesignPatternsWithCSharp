@@ -5,7 +5,7 @@ namespace dev.kaldiroglu.ChainOfResponsibility.Hw.Maintenance;
 /// developer; each request goes along the chain to the one who takes it.
 /// </summary>
 /// <remarks>
-/// The Java original's <c>main</c>. Run it with
+/// Run it with
 /// <c>dotnet run --project src/ChainOfResponsibility.Demo -- hw-maintenance</c>.
 /// </remarks>
 public static class Main

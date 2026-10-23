@@ -17,9 +17,7 @@ public sealed class Player
     /// hand it back, but cannot look inside or change it.
     /// </summary>
     /// <remarks>
-    /// In the Java, the memento is a public nested class with private fields, and the player
-    /// reads those fields because it encloses the class. In C# an enclosing class cannot read
-    /// a nested class's private members. So the game gets this empty interface, and the class
+    /// An enclosing class cannot read a nested class's private members. So the game gets this empty interface, and the class
     /// that holds the state, <see cref="Checkpoint"/>, is private to the player.
     /// </remarks>
     public interface ICheckpoint

@@ -3,8 +3,8 @@ namespace dev.kaldiroglu.Observer.Publisher;
 public class FourFourTwo : AbstractPublication
 {
     /// <summary>
-    /// <c>protected internal</c>: in Java, <c>protected</c> also opens the constructor to its
-    /// package, and <see cref="Publisher"/> uses it from there.
+    /// <c>protected internal</c>, because <see cref="Publisher"/> creates it from the same
+    /// assembly.
     /// </summary>
     protected internal FourFourTwo(string name) : base(name)
     {

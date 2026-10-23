@@ -9,9 +9,9 @@ namespace dev.kaldiroglu.Strategy.Pricing.Problem;
 /// forgot.
 /// </para>
 /// <para>
-/// The constants keep the Java original's upper-case names rather than C#'s PascalCase,
-/// because <see cref="EnumCheckout"/> prints a constant's name on the receipt and the
-/// receipt has to read <c>BLACK_FRIDAY</c> in both languages.
+/// The constants have upper-case names rather than C#'s PascalCase, because
+/// <see cref="EnumCheckout"/> prints a constant's name on the receipt and the receipt has to
+/// read <c>BLACK_FRIDAY</c>.
 /// </para>
 /// </summary>
 public enum Campaign

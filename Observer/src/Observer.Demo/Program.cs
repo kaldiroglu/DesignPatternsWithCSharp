@@ -1,5 +1,5 @@
 using dev.kaldiroglu.Observer.Price.Solution;
-// Several examples have a class called Main or Test, as the Java original does, and three
+// Several examples have a class called Main or Test, and three
 // namespaces share a name with their main class (Publisher, Auction, Inbox). Aliases name
 // them apart. The price example has one runnable class per slide.
 using PriceStageOneMain = dev.kaldiroglu.Observer.Price.Problem.StageOneMain;
@@ -20,10 +20,9 @@ namespace dev.kaldiroglu.Observer.Demo;
 /// <summary>
 /// Runs the Observer examples.
 /// <para>
-/// Every entry except <c>price-event</c> is one of the Java original's <c>main</c> methods
-/// and prints the same output; <c>publisher</c> prints the current date, so only the date
-/// differs between two runs. <c>price-event</c> runs <see cref="PriceFeedWithEvent"/>, which
-/// has no Java counterpart.
+/// <c>publisher</c> prints the current date, so only the date differs between two runs.
+/// <c>price-event</c> runs <see cref="PriceFeedWithEvent"/>, the subject written with the
+/// <c>event</c> keyword.
 /// </para>
 /// <para>
 /// Each example runs on its own — <c>dotnet run -- gof</c> — and with no argument all of them
@@ -108,7 +107,7 @@ public static class Program
 
     // ---------------------------------------------------------------- output
 
-    /// <summary>Prints a list the way Java's <c>List.toString()</c> does: <c>[a, b, c]</c>.</summary>
+    /// <summary>Prints a list as <c>[a, b, c]</c>.</summary>
     private static string Show<T>(IEnumerable<T> items) => "[" + string.Join(", ", items) + "]";
 
     private static void Heading(string title)

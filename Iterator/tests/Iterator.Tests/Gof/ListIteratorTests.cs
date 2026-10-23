@@ -14,8 +14,6 @@ using ProblemMain = dev.kaldiroglu.Iterator.Gof.Problem.Main;
 /// GoF's list example. The 3 pairs and the 9 pairs on the Part 2 slides are asserted here,
 /// from the lists themselves and from the output of the runnable classes: <c>Problem.Main</c>,
 /// <c>TwoIteratorsMain</c>, <c>PolymorphicIterationMain</c> and <c>InternalIteratorMain</c>.
-/// Ported from the Java
-/// <c>gof.ListIteratorTest</c>.
 /// </summary>
 public class ListIteratorTests
 {
@@ -142,7 +140,7 @@ public class ListIteratorTests
             {
                 iterator.CurrentItem();
             }
-            // Java throws IllegalStateException; the C# port throws InvalidOperationException.
+            // Past the end, CurrentItem() throws InvalidOperationException.
             Assert.Throws<InvalidOperationException>(() => iterator.CurrentItem());
         }
     }
@@ -157,8 +155,7 @@ public class ListIteratorTests
     }
 
     /// <summary>
-    /// A traverser that never stops. Java writes it as an anonymous subclass; C# has no
-    /// anonymous classes, so it is a nested class here.
+    /// A traverser that never stops. C# has no anonymous classes, so it is a nested class.
     /// </summary>
     private sealed class SeeEveryone(AbstractList<Employee> list, List seen) : ListTraverser<Employee>(list)
     {
@@ -193,7 +190,7 @@ public class ListIteratorTests
         Assert.Equal(9, list.Count);
         Assert.Equal(9, cursorList.Count);
         Assert.Equal("E8", list.Get(8).Name);
-        // Java throws IndexOutOfBoundsException; the C# port throws ArgumentOutOfRangeException.
+        // An index past the end throws ArgumentOutOfRangeException.
         Assert.Throws<ArgumentOutOfRangeException>(() => list.Get(9));
     }
 }

@@ -1,5 +1,4 @@
-// Most examples have a class called Main or Test, as the Java original does. Aliases name
-// them apart.
+// Most examples have a class called Main or Test. Aliases name them apart.
 using ExpenseProblemMain = dev.kaldiroglu.ChainOfResponsibility.Expense.Problem.Main;
 using ExpenseMain = dev.kaldiroglu.ChainOfResponsibility.Expense.Solution.Main;
 using GofMain = dev.kaldiroglu.ChainOfResponsibility.Gof.Main;
@@ -16,8 +15,7 @@ namespace dev.kaldiroglu.ChainOfResponsibility.Demo;
 /// <summary>
 /// Runs the Chain of Responsibility examples.
 /// <para>
-/// Every example is one of the Java original's <c>main</c> methods and prints the same
-/// output. <c>callcenter</c> chooses customers at random, so its output changes from run to
+/// <c>callcenter</c> chooses customers at random, so its output changes from run to
 /// run.
 /// </para>
 /// <para>

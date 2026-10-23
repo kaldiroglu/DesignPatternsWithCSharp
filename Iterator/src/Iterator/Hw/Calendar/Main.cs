@@ -7,9 +7,9 @@ namespace dev.kaldiroglu.Iterator.Hw.Calendar;
 /// list of dates.
 /// </summary>
 /// <remarks>
-/// The Java original's <c>main</c>. Run it with
-/// <c>dotnet run --project src/Iterator.Demo -- hw-calendar</c>. Java prints the day of the
-/// week in capitals (<c>FRIDAY</c>), so the .NET name is upper-cased.
+/// Run it with
+/// <c>dotnet run --project src/Iterator.Demo -- hw-calendar</c>. The day of the week is
+/// printed in capitals (<c>FRIDAY</c>).
 /// </remarks>
 public static class Main
 {

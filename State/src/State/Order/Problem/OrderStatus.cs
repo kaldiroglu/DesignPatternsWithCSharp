@@ -17,8 +17,8 @@ namespace dev.kaldiroglu.State.Order.Problem;
 /// <para>
 /// A C# enum cannot have methods, so this is a class with a private constructor and five
 /// shared instances, one per constant. Each instance is a private nested class that overrides
-/// the operations it allows — the same shape as a Java enum constant with its own body. The
-/// constants keep the Java names, because <c>Main</c> prints the status.
+/// the operations it allows. The constants are named in capitals, because <c>Main</c> prints
+/// the status.
 /// </para>
 /// </summary>
 public abstract class OrderStatus
@@ -34,7 +34,7 @@ public abstract class OrderStatus
         Name = name;
     }
 
-    /// <summary>The constant's name, as Java's <c>name()</c> returns it.</summary>
+    /// <summary>The constant's name.</summary>
     public string Name { get; }
 
     public override string ToString() => Name;

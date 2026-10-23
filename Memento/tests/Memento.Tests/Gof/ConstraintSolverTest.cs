@@ -73,10 +73,8 @@ public class ConstraintSolverTest
     }
 
     /// <summary>
-    /// The memento is closed to the caretaker. The Java checks that the memento's field and
-    /// constructor are private and that it has no methods. In C# an outer class cannot read a
-    /// nested class's private members, so the port hides the state in a different way: the
-    /// class that holds the state is private, and the caretaker sees only an empty public
+    /// The memento is closed to the caretaker. An outer class cannot read a nested class's
+    /// private members, so the state is hidden this way: the class that holds the state is private, and the caretaker sees only an empty public
     /// interface. This test checks that idea.
     /// </summary>
     [Fact]

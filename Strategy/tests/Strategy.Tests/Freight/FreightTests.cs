@@ -6,7 +6,7 @@ namespace dev.kaldiroglu.Strategy.Tests.Freight;
 
 /// <summary>
 /// Four carriers, four ways of arriving at a price, and one shipment they all disagree
-/// about. Ported from the Java <c>freight.FreightTest</c>.
+/// about.
 /// </summary>
 public class FreightTests
 {
@@ -118,8 +118,8 @@ public class FreightTests
     }
 
     /// <summary>
-    /// A fifth carrier. Java writes it as an anonymous class inside the test; C# has no
-    /// anonymous classes that implement an interface, so it is a nested class here.
+    /// A fifth carrier. C# has no anonymous classes that implement an interface, so it is a
+    /// nested class.
     /// </summary>
     private sealed class Bike : IRateCard
     {

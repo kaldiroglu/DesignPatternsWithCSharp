@@ -15,8 +15,7 @@ using ProblemDoor = global::dev.kaldiroglu.State.Door.Problem.Door;
 
 /// <summary>
 /// The door: the states decide the next state (Pattern1), or a manager decides (Pattern2).
-/// The Part 3 slides say both versions behave the same; this class checks it. Ported from
-/// the Java <c>DoorTest</c>.
+/// The Part 3 slides say both versions behave the same; this class checks it.
 /// </summary>
 public class DoorTests
 {

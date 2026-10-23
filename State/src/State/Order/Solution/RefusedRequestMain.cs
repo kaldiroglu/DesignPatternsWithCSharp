@@ -5,7 +5,7 @@ namespace dev.kaldiroglu.State.Order.Solution;
 /// IOrderState refuses.
 /// </summary>
 /// <remarks>
-/// The Java original's <c>main</c>. Run it with
+/// Run it with
 /// <c>dotnet run --project src/State.Demo -- order-refused-request</c>.
 /// </remarks>
 public static class RefusedRequestMain

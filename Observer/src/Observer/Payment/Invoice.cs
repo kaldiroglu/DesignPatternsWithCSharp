@@ -28,9 +28,8 @@ public class Invoice : Observable
     }
 
     /// <summary>
-    /// Prints a <c>double</c> the way Java does for these values: a whole number keeps
-    /// <c>.0</c>, so 5000 prints as <c>5000.0</c>. Java switches to the E notation at ten
-    /// million; this helper does not, and the example never gets near it.
+    /// Prints a <c>double</c> so that a whole number keeps <c>.0</c>: 5000 prints as
+    /// <c>5000.0</c>.
     /// </summary>
     private static string JavaDouble(double value) =>
         value % 1 == 0

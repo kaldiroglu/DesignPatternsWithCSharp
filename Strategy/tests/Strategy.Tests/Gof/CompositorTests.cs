@@ -9,7 +9,7 @@ namespace dev.kaldiroglu.Strategy.Tests.Gof;
 /// <summary>
 /// GoF's own example (Design Patterns, pp. 315-316): a document that has to break text into
 /// lines. The paragraph is set in a 26-column measure, a width at which the two text
-/// algorithms disagree. Ported from the Java <c>gof.CompositorTest</c>.
+/// algorithms disagree.
 /// </summary>
 public class CompositorTests
 {

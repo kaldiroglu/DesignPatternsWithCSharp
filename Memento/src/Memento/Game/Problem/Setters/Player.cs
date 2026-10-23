@@ -42,7 +42,7 @@ public sealed class Player
     public int Health { get => health; set => health = value; }
     public string Position { get => position; set => position = value; }
 
-    /// <summary>A copy of the inventory, as Java's <c>List.copyOf</c> gives.</summary>
+    /// <summary>A copy of the inventory.</summary>
     public IReadOnlyList<string> Inventory
     {
         get => inventory.ToList().AsReadOnly();

@@ -5,7 +5,7 @@ namespace dev.kaldiroglu.Visitor.Hw.FileTree;
 /// contains a loop over the children.
 /// </summary>
 /// <remarks>
-/// The Java original's <c>main</c>. Run it with
+/// Run it with
 /// <c>dotnet run --project src/Visitor.Demo -- hw-filetree</c>.
 /// </remarks>
 public static class Main

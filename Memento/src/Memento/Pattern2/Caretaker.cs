@@ -6,8 +6,7 @@ namespace dev.kaldiroglu.Memento.Pattern2;
 /// keeps.
 /// </summary>
 /// <remarks>
-/// In the Java, <c>Caretaker</c> extends <c>Thread</c>. In C# <c>Thread</c> is <c>sealed</c>,
-/// so the caretaker holds a thread instead.
+/// <c>Thread</c> is <c>sealed</c>, so the caretaker holds a thread.
 /// </remarks>
 public class Caretaker
 {

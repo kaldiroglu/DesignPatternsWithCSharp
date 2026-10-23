@@ -2,7 +2,7 @@ namespace dev.kaldiroglu.State.Account;
 
 /// <summary>
 /// Deposits, transfers and withdraws until the account is overdrawn, then deposits and
-/// closes it. The Java original's <c>main</c>; its commented-out lines are not ported.
+/// closes it.
 /// </summary>
 public static class Test
 {

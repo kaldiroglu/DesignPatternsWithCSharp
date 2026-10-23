@@ -2,7 +2,7 @@ namespace dev.kaldiroglu.Strategy.Hw.Validation;
 
 /// <summary>Checks the same passphrases on a relaxed form with one rule and a strict form with three.</summary>
 /// <remarks>
-/// The Java original's <c>main</c>. Run it with
+/// Run it with
 /// <c>dotnet run --project src/Strategy.Demo -- hw-validation</c>.
 /// </remarks>
 public static class Main
@@ -24,6 +24,6 @@ public static class Main
         }
     }
 
-    /// <summary>Prints a boolean the way Java does: <c>true</c>, not <c>True</c>.</summary>
+    /// <summary>Prints a boolean as <c>true</c>, not <c>True</c>.</summary>
     private static string Show(bool value) => value ? "true" : "false";
 }

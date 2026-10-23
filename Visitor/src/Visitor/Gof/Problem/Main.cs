@@ -5,7 +5,7 @@ namespace dev.kaldiroglu.Visitor.Gof.Problem;
 /// pretty-printing, type checking and code generation.
 /// </summary>
 /// <remarks>
-/// The Java original's <c>main</c>. Run it with
+/// Run it with
 /// <c>dotnet run --project src/Visitor.Demo -- gof-problem</c>.
 /// </remarks>
 public static class Main
@@ -32,6 +32,6 @@ public static class Main
         Console.WriteLine("Each of the three jobs is written in all four node classes.");
     }
 
-    /// <summary>Prints a list the way Java's <c>List.toString()</c> does: <c>[a, b, c]</c>.</summary>
+    /// <summary>Prints a list as <c>[a, b, c]</c>.</summary>
     private static string Show(IEnumerable<string> items) => "[" + string.Join(", ", items) + "]";
 }

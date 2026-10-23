@@ -7,7 +7,7 @@ namespace dev.kaldiroglu.Memento.Hw.Incremental;
 /// values of the two changed cells only.
 /// </summary>
 /// <remarks>
-/// The Java original's <c>main</c>. Run it with
+/// Run it with
 /// <c>dotnet run --project src/Memento.Demo -- hw-incremental</c>.
 /// </remarks>
 public static class Main

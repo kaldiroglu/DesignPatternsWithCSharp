@@ -19,7 +19,7 @@ public sealed class FontDialog
         FontList = new ListBox(FontName);
     }
 
-    /// <summary>What the dialog did, in order. The Java exposes the list itself as a public field.</summary>
+    /// <summary>What the dialog did, in order.</summary>
     public IList<string> Log => log;
 
     public ListBox FontList { get; }

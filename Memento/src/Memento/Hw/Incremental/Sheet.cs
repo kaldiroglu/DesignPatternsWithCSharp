@@ -54,8 +54,8 @@ public sealed class Sheet
         var old = new Dictionary<string, int>();
         foreach (var (cell, value) in newValues)
         {
-            // Java's HashMap.put returns the old value; a C# dictionary does not, so the old
-            // value is read first. A cell that does not exist throws KeyNotFoundException
+            // Setting a dictionary entry does not return the old value, so the old value is
+            // read first. A cell that does not exist throws KeyNotFoundException
             // here, before anything is set.
             old[cell] = cells[cell];
             cells[cell] = value;

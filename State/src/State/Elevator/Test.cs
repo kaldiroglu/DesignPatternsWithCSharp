@@ -1,6 +1,6 @@
 namespace dev.kaldiroglu.State.Elevator;
 
-/// <summary>Sends requests to the elevator in three states. The Java original's <c>main</c>.</summary>
+/// <summary>Sends requests to the elevator in three states.</summary>
 public static class Test
 {
     public static void Run()

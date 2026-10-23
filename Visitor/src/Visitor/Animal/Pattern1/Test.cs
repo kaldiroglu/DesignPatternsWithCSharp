@@ -2,7 +2,7 @@ namespace dev.kaldiroglu.Visitor.Animal.Pattern1;
 
 /// <summary>A dog and a cat each accept the feeder.</summary>
 /// <remarks>
-/// The Java original's <c>main</c>. Run it with
+/// Run it with
 /// <c>dotnet run --project src/Visitor.Demo -- animal-pattern1</c>.
 /// </remarks>
 public static class Test

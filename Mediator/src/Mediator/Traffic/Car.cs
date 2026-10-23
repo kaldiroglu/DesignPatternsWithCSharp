@@ -4,10 +4,9 @@ namespace dev.kaldiroglu.Mediator.Traffic;
 /// A <b>ConcreteColleague</b>: a car. Each car runs on its own thread.
 /// </summary>
 /// <remarks>
-/// In the Java, <c>Car</c> extends <c>Thread</c>. In C# <c>Thread</c> is <c>sealed</c>, so a
-/// car holds a thread instead. The thread is created in the constructor with the car's name,
-/// and <see cref="Start"/> starts it; the thread then calls <see cref="Run"/>, as Java's
-/// <c>Thread.start()</c> calls <c>run()</c>.
+/// <c>Thread</c> is <c>sealed</c>, so a car holds a thread. The thread is created in the
+/// constructor with the car's name, and <see cref="Start"/> starts it; the thread then calls
+/// <see cref="Run"/>.
 /// </remarks>
 public class Car : IVehicle
 {
@@ -25,7 +24,7 @@ public class Car : IVehicle
         mediator.Receive(this);
     }
 
-    /// <summary>The car's name, which is also its thread's name, as <c>getName()</c> is in Java.</summary>
+    /// <summary>The car's name, which is also its thread's name.</summary>
     public string Name => thread.Name!;
 
     /// <summary>Starts the car's thread, which calls <see cref="Run"/>.</summary>

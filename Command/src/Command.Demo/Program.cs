@@ -1,4 +1,4 @@
-// Most example packages have a class named Main, as the Java original does. Aliases name
+// Most example packages have a class named Main. Aliases name
 // them apart; a plain `using` would make `Main` ambiguous. The account and the GoF solution
 // have one class per slide, reached through their namespace aliases.
 using AccountProblem = dev.kaldiroglu.Command.Account.Problem;
@@ -20,7 +20,7 @@ using HwRemote = dev.kaldiroglu.Command.Hw.Remote.Main;
 namespace dev.kaldiroglu.Command.Demo;
 
 /// <summary>
-/// Runs the examples that have a <c>main</c> method in the Java original: the teller's
+/// Runs the examples: the teller's
 /// account, GoF's menus, the lender's two problems and its pattern form, the air
 /// conditioner, and the three homework solutions.
 /// <para>

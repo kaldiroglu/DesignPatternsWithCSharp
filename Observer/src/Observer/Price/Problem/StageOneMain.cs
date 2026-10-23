@@ -5,7 +5,7 @@ namespace dev.kaldiroglu.Observer.Price.Problem;
 /// screen by class.
 /// </summary>
 /// <remarks>
-/// The Java original's <c>main</c>. Run it with
+/// Run it with
 /// <c>dotnet run --project src/Observer.Demo -- price-problem-stage-one</c>.
 /// </remarks>
 public static class StageOneMain
@@ -23,9 +23,9 @@ public static class StageOneMain
                 + ", alert fired: " + Show(alert.Fired));
     }
 
-    /// <summary>Prints a list the way Java's <c>List.toString()</c> does: <c>[a, b, c]</c>.</summary>
+    /// <summary>Prints a list as <c>[a, b, c]</c>.</summary>
     private static string Show(IEnumerable<int> items) => "[" + string.Join(", ", items) + "]";
 
-    /// <summary>Prints a <c>bool</c> the way Java does: <c>true</c> or <c>false</c>.</summary>
+    /// <summary>Prints a <c>bool</c> as <c>true</c> or <c>false</c>.</summary>
     private static string Show(bool value) => value ? "true" : "false";
 }

@@ -5,8 +5,7 @@ namespace dev.kaldiroglu.Facade.Logging;
 /// <summary>
 /// Subsystem backend: an <see cref="ILogger"/> that keeps entries in memory
 /// instead of writing them out. Handy for tests and for showing that the client's
-/// logging code is unchanged when the backend is swapped. The .NET counterpart of
-/// the Java example's <c>RecordingLoggingEngine</c>.
+/// logging code is unchanged when the backend is swapped.
 /// </summary>
 public sealed class RecordingLogger : ILogger
 {

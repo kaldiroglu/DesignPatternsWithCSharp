@@ -42,7 +42,7 @@ public sealed record Basket(IReadOnlyList<Line> Lines, Customer Customer)
                 found.Add(line);
             }
         }
-        // OrderBy is stable, as Java's List.sort is; List<T>.Sort is not.
+        // OrderBy is stable; List<T>.Sort is not.
         return [.. found.OrderBy(line => line.UnitPrice)];
     }
 }

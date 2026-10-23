@@ -7,7 +7,6 @@ namespace dev.kaldiroglu.Visitor.Tests.Checkout;
 
 /// <summary>
 /// The checkout with visitors, and the same check with records and a switch.
-/// Ported from the Java SolutionTest.
 /// </summary>
 public class SolutionTests
 {
@@ -104,8 +103,8 @@ public class SolutionTests
     [Fact]
     public void NoTypeTests()
     {
-        // Java checks for "instanceof" and "default". The C# type tests are "is" and casts,
-        // and the C# fallback arm of a switch is "_ =>" as well as "default".
+        // The type tests are "is" and casts, and the fallback arm of a switch is "_ =>" as
+        // well as "default".
         foreach (var name in new[] { "TaxVisitor", "ShippingVisitor", "ReceiptLineVisitor", "Checkout" })
         {
             var code = Printed.WithoutStrings(Printed.CodeOf(Source + "Solution/" + name + ".cs"));
@@ -118,8 +117,7 @@ public class SolutionTests
     [Fact]
     public void TheSealedItem()
     {
-        // Java asserts that Item is sealed and permits exactly four records. C# has no sealed
-        // interface: Modern.IItem is open. The closest check is that the four records are the
+        // C# has no sealed interface: Modern.IItem is open. The closest check is that the four records are the
         // only implementations in the library, and that each record is sealed.
         var item = typeof(M.IItem);
         Assert.True(item.IsInterface);
@@ -138,8 +136,7 @@ public class SolutionTests
     [Fact]
     public void TheSwitch()
     {
-        // Java: four "case" labels and no "default". The C# switch expression has one arm
-        // for each of the four records, and needs a fifth arm, "_", which throws.
+        // The switch expression has one arm for each of the four records, and needs a fifth arm, "_", which throws.
         var code = Printed.WithoutStrings(Printed.CodeOf(Source + "Modern/Tax.cs"));
         Assert.Equal(4, Printed.CountOf(code, @"^\s*(Book|Food|Electronics|GiftCard)\b[^\n]*=>"));
         Assert.Equal(1, Printed.CountOf(code, @"^\s*_\s*=>\s*throw\b"));
@@ -153,7 +150,7 @@ public class SolutionTests
         Assert.Equal(103, M.Tax.Total(cart));
         Assert.Equal(103, M.Tax.Total(cart.Take(3).ToList()));
 
-        // What the Java compiler rejects, C# compiles and rejects at run time.
+        // A fifth item kind compiles, and is rejected at run time.
         Assert.Throws<InvalidOperationException>(() => M.Tax.Of(new Voucher("Voucher", 10)));
     }
 

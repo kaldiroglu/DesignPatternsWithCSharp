@@ -51,6 +51,6 @@ public sealed class QueueManager
 
     private static string Number(Customer customer) => customer.Number.ToString(CultureInfo.InvariantCulture);
 
-    /// <summary>A copy of the log, as Java's <c>List.copyOf</c> gives.</summary>
+    /// <summary>A copy of the log.</summary>
     public IReadOnlyList<string> Log => log.ToList();
 }

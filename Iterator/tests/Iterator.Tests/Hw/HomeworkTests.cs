@@ -8,7 +8,6 @@ using Xunit;
 
 /// <summary>
 /// The worked solutions of the Iterator homework, and the figures its speaker notes quote.
-/// Ported from the Java <c>hw.HomeworkTest</c>.
 /// </summary>
 public class HomeworkTests
 {
@@ -18,16 +17,9 @@ public class HomeworkTests
     private sealed record Bicycle(Assembly Whole, Assembly Frame, Assembly Wheel, Assembly Hub, Part Spoke);
 
     /// <summary>
-    /// The city bicycle of the Composite deck. The Java tests take it from
-    /// <c>ProductCatalog.cityBicycle()</c> in the Composite package. The C# port copies only
-    /// the bill-of-materials types, not the catalog, so the same tree is built here, with the
-    /// same part numbers, names and quantities.
-    /// <para>
-    /// Java builds each wheel with 32 spokes and then calls
-    /// <c>wheel.changeQuantity(spoke, 36)</c>. The C# <c>Assembly</c> has no
-    /// <c>ChangeQuantity</c>, so the wheel is built with 36 spokes from the start, which is the
-    /// state the Java test checks.
-    /// </para>
+    /// The city bicycle of the Composite deck, built here with the same part numbers, names
+    /// and quantities. <c>Assembly</c> has no <c>ChangeQuantity</c>, so each wheel is built
+    /// with 36 spokes from the start.
     /// </summary>
     private static Bicycle CityBicycle(int spokesPerWheel)
     {
@@ -111,8 +103,8 @@ public class HomeworkTests
         {
         }
 
-        // Java's next() after the end throws NoSuchElementException. In C# MoveNext()
-        // answers false, and Current then throws InvalidOperationException.
+        // After the end, MoveNext() answers false, and Current then throws
+        // InvalidOperationException.
         Assert.False(parts.MoveNext());
         Assert.Throws<InvalidOperationException>(() => parts.Current);
     }
@@ -174,7 +166,7 @@ public class HomeworkTests
         using var results = new PagedIterator<string>(
             number => number < 3 ? ["p" + number] : []);
 
-        // Java's forEachRemaining walks to the end; C# walks with MoveNext() and Current.
+        // Walk to the end with MoveNext() and Current.
         var all = new List<string>();
         while (results.MoveNext())
         {
@@ -184,8 +176,8 @@ public class HomeworkTests
         Assert.Equal(["p0", "p1", "p2"], all);
         // Three pages and the empty one.
         Assert.Equal(4, results.PagesFetched);
-        // Java's next() after the end throws NoSuchElementException. In C# MoveNext()
-        // answers false, and Current then throws InvalidOperationException.
+        // After the end, MoveNext() answers false, and Current then throws
+        // InvalidOperationException.
         Assert.False(results.MoveNext());
         Assert.Throws<InvalidOperationException>(() => results.Current);
     }

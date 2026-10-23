@@ -6,7 +6,7 @@ namespace dev.kaldiroglu.State.Person;
 /// </summary>
 public class Person(IEmotionalState emotionalState) : IEmotionalState
 {
-    // Package access in Java; internal is the closest C# has.
+    // Internal: other classes in this assembly may set it.
     internal IEmotionalState emotionalState = emotionalState;
 
     public void SetEmotionalState(IEmotionalState emotionalState)

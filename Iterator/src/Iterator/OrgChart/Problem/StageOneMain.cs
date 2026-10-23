@@ -6,7 +6,7 @@ namespace dev.kaldiroglu.Iterator.OrgChart.Problem;
 /// Stage one: the department gives out its internal lists, so a caller can change them.
 /// </summary>
 /// <remarks>
-/// The Java original's <c>main</c>. Run it with
+/// Run it with
 /// <c>dotnet run --project src/Iterator.Demo -- orgchart-problem-stage-one</c>.
 /// </remarks>
 public static class StageOneMain
@@ -21,6 +21,6 @@ public static class StageOneMain
             + Show(new PayrollRun().Payslips(open)));
     }
 
-    /// <summary>Prints a list the way Java's <c>List.toString()</c> does: <c>[a, b, c]</c>.</summary>
+    /// <summary>Prints a list as <c>[a, b, c]</c>.</summary>
     private static string Show(IEnumerable<string> items) => "[" + string.Join(", ", items) + "]";
 }

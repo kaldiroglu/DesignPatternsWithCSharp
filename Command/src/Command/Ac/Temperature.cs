@@ -8,8 +8,8 @@ public class Temperature
     }
 
     /// <summary>
-    /// Java's <c>getTemperature()</c> and <c>setTemperature()</c>. C# does not allow a member
-    /// to share its enclosing type's name, so the property is <c>Value</c>.
+    /// The temperature. C# does not allow a member to share its enclosing type's name, so the
+    /// property is <c>Value</c>.
     /// </summary>
     public int Value { get; set; }
 }

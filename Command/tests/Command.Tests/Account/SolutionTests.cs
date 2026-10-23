@@ -9,8 +9,7 @@ using Xunit;
 using BankAccount = dev.kaldiroglu.Command.Account.Domain.Account;
 
 /// <summary>
-/// The same teller, with each request an object. Ported from the Java
-/// <c>account.SolutionTest</c>.
+/// The same teller, with each request an object.
 /// </summary>
 public class SolutionTests
 {
@@ -104,7 +103,7 @@ public class SolutionTests
 
         Assert.Equal(0, SourceText.CountOf(code, "switch"));
         Assert.Equal(0, SourceText.CountOf(code, "case "));
-        // Java looks for `instanceof`; the C# type tests are the keywords `is` and `as`.
+        // The type tests are the keywords `is` and `as`.
         Assert.False(Regex.IsMatch(code, @"\bis\b"), "no type test with is");
         Assert.False(Regex.IsMatch(code, @"\bas\b"), "no type test with as");
         foreach (var operation in new[] { "Deposit", "Withdraw", "Transfer", "CloseOut" })
@@ -114,8 +113,8 @@ public class SolutionTests
     }
 
     /// <summary>
-    /// A new operation, written in this test. Java writes it as an anonymous class; C# has no
-    /// anonymous classes that implement an interface, so it is a nested class here.
+    /// A new operation, written in this test. C# has no anonymous classes that implement an
+    /// interface, so it is a nested class.
     /// </summary>
     private sealed class MonthlyFee(BankAccount account) : ITransaction
     {
@@ -174,8 +173,7 @@ public class SolutionTests
     {
         Assert.Empty(typeof(ITransaction).GetMethod("Execute")!.GetParameters());
         Assert.Empty(typeof(ITransaction).GetMethod("Undo")!.GetParameters());
-        // Java counts execute, undo and description. In C# Description is a property, and its
-        // getter get_Description is the third method.
+        // Execute, Undo, and the getter get_Description of the property Description.
         Assert.Equal(3, typeof(ITransaction).GetMethods().Length);
     }
 

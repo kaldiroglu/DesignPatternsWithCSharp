@@ -1,8 +1,7 @@
 namespace dev.kaldiroglu.Visitor.Animal.Problem;
 
 /// <summary>
-/// One <c>Feed</c> for every animal, which tests the type and casts. The commented-out
-/// overloads <c>Feed(Dog)</c> and <c>Feed(Cat)</c> in the Java are not ported.
+/// One <c>Feed</c> for every animal, which tests the type and casts.
 /// </summary>
 public class Feeder
 {

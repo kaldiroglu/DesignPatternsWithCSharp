@@ -5,7 +5,7 @@ namespace dev.kaldiroglu.Memento.Gof.Problem;
 /// by moving it back: B returns to 100, but the bend stays at 20.
 /// </summary>
 /// <remarks>
-/// The Java original's <c>main</c>. Run it with
+/// Run it with
 /// <c>dotnet run --project src/Memento.Demo -- gof-problem</c>.
 /// </remarks>
 public static class Main

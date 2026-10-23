@@ -2,7 +2,7 @@ namespace dev.kaldiroglu.ChainOfResponsibility.Pattern;
 
 /// <summary>Asks the chain for more specific, specific and generic help, and shows each answer.</summary>
 /// <remarks>
-/// The Java original's <c>main</c>. Run it with
+/// Run it with
 /// <c>dotnet run --project src/ChainOfResponsibility.Demo -- pattern</c>.
 /// </remarks>
 public class Test

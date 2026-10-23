@@ -1,5 +1,4 @@
-// Most examples have a class called Main or Test, as the Java original does. Aliases name
-// them apart. The namespace File would hide System.IO.File inside dev.kaldiroglu.Visitor, so
+// Most examples have a class called Main or Test. Aliases name them apart. The namespace File would hide System.IO.File inside dev.kaldiroglu.Visitor, so
 // the file examples are always reached through these aliases too.
 using CheckoutMain = dev.kaldiroglu.Visitor.Checkout.Solution.Main;
 using CheckoutMethodsMain = dev.kaldiroglu.Visitor.Checkout.Problem.Methods.Main;
@@ -26,7 +25,6 @@ namespace dev.kaldiroglu.Visitor.Demo;
 /// <summary>
 /// Runs the Visitor examples.
 /// <para>
-/// Every entry is one of the Java original's <c>main</c> methods and prints the same output.
 /// The file examples and <c>factory</c> choose at random, so their output changes from run to
 /// run. The <c>Pattern</c> outline has empty methods, so <c>pattern-problem</c> only names its
 /// classes and methods.

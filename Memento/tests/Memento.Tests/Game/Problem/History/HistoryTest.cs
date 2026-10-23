@@ -30,7 +30,7 @@ public class HistoryTest
                     || name.StartsWith("Get", StringComparison.Ordinal));
     }
 
-    /// <summary>The player class now also keeps the save slots. Java's Deque is a Stack in the port.</summary>
+    /// <summary>The player class now also keeps the save slots, in a Stack.</summary>
     [Fact]
     public void ThePlayerKeepsTheSlots()
     {

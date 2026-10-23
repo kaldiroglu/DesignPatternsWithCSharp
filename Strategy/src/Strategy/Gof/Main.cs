@@ -5,7 +5,7 @@ namespace dev.kaldiroglu.Strategy.Gof;
 /// lines.
 /// </summary>
 /// <remarks>
-/// The Java original's <c>main</c>. Run it with
+/// Run it with
 /// <c>dotnet run --project src/Strategy.Demo -- gof-layout</c>.
 /// </remarks>
 public static class Main

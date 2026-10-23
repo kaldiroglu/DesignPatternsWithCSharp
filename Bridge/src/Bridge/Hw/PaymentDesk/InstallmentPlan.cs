@@ -23,7 +23,7 @@ public sealed class InstallmentPlan : Payment
 
     public override IReadOnlyList<Receipt> Collect(decimal amount)
     {
-        // Truncate towards zero to two places, exactly as Java's RoundingMode.DOWN does.
+        // Truncate towards zero to two places.
         var each = Math.Truncate(amount / _installments * 100m) / 100m;
         var remainder = amount - each * _installments;
 

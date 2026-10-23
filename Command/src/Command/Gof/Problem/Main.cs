@@ -5,7 +5,7 @@ namespace dev.kaldiroglu.Command.Gof.Problem;
 /// first click.
 /// </summary>
 /// <remarks>
-/// The Java original's <c>main</c>. Run it with
+/// Run it with
 /// <c>dotnet run --project src/Command.Demo -- gof-problem</c>.
 /// </remarks>
 public static class Main

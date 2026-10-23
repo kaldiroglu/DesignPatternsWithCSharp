@@ -5,7 +5,7 @@ using Xunit;
 namespace dev.kaldiroglu.Decorator.Tests.Toast;
 
 /// <summary>
-/// The Ayvalik toast shop, in both designs. Every figure is the one the Java port asserts.
+/// The Ayvalik toast shop, in both designs. Every figure is asserted here.
 /// </summary>
 public class ToastTests
 {

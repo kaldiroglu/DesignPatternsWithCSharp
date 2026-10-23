@@ -108,8 +108,8 @@ public static class Middleware
     }
 
     /// <summary>
-    /// C# cannot implement an interface with a bare lambda the way Java can, so this
-    /// one-line adapter stands in for it. It is the only difference from the Java port.
+    /// C# cannot implement an interface with a bare lambda, so this one-line adapter turns a
+    /// lambda into an <see cref="IPriceFeed"/>.
     /// </summary>
     public sealed class Lambda : IPriceFeed
     {

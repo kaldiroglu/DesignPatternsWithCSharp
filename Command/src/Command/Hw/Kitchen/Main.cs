@@ -5,7 +5,7 @@ namespace dev.kaldiroglu.Command.Hw.Kitchen;
 /// cooked.
 /// </summary>
 /// <remarks>
-/// The Java original's <c>main</c>. Run it with
+/// Run it with
 /// <c>dotnet run --project src/Command.Demo -- hw-kitchen</c>.
 /// </remarks>
 public static class Main
@@ -34,9 +34,9 @@ public static class Main
         Console.WriteLine("Orders waiting on the rail: " + rail.Waiting);
     }
 
-    /// <summary>Prints a list the way Java's <c>List.toString()</c> does: <c>[a, b, c]</c>.</summary>
+    /// <summary>Prints a list as <c>[a, b, c]</c>.</summary>
     private static string Show(IEnumerable<string> items) => "[" + string.Join(", ", items) + "]";
 
-    /// <summary>Prints a boolean the way Java does: <c>true</c>, not <c>True</c>.</summary>
+    /// <summary>Prints a boolean as <c>true</c>, not <c>True</c>.</summary>
     private static string Show(bool value) => value ? "true" : "false";
 }

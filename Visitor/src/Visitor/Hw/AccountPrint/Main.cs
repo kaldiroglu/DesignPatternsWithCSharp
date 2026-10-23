@@ -5,7 +5,7 @@ namespace dev.kaldiroglu.Visitor.Hw.AccountPrint;
 /// given its output; the account classes do not print.
 /// </summary>
 /// <remarks>
-/// The Java original's <c>main</c>. Run it with
+/// Run it with
 /// <c>dotnet run --project src/Visitor.Demo -- hw-accountprint</c>.
 /// </remarks>
 public static class Main

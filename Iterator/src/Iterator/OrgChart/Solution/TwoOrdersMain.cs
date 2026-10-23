@@ -6,7 +6,7 @@ namespace dev.kaldiroglu.Iterator.OrgChart.Solution;
 /// Walks one department in two orders: department by department, then level by level.
 /// </summary>
 /// <remarks>
-/// The Java original's <c>main</c>. Run it with
+/// Run it with
 /// <c>dotnet run --project src/Iterator.Demo -- orgchart-two-orders</c>.
 /// </remarks>
 public static class TwoOrdersMain

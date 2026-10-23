@@ -35,6 +35,6 @@ public sealed class Member : IParticipant
         shown.Add(from + ": " + text);
     }
 
-    /// <summary>A copy of what the member sees, as Java's <c>List.copyOf</c> gives.</summary>
+    /// <summary>A copy of what the member sees.</summary>
     public IReadOnlyList<string> Shown => shown.ToList();
 }

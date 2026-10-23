@@ -36,9 +36,8 @@ public class SettersTest
     }
 
     /// <summary>
-    /// Any code may now set Health to 999, and the player cannot refuse. The Java setters
-    /// setHealth, setInventory and setPosition are the setters of the C# properties, named
-    /// set_Health, set_Inventory and set_Position.
+    /// Any code may now set Health to 999, and the player cannot refuse. The setters of the
+    /// properties are named set_Health, set_Inventory and set_Position.
     /// </summary>
     [Fact]
     public void AnyoneMaySetHealth()

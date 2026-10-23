@@ -3,9 +3,8 @@ namespace dev.kaldiroglu.Memento.Pattern2;
 /// <summary>
 /// The <b>Originator</b>, with its memento nested inside it.
 /// <para>
-/// The Java memento is a nested class with a private field: the originator can read it and
-/// nobody else can. A C# outer class cannot read a nested class's private members, so here
-/// the caretaker holds an empty public interface, <see cref="IMemento"/>, and the state is in a
+/// Only the originator may read the memento's state. An outer class cannot read a nested
+/// class's private members, so the caretaker holds an empty public interface, <see cref="IMemento"/>, and the state is in a
 /// private nested class that only the originator can name. The originator therefore needs no
 /// public state getter.
 /// </para>

@@ -4,7 +4,7 @@ namespace dev.kaldiroglu.Strategy.Sorting.Subclassing;
 
 /// <summary>Sorts one array with each subclass, and shows that the caller now has to choose which one.</summary>
 /// <remarks>
-/// The Java original's <c>main</c>. Run it with
+/// Run it with
 /// <c>dotnet run --project src/Strategy.Demo -- sorting-subclassing</c>.
 /// </remarks>
 public static class Main
@@ -22,7 +22,7 @@ public static class Main
         Console.WriteLine("Every caller has to know which class suits which array.");
     }
 
-    /// <summary>Prints an array the way Java's <c>Arrays.toString</c> does: <c>[1.0, 3.0]</c>.</summary>
+    /// <summary>Prints an array as <c>[1.0, 3.0]</c>.</summary>
     private static string Show(double[] list) =>
         "[" + string.Join(", ", list.Select(d => d.ToString("0.0###############", CultureInfo.InvariantCulture))) + "]";
 }

@@ -2,7 +2,7 @@ namespace dev.kaldiroglu.Strategy.Gof.Problem;
 
 /// <summary>Breaks one paragraph with both algorithms that live inside the composition, chosen by a flag.</summary>
 /// <remarks>
-/// The Java original's <c>main</c>. Run it with
+/// Run it with
 /// <c>dotnet run --project src/Strategy.Demo -- gof-problem</c>.
 /// </remarks>
 public static class Main

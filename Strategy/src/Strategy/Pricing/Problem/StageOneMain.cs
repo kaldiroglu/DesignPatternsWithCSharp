@@ -2,7 +2,7 @@ namespace dev.kaldiroglu.Strategy.Pricing.Problem;
 
 /// <summary>Stage one: the campaign arrives as a string, and a typo fails only at run time.</summary>
 /// <remarks>
-/// The Java original's <c>main</c>. Run it with
+/// Run it with
 /// <c>dotnet run --project src/Strategy.Demo -- pricing-problem-stage-one</c>.
 /// </remarks>
 public static class StageOneMain
@@ -22,7 +22,7 @@ public static class StageOneMain
         }
         catch (ArgumentException e)
         {
-            // .NET adds " (Parameter 'campaign')" to the message; Java's message has no such suffix.
+            // .NET adds " (Parameter 'campaign')" to the message; it is cut off here.
             Console.WriteLine("  A typo compiles and fails at run time: " + e.Message.Split(" (")[0]);
         }
     }

@@ -1,5 +1,4 @@
-// Most examples have a class called Main or Test, as the Java original does. Aliases name
-// them apart.
+// Most examples have a class called Main or Test. Aliases name them apart.
 using ChatDirectMain = dev.kaldiroglu.Mediator.Chat.Problem.Direct.Main;
 using ChatDirectoryMain = dev.kaldiroglu.Mediator.Chat.Problem.Directory.Main;
 using ChatBusMain = dev.kaldiroglu.Mediator.Chat.Problem.Bus.Main;
@@ -17,8 +16,7 @@ namespace dev.kaldiroglu.Mediator.Demo;
 /// <summary>
 /// Runs the Mediator examples.
 /// <para>
-/// Every example is one of the Java original's <c>main</c> methods and prints the same
-/// output. <c>traffic</c> runs five cars on five threads, so the order of its lines changes
+/// <c>traffic</c> runs five cars on five threads, so the order of its lines changes
 /// from run to run.
 /// </para>
 /// <para>

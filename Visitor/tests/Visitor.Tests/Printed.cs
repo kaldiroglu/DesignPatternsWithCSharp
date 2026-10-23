@@ -24,7 +24,7 @@ public static class Printed
             Console.SetOut(original);
         }
 
-        // Like Java's String.lines(): a final line break does not make an empty last line.
+        // A final line break does not make an empty last line.
         var text = buffer.ToString().Replace("\r\n", "\n");
         if (text.Length == 0)
         {

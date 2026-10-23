@@ -11,7 +11,6 @@ using Xunit;
 /// <summary>
 /// The three naive designs, and what each one costs. All three undo correctly for the case
 /// they were built for, so every figure the slides quote about them is measured here.
-/// Ported from the Java <c>account.ProblemTest</c>.
 /// </summary>
 public class ProblemTests
 {
@@ -24,8 +23,8 @@ public class ProblemTests
         SourceText.StripComments(SourceText.Read(relativePath));
 
     /// <summary>
-    /// The public operations a class declares. Java counts public methods, and its accessors
-    /// such as <c>balance()</c> are methods. In C# they are properties, so this set holds the
+    /// The public operations a class declares. Accessors such as <c>Balance</c> are
+    /// properties, so this set holds the
     /// declared public methods that are not property accessors, and the declared public
     /// properties.
     /// </summary>
@@ -67,8 +66,7 @@ public class ProblemTests
     [Fact(DisplayName = "stage one: two of the account's three instance fields are bookkeeping")]
     public void TheAccountCarriesBookkeeping()
     {
-        // Java reads the field names owner, balance, lastKind and lastAmount, in that order.
-        // In C# the fields are _owner, _lastKind and _lastAmount, and balance is the
+        // The fields are _owner, _lastKind and _lastAmount, and balance is the
         // property Balance with a backing field the compiler writes. The names are read back
         // without the underscore, the backing field under its property's name, and compared
         // as a set, because reflection does not promise the declaration order.

@@ -28,7 +28,7 @@ public readonly record struct Currency(decimal Amount) : IComparable<Currency>
 
     public int CompareTo(Currency other) => Amount.CompareTo(other.Amount);
 
-    // Invariant culture, so the C# and Java demos print byte-identical output
+    // Invariant culture, so the demo prints byte-identical output
     // regardless of the machine's regional settings.
     public override string ToString() =>
         "$" + Amount.ToString("0.00", CultureInfo.InvariantCulture);

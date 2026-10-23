@@ -2,10 +2,11 @@ namespace dev.kaldiroglu.Observer.Payment;
 
 /// <summary>
 /// An invoice with two observers. The boss is added first, but the accountant is told
-/// first, as with the JDK's <c>Observable</c>. After the first payment the boss is removed.
+/// first, because <c>Observable</c> tells the last added first. After the first payment the
+/// boss is removed.
 /// </summary>
 /// <remarks>
-/// The Java original's <c>main</c>; its commented-out lines are not ported. Run it with
+/// Run it with
 /// <c>dotnet run --project src/Observer.Demo -- payment</c>.
 /// </remarks>
 public static class Test

@@ -5,6 +5,6 @@ public sealed record Cancelled() : IOrderState
 {
     public string Name => "cancelled";
 
-    /// <summary>Prints the record the way Java prints it.</summary>
+    /// <summary>Prints the record as <c>Cancelled[]</c>.</summary>
     public override string ToString() => "Cancelled[]";
 }

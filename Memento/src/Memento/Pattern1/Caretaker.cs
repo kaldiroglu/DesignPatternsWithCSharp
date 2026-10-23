@@ -5,8 +5,7 @@ namespace dev.kaldiroglu.Memento.Pattern1;
 /// when to undo. It never reads the state inside a memento for itself; it only prints it.
 /// </summary>
 /// <remarks>
-/// In the Java, <c>Caretaker</c> extends <c>Thread</c>. In C# <c>Thread</c> is <c>sealed</c>,
-/// so the caretaker holds a thread instead. <see cref="Start"/> starts it, and the thread
+/// <c>Thread</c> is <c>sealed</c>, so the caretaker holds a thread. <see cref="Start"/> starts it, and the thread
 /// calls <see cref="Run"/>.
 /// </remarks>
 public class Caretaker

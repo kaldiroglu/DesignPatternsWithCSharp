@@ -4,7 +4,7 @@ namespace dev.kaldiroglu.Iterator.OrgChart.Solution;
 /// HR compares two charts. The report moves one iterator in each chart, side by side.
 /// </summary>
 /// <remarks>
-/// The Java original's <c>main</c>. Run it with
+/// Run it with
 /// <c>dotnet run --project src/Iterator.Demo -- orgchart-change-report</c>.
 /// </remarks>
 public static class ChangeReportMain

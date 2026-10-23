@@ -5,7 +5,7 @@ namespace dev.kaldiroglu.Memento.Game.Problem.Setters;
 /// correct, but the public setters let any code give the player 999 health.
 /// </summary>
 /// <remarks>
-/// The Java original's <c>main</c>. Run it with
+/// Run it with
 /// <c>dotnet run --project src/Memento.Demo -- game-setters</c>.
 /// </remarks>
 public static class Main

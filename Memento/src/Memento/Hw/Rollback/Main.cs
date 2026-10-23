@@ -5,7 +5,7 @@ namespace dev.kaldiroglu.Memento.Hw.Rollback;
 /// account gets its balance back; the second succeeds.
 /// </summary>
 /// <remarks>
-/// The Java original's <c>main</c>. Run it with
+/// Run it with
 /// <c>dotnet run --project src/Memento.Demo -- hw-rollback</c>.
 /// </remarks>
 public static class Main

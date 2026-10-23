@@ -1,8 +1,7 @@
 namespace dev.kaldiroglu.Iterator.FileSystem;
 
 /// <summary>
-/// The <b>Client</b>: the Java original's <c>Test</c> class with its <c>main</c> method. Run it
-/// with <c>dotnet run --project src/Iterator.Demo -- filesystem</c>.
+/// The <b>Client</b>. Run it with <c>dotnet run --project src/Iterator.Demo -- filesystem</c>.
 /// </summary>
 public static class Test
 {

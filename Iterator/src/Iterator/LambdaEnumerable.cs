@@ -5,14 +5,14 @@ namespace dev.kaldiroglu.Iterator;
 /// </summary>
 /// <remarks>
 /// <para>
-/// Java's <c>Iterable</c> has one method, so Java can write an iterable as a lambda:
-/// <c>() -&gt; new LevelOrderIterator(this)</c>. <see cref="IEnumerable{T}"/> is not a
-/// delegate type, so C# cannot. This class does the same job: it holds the lambda and calls
+/// <see cref="IEnumerable{T}"/> is not a delegate type, so an enumerable cannot be written
+/// as a lambda such as <c>() =&gt; new LevelOrderIterator(this)</c>. This class does that
+/// job: it holds the lambda and calls
 /// it each time a loop asks for an enumerator.
 /// </para>
 /// <para>
 /// It is not part of the pattern. It is only here so that <c>Department.ByLevel()</c> and
-/// <c>PartIterator.PartsOf()</c> keep the shape of the Java code.
+/// <c>PartIterator.PartsOf()</c> can each return a new iterator from one line.
 /// </para>
 /// </remarks>
 internal sealed class LambdaEnumerable<T>(Func<IEnumerator<T>> create) : IEnumerable<T>

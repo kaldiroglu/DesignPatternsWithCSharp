@@ -6,9 +6,7 @@ namespace dev.kaldiroglu.Decorator.Io;
 /// <summary>
 /// The pattern in the standard library, measured.
 /// <para>
-/// Java's version stacks <c>DataOutputStream</c> over <c>BufferedOutputStream</c> over
-/// <c>FileStream</c>, and again with a <c>GZIPOutputStream</c> in the middle. .NET's
-/// shapes are the same: <see cref="BinaryWriter"/> over <see cref="BufferedStream"/> over
+/// The streams are stacked: <see cref="BinaryWriter"/> over <see cref="BufferedStream"/> over
 /// a file, and a <see cref="GZipStream"/> added as one more layer.
 /// </para>
 /// <para>

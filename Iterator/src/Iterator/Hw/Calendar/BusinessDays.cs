@@ -30,8 +30,7 @@ public sealed class BusinessDays : IEnumerable<DateOnly>
     IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
     /// <summary>
-    /// The iterator. Java writes it as an anonymous class inside <c>iterator()</c>; C# has no
-    /// anonymous classes, so it is a private nested class.
+    /// The iterator. C# has no anonymous classes, so it is a private nested class.
     /// </summary>
     private sealed class Enumerator : IEnumerator<DateOnly>
     {

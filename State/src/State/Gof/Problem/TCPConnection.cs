@@ -11,8 +11,7 @@ namespace dev.kaldiroglu.State.Gof.Problem;
 public sealed class TCPConnection
 {
     /// <summary>
-    /// The three states. Java calls this nested enum <c>State</c>; in C# a class cannot have
-    /// a nested type and a property with the same name, and the property <see cref="State"/>
+    /// The three states. A class cannot have a nested type and a property with the same name, and the property <see cref="State"/>
     /// is the one callers use.
     /// </summary>
     private enum ConnectionState { CLOSED, LISTEN, ESTABLISHED }

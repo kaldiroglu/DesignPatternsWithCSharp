@@ -7,7 +7,7 @@ namespace dev.kaldiroglu.State.Order.Solution;
 /// stage three's enum, then with State objects.
 /// </summary>
 /// <remarks>
-/// The Java original's <c>main</c>. Run it with
+/// Run it with
 /// <c>dotnet run --project src/State.Demo -- order-second-shipment</c>.
 /// </remarks>
 public static class SecondShipmentMain
@@ -37,6 +37,6 @@ public static class SecondShipmentMain
         Console.WriteLine("  state now: " + after.State);
     }
 
-    /// <summary>Prints a list the way Java's <c>List.toString()</c> does: <c>[a, b, c]</c>.</summary>
+    /// <summary>Prints a list as <c>[a, b, c]</c>.</summary>
     private static string Show(IEnumerable<string> items) => "[" + string.Join(", ", items) + "]";
 }

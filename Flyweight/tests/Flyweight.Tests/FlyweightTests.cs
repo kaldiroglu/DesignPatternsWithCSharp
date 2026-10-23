@@ -8,8 +8,7 @@ namespace dev.kaldiroglu.Flyweight.Tests;
 /// GoF's own example, and the one that shows the solution's least obvious half: the same
 /// shared object rendered in two different fonts, because the font was never inside it.
 /// <para>
-/// The two lines below are the ones the Java original types, so the figures here are the
-/// figures that repository asserts and the deck quotes.
+/// The figures here are the figures the deck quotes.
 /// </para>
 /// </summary>
 public class FlyweightTests

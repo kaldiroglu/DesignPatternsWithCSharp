@@ -17,6 +17,6 @@ public sealed record Paid() : IOrderState
         return new Cancelled();
     }
 
-    /// <summary>Prints the record the way Java prints it.</summary>
+    /// <summary>Prints the record as <c>Paid[]</c>.</summary>
     public override string ToString() => "Paid[]";
 }

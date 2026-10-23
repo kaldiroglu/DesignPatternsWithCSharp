@@ -22,7 +22,7 @@ public sealed class Batch
     /// <summary>Returns "done", or why it was rolled back.</summary>
     public string Run(IReadOnlyList<Account> accounts)
     {
-        // Keeps the order in which the accounts were given, as Java's LinkedHashMap does.
+        // Keeps the order in which the accounts were given.
         var before = new OrderedDictionary<Account, Account.ISaved>();
         foreach (Account account in accounts)
         {

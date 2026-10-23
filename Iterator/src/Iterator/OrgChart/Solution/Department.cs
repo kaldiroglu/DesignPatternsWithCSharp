@@ -48,8 +48,7 @@ public sealed class Department(string name) : IEnumerable<Employee>
     public IEnumerable<Employee> ByLevel() =>
         new LambdaEnumerable<Employee>(() => new LevelOrderIterator(this));
 
-    // Internal: only the iterators in this library may see the structure. Java uses package
-    // access here; C# has no package access, so `internal` is the closest choice.
+    // Internal: only the iterators in this library may see the structure.
     internal IReadOnlyList<Employee> Members => _members;
 
     internal IReadOnlyList<Department> Units => _units;

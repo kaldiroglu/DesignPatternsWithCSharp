@@ -4,7 +4,7 @@ namespace dev.kaldiroglu.Command.Account.Problem;
 
 /// <summary>Stage two: the account keeps a history, so both steps can be undone.</summary>
 /// <remarks>
-/// The Java original's <c>main</c>. Run it with
+/// Run it with
 /// <c>dotnet run --project src/Command.Demo -- account-problem-stage-two</c>.
 /// </remarks>
 public static class StageTwoMain
@@ -20,6 +20,6 @@ public static class StageTwoMain
         Console.WriteLine("Stage two journal: " + Show(two.Journal()));
     }
 
-    /// <summary>Prints a list the way Java's <c>List.toString()</c> does: <c>[a, b, c]</c>.</summary>
+    /// <summary>Prints a list as <c>[a, b, c]</c>.</summary>
     private static string Show(IEnumerable<string> items) => "[" + string.Join(", ", items) + "]";
 }

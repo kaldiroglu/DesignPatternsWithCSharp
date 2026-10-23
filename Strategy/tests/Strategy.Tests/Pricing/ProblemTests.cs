@@ -7,8 +7,7 @@ namespace dev.kaldiroglu.Strategy.Tests.Pricing;
 
 /// <summary>
 /// The three naive designs, and what each one costs. All three price correctly, so every
-/// number the slides quote about them is measured here. Ported from the Java
-/// <c>pricing.ProblemTest</c>.
+/// number the slides quote about them is measured here.
 /// </summary>
 public class ProblemTests
 {
@@ -45,8 +44,7 @@ public class ProblemTests
         var body = SourceText.From(SourceText.Read(Source + "SwitchingCheckout.cs"), "public sealed class");
         var code = SourceText.StripComments(body);
 
-        // Java counts `case "`. A C# switch expression has no `case` keyword; each campaign is
-        // an arm that starts with a string literal and an arrow, such as `"NONE" =>`.
+        // A switch expression has no `case` keyword; each campaign is an arm that starts with a string literal and an arrow, such as `"NONE" =>`.
         Assert.Equal(5, Regex.Matches(code, "\"[A-Z0-9_]+\"\\s*=>").Count);
         Assert.Equal(1, SourceText.CountOf(code, "Ring("));
     }
@@ -71,8 +69,8 @@ public class ProblemTests
         var code = SourceText.StripComments(body);
 
         // One arm per constant, and no discard arm: adding a constant breaks this file
-        // until somebody writes the branch. Java counts `case ` and `default ->`; the C# arms
-        // are `Campaign.X =>` and the discard arm would be `_ =>`.
+        // until somebody writes the branch. The arms are `Campaign.X =>` and the discard arm
+        // would be `_ =>`.
         Assert.Equal(Enum.GetValues<Campaign>().Length,
             Regex.Matches(code, @"Campaign\.[A-Z_]+\s*=>").Count);
         Assert.Empty(Regex.Matches(code, @"\b_\s*=>"));

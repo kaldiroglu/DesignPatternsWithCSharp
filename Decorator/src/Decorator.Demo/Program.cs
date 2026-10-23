@@ -5,8 +5,8 @@ using dev.kaldiroglu.Decorator.Middleware.Solution.Fluent;
 using Functional = dev.kaldiroglu.Decorator.Middleware.Solution.Functional.Middleware;
 
 // Problem and Solution.Classic each define a LoggingPriceFeed and a RetryingPriceFeed —
-// deliberately, since the deck contrasts them. Java's demo disambiguated with a
-// fully-qualified name; C# needs an alias, because `using` imports carry no precedence.
+// deliberately, since the deck contrasts them. An alias names them apart, because `using`
+// imports carry no precedence.
 using LoggingPriceFeed = dev.kaldiroglu.Decorator.Middleware.Solution.Classic.LoggingPriceFeed;
 using RetryingPriceFeed = dev.kaldiroglu.Decorator.Middleware.Solution.Classic.RetryingPriceFeed;
 

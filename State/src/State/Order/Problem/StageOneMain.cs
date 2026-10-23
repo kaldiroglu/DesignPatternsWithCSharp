@@ -4,7 +4,7 @@ namespace dev.kaldiroglu.State.Order.Problem;
 /// Stage one: four flags. An order is paid, shipped and delivered.
 /// </summary>
 /// <remarks>
-/// The Java original's <c>main</c>. Run it with
+/// Run it with
 /// <c>dotnet run --project src/State.Demo -- order-problem-stage-one</c>.
 /// </remarks>
 public static class StageOneMain
@@ -18,6 +18,6 @@ public static class StageOneMain
         Console.WriteLine("Stage one, four flags:   " + Show(flags.Events));
     }
 
-    /// <summary>Prints a list the way Java's <c>List.toString()</c> does: <c>[a, b, c]</c>.</summary>
+    /// <summary>Prints a list as <c>[a, b, c]</c>.</summary>
     private static string Show(IEnumerable<string> items) => "[" + string.Join(", ", items) + "]";
 }

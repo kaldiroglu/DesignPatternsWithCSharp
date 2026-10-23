@@ -5,7 +5,7 @@ namespace dev.kaldiroglu.Command.Hw.Remote;
 /// nothing.
 /// </summary>
 /// <remarks>
-/// The Java original's <c>main</c>. Run it with
+/// Run it with
 /// <c>dotnet run --project src/Command.Demo -- hw-remote</c>.
 /// </remarks>
 public static class Main

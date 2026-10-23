@@ -1,7 +1,7 @@
 namespace dev.kaldiroglu.Command.Lender.Problem2;
 
 /// <summary>
-/// The Java original's <c>main</c>. Run it with
+/// Run it with
 /// <c>dotnet run --project src/Command.Demo -- lender-problem2</c>.
 /// </summary>
 public static class Main

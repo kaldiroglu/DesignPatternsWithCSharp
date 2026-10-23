@@ -5,7 +5,7 @@ namespace dev.kaldiroglu.Observer.Price.Solution;
 /// alert at 105 fires.
 /// </summary>
 /// <remarks>
-/// The Java original's <c>main</c>. Run it with
+/// Run it with
 /// <c>dotnet run --project src/Observer.Demo -- price-listeners</c>.
 /// </remarks>
 public static class ListenersMain

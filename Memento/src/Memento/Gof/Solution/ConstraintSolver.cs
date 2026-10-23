@@ -11,7 +11,7 @@ public sealed class ConstraintSolver
     /// <summary>
     /// The <b>Memento</b>, as a command sees it: GoF's <c>ConstraintSolverMemento</c>. It has
     /// no members, so a command can keep it but not read it. GoF implementation issue 1
-    /// (language support): C++ makes the solver a friend; Java nests the class.
+    /// (language support): C++ makes the solver a friend.
     /// </summary>
     /// <remarks>
     /// C# has no friend classes, and an enclosing class cannot read a nested class's private

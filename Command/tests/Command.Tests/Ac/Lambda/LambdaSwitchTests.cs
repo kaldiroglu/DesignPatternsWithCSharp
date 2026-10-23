@@ -4,7 +4,7 @@ using System.Reflection;
 using dev.kaldiroglu.Command.Ac.Lambda;
 using Xunit;
 
-/// <summary>The air conditioner's switch with its requests as functions. Ported from the Java <c>LambdaSwitchTest</c>.</summary>
+/// <summary>The air conditioner's switch with its requests as functions.</summary>
 public class LambdaSwitchTests
 {
     [Fact(DisplayName = "the switch holds four functions and no Command")]

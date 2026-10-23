@@ -2,7 +2,7 @@ namespace dev.kaldiroglu.Strategy.Gof.Solution;
 
 /// <summary>Breaks one paragraph with three compositors, changed on the same composition while it runs.</summary>
 /// <remarks>
-/// The Java original's <c>main</c>. Run it with
+/// Run it with
 /// <c>dotnet run --project src/Strategy.Demo -- gof-solution</c>.
 /// </remarks>
 public static class Main

@@ -9,7 +9,7 @@ namespace dev.kaldiroglu.Strategy.Pricing.Problem;
 /// adding a constant to <see cref="Campaign"/> makes this file stop compiling until the new
 /// case is written — the compiler now tells you what you forgot, which is exactly what it
 /// failed to do before. (In C# a missing case is warning CS8509, which this project's
-/// <c>.csproj</c> raises to an error so that the claim holds here as it does in Java.)
+/// <c>.csproj</c> raises to an error so that the claim holds.)
 /// </para>
 /// <para><b>What it still costs:</b></para>
 /// <list type="bullet">
@@ -47,7 +47,7 @@ public sealed class EnumCheckout
         return new Receipt(campaign.ToString(), list, paid);
     }
 
-    // Java's switch expression can hold a block that ends in `yield`; C#'s cannot.
+    // A C# switch expression cannot hold a block, so this branch's loop lives here.
     private static Money BuyTwoGetOne(Basket basket, Money list)
     {
         var discount = Money.Zero;

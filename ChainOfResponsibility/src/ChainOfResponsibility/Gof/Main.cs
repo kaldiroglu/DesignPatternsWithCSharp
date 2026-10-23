@@ -5,7 +5,7 @@ namespace dev.kaldiroglu.ChainOfResponsibility.Gof;
 
 /// <summary>Asks for help on three controls in both designs. They print the same lines.</summary>
 /// <remarks>
-/// The Java original's <c>main</c>. Run it with
+/// Run it with
 /// <c>dotnet run --project src/ChainOfResponsibility.Demo -- gof</c>.
 /// </remarks>
 public static class Main

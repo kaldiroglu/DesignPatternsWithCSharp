@@ -12,7 +12,7 @@ namespace dev.kaldiroglu.ChainOfResponsibility.Expense.Problem;
 /// </summary>
 public sealed class LimitTable
 {
-    // Kept sorted by limit, as Java's TreeMap is.
+    // Kept sorted by limit.
     private readonly SortedDictionary<int, string> approvers = new();
 
     public LimitTable Add(string approver, int limit)
@@ -23,8 +23,7 @@ public sealed class LimitTable
 
     public string Approve(Expense expense)
     {
-        // The first row whose limit is at least the amount. This is what Java's
-        // TreeMap.ceilingEntry finds.
+        // The first row whose limit is at least the amount.
         foreach (var row in approvers)
         {
             if (row.Key >= expense.Amount)

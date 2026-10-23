@@ -8,7 +8,6 @@ namespace dev.kaldiroglu.Strategy.Tests.Sorting;
 /// <summary>
 /// Three sorting algorithms, and the array's size decides which one is used. The branch does
 /// not disappear when the pattern is applied: it stops implementing and starts selecting.
-/// Ported from the Java <c>sorting.SortingTest</c>.
 /// </summary>
 public class SortingTests
 {
@@ -16,8 +15,7 @@ public class SortingTests
 
     private static double[] Shuffled(int size)
     {
-        // A fixed seed: the same array every run. The numbers differ from Java's Random(42),
-        // but every test here compares C# results with other C# results.
+        // A fixed seed: the same array every run.
         var random = new Random(42);
         var list = new double[size];
         for (var i = 0; i < size; i++)
@@ -91,8 +89,7 @@ public class SortingTests
         var context = SourceText.Read(Source + "Pattern/SortingContext.cs");
         var code = SourceText.StripComments(context);
 
-        // Both test the same two thresholds. Java names the constants BUBBLE_LIMIT and
-        // QUICK_LIMIT; the C# constants are BubbleLimit and QuickLimit.
+        // Both test the same two thresholds. The constants are BubbleLimit and QuickLimit.
         Assert.True(naive.Contains("100") && naive.Contains("1_000_000"));
         Assert.True(code.Contains("BubbleLimit") && code.Contains("QuickLimit"));
 
@@ -109,8 +106,8 @@ public class SortingTests
     }
 
     /// <summary>
-    /// A fourth algorithm. Java writes it as an anonymous class inside the test; C# has no
-    /// anonymous classes that implement an interface, so it is a nested class here.
+    /// A fourth algorithm. C# has no anonymous classes that implement an interface, so it is
+    /// a nested class.
     /// </summary>
     private sealed class InsertionSorter : ISorter
     {

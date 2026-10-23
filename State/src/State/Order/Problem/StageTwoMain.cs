@@ -4,7 +4,7 @@ namespace dev.kaldiroglu.State.Order.Problem;
 /// Stage two: one status and a switch. A shipped order refuses to be cancelled.
 /// </summary>
 /// <remarks>
-/// The Java original's <c>main</c>. Run it with
+/// Run it with
 /// <c>dotnet run --project src/State.Demo -- order-problem-stage-two</c>.
 /// </remarks>
 public static class StageTwoMain

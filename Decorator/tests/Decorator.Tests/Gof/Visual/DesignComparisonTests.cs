@@ -35,10 +35,10 @@ public class DesignComparisonTests
         Assert.Equal(bySubclassing, byDecorating);
     }
 
-    [Fact(DisplayName = "the pictures are what the Java port produces, character for character")]
+    [Fact(DisplayName = "the pictures are exactly these strings, character for character")]
     public void ThePicturesThemselves()
     {
-        // The same strings the Java tests assert, so the two ports cannot drift apart.
+        // The exact strings the deck shows.
         // Border(Scroll(text)) — the scrollbar is inside the border, so the border grows
         // around it. This is the left-hand picture on the deck's "what it actually draws".
         Assert.Equal(

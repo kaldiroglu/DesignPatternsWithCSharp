@@ -6,7 +6,7 @@ namespace dev.kaldiroglu.Iterator.OrgChart.Problem;
 /// Stage two: the department copies everyone into a new list, on every call.
 /// </summary>
 /// <remarks>
-/// The Java original's <c>main</c>. Run it with
+/// Run it with
 /// <c>dotnet run --project src/Iterator.Demo -- orgchart-problem-stage-two</c>.
 /// </remarks>
 public static class StageTwoMain

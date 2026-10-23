@@ -10,7 +10,7 @@ namespace dev.kaldiroglu.Visitor.Interpreter;
 /// </para>
 /// </summary>
 /// <remarks>
-/// The Java original's <c>main</c>. Run it with
+/// Run it with
 /// <c>dotnet run --project src/Visitor.Demo -- interpreter</c>.
 /// </remarks>
 public static class Main

@@ -20,8 +20,7 @@ public sealed class Inbox
     private readonly List<Action<Message>> views = [];
 
     /// <summary>
-    /// Any function that takes a message can be a view: the observer is a lambda. Java uses
-    /// <c>Consumer&lt;Message&gt;</c>; the C# delegate for the same job is
+    /// Any function that takes a message can be a view: the observer is a lambda, an
     /// <see cref="Action{T}"/>.
     /// </summary>
     public void OnNewMessage(Action<Message> view)

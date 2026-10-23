@@ -5,7 +5,7 @@ namespace dev.kaldiroglu.State.Pattern;
 /// prints nothing; the full version is in <c>State.Gof.Solution</c>.
 /// </summary>
 /// <remarks>
-/// The Java original's <c>main</c>. Run it with
+/// Run it with
 /// <c>dotnet run --project src/State.Demo -- pattern</c>. The interface is
 /// <see cref="ITCPState"/> here, so the lines name it with the C# <c>I</c> prefix.
 /// </remarks>

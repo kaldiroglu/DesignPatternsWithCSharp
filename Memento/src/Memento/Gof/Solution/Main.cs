@@ -5,7 +5,7 @@ namespace dev.kaldiroglu.Memento.Gof.Solution;
 /// gives the solver its memento back, so the bend returns to 50.
 /// </summary>
 /// <remarks>
-/// The Java original's <c>main</c>. Run it with
+/// Run it with
 /// <c>dotnet run --project src/Memento.Demo -- gof-solution</c>.
 /// </remarks>
 public static class Main

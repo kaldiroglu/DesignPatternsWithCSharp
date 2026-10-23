@@ -44,8 +44,8 @@ public class HelpTest
     [Fact]
     public void NobodyHasHelp()
     {
-        // The Java passes null to Application. The C# constructor takes a non-nullable
-        // string, so null! says the same thing.
+        // The application has no help. The constructor takes a non-nullable string, so
+        // null! passes null on purpose.
         Button lonely = new Button(new Dialog(new Application(null!), null));
         Assert.Equal("No help is available.", lonely.HandleHelp());
     }
@@ -58,9 +58,8 @@ public class HelpTest
         Assert.Equal("Help: print the document.", desk.HelpFor("print button"));
         Assert.Equal("Help: " + PrintDialog, desk.HelpFor("ok button"));
         Assert.Equal("Help: " + Editor, desk.HelpFor("font button"));
-        // print button, ok button, printer list and print dialog. The Java counts
-        // `case "` and `, "` in a switch statement; the C# switch expression writes
-        // each name before `" =>`, and joins two names with `" or "`.
+        // print button, ok button, printer list and print dialog. The switch expression
+        // writes each name before `" =>`, and joins two names with `" or "`.
         string code = CodeOf("Gof/Problem/HelpDesk.cs");
         Assert.Equal(4, CountOf(code, "\" =>") + CountOf(code, "\" or \""));
     }

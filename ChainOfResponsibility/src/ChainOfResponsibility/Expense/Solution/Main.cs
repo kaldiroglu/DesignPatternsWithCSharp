@@ -12,7 +12,7 @@ namespace dev.kaldiroglu.ChainOfResponsibility.Expense.Solution;
 /// </para>
 /// </summary>
 /// <remarks>
-/// The Java original's <c>main</c>. Run it with
+/// Run it with
 /// <c>dotnet run --project src/ChainOfResponsibility.Demo -- expense</c>.
 /// </remarks>
 public static class Main

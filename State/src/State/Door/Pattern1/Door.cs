@@ -13,7 +13,7 @@ public class Door
 
     public Door()
     {
-        // Java does this in an instance initializer block, which runs before the constructor body.
+        // Wire the states to the door and to each other.
         openState.SetDoor(this);
         openState.SetClosedState(closedState);
         closedState.SetDoor(this);

@@ -4,10 +4,9 @@ namespace dev.kaldiroglu.Mediator.Traffic;
 /// The client: a junction, a traffic police officer, and five cars, each on its own thread.
 /// </summary>
 /// <remarks>
-/// The Java original's <c>main</c>. The cars run on their own threads, so the order of the
-/// output changes from run to run. Like the Java, <c>Run()</c> starts the threads and returns
-/// without waiting for them; the threads are foreground threads, so the program waits for
-/// them before it exits, as the JVM does. Run it with
+/// The cars run on their own threads, so the order of the output changes from run to run.
+/// <c>Run()</c> starts the threads and returns without waiting for them; the threads are
+/// foreground threads, so the program waits for them before it exits. Run it with
 /// <c>dotnet run --project src/Mediator.Demo -- traffic</c>.
 /// </remarks>
 public class Test

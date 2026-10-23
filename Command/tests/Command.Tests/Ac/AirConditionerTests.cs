@@ -6,8 +6,7 @@ using Xunit;
 
 /// <summary>
 /// The air conditioner and its wall switch. The room starts at 22 degrees. The classes print
-/// to the console and have no getters, so the tests check what they print. Ported from the
-/// Java <c>ac.AirConditionerTest</c>.
+/// to the console and have no getters, so the tests check what they print.
 /// </summary>
 public class AirConditionerTests
 {

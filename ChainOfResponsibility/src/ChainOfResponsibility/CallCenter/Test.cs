@@ -5,8 +5,7 @@ namespace dev.kaldiroglu.ChainOfResponsibility.CallCenter;
 /// them call the standard desk.
 /// </summary>
 /// <remarks>
-/// The Java original's <c>main</c>. It chooses customers at random, so the output changes
-/// from run to run. Run it with
+/// It chooses customers at random, so the output changes from run to run. Run it with
 /// <c>dotnet run --project src/ChainOfResponsibility.Demo -- callcenter</c>.
 /// </remarks>
 public class Test

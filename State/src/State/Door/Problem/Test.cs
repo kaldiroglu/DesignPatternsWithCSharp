@@ -3,8 +3,8 @@ namespace dev.kaldiroglu.State.Door.Problem;
 /// <summary>
 /// Opens and closes the door eight times and prints whether it is open after each step.
 /// <para>
-/// The Java original's <c>main</c>. C# prints a <c>bool</c> as <c>True</c> or <c>False</c>,
-/// so <see cref="Show"/> prints it in lower case, as Java does.
+/// C# prints a <c>bool</c> as <c>True</c> or <c>False</c>, so <see cref="Show"/> prints it
+/// in lower case.
 /// </para>
 /// </summary>
 public static class Test

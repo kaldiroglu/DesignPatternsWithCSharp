@@ -4,7 +4,7 @@ namespace dev.kaldiroglu.Visitor.Factory;
 /// A company of five random employees gets a health check, and then the boss gets one.
 /// </summary>
 /// <remarks>
-/// The Java original's <c>main</c>. <see cref="HR"/> picks the employees at random, so the
+/// <see cref="HR"/> picks the employees at random, so the
 /// output changes from run to run. Run it with
 /// <c>dotnet run --project src/Visitor.Demo -- factory</c>.
 /// </remarks>

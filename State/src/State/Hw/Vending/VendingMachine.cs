@@ -36,7 +36,7 @@ public sealed class VendingMachine
         state = state.Refilled(this);
     }
 
-    /// <summary>The name of the current state's class, as Java's <c>getSimpleName()</c> gives it.</summary>
+    /// <summary>The name of the current state's class.</summary>
     public string State => state.GetType().Name;
 
     internal int Stock => stock;

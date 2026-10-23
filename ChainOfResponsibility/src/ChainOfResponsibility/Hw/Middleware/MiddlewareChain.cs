@@ -1,8 +1,7 @@
 namespace dev.kaldiroglu.ChainOfResponsibility.Hw.Middleware;
 
 /// <summary>
-/// Builds a middleware chain. In the Java this is the static method <c>Middleware.chain</c>;
-/// a delegate type cannot hold a method, so it lives in this class.
+/// Builds a middleware chain. A delegate type cannot hold a method, so it lives in this class.
 /// </summary>
 public static class MiddlewareChain
 {

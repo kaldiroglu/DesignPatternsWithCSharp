@@ -59,6 +59,6 @@ public class Overdrawn : IAccountStatus
         Console.WriteLine("In overdrawn state the  account can't be closed!");
     }
 
-    // A negative balance prints with a plain "-" on every machine, as in Java.
+    // A negative balance prints with a plain "-" on every machine.
     private static string Text(int value) => value.ToString(CultureInfo.InvariantCulture);
 }

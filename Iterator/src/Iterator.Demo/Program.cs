@@ -1,8 +1,8 @@
 using Department = dev.kaldiroglu.Iterator.OrgChart.Solution.Department;
 using DepthFirstWithYield = dev.kaldiroglu.Iterator.OrgChart.Solution.DepthFirstWithYield;
 using SampleCompany = dev.kaldiroglu.Iterator.OrgChart.Solution.SampleCompany;
-// Several example packages have runnable classes with the same name (Main, ChangeReportMain),
-// as the Java original does. Aliases name them apart.
+// Several example packages have runnable classes with the same name (Main, ChangeReportMain).
+// Aliases name them apart.
 using ProblemStageOne = dev.kaldiroglu.Iterator.OrgChart.Problem.StageOneMain;
 using ProblemStageTwo = dev.kaldiroglu.Iterator.OrgChart.Problem.StageTwoMain;
 using ProblemStageThree = dev.kaldiroglu.Iterator.OrgChart.Problem.StageThreeMain;
@@ -23,9 +23,8 @@ namespace dev.kaldiroglu.Iterator.Demo;
 /// <summary>
 /// Runs the Iterator examples.
 /// <para>
-/// Every entry but one is a Java <c>main</c> method, ported as a static class with a
-/// <c>Run()</c> method, and prints the same output. <c>orgchart-yield</c>
-/// is only in this runner: the <c>yield</c> version of the depth-first walk.
+/// Every entry runs a static class with a <c>Run()</c> method, except <c>orgchart-yield</c>:
+/// the <c>yield</c> version of the depth-first walk, written here.
 /// </para>
 /// <para>
 /// Each example runs on its own — <c>dotnet run -- gof-problem</c> — and with no argument all of them

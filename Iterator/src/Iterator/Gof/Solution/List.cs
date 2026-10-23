@@ -9,8 +9,7 @@ namespace dev.kaldiroglu.Iterator.Gof.Solution;
 /// The name is the same as .NET's <see cref="System.Collections.Generic.List{T}"/>. Inside
 /// this namespace, <c>List&lt;T&gt;</c> means this class, because a type in the current
 /// namespace wins over a type brought in by a <c>using</c>. Code in this namespace that needs
-/// .NET's list writes <c>System.Collections.Generic.List&lt;T&gt;</c> in full, as the Java
-/// code writes <c>java.util.List</c>.
+/// .NET's list writes <c>System.Collections.Generic.List&lt;T&gt;</c> in full.
 /// </para>
 /// </remarks>
 public sealed class List<T> : AbstractList<T>

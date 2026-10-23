@@ -7,7 +7,7 @@ public static class Fields
 {
     /// <summary>
     /// The types a class's instance fields refer to, including the type inside a generic field.
-    /// Only fields declared in the class itself are read, as Java's getDeclaredFields does.
+    /// Only fields declared in the class itself are read.
     /// The backing field of an auto-property is a real field, so it is included.
     /// </summary>
     public static List<Type> HeldBy(Type type)
@@ -20,8 +20,8 @@ public static class Fields
             held.Add(field.FieldType);
             if (field.FieldType.IsGenericType)
             {
-                // Java keeps only the type arguments that are plain classes; a nested generic
-                // type such as HashSet<string> is left out in the same way here.
+                // Only the type arguments that are plain classes are kept; a nested generic
+                // type such as HashSet<string> is left out.
                 held.AddRange(field.FieldType.GetGenericArguments().Where(t => !t.IsGenericType));
             }
         }

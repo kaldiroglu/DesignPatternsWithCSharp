@@ -5,7 +5,7 @@ namespace dev.kaldiroglu.Observer.Publisher;
 /// new Newsweek comes out.
 /// </summary>
 /// <remarks>
-/// The Java original's <c>main</c>; its commented-out lines are not ported. Run it with
+/// Run it with
 /// <c>dotnet run --project src/Observer.Demo -- publisher</c>.
 /// </remarks>
 public static class Test

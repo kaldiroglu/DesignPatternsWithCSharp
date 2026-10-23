@@ -2,9 +2,8 @@ namespace dev.kaldiroglu.Iterator.Hw.Paging;
 
 /// <summary>Searches paged results and stops early, so the pages after the stop are never fetched.</summary>
 /// <remarks>
-/// The Java original's <c>main</c>. Run it with
-/// <c>dotnet run --project src/Iterator.Demo -- hw-paging</c>. Java's
-/// <c>hasNext()</c>/<c>next()</c> loop is a <c>MoveNext()</c>/<c>Current</c> loop here.
+/// Run it with
+/// <c>dotnet run --project src/Iterator.Demo -- hw-paging</c>.
 /// </remarks>
 public static class Main
 {

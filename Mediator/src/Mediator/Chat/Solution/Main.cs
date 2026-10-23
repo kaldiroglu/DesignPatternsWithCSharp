@@ -11,7 +11,7 @@ namespace dev.kaldiroglu.Mediator.Chat.Solution;
 /// </para>
 /// </summary>
 /// <remarks>
-/// The Java original's <c>main</c>. Run it with
+/// Run it with
 /// <c>dotnet run --project src/Mediator.Demo -- chat</c>.
 /// </remarks>
 public static class Main
@@ -73,6 +73,6 @@ public static class Main
 
     private static string Number(int value) => value.ToString(CultureInfo.InvariantCulture);
 
-    /// <summary>Prints a list the way Java's <c>List.toString()</c> does: <c>[a, b, c]</c>.</summary>
+    /// <summary>Prints a list as <c>[a, b, c]</c>.</summary>
     private static string Show(IEnumerable<string> items) => "[" + string.Join(", ", items) + "]";
 }

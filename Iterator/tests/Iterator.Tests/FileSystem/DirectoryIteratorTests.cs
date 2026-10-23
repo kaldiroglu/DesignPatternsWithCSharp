@@ -8,7 +8,7 @@ using Xunit;
 
 /// <summary>
 /// The file system example. The output the Part 3 notes quote from <c>FileSystem.Test</c> is
-/// asserted here. Ported from the Java <c>fileSystem.DirectoryIteratorTest</c>.
+/// asserted here.
 /// </summary>
 public class DirectoryIteratorTests
 {
@@ -53,8 +53,7 @@ public class DirectoryIteratorTests
     [Fact(DisplayName = "only the iterator can reach the list: elements() is package-private and cannot be changed")]
     public void TheListIsHiddenAndUnchangeable()
     {
-        // Java's elements() is package-private. C# has no package access; the port makes
-        // Elements internal, which is the closest choice. Its getter must be neither public,
+        // Elements is internal. Its getter must be neither public,
         // nor protected, nor private.
         var elements = typeof(Directory).GetProperty("Elements", BindingFlags.Instance | BindingFlags.NonPublic)
                        ?? throw new InvalidOperationException("Directory has no Elements property");
@@ -67,8 +66,7 @@ public class DirectoryIteratorTests
         var dev = new Directory("Dev");
         new File("Readme.txt", dev);
         // The test project cannot call an internal member directly, so it reads the list
-        // through reflection. Java's unmodifiable list throws UnsupportedOperationException;
-        // a .NET read-only collection throws NotSupportedException.
+        // through reflection. A read-only collection throws NotSupportedException.
         var list = (ICollection<IStorage>)elements.GetValue(dev)!;
         Assert.Throws<NotSupportedException>(() => list.Add(new File("Extra.txt", null!)));
     }
@@ -76,7 +74,7 @@ public class DirectoryIteratorTests
     [Fact(DisplayName = "DirectoryIterator is in the same package as Directory")]
     public void TheIteratorSitsBesideTheDirectory()
     {
-        // A Java package is a C# namespace here.
+        // The iterator is in the directory's namespace.
         Assert.Equal(typeof(Directory).Namespace, typeof(DirectoryIterator<>).Namespace);
     }
 }

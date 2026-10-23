@@ -6,7 +6,7 @@ namespace dev.kaldiroglu.Iterator.OrgChart.Problem;
 /// Stage three: the department walks itself and calls the caller back for each person.
 /// </summary>
 /// <remarks>
-/// The Java original's <c>main</c>. Run it with
+/// Run it with
 /// <c>dotnet run --project src/Iterator.Demo -- orgchart-problem-stage-three</c>.
 /// </remarks>
 public static class StageThreeMain
@@ -18,6 +18,6 @@ public static class StageThreeMain
         Console.WriteLine("Stage three, level by level: " + Show(byLevel.Select(e => e.ToString())));
     }
 
-    /// <summary>Prints a list the way Java's <c>List.toString()</c> does: <c>[a, b, c]</c>.</summary>
+    /// <summary>Prints a list as <c>[a, b, c]</c>.</summary>
     private static string Show(IEnumerable<string> items) => "[" + string.Join(", ", items) + "]";
 }

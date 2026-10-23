@@ -7,9 +7,8 @@ using dev.kaldiroglu.Command.Account.Solution;
 /// The four transactions of <c>Account.Solution</c>, written as lambdas.
 /// <para>
 /// A deposit, a withdrawal and a transfer are easy: each undo is the opposite operation. A
-/// close-out must remember how much it took. The Java version shares a one-element array
-/// between its lambdas, because a Java lambda cannot change a local variable. A C# lambda
-/// can, so here the lambdas share the local <c>taken</c>; the compiler moves it into a hidden
+/// close-out must remember how much it took. A C# lambda can change a local variable, so
+/// the lambdas share the local <c>taken</c>; the compiler moves it into a hidden
 /// class. Either way the state lives in an object — the reason <c>Solution.CloseOut</c> is a
 /// class.
 /// </para>

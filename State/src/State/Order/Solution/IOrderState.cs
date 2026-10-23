@@ -8,8 +8,8 @@ namespace dev.kaldiroglu.State.Order.Solution;
 /// implementation issue 1 (who defines the state transitions?): here, the states.
 /// </para>
 /// <para>
-/// In Java the interface is <c>sealed</c>: these five states are all there are, and the
-/// compiler knows it. C# has no sealed interface. The closest form is used here: the five
+/// These five states are all there are, but C# has no sealed interface. The closest form is
+/// used here: the five
 /// states are <c>sealed record</c>s, so none of them can be extended, but the compiler does
 /// not stop another class from implementing this interface.
 /// </para>

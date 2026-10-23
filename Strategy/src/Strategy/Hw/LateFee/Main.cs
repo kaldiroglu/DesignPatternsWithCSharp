@@ -2,7 +2,7 @@ namespace dev.kaldiroglu.Strategy.Hw.LateFee;
 
 /// <summary>Charges the same late book under three fee rules, changed on one returns desk.</summary>
 /// <remarks>
-/// The Java original's <c>main</c>. Run it with
+/// Run it with
 /// <c>dotnet run --project src/Strategy.Demo -- hw-latefee</c>.
 /// </remarks>
 public static class Main

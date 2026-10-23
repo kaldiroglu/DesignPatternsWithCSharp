@@ -5,9 +5,8 @@ namespace dev.kaldiroglu.State.Gof.Solution;
 /// <para>
 /// It holds one <see cref="TCPState"/> and forwards every request to it, passing itself so
 /// that the state can change it. <see cref="ChangeState"/> is <c>internal</c>: only the states
-/// should call it. In Java it is package-private; in C++ GoF make <c>TCPState</c> a friend of
-/// the connection for the same reason. C#'s <c>internal</c> opens it to the whole assembly,
-/// which is the closest C# has.
+/// should call it. In C++ GoF make <c>TCPState</c> a friend of the connection for the same
+/// reason. C#'s <c>internal</c> opens it to the whole assembly, which is the closest C# has.
 /// </para>
 /// </summary>
 public sealed class TCPConnection

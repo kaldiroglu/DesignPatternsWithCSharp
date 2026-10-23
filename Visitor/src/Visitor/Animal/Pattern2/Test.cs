@@ -2,8 +2,7 @@ namespace dev.kaldiroglu.Visitor.Animal.Pattern2;
 
 /// <summary>A dog accepts the dog feeder, and a cat accepts the cat feeder.</summary>
 /// <remarks>
-/// The Java original's <c>main</c>; its commented-out lines, which pass the wrong feeder, are
-/// not ported. Run it with <c>dotnet run --project src/Visitor.Demo -- animal-pattern2</c>.
+/// Run it with <c>dotnet run --project src/Visitor.Demo -- animal-pattern2</c>.
 /// </remarks>
 public static class Test
 {

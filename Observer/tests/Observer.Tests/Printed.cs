@@ -6,8 +6,8 @@ namespace dev.kaldiroglu.Observer.Tests;
 public static class Printed
 {
     /// <summary>
-    /// Runs the action and returns what it printed, one line per element. Like Java's
-    /// <c>String.lines()</c>, a final line break does not add an empty last line.
+    /// Runs the action and returns what it printed, one line per element. A final line break
+    /// does not add an empty last line.
     /// </summary>
     public static List<string> By(Action action)
     {

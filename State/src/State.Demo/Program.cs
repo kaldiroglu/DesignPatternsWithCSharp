@@ -1,4 +1,4 @@
-// Several examples have a class called Main or Test, as the Java original does, the order's
+// Several examples have a class called Main or Test, the order's
 // problem and solution both have a SecondShipmentMain, and several
 // namespaces share a name with their main class (Order, Door, Account, Elevator, Person).
 // Aliases name them apart.
@@ -27,7 +27,6 @@ namespace dev.kaldiroglu.State.Demo;
 /// <summary>
 /// Runs the State examples.
 /// <para>
-/// Every entry is one of the Java original's <c>main</c> methods and prints the same output.
 /// The <c>Pattern</c> outline has empty methods, so <c>pattern</c> only names its classes.
 /// </para>
 /// <para>

@@ -5,7 +5,7 @@ namespace dev.kaldiroglu.State.Hw.AirConditioner;
 /// target and turns it off. The states choose the next state from the room and the target.
 /// </summary>
 /// <remarks>
-/// The Java original's <c>main</c>. Run it with
+/// Run it with
 /// <c>dotnet run --project src/State.Demo -- hw-airconditioner</c>.
 /// </remarks>
 public static class Main
@@ -25,6 +25,6 @@ public static class Main
         Console.WriteLine("Log: " + Show(ac.Log));
     }
 
-    /// <summary>Prints a list the way Java's <c>List.toString()</c> does: <c>[a, b, c]</c>.</summary>
+    /// <summary>Prints a list as <c>[a, b, c]</c>.</summary>
     private static string Show(IEnumerable<string> items) => "[" + string.Join(", ", items) + "]";
 }

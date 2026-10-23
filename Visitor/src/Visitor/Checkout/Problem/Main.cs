@@ -5,7 +5,7 @@ namespace dev.kaldiroglu.Visitor.Checkout.Problem;
 /// the type tests are right until a gift card is added, which falls into the else branch.
 /// </summary>
 /// <remarks>
-/// The Java original's <c>main</c>. Run it with
+/// Run it with
 /// <c>dotnet run --project src/Visitor.Demo -- checkout-problem</c>.
 /// </remarks>
 public static class Main

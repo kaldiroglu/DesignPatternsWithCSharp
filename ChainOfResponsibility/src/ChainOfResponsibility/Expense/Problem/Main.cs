@@ -7,7 +7,7 @@ namespace dev.kaldiroglu.ChainOfResponsibility.Expense.Problem;
 /// three lets Burak approve his own 5,000 and Cem his own 30,000.
 /// </summary>
 /// <remarks>
-/// The Java original's <c>main</c>. Run it with
+/// Run it with
 /// <c>dotnet run --project src/ChainOfResponsibility.Demo -- expense-problem</c>.
 /// </remarks>
 public static class Main

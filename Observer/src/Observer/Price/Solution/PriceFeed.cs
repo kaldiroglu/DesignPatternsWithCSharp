@@ -24,9 +24,8 @@ public sealed class PriceFeed(string symbol, int price)
     }
 
     /// <summary>
-    /// Subscribes a lambda. Java passes a lambda to the method above, because
-    /// <c>PriceListener</c> is a functional interface. C# cannot turn a lambda into an
-    /// interface, so this overload wraps it in a listener.
+    /// Subscribes a lambda. C# cannot turn a lambda into an interface, so this overload wraps
+    /// it in a listener.
     /// </summary>
     /// <returns>The wrapper, so the caller can pass it to <see cref="Unsubscribe"/> later.</returns>
     public IPriceListener Subscribe(Action<PriceChange> listener)

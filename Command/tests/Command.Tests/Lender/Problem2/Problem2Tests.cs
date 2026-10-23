@@ -5,12 +5,12 @@ namespace dev.kaldiroglu.Command.Tests.Lender.Problem2;
 using dev.kaldiroglu.Command.Lender.Problem2;
 using Xunit;
 
-/// <summary>Step two: the lender knows a borrower interface. Ported from the Java <c>Problem2Test</c>.</summary>
+/// <summary>Step two: the lender knows a borrower interface.</summary>
 public class Problem2Tests
 {
     /// <summary>
-    /// A borrower written in this test. Java uses a lambda; a C# lambda cannot implement an
-    /// interface, so it is a small class.
+    /// A borrower written in this test. A C# lambda cannot implement an interface, so it is a
+    /// small class.
     /// </summary>
     private sealed class Recorder(List<int> received) : IBorrower
     {

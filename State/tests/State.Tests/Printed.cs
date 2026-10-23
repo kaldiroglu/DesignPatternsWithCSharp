@@ -4,7 +4,7 @@ using System.Text.RegularExpressions;
 namespace dev.kaldiroglu.State.Tests;
 
 /// <summary>
-/// Helper for the State tests, as in the Java suite: several examples print to the console,
+/// Helper for the State tests: several examples print to the console,
 /// and two tests read the source text of a class.
 /// </summary>
 public static class Printed
@@ -24,7 +24,7 @@ public static class Printed
             Console.SetOut(original);
         }
 
-        // The same lines Java's String.lines() returns: no line ending, no empty last line.
+        // No line ending, and no empty last line.
         var lines = buffer.ToString().Split('\n').Select(line => line.TrimEnd('\r')).ToList();
         if (lines.Count > 0 && lines[^1].Length == 0)
         {

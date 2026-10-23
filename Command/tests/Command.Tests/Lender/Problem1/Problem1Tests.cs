@@ -5,7 +5,7 @@ namespace dev.kaldiroglu.Command.Tests.Lender.Problem1;
 using dev.kaldiroglu.Command.Lender.Problem1;
 using Xunit;
 
-/// <summary>Step one: the lender knows one borrower class. Ported from the Java <c>Problem1Test</c>.</summary>
+/// <summary>Step one: the lender knows one borrower class.</summary>
 public class Problem1Tests
 {
     [Fact(DisplayName = "the lender passes the money to the borrower")]

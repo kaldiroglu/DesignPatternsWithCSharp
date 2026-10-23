@@ -34,9 +34,7 @@ namespace dev.kaldiroglu.Observer.Tests.Price
         }
 
         // A lambda can listen, and it logs every change from the old price to the new one.
-        // Java checks that PriceListener is a @FunctionalInterface with one method. C# has no
-        // such annotation: the closest check is that IPriceListener is an interface that
-        // declares one method, and the lambda goes through the Subscribe(Action) overload.
+        // IPriceListener is an interface that declares one method, and the lambda goes through the Subscribe(Action) overload.
         [Fact]
         public void ALambdaListens()
         {

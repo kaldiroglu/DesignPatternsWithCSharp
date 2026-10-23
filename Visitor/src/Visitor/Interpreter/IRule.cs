@@ -14,8 +14,8 @@ namespace dev.kaldiroglu.Visitor.Interpreter;
 /// visitors, so the rule classes stay small.
 /// </para>
 /// <para>
-/// The Java interface is <c>sealed</c> and lists its five classes. C# cannot close an
-/// interface to a fixed list of classes, so this one is open; each record is sealed.
+/// C# cannot close an interface to a fixed list of classes, so this one is open; each record
+/// is sealed.
 /// </para>
 /// </summary>
 public interface IRule

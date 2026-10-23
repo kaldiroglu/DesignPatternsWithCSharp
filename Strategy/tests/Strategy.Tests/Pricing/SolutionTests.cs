@@ -6,7 +6,7 @@ namespace dev.kaldiroglu.Strategy.Tests.Pricing;
 
 /// <summary>
 /// The pattern applied to the same baskets the naive designs priced, and the operations they
-/// could not perform. Ported from the Java <c>pricing.SolutionTest</c>.
+/// could not perform.
 /// </summary>
 public class SolutionTests
 {
@@ -100,8 +100,8 @@ public class SolutionTests
     }
 
     /// <summary>
-    /// The whole of a new campaign. Java writes it as an anonymous class inside the test;
-    /// C# has no anonymous classes that implement an interface, so it is a nested class here.
+    /// The whole of a new campaign. C# has no anonymous classes that implement an interface,
+    /// so it is a nested class.
     /// </summary>
     private sealed class NewYear : IPricingRule
     {
@@ -132,7 +132,7 @@ public class SolutionTests
         // over the file matches its own comments and proves nothing.
         var code = SourceText.StripComments(body);
 
-        // Java looks for `instanceof`; the C# type tests are `is` and `as`.
+        // The type tests are `is` and `as`.
         Assert.DoesNotContain(" is ", code);
         Assert.DoesNotContain(" as ", code);
         Assert.DoesNotContain("switch", code);
@@ -147,8 +147,7 @@ public class SolutionTests
             [typeof(ShelfPrice), typeof(PercentageOff), typeof(TieredPercentageOff), typeof(CheapestOfEveryThird)];
 
         Assert.All(rules, rule => Assert.True(typeof(IPricingRule).IsAssignableFrom(rule)));
-        // Java counts two methods, name() and priceFor(). In C# name is the property Name,
-        // whose getter get_Name is a method, so the count of methods is the same two.
+        // Two methods: PriceFor, and get_Name, the getter of the property Name.
         Assert.Equal(2, typeof(IPricingRule).GetMethods().Length);
 
         // Four classes cover five campaigns, because PercentageOff is one class used twice.

@@ -11,8 +11,8 @@ namespace dev.kaldiroglu.Mediator.Chat.Solution;
 /// </summary>
 public sealed class ChatRoom
 {
-    // OrderedDictionary keeps the order in which participants joined, as Java's LinkedHashMap
-    // does. A plain Dictionary does not promise any order.
+    // OrderedDictionary keeps the order in which participants joined. A plain Dictionary does
+    // not promise any order.
     private readonly OrderedDictionary<string, IParticipant> participants = new();
     private readonly Dictionary<string, HashSet<string>> blocks = new();
     private readonly List<string> deliveries = [];

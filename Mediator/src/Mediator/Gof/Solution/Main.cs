@@ -5,7 +5,7 @@ namespace dev.kaldiroglu.Mediator.Gof.Solution;
 /// reports to the director, and the director decides what changes.
 /// </summary>
 /// <remarks>
-/// The Java original's <c>main</c>. Run it with
+/// Run it with
 /// <c>dotnet run --project src/Mediator.Demo -- gof-solution</c>.
 /// </remarks>
 public static class Main
@@ -23,9 +23,9 @@ public static class Main
         Console.WriteLine("After OK and Cancel: " + Show(director.Log));
     }
 
-    /// <summary>Prints a boolean the way Java does: <c>true</c> or <c>false</c>, not <c>True</c>.</summary>
+    /// <summary>Prints a boolean as <c>true</c> or <c>false</c>, not <c>True</c>.</summary>
     private static string Show(bool value) => value ? "true" : "false";
 
-    /// <summary>Prints a list the way Java's <c>List.toString()</c> does: <c>[a, b, c]</c>.</summary>
+    /// <summary>Prints a list as <c>[a, b, c]</c>.</summary>
     private static string Show(IEnumerable<string> items) => "[" + string.Join(", ", items) + "]";
 }

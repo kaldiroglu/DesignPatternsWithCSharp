@@ -3,8 +3,7 @@ namespace dev.kaldiroglu.Visitor.Checkout.Modern;
 /// <summary>
 /// The tax rule as one switch.
 /// <para>
-/// In Java the switch has no <c>default</c>: if a fifth item kind is permitted, the switch
-/// stops compiling until it has a case for it. In C# the last arm, <c>_</c>, is required —
+/// The last arm, <c>_</c>, is required —
 /// without it the compiler gives warning CS8509 ("The switch expression does not handle all
 /// possible values of its input type"), because <see cref="IItem"/> is open to other classes. With it, a fifth
 /// item kind compiles, and this method throws when it meets one.

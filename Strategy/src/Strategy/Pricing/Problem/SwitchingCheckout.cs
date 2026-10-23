@@ -41,8 +41,7 @@ public sealed class SwitchingCheckout
         return new Receipt(campaign, list, paid);
     }
 
-    // Java's switch expression can hold a block that ends in `yield`; C#'s cannot, so the
-    // fifth branch's loop lives here. It is still this class's business and nobody else's.
+    // A C# switch expression cannot hold a block, so the fifth branch's loop lives here. It is still this class's business and nobody else's.
     private static Money BuyTwoGetOne(Basket basket, Money list)
     {
         var discount = Money.Zero;

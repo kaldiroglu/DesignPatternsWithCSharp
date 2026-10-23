@@ -5,7 +5,7 @@ namespace dev.kaldiroglu.Mediator.Hw.BankQueue;
 /// in arrival order.
 /// </summary>
 /// <remarks>
-/// The Java original's <c>main</c>. Run it with
+/// Run it with
 /// <c>dotnet run --project src/Mediator.Demo -- hw-bankqueue</c>.
 /// </remarks>
 public static class Main

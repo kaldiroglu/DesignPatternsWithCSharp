@@ -7,7 +7,7 @@ namespace dev.kaldiroglu.Mediator.Chat.Problem.Direct;
 /// reaches Can, because Burak's own list of members does not have him.
 /// </summary>
 /// <remarks>
-/// The Java original's <c>main</c>. Run it with
+/// Run it with
 /// <c>dotnet run --project src/Mediator.Demo -- chat-direct</c>.
 /// </remarks>
 public static class Main
@@ -36,6 +36,6 @@ public static class Main
         Console.WriteLine("Can's inbox:   " + Show(can.Inbox) + "  (Burak's lunch message is missing)");
     }
 
-    /// <summary>Prints a list the way Java's <c>List.toString()</c> does: <c>[a, b, c]</c>.</summary>
+    /// <summary>Prints a list as <c>[a, b, c]</c>.</summary>
     private static string Show(IEnumerable<string> items) => "[" + string.Join(", ", items) + "]";
 }

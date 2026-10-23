@@ -1,4 +1,4 @@
-// Several namespaces reuse a class name, as the Java original does: two Compositions, three
+// Several namespaces reuse a class name: two Compositions, three
 // Sorters and a Main in each example package. Aliases name them apart.
 using dev.kaldiroglu.Strategy.Gof;
 using dev.kaldiroglu.Strategy.Gof.Solution;
@@ -29,8 +29,7 @@ namespace dev.kaldiroglu.Strategy.Demo;
 /// <summary>
 /// Runs each Strategy example once and prints the figures the course quotes about it.
 /// <para>
-/// Most entries call the port of a Java <c>main</c> method and print the same lines. Two are
-/// only in this runner: <c>gof</c> sets GoF's compositors side by side with the naive
+/// Most entries run one example's <c>Main</c>. Two are only in this runner: <c>gof</c> sets GoF's compositors side by side with the naive
 /// composition, and <c>sorting</c> sets the naive sorter beside the context in one table.
 /// Each example runs on its own — <c>dotnet run -- freight</c> — and with no argument all of
 /// them run in the order the course presents them.

@@ -10,7 +10,7 @@ namespace dev.kaldiroglu.Decorator.Tests.Middleware;
 /// pattern: none of these could be written against a flagged god-class, because there is
 /// no way to have only one of its concerns.
 /// <para>
-/// Every number here is the number the Java port asserts, so the two cannot drift apart.
+/// Every number is asserted here, so a change to the code fails a test.
 /// </para>
 /// </summary>
 public class ClassicDecoratorTests

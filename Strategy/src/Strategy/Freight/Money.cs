@@ -22,8 +22,8 @@ public sealed record Money : IComparable<Money>
     /// <summary>
     /// Multiplies by a count of units, rounding half away from zero at two places.
     /// <para>
-    /// The <c>double</c> is read through its shortest round-trip text, as Java's
-    /// <c>BigDecimal.valueOf(double)</c> reads it, so 0.1 units means exactly 0.1.
+    /// The <c>double</c> is read through its shortest round-trip text, so 0.1 units means
+    /// exactly 0.1.
     /// </para>
     /// </summary>
     public Money Times(double units)

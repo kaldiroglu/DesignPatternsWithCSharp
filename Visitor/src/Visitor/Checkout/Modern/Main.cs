@@ -4,13 +4,12 @@ namespace dev.kaldiroglu.Visitor.Checkout.Modern;
 /// The tax of the cart with an interface of records and a switch. The gift card has its own
 /// case, so it is taxed 0.
 /// <para>
-/// In Java the interface is sealed, so a fifth item kind would not compile until the switch
-/// has a case. In C# <see cref="Tax.Of"/> needs a last <c>_</c> arm, and a fifth item kind
+/// <see cref="Tax.Of"/> needs a last <c>_</c> arm, and a fifth item kind
 /// reaches that arm at run time instead (see <see cref="IItem"/>).
 /// </para>
 /// </summary>
 /// <remarks>
-/// The Java original's <c>main</c>. Run it with
+/// Run it with
 /// <c>dotnet run --project src/Visitor.Demo -- checkout-modern</c>.
 /// </remarks>
 public static class Main

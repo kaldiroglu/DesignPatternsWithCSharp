@@ -2,7 +2,7 @@ namespace dev.kaldiroglu.Strategy.Pricing.Solution;
 
 /// <summary>The campaign book chooses the best rule, and the till uses it.</summary>
 /// <remarks>
-/// The Java original's <c>main</c>. Run it with
+/// Run it with
 /// <c>dotnet run --project src/Strategy.Demo -- pricing-best-rule</c>.
 /// </remarks>
 public static class BestRuleMain

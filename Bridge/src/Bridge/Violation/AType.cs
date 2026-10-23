@@ -35,8 +35,7 @@ public class AType
     /// Prints. That is the contract every caller of this type is entitled to rely on.
     /// <para>
     /// C# makes the author write <c>virtual</c> before anyone can override this, which is one
-    /// more deliberate step than Java asks for — and still not a defence. Opting in to
-    /// overriding is not the same as sanctioning every override.
+    /// deliberate step — and still not a defense. Opting in to overriding is not the same as sanctioning every override.
     /// </para>
     /// </summary>
     public virtual void DoIt()

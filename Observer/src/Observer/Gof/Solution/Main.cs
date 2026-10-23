@@ -5,7 +5,7 @@ namespace dev.kaldiroglu.Observer.Gof.Solution;
 /// tick draws only the digital clock. The timer knows neither clock by class.
 /// </summary>
 /// <remarks>
-/// The Java original's <c>main</c>. Run it with
+/// Run it with
 /// <c>dotnet run --project src/Observer.Demo -- gof-solution</c>.
 /// </remarks>
 public static class Main

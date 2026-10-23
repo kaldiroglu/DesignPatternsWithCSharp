@@ -6,8 +6,7 @@ namespace dev.kaldiroglu.Iterator.Gof.Solution;
 /// <remarks>
 /// It reads the list's nodes, which no client can see. GoF implementation issue 6
 /// (iterators may have privileged access): an iterator is part of its list's design, so it
-/// may know things the public interface does not show. Here that is <c>internal</c> access,
-/// the closest C# has to Java's package access.
+/// may know things the public interface does not show. Here that is <c>internal</c> access.
 /// </remarks>
 public sealed class ChainListIterator<T>(ChainList<T> list) : IIterator<T>
 {

@@ -13,9 +13,8 @@ namespace dev.kaldiroglu.Iterator.FileSystem;
 /// </para>
 /// <para>
 /// <typeparamref name="Storage"/> is a type parameter, not the <see cref="IStorage"/>
-/// interface. The name is kept from the Java original on purpose, because one of the deck's
-/// exercises asks about it. In Java the type parameter hides the interface of the same name.
-/// In C# the interface is called <c>IStorage</c>, so nothing is hidden, but the name still
+/// interface. The name is kept on purpose, because one of the deck's exercises asks about
+/// it. The interface is called <c>IStorage</c>, so nothing is hidden, but the name still
 /// reads like a type and not like a parameter. C# naming would call it <c>TStorage</c>.
 /// </para>
 /// </remarks>
@@ -28,7 +27,7 @@ public class DirectoryIterator<Storage> : IEnumerator<Storage>
     public DirectoryIterator(Directory dir)
     {
         _dir = dir;
-        // The same unchecked cast as the Java original. It succeeds only when Storage is IStorage.
+        // An unchecked cast. It succeeds only when Storage is IStorage.
         _elements = (IReadOnlyList<Storage>)(object)dir.Elements;
         _iterator = _elements.GetEnumerator();
     }
