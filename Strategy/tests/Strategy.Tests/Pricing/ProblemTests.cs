@@ -126,4 +126,48 @@ public class ProblemTests
         // They differ in design, not in what the customer pays.
         Assert.Single(studentPrice.Distinct());
     }
+
+    [Fact(DisplayName = "StageOneMain prints the four campaigns and the typo that fails at run time")]
+    public void StageOneMainPrintsTheStringSwitch()
+    {
+        Assert.Equal(new[]
+        {
+            "Stage one, a switch on a string:",
+            "  NONE                   list  1200.00   paid  1200.00   saved     0.00",
+            "  STUDENT                list  1200.00   paid   960.00   saved   240.00",
+            "  BLACKFRIDAY            list  1200.00   paid   720.00   saved   480.00",
+            "  BUY2GET1               list  1200.00   paid   800.00   saved   400.00",
+            "  A typo compiles and fails at run time: unknown campaign: BLACK_FRIDAY"
+        }, Printed.By(StageOneMain.Run));
+    }
+
+    [Fact(DisplayName = "StageTwoMain prints the student price from the enum switch")]
+    public void StageTwoMainPrintsTheEnumSwitch()
+    {
+        Assert.Equal(new[]
+        {
+            "Stage two, a switch on an enum:",
+            "  STUDENT                list  1200.00   paid   960.00   saved   240.00"
+        }, Printed.By(StageTwoMain.Run));
+    }
+
+    [Fact(DisplayName = "StageThreeMain prints the student price from its own checkout class")]
+    public void StageThreeMainPrintsOneCheckoutClass()
+    {
+        Assert.Equal(new[]
+        {
+            "Stage three, a checkout class per campaign:",
+            "  STUDENT                list  1200.00   paid   960.00   saved   240.00"
+        }, Printed.By(StageThreeMain.Run));
+    }
+
+    [Fact(DisplayName = "BestCampaignMain prints the best campaign and the three classes the till names")]
+    public void BestCampaignMainPrintsTheTillsChoice()
+    {
+        Assert.Equal(new[]
+        {
+            "  Best for Ceyda: BLACK_FRIDAY           list  1200.00   paid   720.00   saved   480.00",
+            "  To choose, the till names 3 checkout classes. A new campaign is an edit to the till."
+        }, Printed.By(BestCampaignMain.Run));
+    }
 }

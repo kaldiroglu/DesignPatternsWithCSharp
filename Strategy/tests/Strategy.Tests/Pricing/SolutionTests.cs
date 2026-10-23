@@ -162,4 +162,38 @@ public class SolutionTests
         Assert.Throws<ArgumentNullException>(() => new Checkout(null!));
         Assert.Equal(Money.Of("1200.00"), new Checkout(new ShelfPrice()).Ring(StudentBasket()).Paid);
     }
+
+    [Fact(DisplayName = "QuoteAllMain prints one receipt for each of the five rules")]
+    public void QuoteAllMainPrintsFiveReceipts()
+    {
+        Assert.Equal(new[]
+        {
+            "One till, 5 rules, one basket:",
+            "  NONE                   list  1200.00   paid  1200.00   saved     0.00",
+            "  STUDENT                list  1200.00   paid   960.00   saved   240.00",
+            "  STAFF                  list  1200.00   paid  1200.00   saved     0.00",
+            "  BLACK_FRIDAY           list  1200.00   paid   720.00   saved   480.00",
+            "  BUY_TWO_GET_ONE        list  1200.00   paid   800.00   saved   400.00"
+        }, Printed.By(QuoteAllMain.Run));
+    }
+
+    [Fact(DisplayName = "BestRuleMain prints the receipt of the best rule")]
+    public void BestRuleMainPrintsTheBestReceipt()
+    {
+        Assert.Equal(new[]
+        {
+            "The till takes the best rule. Receipt:",
+            "  BLACK_FRIDAY           list  1200.00   paid   720.00   saved   480.00"
+        }, Printed.By(BestRuleMain.Run));
+    }
+
+    [Fact(DisplayName = "ChangeRuleMain prints the receipt after the till is given another rule")]
+    public void ChangeRuleMainPrintsTheNewRule()
+    {
+        Assert.Equal(new[]
+        {
+            "The same till, given another rule while it runs:",
+            "  STUDENT                list  1200.00   paid   960.00   saved   240.00"
+        }, Printed.By(ChangeRuleMain.Run));
+    }
 }

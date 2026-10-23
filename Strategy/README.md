@@ -64,7 +64,7 @@ objects and implements none of them.
   composition, and `sorting` sets the naive sorter beside the context in one table.
 - `net10.0`, nullable reference types on, implicit usings on — set once in
   `Directory.Build.props` and inherited by both projects.
-- **A test project, `Strategy.Tests`**, with 51 xUnit tests ported from the Java JUnit tests.
+- **A test project, `Strategy.Tests`**, with 58 xUnit tests ported from the Java JUnit tests.
 
 ## Differences from the Java original
 
@@ -121,7 +121,7 @@ assert, and the output is the same under a Turkish locale. What had to change:
 
 ## Tests
 
-`tests/Strategy.Tests` holds 51 xUnit tests, one test class for each Java test class, with
+`tests/Strategy.Tests` holds 58 xUnit tests, one test class for each Java test class, with
 the same assertions and the same expected values. Every Java test is ported. `Test.md`
 lists what is tested and every place where a check had to take a different C# form.
 
@@ -148,7 +148,9 @@ cd ~/"Development/NET/Design Patterns/Design Patterns with CSharp/Strategy"
 ```
 
 The runner accepts: `gof`, `gof-layout`, `gof-problem`, `gof-solution`,
-`pricing-problem`, `pricing-solution`, `sorting`, `sorting-problem`, `sorting-subclassing`,
+`pricing-problem-stage-one`, `pricing-problem-stage-two`,
+`pricing-problem-stage-three`, `pricing-problem-best-campaign`, `pricing-quote-all`,
+`pricing-best-rule`, `pricing-change-rule`, `sorting`, `sorting-problem`, `sorting-subclassing`,
 `sorting-pattern`, `freight`, `hw-seating`, `hw-latefee`, `hw-validation`.
 
 Run the tests with `~/.dotnet/dotnet test Strategy.sln`.

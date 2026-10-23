@@ -4,7 +4,7 @@
 
 For further enquiry please contact Akin Kaldiroglu at akin@kaldiroglu.dev
 
-51 xUnit tests in one project, `tests/Strategy.Tests`. All of them are **unit tests**: no
+58 xUnit tests in one project, `tests/Strategy.Tests`. All of them are **unit tests**: no
 process boundary, no network. Four tests read C# source files of the library. They find the
 files from the test file's own path (`CallerFilePath`), so they do not depend on the working
 directory.
@@ -19,18 +19,22 @@ ported; none is left out.
 
 | File | Java class | Java tests | C# tests | What it checks |
 |---|---|---|---|---|
-| `Pricing/ProblemTests.cs` | `pricing.ProblemTest` | 8 | 8 | The three naive designs price the student basket at 1200.00, 960.00, 720.00 and 800.00. Five string arms in one method. One enum arm per `Campaign` constant and no discard arm. The reversal: `Till` names 3 campaign classes, and Black Friday saves 480.00. |
-| `Pricing/SolutionTests.cs` | `pricing.SolutionTest` | 10 | 10 | The same prices from the rules. A rule replaced on a till that exists. One till prices five campaigns. A sixth campaign is one class. `Checkout` has no type test, no `switch` and no campaign name. Four rule classes, five campaigns, two interface members. |
+| `Pricing/ProblemTests.cs` | `pricing.ProblemTest` | 12 | 12 | The three naive designs price the student basket at 1200.00, 960.00, 720.00 and 800.00. Five string arms in one method. One enum arm per `Campaign` constant and no discard arm. The reversal: `Till` names 3 campaign classes, and Black Friday saves 480.00. What `StageOneMain`, `StageTwoMain`, `StageThreeMain` and `BestCampaignMain` print. |
+| `Pricing/SolutionTests.cs` | `pricing.SolutionTest` | 13 | 13 | The same prices from the rules. A rule replaced on a till that exists. One till prices five campaigns. A sixth campaign is one class. `Checkout` has no type test, no `switch` and no campaign name. Four rule classes, five campaigns, two interface members. What `QuoteAllMain`, `BestRuleMain` and `ChangeRuleMain` print. |
 | `Gof/CompositorTests.cs` | `gof.CompositorTest` | 7 | 7 | GoF's paragraph at 26 columns: four lines each, worst gap 8 against 5. `ArrayCompositor` makes a first row 33 wide. The naive class takes a `bool`; the context takes an `ICompositor` and holds no `bool`. |
 | `Sorting/SortingTests.cs` | `sorting.SortingTest` | 5 | 5 | The three designs sort the same way and choose at the same sizes (99, 100, 1,000,000). The context tests the same two thresholds but contains no `Partition(`. |
 | `Freight/FreightTests.cs` | `freight.FreightTest` | 10 | 10 | The pillow is 20 desi; the books are 4.2 kg. The four quotes for each parcel. The flat rate wins one parcel and the band table the other. A fifth carrier is one class. The desk holds only an `IRateCard`. |
 | `Hw/HomeworkTests.cs` | `hw.HomeworkTest` | 11 | 11 | The three homework solutions, as three nested classes like Java's `@Nested` ones: seating (3), late fees (4), passphrase rules (4). |
-| **Total** | | **51** | **51** | |
+| **Total** | | **58** | **58** | |
 
 `SourceText.cs` holds the helpers for the source-text tests: `Read` reads a file under
 `src/Strategy`, `StripComments` removes comments (the classes name in their comments what
 they leave out, so a search over the raw file matches its own comments), `From` cuts the
 text from a marker, and `CountOf` counts a substring.
+
+`Printed.cs` runs a runnable class and returns what it printed, one line per element, as
+the Java tests' `command.lender.Printed` does. Because those tests capture `Console.Out`,
+`AssemblyInfo.cs` turns off parallel test runs, so one test cannot read another's output.
 
 ## Changes from the Java tests
 
@@ -66,7 +70,7 @@ C# form:
 ```bash
 cd ~/"Development/NET/Design Patterns/Design Patterns with CSharp/Strategy"
 
-# all 51
+# all 58
 ~/.dotnet/dotnet test Strategy.sln
 
 # one class
