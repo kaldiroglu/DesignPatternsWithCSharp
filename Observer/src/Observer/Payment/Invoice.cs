@@ -24,14 +24,14 @@ public class Invoice : Observable
 
     public override string ToString()
     {
-        return "Invoice [balance=" + JavaDouble(balance) + ", no=" + no + "]";
+        return "Invoice [balance=" + FormatDouble(balance) + ", no=" + no + "]";
     }
 
     /// <summary>
     /// Prints a <c>double</c> so that a whole number keeps <c>.0</c>: 5000 prints as
     /// <c>5000.0</c>.
     /// </summary>
-    private static string JavaDouble(double value) =>
+    private static string FormatDouble(double value) =>
         value % 1 == 0
             ? value.ToString("0.0", CultureInfo.InvariantCulture)
             : value.ToString("R", CultureInfo.InvariantCulture);

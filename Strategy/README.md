@@ -106,8 +106,9 @@ assert, and the output is the same under a Turkish locale. What had to change:
   a constant to `Campaign` breaks the build until the branch is written, as it does in Java.
 - **The fifth branch's loop moved into a private helper** in `SwitchingCheckout` and
   `EnumCheckout`. Java's switch expression can hold a block ending in `yield`; C#'s cannot.
-- **`JavaSorter` keeps its name and reports `JavaSort`**, so all three sorting stages report
-  the same three names, but the library it hands the array to is `Array.Sort`.
+- **`JavaSorter` is `BuiltInSorter` here, and it still reports `JavaSort`**, so all three
+  sorting stages report the same three names. The library it hands the array to is
+  `Array.Sort`.
 - **Sorting is stable where Java's is.** `Basket.InCategory` and `ByWeightBand` sort with
   LINQ's `OrderBy`, which is stable as Java's `List.sort` and `Stream.sorted` are;
   `List<T>.Sort` is not.

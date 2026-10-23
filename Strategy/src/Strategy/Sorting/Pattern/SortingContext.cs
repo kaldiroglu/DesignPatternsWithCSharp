@@ -23,7 +23,7 @@ public sealed class SortingContext
 {
     private readonly ISorter _bubbleSorter = new BubbleSorter();
     private readonly ISorter _quickSorter = new QuickSorter();
-    private readonly ISorter _javaSorter = new NetSorter();
+    private readonly ISorter _builtInSorter = new NetSorter();
 
     /// <summary>Below this many elements, bubbling beats setting anything else up.</summary>
     public const int BubbleLimit = 100;
@@ -52,6 +52,6 @@ public sealed class SortingContext
         {
             return _quickSorter;
         }
-        return _javaSorter;
+        return _builtInSorter;
     }
 }

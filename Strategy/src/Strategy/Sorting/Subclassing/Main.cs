@@ -11,7 +11,7 @@ public static class Main
 {
     public static void Run()
     {
-        Sorter[] sorters = [new BubbleSorter(), new QuickSorter(), new JavaSorter()];
+        Sorter[] sorters = [new BubbleSorter(), new QuickSorter(), new BuiltInSorter()];
         foreach (var sorter in sorters)
         {
             double[] list = [5, 3, 9, 1, 7];
