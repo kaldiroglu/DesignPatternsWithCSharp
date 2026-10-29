@@ -16,11 +16,12 @@ The Introduction deck shows one recurring problem and previews one pattern befor
 pattern decks start. Both examples run here as well, so a C# audience can run what the
 slides show.
 
-## The two examples
+## The three examples
 
 | Namespace | What it shows |
 |---|---|
 | `Problems.ComplexIfs` | `UserProcessor.ProcessUser`: one method with 7 parameters, `if` statements nested 15 levels deep, and 43 different results. Every rule about a user is in this one method, so its cohesion is as low as it gets. `Main` runs three users through it. |
+| `Problems.Pricing` | `SwitchingCheckout.Ring`: one switch with a branch for each of five campaigns. It is a copy of the first stage of the `Strategy` folder's `Pricing.Problem`, so this project runs on its own. `StageOneMain` prices one basket under four campaigns, then shows that a typo in a campaign name fails only at run time. |
 | `Proxy.Pm.Pm1`–`Pm3` | Citizens who call the Prime Minister, in three stages. Pm1: the PM screens her own calls. Pm2: a `Proxy` class screens, but it shares no type with `PM`, so every `Citizen` had to change. Pm3: `IPM`, `RealPM`, `ProxyPM` and a `PMSecretary`, which is the Proxy pattern. |
 
 The Prime Minister example is also in the `Proxy` folder of this repository, in an earlier
@@ -48,5 +49,5 @@ cd "~/Development/NET/Design Patterns/Design Patterns with CSharp/Introduction"
 
 ~/.dotnet/dotnet test tests/Introduction.Tests
 ~/.dotnet/dotnet run --project src/Introduction.Demo                 # every example
-~/.dotnet/dotnet run --project src/Introduction.Demo -- complexifs   # or one: pm1, pm2, pm3
+~/.dotnet/dotnet run --project src/Introduction.Demo -- complexifs   # or one: pricing, pm1, pm2, pm3
 ```

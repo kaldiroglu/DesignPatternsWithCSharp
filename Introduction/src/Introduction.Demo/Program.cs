@@ -1,6 +1,7 @@
 // Several example namespaces have a runnable class with the same name (Main).
 // Aliases name them apart.
 using ComplexIfsMain = dev.kaldiroglu.Introduction.Problems.ComplexIfs.Main;
+using PricingStageOne = dev.kaldiroglu.Introduction.Problems.Pricing.StageOneMain;
 using Pm1Main = dev.kaldiroglu.Introduction.Proxy.Pm.Pm1.Main;
 using Pm2Main = dev.kaldiroglu.Introduction.Proxy.Pm.Pm2.Main;
 using Pm3Main = dev.kaldiroglu.Introduction.Proxy.Pm.Pm3.Main;
@@ -19,6 +20,7 @@ public static class Program
     private static readonly Dictionary<string, (string Group, Action Run)> Examples = new()
     {
         ["complexifs"] = ("ONE METHOD DECIDES EVERYTHING ABOUT A USER", ComplexIfsMain.Run),
+        ["pricing"] = ("ONE BRANCH FOR EACH WAY OF DOING THE JOB", PricingStageOne.Run),
         ["pm1"] = ("CALLS TO THE PRIME MINISTER", Pm1Main.Run),
         ["pm2"] = ("CALLS TO THE PRIME MINISTER", Pm2Main.Run),
         ["pm3"] = ("CALLS TO THE PRIME MINISTER", Pm3Main.Run)

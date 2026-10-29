@@ -25,8 +25,8 @@ ported one class for one class (an earlier "no tests" request was lifted on that
 Java tests that exercise JDK-only types (Swing, `Thread.State`, `FileVisitor`) are not
 ported; each pattern's `Test.md` lists them. `creational` exists in the Java repository and is still
 empty. **`Introduction`** (since 2026-10-29) ports the Java package
-`dev.kaldiroglu.dp.introduction`, which belongs to no family: `Problems.ComplexIfs` and
-`Proxy.Pm`. Its Prime Minister follows the Java `introduction.proxy.pm`, the version the
+`dev.kaldiroglu.dp.introduction`, which belongs to no family: `Problems.ComplexIfs`,
+`Problems.Pricing` (a copy of Strategy's stage one) and `Proxy.Pm`. Its Prime Minister follows the Java `introduction.proxy.pm`, the version the
 Introduction deck runs, not this repository's older `Proxy/Pm`. **A new family
 adds pattern folders beside the existing ones; it does not need a new repository, and
 nothing in this file is structural-specific.** The C# folder is named for the pattern, not
