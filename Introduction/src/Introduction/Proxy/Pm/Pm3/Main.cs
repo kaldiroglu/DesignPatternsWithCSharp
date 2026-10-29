@@ -1,8 +1,8 @@
 namespace dev.kaldiroglu.Introduction.Proxy.Pm.Pm3;
 
 /// <summary>
-/// Stage 3 — the solution. The citizen's code is the same shape it was in stage 1, and every
-/// call is screened.
+/// Stage 3 — the solution. The citizen holds <see cref="IPM"/>, an interface, and every call
+/// is screened.
 /// </summary>
 /// <remarks>
 /// Run it with <c>dotnet run --project src/Introduction.Demo -- pm3</c>.
@@ -33,9 +33,9 @@ public static class Main
         Console.WriteLine($"refused        : {proxy.CallsRefused()}");
         Console.WriteLine("""
 
-            Citizen holds an IPM, exactly as it held the PM in stage 1 — the
-            field type went back. Nothing in it changed to accept the screening,
-            and nothing in RealPM changed either.
+            Citizen holds IPM, an interface. In stage 1 it held PM, a class.
+            Citizen does not know that its calls are screened, and RealPM
+            screens nothing.
 
             Two proxy kinds are at work in this one object:
               protection — one call was refused, and FindJob never reached her

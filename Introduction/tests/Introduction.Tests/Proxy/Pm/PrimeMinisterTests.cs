@@ -53,7 +53,7 @@ public class PrimeMinisterTests
         Assert.Same(typeof(Pm2.Proxy), Field(typeof(Pm2.Citizen), "proxy").FieldType);
     }
 
-    [Fact(DisplayName = "stage 3 — one interface, and the client is back to holding a PM")]
+    [Fact(DisplayName = "stage 3 — one interface, and the client holds the interface")]
     public void StageThree()
     {
         var secretary = new Pm3.PMSecretary();
@@ -68,7 +68,7 @@ public class PrimeMinisterTests
         Assert.Equal(1, proxy.CallsPassedOn());
         Assert.Equal(1, proxy.CallsRefused());
 
-        // The fix, in the type system: the client's field is the Subject type again.
+        // The fix, in the type system: the client's field is the Subject interface.
         Assert.Same(typeof(Pm3.IPM), Field(typeof(Pm3.Citizen), "pm").FieldType);
     }
 
