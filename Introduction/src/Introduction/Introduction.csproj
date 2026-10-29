@@ -1,0 +1,8 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <!-- Class library holding the Introduction examples: ComplexIfs and the Prime Minister. -->
+  <PropertyGroup>
+    <AssemblyName>Introduction</AssemblyName>
+  </PropertyGroup>
+
+</Project>
