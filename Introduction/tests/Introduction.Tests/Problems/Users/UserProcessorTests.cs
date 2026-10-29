@@ -1,9 +1,9 @@
 using System.Runtime.CompilerServices;
 using System.Text.RegularExpressions;
-using dev.kaldiroglu.Introduction.Problems.ComplexIfs;
+using dev.kaldiroglu.Introduction.Problems.Users;
 using Xunit;
 
-namespace dev.kaldiroglu.Introduction.Tests.Problems.ComplexIfs;
+namespace dev.kaldiroglu.Introduction.Tests.Problems.Users;
 
 /// <summary>
 /// The figures the Introduction deck quotes for <c>ProcessUser</c>: its parameters, how deep
@@ -72,7 +72,7 @@ public class UserProcessorTests
     /// </summary>
     private static string SourceFile() =>
         Path.GetFullPath(Path.Combine(Path.GetDirectoryName(ThisFile())!,
-            "..", "..", "..", "..", "src", "Introduction", "Problems", "ComplexIfs",
+            "..", "..", "..", "..", "src", "Introduction", "Problems", "Users",
             "UserProcessor.cs"));
 
     private static string ThisFile([CallerFilePath] string path = "") => path;

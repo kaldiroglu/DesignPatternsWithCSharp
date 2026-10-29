@@ -1,4 +1,4 @@
-namespace dev.kaldiroglu.Introduction.Problems.ComplexIfs;
+namespace dev.kaldiroglu.Introduction.Problems.Users;
 
 public class UserProcessor
 {

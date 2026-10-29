@@ -1,11 +1,11 @@
-namespace dev.kaldiroglu.Introduction.Problems.ComplexIfs;
+namespace dev.kaldiroglu.Introduction.Problems.Users;
 
 /// <summary>
 /// Three users through <see cref="UserProcessor.ProcessUser"/>: each answer needs all seven
 /// arguments, even when the decision uses only one of them.
 /// </summary>
 /// <remarks>
-/// Run it with <c>dotnet run --project src/Introduction.Demo -- complexifs</c>.
+/// Run it with <c>dotnet run --project src/Introduction.Demo -- user</c>.
 /// </remarks>
 public static class Main
 {

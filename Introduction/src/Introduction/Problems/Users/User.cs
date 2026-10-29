@@ -1,4 +1,4 @@
-namespace dev.kaldiroglu.Introduction.Problems.ComplexIfs;
+namespace dev.kaldiroglu.Introduction.Problems.Users;
 
 /// <summary>
 /// The user that <see cref="UserProcessor.ProcessUser"/> decides about: fourteen values and
