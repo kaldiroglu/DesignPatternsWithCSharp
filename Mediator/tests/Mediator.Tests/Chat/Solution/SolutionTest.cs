@@ -64,6 +64,29 @@ public class SolutionTest
             By(ReferencesMain.Run));
     }
 
+    /// <summary>ChatRoomMain prints what every participant has after the private message and after the block.</summary>
+    [Fact]
+    public void ChatRoomMainOutput()
+    {
+        Assert.Equal(new[]
+        {
+            "Elif sends Mert a private message:",
+            "delivered to [Mert]",
+            "Elif shows []",
+            "Burak shows []",
+            "Mert shows [Elif (private): Your review is late.]",
+            "Can shows []",
+            "",
+            "Mert blocks Burak; Burak says something to everyone:",
+            "delivered to [Mert, Elif, Can]",
+            "Elif shows [Burak: Lunch at one?]",
+            "Burak shows []",
+            "Mert shows [Elif (private): Your review is late.]",
+            "Can shows [Burak: Lunch at one?]",
+            "",
+        }, By(ChatRoomMain.Run));
+    }
+
     /// <summary>TwoWaysMain sends the same private message through the bus and the room, and prints the table on the slide.</summary>
     [Fact]
     public void TwoWaysMainOutput()

@@ -25,7 +25,7 @@ meet in the mediator.
 
 | Namespace | What it shows |
 |---|---|
-| `Mediator.Chat` | The main worked example: a team chat with messages to everyone and private messages. The promise: a private message is seen only by the person it is sent to. `Problem.Direct` is stage one: every member holds every other member (4 members, 12 references). `Problem.Directory` is stage two: one shared `Directory`, but every sender applies the rules itself. `Problem.Bus` is stage three: a `MessageBus` delivers every message to every client, and each client decides what to show. `Solution` has the mediator `ChatRoom`, the colleague `IParticipant`, the concrete colleagues `Member` and `Guest`, and one runnable class per slide: `ReferencesMain` counts the references of stage one, and `TwoWaysMain` sends the same private message through the bus and through the room. Each stage also has a `Main` of its own. |
+| `Mediator.Chat` | The main worked example: a team chat with messages to everyone and private messages. The promise: a private message is seen only by the person it is sent to. `Problem.Direct` is stage one: every member holds every other member (4 members, 12 references). `Problem.Directory` is stage two: one shared `Directory`, but every sender applies the rules itself. `Problem.Bus` is stage three: a `MessageBus` delivers every message to every client, and each client decides what to show. `Solution` has the mediator `ChatRoom`, the colleague `IParticipant`, the concrete colleagues `Member` and `Guest`, and one runnable class per slide: `ChatRoomMain` runs the pattern on its own, `ReferencesMain` counts the references of stage one, and `TwoWaysMain` sends the same private message through the bus and through the room. Each stage also has a `Main` of its own. |
 | `Mediator.Gof` | GoF's own example (Design Patterns, pp. 273–282): a font dialog. `Problem.FontDialog` has widgets that call each other. `Solution` has the mediator `DialogDirector`, the concrete mediator `FontDialogDirector`, the colleague `Widget`, and the general widgets `ListBox`, `EntryField` and `Button`. `Problem.Main` and `Solution.Main` run the same steps, one design each. |
 | `Mediator.Hw` | The three homework exercises: a bank branch where a `QueueManager` pairs customers with tellers (`BankQueue`), an airport where a `ControlTower` gives the runway to one aircraft at a time (`AirTraffic`), and a meeting-room `BookingForm` that is the mediator of its own fields (`BookingForm`). |
 | `Mediator.Traffic` | Cars at a junction ask a traffic police officer for permission to pass. Each car runs on its own thread. `Test` creates five cars. |
@@ -60,7 +60,7 @@ step happen inside one lock, and the car proceeds or waits outside it.
 ## Differences from the Java original
 
 The port is faithful in behavior. The output of `chat-problem-direct`,
-`chat-problem-directory`, `chat-problem-bus`, `chat-references`, `chat-two-ways`,
+`chat-problem-directory`, `chat-problem-bus`, `chat-room`, `chat-references`, `chat-two-ways`,
 `gof-problem`, `gof-solution`, `hw-bankqueue`, `hw-airtraffic` and `hw-bookingform` is byte
 for byte the output of the Java `main` methods. These outputs
 are the same under a Turkish and a Swedish locale.
@@ -172,7 +172,7 @@ cd ~/"Development/NET/Design Patterns/Design Patterns with CSharp/Mediator"
 ```
 
 The runner accepts: `chat-problem-direct`, `chat-problem-directory`, `chat-problem-bus`,
-`chat-references`, `chat-two-ways`, `gof-problem`, `gof-solution`, `hw-bankqueue`,
+`chat-room`, `chat-references`, `chat-two-ways`, `gof-problem`, `gof-solution`, `hw-bankqueue`,
 `hw-airtraffic`, `hw-bookingform`, `traffic`.
 
 Run the tests:

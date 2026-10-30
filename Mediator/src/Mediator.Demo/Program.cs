@@ -4,6 +4,7 @@ using ChatDirectoryMain = dev.kaldiroglu.Mediator.Chat.Problem.Directory.Main;
 using ChatBusMain = dev.kaldiroglu.Mediator.Chat.Problem.Bus.Main;
 using ChatReferencesMain = dev.kaldiroglu.Mediator.Chat.Solution.ReferencesMain;
 using ChatTwoWaysMain = dev.kaldiroglu.Mediator.Chat.Solution.TwoWaysMain;
+using ChatRoomMain = dev.kaldiroglu.Mediator.Chat.Solution.ChatRoomMain;
 using GofProblemMain = dev.kaldiroglu.Mediator.Gof.Problem.Main;
 using GofSolutionMain = dev.kaldiroglu.Mediator.Gof.Solution.Main;
 using BankQueueMain = dev.kaldiroglu.Mediator.Hw.BankQueue.Main;
@@ -32,6 +33,7 @@ public static class Program
         ["chat-problem-direct"] = ("A TEAM CHAT AND ITS PRIVATE MESSAGES", ChatDirectMain.Run),
         ["chat-problem-directory"] = ("A TEAM CHAT AND ITS PRIVATE MESSAGES", ChatDirectoryMain.Run),
         ["chat-problem-bus"] = ("A TEAM CHAT AND ITS PRIVATE MESSAGES", ChatBusMain.Run),
+        ["chat-room"] = ("A TEAM CHAT AND ITS PRIVATE MESSAGES", ChatRoomMain.Run),
         ["chat-references"] = ("A TEAM CHAT AND ITS PRIVATE MESSAGES", ChatReferencesMain.Run),
         ["chat-two-ways"] = ("A TEAM CHAT AND ITS PRIVATE MESSAGES", ChatTwoWaysMain.Run),
         ["gof-problem"] = ("GOF'S FONT DIALOG", GofProblemMain.Run),
