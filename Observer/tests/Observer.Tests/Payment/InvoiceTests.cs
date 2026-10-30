@@ -38,8 +38,8 @@ namespace dev.kaldiroglu.Observer.Tests.Payment
                 "Boss has received an update.", "Accountant has received an update.",
                 "Accountant has received an update.",
             }, updates);
-            Assert.Equal(2, lines.Count(line => line == "Some payment made."));
-            Assert.StartsWith("Invoice [balance=3000.0, no=", lines[^1]);
+            Assert.Equal(2, lines.Count(line => line == "Some payment is made."));
+            Assert.StartsWith("Invoice: Invoice [balance=3000.0, no=", lines[^1]);
         }
 
         // Disposing the subscription stops the updates.
@@ -51,7 +51,7 @@ namespace dev.kaldiroglu.Observer.Tests.Payment
 
             var lines = Printed.By(() => invoice.PayBalance(10));
 
-            Assert.Equal(new[] { "Some payment made." }, lines);
+            Assert.Equal(new[] { "Some payment is made." }, lines);
         }
 
         // An observer that subscribes twice is told once.

@@ -22,7 +22,7 @@ public class Invoice : IObservable<Invoice>
 
     public void PayBalance(double amount)
     {
-        Console.WriteLine("Some payment made.");
+        Console.WriteLine("Some payment is made.");
         balance = balance - amount;
         foreach (IObserver<Invoice> observer in observers.ToArray())
         {

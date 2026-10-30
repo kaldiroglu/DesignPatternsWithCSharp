@@ -5,7 +5,7 @@ public class Accountant : IObserver<Invoice>
     public void OnNext(Invoice invoice)
     {
         Console.WriteLine("\nAccountant has received an update.");
-        Console.WriteLine(invoice);
+        Console.WriteLine("Invoice: " + invoice);
     }
 
     public void OnError(Exception error)
