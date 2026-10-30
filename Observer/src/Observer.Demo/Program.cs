@@ -4,6 +4,7 @@ using dev.kaldiroglu.Observer.Price.Solution;
 // them apart. The price example has one runnable class per slide.
 using PriceStageOneMain = dev.kaldiroglu.Observer.Price.Problem.StageOneMain;
 using PriceStageTwoMain = dev.kaldiroglu.Observer.Price.Problem.StageTwoMain;
+using PriceStageThreeMain = dev.kaldiroglu.Observer.Price.Problem.StageThreeMain;
 using PriceFastSpikeMain = dev.kaldiroglu.Observer.Price.Problem.FastSpikeMain;
 using PriceListenersMain = dev.kaldiroglu.Observer.Price.Solution.ListenersMain;
 using PriceTwoWaysMain = dev.kaldiroglu.Observer.Price.Solution.TwoWaysMain;
@@ -35,6 +36,7 @@ public static class Program
     {
         ["price-problem-stage-one"] = ("A STOCK PRICE", PriceStageOneMain.Run),
         ["price-problem-stage-two"] = ("A STOCK PRICE", PriceStageTwoMain.Run),
+        ["price-problem-stage-three"] = ("A STOCK PRICE", PriceStageThreeMain.Run),
         ["price-problem-fast-spike"] = ("A STOCK PRICE", PriceFastSpikeMain.Run),
         ["price-listeners"] = ("A STOCK PRICE", PriceListenersMain.Run),
         ["price-two-ways"] = ("A STOCK PRICE", PriceTwoWaysMain.Run),

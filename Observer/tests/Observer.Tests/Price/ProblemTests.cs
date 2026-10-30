@@ -65,6 +65,11 @@ namespace dev.kaldiroglu.Observer.Tests.Price
             Assert.Equal(new[] { 100, 100, 102 }, chart.Points);
             // The feed holds only numbers.
             Assert.All(Printed.DeclaredFieldTypes(typeof(PriceFeed)), t => Assert.Equal(typeof(int), t));
+            // A new reader is an edit to PollingReaders.
+            var fieldTypes = Printed.DeclaredFieldTypes(typeof(PollingReaders));
+            Assert.Contains(typeof(Chart), fieldTypes);
+            Assert.Contains(typeof(Ticker), fieldTypes);
+            Assert.Contains(typeof(PriceAlert), fieldTypes);
         }
 
         // Stage three: 100 reads, four changes, three of them seen, and the alert at 105 never fires.
@@ -103,17 +108,33 @@ namespace dev.kaldiroglu.Observer.Tests.Price
             Assert.Empty(chart.Points);
         }
 
-        // StageOneMain prints every price on the chart, and the alert fired.
+        // StageOneMain prints the screens after each price, and the alert fires on 106.
         [Fact]
         public void StageOneMainOutput()
         {
+            var lines = Printed.By(StageOneMain.Run).ToList();
+
+            Assert.Equal(20, lines.Count); // four prices, five lines each
+            Assert.Equal("alert fired: false", lines[3]); // 102 is under the limit
+            Assert.Equal("alert fired: true", lines[8]); // 106 is over the limit
             Assert.Equal(new[]
             {
-                "Stage one, the feed calls every screen: chart [102, 106, 100, 103], alert fired: true",
-            }, Printed.By(StageOneMain.Run));
+                "Stage one, the feed calls every screen:", "chart [102, 106, 100, 103]",
+                "ticker shows 103", "alert fired: true", "",
+            }, lines.Skip(15));
         }
 
-        // StageTwoMain prints the same price twice, then the change.
+        // StageThreeMain: the thread polls ten times a second, and only the changes reach the chart.
+        [Fact]
+        public void StageThreeMainOutput()
+        {
+            Assert.Equal(new[]
+            {
+                "Stage three, the screens poll ten times a second: chart [102, 103]",
+            }, Printed.By(StageThreeMain.Run));
+        }
+
+        // StageTwoMain: the thread polls three times, so the same price twice, then the change.
         [Fact]
         public void StageTwoMainOutput()
         {

@@ -14,7 +14,7 @@ the same expected values.
 
 - **The price example, Part 1.** The feed that calls every screen, the screens that poll,
   and the screens that poll ten times a second: 100 reads, three of the four changes seen,
-  and the alert at 105 never fires. `StageOneMain`, `StageTwoMain` and `FastSpikeMain` each
+  and the alert at 105 never fires. `StageOneMain`, `StageTwoMain`, `StageThreeMain` and `FastSpikeMain` each
   print the line their slide quotes.
 - **The price example, Part 3.** The `PriceFeed` with `IPriceListener`: every change is
   seen, the alert fires, a lambda can listen, a listener can leave during a notification,

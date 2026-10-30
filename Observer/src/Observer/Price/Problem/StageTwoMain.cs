@@ -1,8 +1,9 @@
 namespace dev.kaldiroglu.Observer.Price.Problem;
 
 /// <summary>
-/// Stage two: the screens ask the feed once a second. Most polls find the same price, and the
-/// chart draws it again.
+/// Stage two: the screens ask the feed once a second. <see cref="PollingReaders"/> runs a
+/// thread, so this class only starts it, changes the price, and stops it. The thread polls at
+/// 0, 1 and 2 seconds. Most polls find the same price, and the chart draws it again.
 /// </summary>
 /// <remarks>
 /// Run it with
@@ -15,10 +16,11 @@ public static class StageTwoMain
         var feed = new PriceFeed(100);
         var polled = new Chart();
         var polling = new PollingReaders(feed, polled, new Ticker(), new PriceAlert(105));
-        polling.Poll();
-        polling.Poll();
+        polling.Start();
+        Thread.Sleep(1_500);
         feed.SetPrice(102);
-        polling.Poll();
+        Thread.Sleep(1_000);
+        polling.Stop();
         Console.WriteLine("Stage two, the screens poll every second: chart " + Show(polled.Points));
     }
 

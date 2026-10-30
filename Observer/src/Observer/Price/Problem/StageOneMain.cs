@@ -14,13 +14,14 @@ public static class StageOneMain
     {
         var chart = new Chart();
         var alert = new PriceAlert(105);
-        var direct = new DirectPriceFeed(chart, new Ticker(), alert);
+        var ticker = new Ticker();
+        var direct = new DirectPriceFeed(chart, ticker, alert);
         foreach (int price in new[] { 102, 106, 100, 103 })
         {
             direct.SetPrice(price);
+            Console.WriteLine("Stage one, the feed calls every screen:\nchart " + Show(chart.Points)
+                    + "\nticker shows " + ticker.Shown + "\nalert fired: " + Show(alert.Fired) + "\n");
         }
-        Console.WriteLine("Stage one, the feed calls every screen: chart " + Show(chart.Points)
-                + ", alert fired: " + Show(alert.Fired));
     }
 
     /// <summary>Prints a list as <c>[a, b, c]</c>.</summary>

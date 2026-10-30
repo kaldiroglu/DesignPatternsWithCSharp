@@ -13,7 +13,7 @@ namespace dev.kaldiroglu.Observer.Price.Problem;
 /// </remarks>
 public sealed class PriceFeed(int price)
 {
-    private int price = price;
+    private volatile int price = price;     // set by one thread, read by the polling thread
     private int reads;
 
     public void SetPrice(int price)

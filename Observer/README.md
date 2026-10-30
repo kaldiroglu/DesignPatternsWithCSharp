@@ -25,7 +25,7 @@ knowing any of them by class.
 
 | Namespace | What it shows |
 |---|---|
-| `Observer.Price` | The main worked example: a stock price with three readers — a chart, a ticker and an alert that must fire when the price reaches 105. `Problem` is three naive stages: the feed calls every reader itself (`DirectPriceFeed`), the readers poll the feed once a second (`PollingReaders`), and the readers poll ten times a second and act only on a change (`ChangeOnlyReaders`). `Solution` has the subject `PriceFeed`, the observer `IPriceListener`, the event `PriceChange`, and the observers `Chart`, `Ticker` and `PriceAlert`. Each slide has its own runnable class: `StageOneMain`, `StageTwoMain` and `FastSpikeMain` in `Problem`, `ListenersMain` and `TwoWaysMain` in `Solution` (`TwoWaysMain` runs the same prices through stage three and through listeners). `PriceFeedWithEvent` is the C# `event` form of the same subject. |
+| `Observer.Price` | The main worked example: a stock price with three readers — a chart, a ticker and an alert that must fire when the price reaches 105. `Problem` is three naive stages: the feed calls every reader itself (`DirectPriceFeed`), the readers poll the feed once a second (`PollingReaders`), and the readers poll ten times a second and act only on a change (`ChangeOnlyReaders`). `Solution` has the subject `PriceFeed`, the observer `IPriceListener`, the event `PriceChange`, and the observers `Chart`, `Ticker` and `PriceAlert`. Each slide has its own runnable class: `StageOneMain`, `StageTwoMain`, `StageThreeMain` and `FastSpikeMain` in `Problem`, `ListenersMain` and `TwoWaysMain` in `Solution` (`TwoWaysMain` runs the same prices through stage three and through listeners). `PriceFeedWithEvent` is the C# `event` form of the same subject. |
 | `Observer.Gof` | GoF's own example (Design Patterns, pp. 293–303). `Problem.ClockTimer` draws both clocks itself. `Solution` has `Subject`, `IObserver`, the concrete subject `ClockTimer`, and the concrete observers `DigitalClock` and `AnalogClock`, which pull the time after they are told something changed. |
 | `Observer.Publisher` | A publisher prints magazines (`Newsweek`, `FourFourTwo`), and people and institutions subscribe to them (`IndividualSubscriber`, `InstitutionalSubscriber`). When a new issue comes out, every subscriber receives it. |
 | `Observer.Payment` | An invoice tells the boss and the accountant when a payment is made. In Java it uses the JDK's `java.util.Observable` and `java.util.Observer`; here it uses a small `Observable` class and `IObserver` interface written for the port. |
@@ -185,7 +185,7 @@ cd ~/"Development/NET/Design Patterns/Design Patterns with CSharp/Observer"
 ~/.dotnet/dotnet run --project src/Observer.Demo -- price-two-ways
 ```
 
-The runner accepts: `price-problem-stage-one`, `price-problem-stage-two`,
+The runner accepts: `price-problem-stage-one`, `price-problem-stage-two`, `price-problem-stage-three`,
 `price-problem-fast-spike`, `price-listeners`, `price-two-ways`, `price-event`,
 `gof-problem`, `gof-solution`, `publisher`, `payment`, `hw-accountlog`, `hw-auction`,
 `hw-inbox`.

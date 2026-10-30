@@ -3,7 +3,8 @@ namespace dev.kaldiroglu.Observer.Price.Problem;
 /// <summary>
 /// Stage three meets a fast spike. The screens poll ten times a second and act only on a
 /// change, but the price goes to 106 and back to 100 between two polls, so the alert at 105
-/// never fires.
+/// never fires. This class calls Poll itself, without the thread, so that the spike always
+/// falls between the same two polls.
 /// </summary>
 /// <remarks>
 /// Run it with
