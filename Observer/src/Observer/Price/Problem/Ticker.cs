@@ -3,7 +3,7 @@ namespace dev.kaldiroglu.Observer.Price.Problem;
 /// <summary>A reader of the price: shows only the latest one.</summary>
 public sealed class Ticker
 {
-    private int shown;
+    private volatile int shown;     // set by the polling thread, read by the caller
 
     public void Show(int price)
     {

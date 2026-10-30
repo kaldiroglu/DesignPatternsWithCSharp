@@ -15,9 +15,10 @@ public static class FastSpikeMain
     public static void Run()
     {
         var fast = new PriceFeed(100);
-        var changes = new Chart();
+        var chart = new Chart();
+        var ticker = new Ticker();
         var missed = new PriceAlert(105);
-        var readers = new ChangeOnlyReaders(fast, changes, new Ticker(), missed);
+        var readers = new ChangeOnlyReaders(fast, chart, ticker, missed);
         int readsBefore = fast.Reads;
         for (int tenth = 1; tenth <= 100; tenth++)
         {
@@ -25,9 +26,13 @@ public static class FastSpikeMain
             if (tenth == 55) { fast.SetPrice(106); fast.SetPrice(100); }   // a spike between polls
             if (tenth == 80) fast.SetPrice(103);
             readers.Poll();
+            if (tenth == 20 || tenth == 55 || tenth == 80)
+            {
+                Console.WriteLine("Stage three, ten polls a second, poll " + tenth + ":\nchart " + Show(chart.Points)
+                        + "\nticker shows " + ticker.Shown + "\nalert fired: " + Show(missed.Fired) + "\n");
+            }
         }
-        Console.WriteLine("Stage three, ten polls a second for ten seconds: chart " + Show(changes.Points)
-                + ", alert fired: " + Show(missed.Fired) + ", reads " + (fast.Reads - readsBefore));
+        Console.WriteLine("Reads in ten seconds: " + (fast.Reads - readsBefore));
     }
 
     /// <summary>Prints a list as <c>[a, b, c]</c>.</summary>

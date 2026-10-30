@@ -8,7 +8,7 @@ namespace dev.kaldiroglu.Observer.Price.Problem;
 /// </summary>
 public sealed class PriceAlert(int limit)
 {
-    private bool fired;
+    private volatile bool fired;     // set by the polling thread, read by the caller
 
     public void Check(int price)
     {

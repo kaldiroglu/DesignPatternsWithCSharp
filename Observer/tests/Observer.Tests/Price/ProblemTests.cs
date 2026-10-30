@@ -128,30 +128,40 @@ namespace dev.kaldiroglu.Observer.Tests.Price
         [Fact]
         public void StageThreeMainOutput()
         {
+            const string header = "Stage three, the screens poll ten times a second:";
             Assert.Equal(new[]
             {
-                "Stage three, the screens poll ten times a second: chart [102, 103]",
+                header, "chart [102]", "ticker shows 102", "alert fired: false", "",
+                header, "chart [102, 103]", "ticker shows 103", "alert fired: false", "",
             }, Printed.By(StageThreeMain.Run));
         }
 
-        // StageTwoMain: the thread polls three times, so the same price twice, then the change.
+        // StageTwoMain: the thread polls three times, and each screen shows what it got.
         [Fact]
         public void StageTwoMainOutput()
         {
+            const string header = "Stage two, the screens poll every second:";
             Assert.Equal(new[]
             {
-                "Stage two, the screens poll every second: chart [100, 100, 102]",
+                header, "chart [100]", "ticker shows 100", "alert fired: false", "",
+                header, "chart [100, 100]", "ticker shows 100", "alert fired: false", "",
+                header, "chart [100, 100, 102]", "ticker shows 102", "alert fired: false", "",
             }, Printed.By(StageTwoMain.Run));
         }
 
-        // FastSpikeMain prints three changes seen, no alert, and 100 reads.
+        // FastSpikeMain prints each screen after each change seen, no alert, and 100 reads.
         [Fact]
         public void FastSpikeMainOutput()
         {
             Assert.Equal(new[]
             {
-                "Stage three, ten polls a second for ten seconds: chart [102, 100, 103], "
-                    + "alert fired: false, reads 100",
+                "Stage three, ten polls a second, poll 20:", "chart [102]", "ticker shows 102",
+                "alert fired: false", "",
+                "Stage three, ten polls a second, poll 55:", "chart [102, 100]", "ticker shows 100",
+                "alert fired: false", "",
+                "Stage three, ten polls a second, poll 80:", "chart [102, 100, 103]", "ticker shows 103",
+                "alert fired: false", "",
+                "Reads in ten seconds: 100",
             }, Printed.By(FastSpikeMain.Run));
         }
     }

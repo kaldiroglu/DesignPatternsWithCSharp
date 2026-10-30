@@ -7,8 +7,20 @@ public sealed class Chart
 
     public void Add(int price)
     {
-        points.Add(price);
+        lock (points)
+        {
+            points.Add(price);
+        }
     }
 
-    public IReadOnlyList<int> Points => points.ToList().AsReadOnly();
+    public IReadOnlyList<int> Points
+    {
+        get
+        {
+            lock (points)
+            {
+                return points.ToList().AsReadOnly();
+            }
+        }
+    }
 }
