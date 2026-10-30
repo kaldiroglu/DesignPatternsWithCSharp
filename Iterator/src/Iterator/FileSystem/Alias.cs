@@ -1,3 +1,3 @@
 namespace dev.kaldiroglu.Iterator.FileSystem;
 
-public class Alias(string name, StorageElement parent) : StorageElement(name, parent);
+public class Alias(string name, Directory? parent) : StorageElement(name, parent);

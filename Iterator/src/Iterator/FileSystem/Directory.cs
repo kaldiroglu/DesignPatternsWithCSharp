@@ -17,25 +17,30 @@ namespace dev.kaldiroglu.Iterator.FileSystem;
 /// </remarks>
 public class Directory : StorageElement
 {
-    private readonly List<IStorage> _elements = [];
+    private List<IStorage> _elements = [];
 
     public Directory(string name) : base(name, null)
     {
         directory = true;
     }
 
-    public Directory(string name, StorageElement parent) : base(name, parent)
+    public Directory(string name, Directory parent) : base(name, parent)
     {
         directory = true;
     }
 
-    /// <summary>A shallow copy: the copy shares the same list of elements.</summary>
-    public override IStorage Copy() => (IStorage)MemberwiseClone();
-
-    public override void Move(Directory target)
+    /// <summary>A copy with its own copies of the elements, in no directory until it is added to one.</summary>
+    public override IStorage Copy()
     {
-        parent = target;
-        target.Add(this);
+        var copiedDirectory = (Directory)base.Copy();
+        copiedDirectory._elements = [];
+        foreach (IStorage element in _elements)
+        {
+            var copiedElement = (StorageElement)element.Copy();
+            copiedElement.Parent = copiedDirectory;
+            copiedDirectory.Add(copiedElement);
+        }
+        return copiedDirectory;
     }
 
     public void Add(IStorage element) => _elements.Add(element);

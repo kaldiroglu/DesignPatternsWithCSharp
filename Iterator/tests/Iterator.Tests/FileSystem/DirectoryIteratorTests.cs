@@ -7,11 +7,70 @@ using dev.kaldiroglu.Iterator.FileSystem;
 using Xunit;
 
 /// <summary>
-/// The file system example. The output the Part 3 notes quote from <c>FileSystem.Test</c> is
+/// The file system example. The output the Part 3 notes quote from <c>FileSystem.Main</c> is
 /// asserted here.
 /// </summary>
 public class DirectoryIteratorTests
 {
+    /// <summary>Move takes the element out of its directory, sets the parent and adds it to the target.</summary>
+    [Fact]
+    public void MoveChangesTheParent()
+    {
+        var dev = new Directory("Dev");
+        var reports = new Directory("Reports");
+        var file = new File("Readme.txt", dev);
+        var archive = new Directory("Archive", dev);
+
+        file.Move(reports);
+        archive.Move(reports);
+
+        Assert.Empty(NamesIn(dev));
+        Assert.Equal(new[] { "Readme.txt", "Archive" }, NamesIn(reports));
+        Assert.Same(reports, file.Parent);
+        Assert.Same(reports, archive.Parent);
+    }
+
+    /// <summary>Copying a file gives a new file in no directory.</summary>
+    [Fact]
+    public void CopyAFile()
+    {
+        var dev = new Directory("Dev");
+        var file = new File("Readme.txt", dev);
+
+        var copy = (File)file.Copy();
+
+        Assert.NotSame(file, copy);
+        Assert.Equal("Readme.txt", copy.Name);
+        Assert.Null(copy.Parent);
+        Assert.Equal(new[] { "Readme.txt" }, NamesIn(dev));
+    }
+
+    /// <summary>Copying a directory copies its elements, so a change to the copy does not reach the original.</summary>
+    [Fact]
+    public void CopyADirectory()
+    {
+        var dev = new Directory("Dev");
+        new File("Readme.txt", dev);
+        var reports = new Directory("Reports", dev);
+        new File("ImportantReport.docs", reports);
+
+        var copy = (Directory)dev.Copy();
+        new File("Extra.txt", copy);
+
+        Assert.Equal(new[] { "Readme.txt", "Reports", "Extra.txt" }, NamesIn(copy));
+        Assert.Equal(new[] { "Readme.txt", "Reports" }, NamesIn(dev));
+        var iterator = copy.GetEnumerator();
+        iterator.MoveNext();
+        Assert.Same(copy, ((File)iterator.Current).Parent);
+    }
+
+    /// <summary>Deleting a directory with no parent changes nothing and does not fail.</summary>
+    [Fact]
+    public void DeleteARoot()
+    {
+        new Directory("Root").Delete();
+    }
+
     private static List<string> NamesIn(Directory directory)
     {
         var names = new List<string>();
@@ -26,7 +85,7 @@ public class DirectoryIteratorTests
     [Fact(DisplayName = "fileSystem.Test prints the Dev directory's four elements, then the two files in Reports")]
     public void TheClientPrintsWhatTheNotesQuote()
     {
-        var lines = Printed.By(Test.Run);
+        var lines = Printed.By(Main.Run);
 
         var nonBlank = lines.Where(line => !string.IsNullOrWhiteSpace(line)).ToList();
         Assert.Equal([

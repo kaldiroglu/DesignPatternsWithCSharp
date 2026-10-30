@@ -4,29 +4,38 @@ namespace dev.kaldiroglu.Iterator.FileSystem;
 public abstract class StorageElement : IStorage
 {
     protected string name;
-    protected IStorage? parent;
+    protected Directory? parent;
     protected bool directory;
 
-    protected StorageElement(string name, IStorage? parent)
+    protected StorageElement(string name, Directory? parent)
     {
         this.name = name;
         this.parent = parent;
-        if (parent != null)
-            ((Directory)parent).Add(this);
+        parent?.Add(this);
     }
 
     public void Rename(string newName) => Name = newName;
 
     public void Save() => Console.WriteLine("Saving the element.");
 
-    public void Delete() => ((Directory)parent!).Delete(this);
-
-    /// <summary>A shallow copy of this element.</summary>
-    public virtual IStorage Copy() => (IStorage)MemberwiseClone();
-
-    public virtual void Move(Directory target)
+    public void Delete()
     {
-        ((Directory)parent!).Delete(this);
+        parent?.Delete(this);
+        parent = null;
+    }
+
+    /// <summary>A copy of this element, in no directory until it is added to one.</summary>
+    public virtual IStorage Copy()
+    {
+        var copiedElement = (StorageElement)MemberwiseClone();
+        copiedElement.parent = null;
+        return copiedElement;
+    }
+
+    public void Move(Directory target)
+    {
+        Delete();
+        parent = target;
         target.Add(this);
     }
 
@@ -38,7 +47,7 @@ public abstract class StorageElement : IStorage
         set => name = value;
     }
 
-    public IStorage? Parent
+    public Directory? Parent
     {
         get => parent;
         set => parent = value;
