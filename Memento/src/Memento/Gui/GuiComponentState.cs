@@ -1,21 +1,4 @@
 namespace dev.kaldiroglu.Memento.Gui;
 
-/// <summary>The state of a <see cref="GuiComponent"/>, as one object: its position and size.</summary>
-public class GuiComponentState
-{
-    public GuiComponentState(int x, int y, int length, int width)
-    {
-        X = x;
-        Y = y;
-        Length = length;
-        Width = width;
-    }
-
-    public int X { get; set; }
-
-    public int Y { get; set; }
-
-    public int Length { get; set; }
-
-    public int Width { get; set; }
-}
+/// <summary>The state as one object. A record, so a saved state cannot be changed.</summary>
+public sealed record GuiComponentState(int X, int Y, int Length, int Width);

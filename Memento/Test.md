@@ -4,7 +4,7 @@
 
 For further enquiry please contact Akin Kaldiroglu at akin@kaldiroglu.dev
 
-31 xUnit tests in one project, `tests/Memento.Tests`. All of them are **unit tests**: no
+33 xUnit tests in one project, `tests/Memento.Tests`. All of them are **unit tests**: no
 process boundary, no network, no threads and no sleeping. Three tests capture `Console.Out`.
 
 The tests are ported from the JUnit tests of the Java repository
@@ -33,12 +33,12 @@ PascalCase, and the expected values are the same except where noted below. The J
 | `Game/Problem/Copy/CopyTest.cs` | 4 | Stage three: the copy shares the inventory list, so loading gives `[shield, potion]`; `Main.Run()` output. |
 | `Game/Solution/SolutionTest.cs` | 5 | The checkpoint keeps the promise, can be loaded twice, and is closed; public setters in each stage; `Main.Run()` output. |
 | `Gof/ConstraintSolverTest.cs` | 6 | GoF's constraint solver: undo by moving back leaves the bend at 20, the memento puts it at 50; undo order; the memento is closed; the output of `Problem.Main.Run()` and `Solution.Main.Run()`. |
-| `Gui/GuiTest.cs` | 3 | The window's memento restores the saved state, and its state is public; `Test.Run()` output. |
+| `Gui/GuiTest.cs` | 5 | The memento restores the saved state; the caretaker can keep two; the window holds none; a saved state cannot be changed but anyone can read it; `Main.Run()` output. |
 | `Hw/Editor/HistoryTest.cs` | 3 | Homework 1: undo and redo with two stacks; a new change clears redo; the cursor is saved. |
 | `Hw/Rollback/BatchTest.cs` | 2 | Homework 2: a failed batch is rolled back; a good batch is done. |
 | `Hw/Incremental/SheetTest.cs` | 2 | Homework 3: two cells on a 10,000-cell sheet make a memento of 2 entries; undo in reverse order. |
 
-Java has 10 test classes and 32 test methods. 9 classes and 31 methods are ported.
+Java has 10 test classes and 34 test methods. 9 classes and 33 methods are ported.
 
 ## Java tests not ported
 
@@ -84,7 +84,7 @@ difference between the C# and the Java was found.
 ```bash
 cd ~/"Development/NET/Design Patterns/Design Patterns with CSharp/Memento"
 
-# all 31
+# all 33
 ~/.dotnet/dotnet test Memento.sln
 
 # one class

@@ -3,13 +3,11 @@ using System.Globalization;
 namespace dev.kaldiroglu.Memento.Gui;
 
 /// <summary>
-/// The <b>Originator</b>: a window with a position and a size. <see cref="SaveState"/> gives
-/// its state to the memento, and <see cref="Undo"/> takes it back.
+/// The <b>Originator</b>: a window with a position and a size. <see cref="CreateMemento"/>
+/// puts its state in a memento, and <see cref="Restore"/> takes it back.
 /// </summary>
 public class GuiComponent
 {
-    private GuiComponentMemento? memento;
-
     public GuiComponent(string name, int x, int y, int length, int width)
     {
         Name = name;
@@ -17,11 +15,6 @@ public class GuiComponent
         Y = y;
         Length = length;
         Width = width;
-    }
-
-    public void SetMemento(GuiComponentMemento memento)
-    {
-        this.memento = memento;
     }
 
     public string Name { get; set; }
@@ -34,15 +27,12 @@ public class GuiComponent
 
     public int Width { get; set; }
 
-    /// <summary>Saves a new state object with the current values, so later changes cannot reach it.</summary>
-    public void SaveState()
-    {
-        memento!.State = new GuiComponentState(X, Y, Length, Width);
-    }
+    /// <summary>Puts the current values in a new memento, so later changes cannot reach it.</summary>
+    public GuiComponentMemento CreateMemento() => new(new GuiComponentState(X, Y, Length, Width));
 
-    public void Undo()
+    public void Restore(GuiComponentMemento memento)
     {
-        GuiComponentState state = memento!.State!;
+        GuiComponentState state = memento.State;
         X = state.X;
         Y = state.Y;
         Length = state.Length;

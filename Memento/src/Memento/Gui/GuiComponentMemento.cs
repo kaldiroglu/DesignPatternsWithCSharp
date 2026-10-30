@@ -1,9 +1,10 @@
 namespace dev.kaldiroglu.Memento.Gui;
 
-/// <summary>The <b>Memento</b>: holds a <see cref="GuiComponentState"/>.</summary>
-public class GuiComponentMemento
+/// <summary>
+/// Holds one saved state. Its <see cref="State"/> is public, so any class can read the
+/// window's state through it; <c>Game.Solution.Player.Checkpoint</c> closes that.
+/// </summary>
+public class GuiComponentMemento(GuiComponentState state)
 {
-    // GuiComponent.SaveState() gives it a new state object each time, so later changes to the
-    // window cannot reach it.
-    public GuiComponentState? State { get; set; }
+    public GuiComponentState State { get; } = state;
 }

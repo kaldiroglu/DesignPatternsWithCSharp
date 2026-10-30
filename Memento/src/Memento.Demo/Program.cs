@@ -8,7 +8,7 @@ using GofSolutionMain = dev.kaldiroglu.Memento.Gof.Solution.Main;
 using EditorMain = dev.kaldiroglu.Memento.Hw.Editor.Main;
 using RollbackMain = dev.kaldiroglu.Memento.Hw.Rollback.Main;
 using IncrementalMain = dev.kaldiroglu.Memento.Hw.Incremental.Main;
-using GuiTest = dev.kaldiroglu.Memento.Gui.Test;
+using GuiMain = dev.kaldiroglu.Memento.Gui.Main;
 using Pattern1Test = dev.kaldiroglu.Memento.Pattern1.Test;
 using Pattern2Test = dev.kaldiroglu.Memento.Pattern2.Test;
 
@@ -38,7 +38,7 @@ public static class Program
         ["hw-editor"] = ("HOMEWORK", EditorMain.Run),
         ["hw-rollback"] = ("HOMEWORK", RollbackMain.Run),
         ["hw-incremental"] = ("HOMEWORK", IncrementalMain.Run),
-        ["gui"] = ("THE EARLIER EXAMPLES", GuiTest.Run),
+        ["gui"] = ("THE EARLIER EXAMPLES", GuiMain.Run),
         ["pattern1"] = ("THE EARLIER EXAMPLES", Pattern1Test.Run),
         ["pattern2"] = ("THE EARLIER EXAMPLES", Pattern2Test.Run)
     };

@@ -28,7 +28,7 @@ mementos must be restored in the reverse order they were made.
 | `Memento.Game` | The main worked example: a game checkpoint. A player has health, a position and an inventory. The promise: loading gives back exactly what the player had at the checkpoint. `Problem.Setters` is stage one: the game reads and writes every field through public getters and setters, so anyone can set health to 999. `Problem.History` is stage two: the player keeps its own save slots. `Problem.Copy` is stage three: the game keeps a copy of the player, but the copy shares the inventory list with the player. `Solution` has the originator `Player`, the memento `Player.ICheckpoint`, the caretaker `Game`, and `Main`, which runs stage one, stage three and the memento. Each stage also has a `Main` of its own. |
 | `Memento.Gof` | GoF's own example (Design Patterns, pp. 283–291): a constraint solver keeps a line with one bend between two boxes. `Problem` undoes a move by moving the box back, and the bend does not come back. In `Solution`, `MoveCommand` (the caretaker) takes a memento from `ConstraintSolver` (the originator) before the move and gives it back on undo. `Main` runs the same steps in both designs; `Problem.Main` and `Solution.Main` run one design each. |
 | `Memento.Hw` | The three homework exercises: a `TextEditor` with undo and redo kept by a `History` (`Editor`), a `Batch` of transfers that gives every `Account` its memento back when one transfer fails (`Rollback`), and a `Sheet` whose memento holds only the cells one edit changed (`Incremental`). |
-| `Memento.Gui` | A window whose state is one object, `GuiComponentState`, kept by a `GuiComponentMemento`. `Test` saves, moves and resizes the window, then undoes. |
+| `Memento.Gui` | A window whose state is one object, `GuiComponentState`, kept by a `GuiComponentMemento`. `Main` is the caretaker: it keeps the memento while the window moves and resizes, then gives it back. |
 | `Memento.Pattern1` | An originator whose state changes every second on one thread, and a caretaker thread that keeps mementos in a stack, saves every two seconds and undoes every fifth time. `Memento` is a class of its own, with a public `State`. |
 | `Memento.Pattern2` | The same, with the memento nested in the originator, so only the originator can read it. |
 
@@ -189,7 +189,7 @@ undo lines on the error stream (`state-6` and `state-16` for `pattern1`, `state-
 
 ## Tests
 
-`tests/Memento.Tests` holds 31 xUnit tests in 9 test classes. They are ported from the
+`tests/Memento.Tests` holds 33 xUnit tests in 9 test classes. They are ported from the
 JUnit tests of the Java repository, one C# test class for each Java test class, with the
 same expected values, except where `Test.md` notes a change. `Test.md` lists what each
 class tests, and the Java tests that are not ported, with the reason.
