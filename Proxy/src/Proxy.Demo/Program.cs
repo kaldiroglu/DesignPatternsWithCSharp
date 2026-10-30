@@ -3,6 +3,7 @@ using dev.kaldiroglu.Proxy.Network;
 using dev.kaldiroglu.Proxy.Pm.Pm1;
 using dev.kaldiroglu.Proxy.Pm.Pm2;
 using dev.kaldiroglu.Proxy.Pm.Pm3;
+using dev.kaldiroglu.Proxy.Pm.Pm4;
 
 // Runs the three Proxy examples one after another. Each is self-contained; see
 // the README for what each one demonstrates.
@@ -13,13 +14,15 @@ GofDemo.Run();
 Section("2. Network protection proxy — access control + logging");
 NetworkDemo.Run();
 
-Section("3. PM — evolving toward the Proxy pattern (pm1 -> pm2 -> pm3)");
+Section("3. PM — evolving toward the Proxy pattern (pm1 -> pm2 -> pm3 -> pm4)");
 Console.WriteLine("--- pm1: no proxy, citizen talks to the PM directly ---");
 Pm1Demo.Run();
 Console.WriteLine("\n--- pm2: a hand-rolled proxy, not yet sharing an interface ---");
 Pm2Demo.Run();
 Console.WriteLine("\n--- pm3: the GoF proxy, RealPM and ProxyPM share IPM ---");
 Pm3Demo.Run();
+Console.WriteLine("\n--- pm4: ProxyPM creates RealPM on the first forwarded call ---");
+Pm4Demo.Run();
 
 static void Section(string title)
 {

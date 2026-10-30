@@ -34,6 +34,14 @@
 | `RealAndProxyShareTheSameInterface` | `RealPM` and `ProxyPM` both satisfy the `IPM` subject contract. |
 | `ProxyLogsThenDelegatesToRealPM` | Calling through the proxy logs the proxy first, then reaches the real PM. |
 
+### `Pm4ProxyTests` — a protection and virtual proxy (Pm4)
+
+| Test | What it proves |
+|------|----------------|
+| `CreatedOnTheFirstForwardedCall` | A refused call and `FindJob` do not create the Prime Minister; the first forwarded call does. |
+| `TheClientKnowsOnlyTheInterface` | `Citizen` has one constructor, and it takes `IPM`. |
+| `TheRealSubjectIsNotPublic` | `RealPM` is `internal`. |
+
 ## Run it with
 
 ```bash

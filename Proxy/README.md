@@ -20,11 +20,11 @@ The client always programs to the **Subject** interface and never learns whether
 |---------|-----------|------------|---------------|
 | **GoF** | `dev.kaldiroglu.Proxy.Gof` | Virtual proxy | The book's document-editor example (p. 207). `ImageProxy` caches the `Extent` and defers loading the expensive real `Image` until the first `Draw`. |
 | **Network** | `dev.kaldiroglu.Proxy.Network` | Protection proxy | `ProxyServer` implements the same `INetwork` as the real `Gateway`, but logs and enforces an access policy (blocks FTP to `192.*`, telnet from `10.*`) before delegating. |
-| **PM** | `dev.kaldiroglu.Proxy.Pm.Pm1/Pm2/Pm3` | Teaching progression | A three-stage refactoring of a "citizen ↔ Prime Minister" scenario from *no proxy* (`Pm1`) → a *hand-rolled proxy* (`Pm2`) → the *canonical GoF proxy* sharing an `IPM` interface (`Pm3`). |
+| **PM** | `dev.kaldiroglu.Proxy.Pm.Pm1/Pm2/Pm3/Pm4` | Teaching progression | A three-stage refactoring of a "citizen ↔ Prime Minister" scenario from *no proxy* (`Pm1`) → a *hand-rolled proxy* (`Pm2`) → the *canonical GoF proxy* sharing an `IPM` interface (`Pm3`). |
 
 ## Participants (GoF roles)
 
-- **Subject** — `IGraphic` (Gof) · `INetwork` (Network) · `IPM` (Pm3).
+- **Subject** — `IGraphic` (Gof) · `INetwork` (Network) · `IPM` (Pm3, Pm4).
 - **RealSubject** — `Image` · `Gateway` · `RealPM`.
 - **Proxy** — `ImageProxy` · `ProxyServer` · `ProxyPM` / `PmProxy`.
 - **Client** — `TextDocument` · `NetworkDemo` · `Citizen`.
