@@ -1,11 +1,18 @@
 namespace dev.kaldiroglu.Observer.Payment;
 
-public class Accountant : IObserver
+public class Accountant : IObserver<Invoice>
 {
-    public void Update(Observable arg0, object? arg1)
+    public void OnNext(Invoice invoice)
     {
         Console.WriteLine("\nAccountant has received an update.");
-        Invoice invoice = (Invoice)arg0;
         Console.WriteLine(invoice);
+    }
+
+    public void OnError(Exception error)
+    {
+    }
+
+    public void OnCompleted()
+    {
     }
 }

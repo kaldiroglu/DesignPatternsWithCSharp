@@ -28,7 +28,7 @@ knowing any of them by class.
 | `Observer.Price` | The main worked example: a stock price with three readers — a chart, a ticker and an alert that must fire when the price reaches 105. `Problem` is three naive stages: the feed calls every reader itself (`DirectPriceFeed`), the readers poll the feed once a second (`PollingReaders`), and the readers poll ten times a second and act only on a change (`ChangeOnlyReaders`). `Solution` has the subject `PriceFeed`, the observer `IPriceListener`, the event `PriceChange`, and the observers `Chart`, `Ticker` and `PriceAlert`. Each slide has its own runnable class: `StageOneMain`, `StageTwoMain`, `StageThreeMain` and `FastSpikeMain` in `Problem`, `ListenersMain` and `TwoWaysMain` in `Solution` (`TwoWaysMain` runs the same prices through stage three and through listeners). `PriceFeedWithEvent` is the C# `event` form of the same subject. |
 | `Observer.Gof` | GoF's own example (Design Patterns, pp. 293–303). `Problem.ClockTimer` draws both clocks itself. `Solution` has `Subject`, `IObserver`, the concrete subject `ClockTimer`, and the concrete observers `DigitalClock` and `AnalogClock`, which pull the time after they are told something changed. |
 | `Observer.Publisher` | A publisher prints magazines (`Newsweek`, `FourFourTwo`), and people and institutions subscribe to them (`IndividualSubscriber`, `InstitutionalSubscriber`). When a new issue comes out, every subscriber receives it. |
-| `Observer.Payment` | An invoice tells the boss and the accountant when a payment is made. In Java it uses the JDK's `java.util.Observable` and `java.util.Observer`; here it uses a small `Observable` class and `IObserver` interface written for the port. |
+| `Observer.Payment` | An invoice tells the boss and the accountant when a payment is made. In Java it uses the JDK's `java.util.Observable` and `java.util.Observer`; here it uses .NET's own `IObservable<T>` and `IObserver<T>`: `Invoice` is an `IObservable<Invoice>`, and `Boss` and `Accountant` are `IObserver<Invoice>`. |
 | `Observer.Hw` | The three homework exercises: an account whose listener writes the transaction records (`AccountLog`), an auction in which a bidder stops watching while it is being told about a bid (`Auction`), and an inbox whose views are lambdas (`Inbox`). |
 
 ### Things worth stopping on
@@ -75,9 +75,9 @@ runner prints it after the Java examples' output, so that output is unchanged.
 these names. They are the .NET counterpart of `java.util.Observable`, but a different shape:
 the subject pushes values with `OnNext`, and also reports an error with `OnError` and the
 end of the stream with `OnCompleted`; `Subscribe` returns an `IDisposable` that
-unsubscribes. They are the base of Reactive Extensions (Rx). The payment example does not
-use them, because its Java uses the JDK's pull-style `Observable`, whose observers receive
-the subject itself.
+unsubscribes. They are the base of Reactive Extensions (Rx). The payment example uses
+them: `Invoice` pushes itself to `OnNext`, and `Subscribe` returns the `IDisposable` that
+ends the subscription.
 
 ## Architecture
 
@@ -99,19 +99,14 @@ is byte for byte the output of that `main`. The output of `publisher` is the sam
 the date and time, which are the current ones. The whole runner prints the same under a
 Turkish and a Swedish locale. What had to change:
 
-- **Interfaces take the `I` prefix**: `IPriceListener`, `IObserver` (twice: GoF's and the
-  payment one), `IPublication`, `ISubscriber`, `ITransactionListener`, `IBidListener`.
+- **Interfaces take the `I` prefix**: `IPriceListener`, `IObserver` (GoF's), `IPublication`, `ISubscriber`, `ITransactionListener`, `IBidListener`.
   GoF's `Subject` is an abstract class, so it keeps its name.
-- **The JDK's `Observable` and `Observer` are written for the port.** .NET has no such
-  class. `Payment.Observable` and `Payment.IObserver` behave like the JDK ones in the ways
-  the example can see: `AddObserver` ignores an observer that is already there,
-  `DeleteObserver`, a protected `SetChanged`, and `NotifyObservers()`, which does nothing
-  unless the object has changed and clears the flag before it notifies. **It notifies in the
-  reverse order of addition**, as the JDK code does, so the accountant is told before the
-  boss, who was added first. The JDK documentation calls this order unspecified; the port
-  copies what the JDK does, so the output matches. It also has `DeleteObservers`,
-  `CountObservers`, `ClearChanged`, `HasChanged` and `NotifyObservers(object?)`, as the JDK
-  class has, and it locks as the JDK class synchronizes.
+- **The JDK's `Observable` and `Observer` are replaced by .NET's own interfaces.** `Invoice`
+  implements `IObservable<Invoice>` and keeps its own list. `Subscribe` ignores an observer
+  that is already there, and disposing the returned object ends the subscription. There is
+  no `SetChanged` step. Observers are told first subscribed first, so the boss prints before
+  the accountant. The Java run prints them the other way round; neither platform specifies
+  an order.
 - **Java prints a `double` with `.0`.** `Invoice` prints `balance=5000.0`, as Java does;
   C# would print `5000`. A small helper in `Invoice.ToString()` adds the `.0` to a whole
   number. It does not copy Java's switch to E notation at ten million.
@@ -151,10 +146,10 @@ Turkish and a Swedish locale. What had to change:
   means the class, because a type in the current namespace wins. In `Observer.Demo` the
   runner reaches them through aliases (`PublisherTest`, `AuctionMain`, `InboxMain`), and
   the other `Main` and `Test` classes through `PriceStageOneMain`, `GofProblemMain`,
-  `PaymentTest` and so on. The root
+  `PaymentMain` and so on. The root
   namespace ends in `Observer`, but no type is named `Observer`: the interfaces are
-  `IObserver`, so the namespace and the types never meet. `Payment.IObserver` and
-  `Gof.Solution.IObserver` do not clash with `System.IObserver<T>`, because a generic type
+  `IObserver`, so the namespace and the types never meet. `Gof.Solution.IObserver` does
+  not clash with `System.IObserver<T>`, because a generic type
   with one type parameter is a different name to the compiler. `Inbox.Message` stays nested,
   as in the Java. `Publisher` has properties `Newsweek` and `FourFourTwo` of type
   `IPublication` beside the classes of the same names; `new Newsweek(…)` still means the

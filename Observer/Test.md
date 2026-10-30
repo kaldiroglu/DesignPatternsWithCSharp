@@ -38,17 +38,18 @@ restores it in `finally`, so the project turns off xUnit's parallel run in `Asse
 | `Price/SolutionTests.cs` | 9 | 9 |
 | `Gof/ClockTimerTests.cs` | 7 | 7 |
 | `Publisher/PublisherTests.cs` | 3 | 3 |
-| `Payment/InvoiceTests.cs` | 5 | 4 |
+| `Payment/InvoiceTests.cs` | 5 | 5 (different content, see below) |
 | `KnownUsesTests.cs` | 3 | 3 (different content, see below) |
 | **Total** | **34** | **33** |
 
 ## Java tests not ported, or changed
 
 - **`InvoiceTest.deprecatedSinceNine` is not ported.** It reads `@Deprecated(since = "9")`
-  on the JDK's `java.util.Observable` and `java.util.Observer`. .NET has no such classes;
-  the port's `Payment.Observable` is written for the example and is not deprecated.
-- **`InvoiceTests.ObservableIsAClass` checks the port's own `Payment.Observable`**, not a
-  library class. The point is the same: it is a class, and it is `Invoice`'s base class.
+  on the JDK's `java.util.Observable` and `java.util.Observer`. The port uses
+  `IObservable<T>` and `IObserver<T>`, which are not deprecated.
+- **`InvoiceTests` checks the .NET interfaces, not a base class.** The tests for `setChanged`
+  and for `Observable` being a class have no counterpart here. `DisposeEndsTheSubscription`,
+  `ASecondSubscribeIsIgnored` and `TheInterfacesAreTheOnesInSystem` take their place.
 - **`KnownUsesTests` checks the .NET rows of the deck's table, not the Java rows.**
   `PropertyChangeSupport`, `Flow`/`SubmissionPublisher` and `ActionListener` are JDK types.
   The three C# tests are `INotifyPropertyChangedNamesTheProperty`,
