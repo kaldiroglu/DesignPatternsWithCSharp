@@ -1,6 +1,6 @@
 namespace dev.kaldiroglu.Strategy.Sorting.Pattern;
 
-/// <summary>Quickest on a short array, and hopeless on a long one.</summary>
+/// <summary>The simplest of the three: enough for a short array, and hopeless on a long one.</summary>
 public sealed class BubbleSorter : ISorter
 {
     public string Name => "BubbleSort";

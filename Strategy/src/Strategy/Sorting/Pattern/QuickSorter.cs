@@ -23,6 +23,7 @@ public sealed class QuickSorter : ISorter
 
     private int Partition(double[] a, int left, int right)
     {
+        Exchange(a, (left + right) >>> 1, right);   // the middle as pivot, so sorted input stays shallow
         var i = left;
         var j = right;
         while (true)

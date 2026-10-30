@@ -22,10 +22,10 @@ ported; none is left out.
 | `Pricing/ProblemTests.cs` | `pricing.ProblemTest` | 12 | 12 | The three naive designs price the student basket at 1200.00, 960.00, 720.00 and 800.00. Five string arms in one method. One enum arm per `Campaign` constant and no discard arm. The reversal: `Till` names 3 campaign classes, and Black Friday saves 480.00. What `StageOneMain`, `StageTwoMain`, `StageThreeMain` and `BestCampaignMain` print. |
 | `Pricing/SolutionTests.cs` | `pricing.SolutionTest` | 13 | 13 | The same prices from the rules. A rule replaced on a till that exists. One till prices five campaigns. A sixth campaign is one class. `Checkout` has no type test, no `switch` and no campaign name. Four rule classes, five campaigns, two interface members. What `QuoteAllMain`, `BestRuleMain` and `ChangeRuleMain` print. |
 | `Gof/CompositorTests.cs` | `gof.CompositorTest` | 7 | 7 | GoF's paragraph at 26 columns: four lines each, worst gap 8 against 5. `ArrayCompositor` makes a first row 33 wide. The naive class takes a `bool`; the context takes an `ICompositor` and holds no `bool`. |
-| `Sorting/SortingTests.cs` | `sorting.SortingTest` | 5 | 5 | The three designs sort the same way and choose at the same sizes (99, 100, 1,000,000). The context tests the same two thresholds but contains no `Partition(`. |
+| `Sorting/SortingTests.cs` | `sorting.SortingTest` | 6 | 6 | The three designs sort the same way and choose at the same sizes (99, 100, 1,000,000). Quicksort handles sorted input of 50,000 elements. The context tests the same two thresholds but contains no `Partition(`. |
 | `Freight/FreightTests.cs` | `freight.FreightTest` | 10 | 10 | The pillow is 20 desi; the books are 4.2 kg. The four quotes for each parcel. The flat rate wins one parcel and the band table the other. A fifth carrier is one class. The desk holds only an `IRateCard`. |
 | `Hw/HomeworkTests.cs` | `hw.HomeworkTest` | 11 | 11 | The three homework solutions, as three nested classes like Java's `@Nested` ones: seating (3), late fees (4), passphrase rules (4). |
-| **Total** | | **58** | **58** | |
+| **Total** | | **59** | **59** | |
 
 `SourceText.cs` holds the helpers for the source-text tests: `Read` reads a file under
 `src/Strategy`, `StripComments` removes comments (the classes name in their comments what

@@ -3,7 +3,7 @@ namespace dev.kaldiroglu.Strategy.Sorting.Problem;
 /// <summary>
 /// Stage one: three sorting algorithms in one class, chosen by a branch on the array's size.
 /// <para>
-/// A small array is quickest to bubble; a large one is best left to the library. So the
+/// A small array can be bubbled; a large one is best left to the library. So the
 /// choice is genuine engineering rather than indecision — which is what makes this design
 /// worth taking seriously before it is taken apart.
 /// </para>
@@ -63,6 +63,7 @@ public sealed class Sorter
 
     private int Partition(double[] a, int left, int right)
     {
+        Exchange(a, (left + right) >>> 1, right);   // the middle as pivot, so sorted input stays shallow
         var i = left;
         var j = right;
         while (true)

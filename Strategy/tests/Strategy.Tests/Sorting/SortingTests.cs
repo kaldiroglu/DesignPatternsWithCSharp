@@ -51,6 +51,20 @@ public class SortingTests
         Assert.Equal(expected, byStrategy);
     }
 
+    [Fact(DisplayName = "quicksort handles sorted input of 50,000 elements: the middle pivot keeps the recursion shallow")]
+    public void QuicksortOnSortedInput()
+    {
+        double[] sorted = Enumerable.Range(0, 50_000).Select(i => (double)i).ToArray();
+        double[] expected = (double[])sorted.Clone();
+
+        new QuickSorter().Sort(sorted);
+        Assert.Equal(expected, sorted);
+
+        double[] reversed = expected.Reverse().ToArray();
+        new QuickSorter().Sort(reversed);
+        Assert.Equal(expected, reversed);
+    }
+
     [Fact(DisplayName = "the size decides, and both designs decide the same way")]
     public void TheSameThresholds()
     {
