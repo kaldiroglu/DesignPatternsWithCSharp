@@ -7,7 +7,7 @@ public class LoggingPriceFeed : BasicPriceFeed
 {
     private readonly CallLog _log;
 
-    public LoggingPriceFeed(IPriceFeed supplier, CallLog log) : base(supplier) => _log = log;
+    public LoggingPriceFeed(ManualClock clock, CallLog log) : base(clock) => _log = log;
 
     protected CallLog Log() => _log;
 

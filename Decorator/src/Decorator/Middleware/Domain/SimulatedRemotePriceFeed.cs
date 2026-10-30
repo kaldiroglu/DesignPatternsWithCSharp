@@ -12,7 +12,7 @@ namespace dev.kaldiroglu.Decorator.Middleware.Domain;
 /// calls will hit. Nothing is random, so every test and demo produces the same output.
 /// </para>
 /// </summary>
-public sealed class SimulatedRemotePriceFeed : IPriceFeed
+public class SimulatedRemotePriceFeed : IPriceFeed
 {
     private readonly Dictionary<string, string> _catalog = new()
     {
@@ -46,7 +46,7 @@ public sealed class SimulatedRemotePriceFeed : IPriceFeed
         return this;
     }
 
-    public Quote QuoteFor(string sku)
+    public virtual Quote QuoteFor(string sku)
     {
         CallCount++;
         _clock.Advance(_latency); // a remote call costs time, and the clock says so

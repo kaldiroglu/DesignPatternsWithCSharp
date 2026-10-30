@@ -103,7 +103,7 @@ cd "~/Development/NET/Design Patterns/Design Patterns with CSharp/Decorator"
 # build everything
 ~/.dotnet/dotnet build
 
-# the tests — 50 of them
+# the tests — 53 of them
 ~/.dotnet/dotnet test tests/Decorator.Tests
 
 # every example, in the order the course presents them

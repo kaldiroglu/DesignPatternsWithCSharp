@@ -4,7 +4,7 @@
 
 For further enquiry please contact Akin Kaldiroglu at akin@kaldiroglu.dev
 
-50 xUnit tests in one project, `tests/Decorator.Tests`. All of them are **unit tests**: no
+53 xUnit tests in one project, `tests/Decorator.Tests`. All of them are **unit tests**: no
 network and no wall clock. One touches the filesystem — `InvoiceStreamTests` goes through
 `InvoiceStreamDemo`, which writes to two `Path.GetTempFileName()` paths and deletes both in
 a `finally`. The remote price feed is simulated in memory and time is a `ManualClock`, so
@@ -34,6 +34,7 @@ cannot drift into being a plausible-looking guess.
 | File | Tests | What it holds |
 |---|---|---|
 | `Toast/ToastTests.cs` | 7 | The Ayvalık toast shop: welded prices against five topping classes, the same topping twice, and a multiplying decorator whose position changes the bill. |
+| `Middleware/SubclassChainTests.cs` | 3 | The combination class works; the supplier is the top of the hierarchy, so a `sealed` class cannot take its place; copy-paste and flags hold a field, so both work on it. |
 | `Middleware/ClassicDecoratorTests.cs` | 9 | Each decorator on its own, ordering, decoration over a `sealed` class, and GoF's third consequence. |
 | `Middleware/VariationsTests.cs` | 3 | Classic, fluent and functional assembly produce identical behavior and identical numbers. |
 | `Gof/Visual/DesignComparisonTests.cs` | 5 | Subclassing and decorating draw the same picture; the difference is what a third embellishment costs. |
@@ -66,7 +67,7 @@ is a fact about the test rather than a hope about the network.
 ```bash
 cd "~/Development/NET/Design Patterns/Design Patterns with CSharp/Decorator"
 
-# all 50
+# all 53
 ~/.dotnet/dotnet test tests/Decorator.Tests
 
 # one file's worth

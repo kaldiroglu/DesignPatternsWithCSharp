@@ -7,7 +7,7 @@ public class RetryingPriceFeed : BasicPriceFeed
 {
     private readonly int _maxAttempts;
 
-    public RetryingPriceFeed(IPriceFeed supplier, int maxAttempts) : base(supplier) =>
+    public RetryingPriceFeed(ManualClock clock, int maxAttempts) : base(clock) =>
         _maxAttempts = maxAttempts;
 
     protected int MaxAttempts() => _maxAttempts;

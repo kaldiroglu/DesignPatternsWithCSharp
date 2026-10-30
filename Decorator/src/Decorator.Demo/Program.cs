@@ -109,15 +109,14 @@ public static class Program
     {
         Section("3. a subclass per combination");
         var clock = IClock.Manual();
-        var supplier = SimulatedRemotePriceFeed.WithDefaults(clock);
         var log = new CallLog();
-        IPriceFeed feed = new CachingRetryingLoggingPriceFeed(supplier, 3, log, clock, Ttl);
+        var feed = new CachingRetryingLoggingPriceFeed(clock, 3, log, Ttl);
 
-        supplier.FailNext(1);
+        feed.FailNext(1);
         feed.QuoteFor(Sku);
         feed.QuoteFor(Sku);
 
-        Console.WriteLine($"  works: {supplier.CallCount} supplier calls (1 failure retried, then cached)");
+        Console.WriteLine($"  works: {feed.CallCount} supplier calls (1 failure retried, then cached)");
         Console.WriteLine("  but: the class name has to list its contents AND their order,");
         Console.WriteLine("  and covering 5 concerns in every order would take 325 classes");
     }

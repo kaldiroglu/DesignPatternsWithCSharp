@@ -9,13 +9,13 @@ namespace dev.kaldiroglu.Decorator.Middleware.Problem;
 /// </summary>
 public class CachingRetryingLoggingPriceFeed : RetryingLoggingPriceFeed
 {
-    private readonly IClock _clock;
+    private readonly ManualClock _clock;
     private readonly TimeSpan _ttl;
     private readonly Dictionary<string, Quote> _cache = new();
     private readonly Dictionary<string, DateTimeOffset> _cachedAt = new();
 
-    public CachingRetryingLoggingPriceFeed(IPriceFeed supplier, int maxAttempts, CallLog log,
-        IClock clock, TimeSpan ttl) : base(supplier, maxAttempts, log)
+    public CachingRetryingLoggingPriceFeed(ManualClock clock, int maxAttempts, CallLog log, TimeSpan ttl)
+        : base(clock, maxAttempts, log)
     {
         _clock = clock;
         _ttl = ttl;

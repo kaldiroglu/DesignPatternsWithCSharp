@@ -10,8 +10,8 @@ public class RetryingLoggingPriceFeed : RetryingPriceFeed
 {
     private readonly CallLog _log;
 
-    public RetryingLoggingPriceFeed(IPriceFeed supplier, int maxAttempts, CallLog log)
-        : base(supplier, maxAttempts) =>
+    public RetryingLoggingPriceFeed(ManualClock clock, int maxAttempts, CallLog log)
+        : base(clock, maxAttempts) =>
         _log = log;
 
     protected CallLog Log() => _log;
