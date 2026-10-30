@@ -29,10 +29,7 @@ public class Publisher
 
     public IPublication FourFourTwo => fourFourTwo;
 
-    /// <summary>
-    /// The current date and time, for example <c>Thu Oct 08 21:52:22 GMT+03:00 2026</c>. The
-    /// time zone is printed as an offset.
-    /// </summary>
+    /// <summary>Today as year, month and day, for example <c>2026-10-31</c>.</summary>
     private static string Today() =>
-        DateTime.Now.ToString("ddd MMM dd HH:mm:ss 'GMT'zzz yyyy", CultureInfo.InvariantCulture);
+        DateOnly.FromDateTime(DateTime.Now).ToString("yyyy-MM-dd", CultureInfo.InvariantCulture);
 }

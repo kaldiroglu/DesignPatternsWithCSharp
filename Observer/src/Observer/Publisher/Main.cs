@@ -8,7 +8,7 @@ namespace dev.kaldiroglu.Observer.Publisher;
 /// Run it with
 /// <c>dotnet run --project src/Observer.Demo -- publisher</c>.
 /// </remarks>
-public static class Test
+public static class Main
 {
     public static void Run()
     {

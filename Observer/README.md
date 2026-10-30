@@ -96,7 +96,7 @@ ends the subscription.
 
 The port is faithful in behavior. The output of every runner entry that ports a Java `main`
 is byte for byte the output of that `main`. The output of `publisher` is the same apart from
-the date and time, which are the current ones. The whole runner prints the same under a
+the date, which is the current one. The whole runner prints the same under a
 Turkish and a Swedish locale. What had to change:
 
 - **Interfaces take the `I` prefix**: `IPriceListener`, `IObserver` (GoF's), `IPublication`, `ISubscriber`, `ITransactionListener`, `IBidListener`.
@@ -116,11 +116,7 @@ Turkish and a Swedish locale. What had to change:
 - **The abstract classes declare the interface members they leave open.** Java's
   `AbstractPublication` does not mention `publish`, and `AbstractSubscriber` does not
   mention `receive`. A C# abstract class must declare every member of its interface, so
-  both are declared `abstract`. `ListSubscribers` is `virtual`, because `FourFourTwo`
-  overrides it. Printing a subscriber shows its type name in C# and `Class@hash` in Java;
-  the demo never lists subscribers.
-- **`FourFourTwo`'s constructor is `protected internal`.** In Java, `protected` also opens
-  it to the package, and `Publisher` calls it from there.
+  both are declared `abstract`.
 - **`Problem.PriceFeed.Price()` stays a method.** Every call counts as a read. A debugger
   that shows property values would read the price, and change the count. The solution's
   `PriceFeed.Price`, which counts nothing, is a property.
@@ -138,13 +134,11 @@ Turkish and a Swedish locale. What had to change:
   `Auction.Bid`. No parameter name is passed, so the message is the same text.
 - **Number formats do not depend on the machine's locale.** The clocks format with the
   invariant culture; `String.format("%02d")` is `{0:00}`.
-- **The `main` methods became `Run()` methods** called by `Observer.Demo`. The
-  commented-out lines in the Java `Test` classes of `payment` and `publisher` are not
-  ported.
+- **The `main` methods became `Run()` methods** called by `Observer.Demo`.
 - **Names that clash, and how they are resolved.** The namespaces `Publisher`, `Auction`
   and `Inbox` each hold a class with the same name. Inside each namespace the plain name
   means the class, because a type in the current namespace wins. In `Observer.Demo` the
-  runner reaches them through aliases (`PublisherTest`, `AuctionMain`, `InboxMain`), and
+  runner reaches them through aliases (`PublisherMain`, `AuctionMain`, `InboxMain`), and
   the other `Main` and `Test` classes through `PriceStageOneMain`, `GofProblemMain`,
   `PaymentMain` and so on. The root
   namespace ends in `Observer`, but no type is named `Observer`: the interfaces are

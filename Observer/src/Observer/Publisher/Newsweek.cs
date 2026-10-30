@@ -9,10 +9,8 @@ public class Newsweek : AbstractPublication
     public override void Publish(string date)
     {
         issueDate = date;
-        using var iterator = subscribers.GetEnumerator();
-        while (iterator.MoveNext())
+        foreach (ISubscriber subscriber in subscribers.ToArray())
         {
-            ISubscriber subscriber = iterator.Current;
             subscriber.Receive(this);
         }
     }

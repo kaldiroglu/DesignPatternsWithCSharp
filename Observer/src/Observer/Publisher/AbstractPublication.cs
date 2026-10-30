@@ -32,10 +32,11 @@ public abstract class AbstractPublication : IPublication
     /// </summary>
     public abstract void Publish(string date);
 
-    public virtual void ListSubscribers()
+    public void ListSubscribers()
     {
-        using var iterator = subscribers.GetEnumerator();
-        while (iterator.MoveNext())
-            Console.WriteLine(iterator.Current);
+        foreach (ISubscriber subscriber in subscribers)
+        {
+            Console.WriteLine(subscriber.Name);
+        }
     }
 }

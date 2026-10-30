@@ -37,10 +37,10 @@ restores it in `finally`, so the project turns off xUnit's parallel run in `Asse
 | `Price/ProblemTests.cs` | 7 | 7 |
 | `Price/SolutionTests.cs` | 9 | 9 |
 | `Gof/ClockTimerTests.cs` | 7 | 7 |
-| `Publisher/PublisherTests.cs` | 3 | 3 |
+| `Publisher/PublisherTests.cs` | 4 | 4 |
 | `Payment/InvoiceTests.cs` | 5 | 5 (different content, see below) |
 | `KnownUsesTests.cs` | 3 | 3 (different content, see below) |
-| **Total** | **34** | **33** |
+| **Total** | **27** | **27** |
 
 ## Java tests not ported, or changed
 

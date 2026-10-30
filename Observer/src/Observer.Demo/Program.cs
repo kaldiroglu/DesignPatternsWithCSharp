@@ -11,7 +11,7 @@ using PriceTwoWaysMain = dev.kaldiroglu.Observer.Price.Solution.TwoWaysMain;
 using GofProblemMain = dev.kaldiroglu.Observer.Gof.Problem.Main;
 using GofSolutionMain = dev.kaldiroglu.Observer.Gof.Solution.Main;
 using PaymentMain = dev.kaldiroglu.Observer.Payment.Main;
-using PublisherTest = dev.kaldiroglu.Observer.Publisher.Test;
+using PublisherMain = dev.kaldiroglu.Observer.Publisher.Main;
 using AccountLogMain = dev.kaldiroglu.Observer.Hw.AccountLog.Main;
 using AuctionMain = dev.kaldiroglu.Observer.Hw.Auction.Main;
 using InboxMain = dev.kaldiroglu.Observer.Hw.Inbox.Main;
@@ -43,7 +43,7 @@ public static class Program
         ["price-event"] = ("A STOCK PRICE", PriceWithEvent),
         ["gof-problem"] = ("GOF'S CLOCK TIMER", GofProblemMain.Run),
         ["gof-solution"] = ("GOF'S CLOCK TIMER", GofSolutionMain.Run),
-        ["publisher"] = ("MAGAZINES AND SUBSCRIBERS", PublisherTest.Run),
+        ["publisher"] = ("MAGAZINES AND SUBSCRIBERS", PublisherMain.Run),
         ["payment"] = ("AN INVOICE WITH AN OBSERVABLE BASE CLASS", PaymentMain.Run),
         ["hw-accountlog"] = ("HOMEWORK", AccountLogMain.Run),
         ["hw-auction"] = ("HOMEWORK", AuctionMain.Run),
