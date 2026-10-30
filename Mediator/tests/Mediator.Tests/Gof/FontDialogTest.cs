@@ -9,6 +9,16 @@ using static dev.kaldiroglu.Mediator.Tests.Printed;
 /// <summary>GoF's font dialog, before and after the pattern.</summary>
 public class FontDialogTest
 {
+    /// <summary>The director holds each widget by its class, so a new widget is an edit to the director.</summary>
+    [Fact]
+    public void TheDirectorKnowsItsWidgets()
+    {
+        Assert.Equal(typeof(ListBox), typeof(FontDialogDirector).GetProperty("FontList")!.PropertyType);
+        Assert.Equal(typeof(EntryField), typeof(FontDialogDirector).GetProperty("FontName")!.PropertyType);
+        Assert.Equal(typeof(Button), typeof(FontDialogDirector).GetProperty("Ok")!.PropertyType);
+        Assert.Equal(typeof(Button), typeof(FontDialogDirector).GetProperty("Cancel")!.PropertyType);
+    }
+
     /// <summary>With a director: selecting a font fills the field and enables OK.</summary>
     [Fact]
     public void SelectingAFont()
