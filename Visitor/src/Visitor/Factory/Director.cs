@@ -2,9 +2,9 @@ namespace dev.kaldiroglu.Visitor.Factory;
 
 public class Director : Manager
 {
-    protected double bonus;
+    protected int bonus;
 
-    public Director(int no, string name, int year, string workingDepartment, string managingDepartment, double bonus)
+    public Director(int no, string name, int year, string workingDepartment, string managingDepartment, int bonus)
         : base(no, name, year, workingDepartment, managingDepartment)
     {
         this.bonus = bonus;
@@ -27,7 +27,7 @@ public class Director : Manager
         Console.WriteLine("Director makes a strategic plan for the company!");
     }
 
-    public override double CalculateSalary()
+    public override int CalculateSalary()
     {
         return base.CalculateSalary() + ManagementPayment + bonus;
     }

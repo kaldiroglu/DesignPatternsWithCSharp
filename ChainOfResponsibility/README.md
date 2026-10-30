@@ -125,7 +125,7 @@ same shape as the Java's, but not the same lines. What had to change:
   `GoldCallTaker`, `ConcreteHandler1`, `ConcreteHandler2`), the port writes `next!` or
   `successor!`: it fails in the same place the Java would. `AbstractHandler.help` starts as
   `null!`, because every concrete handler sets it in its constructor.
-- **`Math.random()` is `Random.Shared.NextDouble()`** in `CallCenter.Test`, with the same
+- **`Math.random()` is `Random.Shared.NextDouble()`** in `CallCenter.Main`, with the same
   thresholds.
 - **Number formats do not depend on the machine's locale.** Numbers that are printed are
   formatted with the invariant culture, and `Expense.Solution.SixExpensesMain` and
@@ -158,7 +158,7 @@ same shape as the Java's, but not the same lines. What had to change:
 
 ## Tests
 
-`tests/ChainOfResponsibility.Tests` holds 39 xUnit tests in 7 test classes. They are ported from the
+`tests/ChainOfResponsibility.Tests` holds 41 xUnit tests in 7 test classes. They are ported from the
 JUnit tests of the Java repository, one C# test class for each Java test class, with the
 same expected values, except where `Test.md` notes a change. `Test.md` lists what each
 class tests, and the Java tests that are not ported, with the reason.

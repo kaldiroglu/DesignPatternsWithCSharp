@@ -5,12 +5,12 @@ namespace dev.kaldiroglu.State.Tests.Door;
 
 using Pattern1Door = global::dev.kaldiroglu.State.Door.Pattern1.Door;
 using Pattern1State = global::dev.kaldiroglu.State.Door.Pattern1.IDoorState;
-using Pattern1Test = global::dev.kaldiroglu.State.Door.Pattern1.Test;
+using Pattern1Test = global::dev.kaldiroglu.State.Door.Pattern1.Main;
 using Pattern2AbstractDoor = global::dev.kaldiroglu.State.Door.Pattern2.AbstractDoor;
 using Pattern2Door = global::dev.kaldiroglu.State.Door.Pattern2.Door;
 using Pattern2Manager = global::dev.kaldiroglu.State.Door.Pattern2.DoorStateManager;
 using Pattern2State = global::dev.kaldiroglu.State.Door.Pattern2.IDoorState;
-using Pattern2Test = global::dev.kaldiroglu.State.Door.Pattern2.Test;
+using Pattern2Test = global::dev.kaldiroglu.State.Door.Pattern2.Main;
 using ProblemDoor = global::dev.kaldiroglu.State.Door.Problem.Door;
 
 /// <summary>
@@ -68,6 +68,11 @@ public class DoorTests
         Assert.True(door.IsOpen);
         door.Close();
         Assert.False(door.IsOpen);
+
+        var managerMethods = typeof(Pattern2Manager)
+            .GetMethods(BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly)
+            .Select(m => m.Name);
+        Assert.Equal(new[] { "Next" }, managerMethods);
 
         var managerFields = typeof(Pattern2Manager).GetFields(InstanceFields).Select(f => f.Name).ToList();
         Assert.Contains("openState", managerFields);

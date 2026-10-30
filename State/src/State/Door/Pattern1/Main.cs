@@ -1,4 +1,4 @@
-namespace dev.kaldiroglu.State.Door.Pattern2;
+namespace dev.kaldiroglu.State.Door.Pattern1;
 
 /// <summary>
 /// Opens and closes the door eight times and prints whether it is open after each step.
@@ -7,7 +7,7 @@ namespace dev.kaldiroglu.State.Door.Pattern2;
 /// in lower case.
 /// </para>
 /// </summary>
-public static class Test
+public static class Main
 {
     public static void Run()
     {

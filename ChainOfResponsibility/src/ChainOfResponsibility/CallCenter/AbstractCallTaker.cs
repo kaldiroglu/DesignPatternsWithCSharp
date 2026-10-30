@@ -10,10 +10,15 @@ public abstract class AbstractCallTaker : ICallTaker
         this.next = next;
     }
 
-    public ICallTaker? Next
+    public ICallTaker? Next => next;
+
+    /// <summary>Gives the customer to the next desk. A desk with no next desk tells the customer so.</summary>
+    protected void PassOn(ICustomer customer)
     {
-        get => next;
-        set => next = value;
+        if (next != null)
+            next.Answer(customer);
+        else
+            customer.ReceiveAnswer("No desk can answer you.");
     }
 
     /// <summary>

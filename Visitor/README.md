@@ -181,7 +181,7 @@ What had to change:
 
 ## Tests
 
-`tests/Visitor.Tests` holds 50 xUnit tests, ported from the Java JUnit tests: one C# test
+`tests/Visitor.Tests` holds 52 xUnit tests, ported from the Java JUnit tests: one C# test
 class for each Java test class. They check every figure the deck quotes for the checkout,
 GoF's compiler, the file and health-check examples, the rule language and the expression
 homework. Where C# differs from Java (no sealed interface, `is` in place of `instanceof`,

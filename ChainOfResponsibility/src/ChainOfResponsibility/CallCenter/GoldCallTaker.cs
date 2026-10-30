@@ -16,7 +16,7 @@ public class GoldCallTaker : AbstractCallTaker
         }
         else
         {
-            next!.Answer(customer);
+            PassOn(customer);
         }
         Console.WriteLine();
     }

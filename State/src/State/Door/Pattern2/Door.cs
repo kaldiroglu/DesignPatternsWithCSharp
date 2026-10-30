@@ -13,7 +13,6 @@ public class Door
     public Door()
     {
         dsm = new DoorStateManager(this);
-        dsm.CloseDoor();
     }
 
     public void Open()

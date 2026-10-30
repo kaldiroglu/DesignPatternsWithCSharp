@@ -8,7 +8,7 @@ namespace dev.kaldiroglu.Visitor.File.Pattern1;
 /// The output changes from run to run. Run it with
 /// <c>dotnet run --project src/Visitor.Demo -- file-pattern1</c>.
 /// </remarks>
-public static class Test
+public static class Main
 {
     private static readonly List<File> files = new();
 

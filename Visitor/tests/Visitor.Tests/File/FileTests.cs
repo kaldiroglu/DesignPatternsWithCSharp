@@ -26,6 +26,18 @@ public class FileTests
             .Select(m => m.Name);
 
     [Fact]
+    public void ASecondVisitor()
+    {
+        Assert.Equal(new[]
+        {
+            "", "Opening the file: Notes.txt", "Anyone may read the file: Notes.txt",
+            "Reading the file: Notes.txt", "Closing the file: Notes.txt",
+            "", "Pay.xml is opened.", "Only an admin may read the file: Pay.xml", "Pay.xml is closed."
+        }, Printed.By(F.AccessMain.Run));
+        Assert.True(new F.XMLFile("Pay.xml").Accept(new F.AccessVisitor(true)));
+    }
+
+    [Fact]
     public void AcceptReturnsTheVisitorsAnswer()
     {
         F.File text = new F.TextFile("a.txt");

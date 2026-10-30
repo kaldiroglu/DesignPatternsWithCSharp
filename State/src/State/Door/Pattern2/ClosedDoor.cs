@@ -5,7 +5,7 @@ public class ClosedDoor(DoorStateManager dsm) : AbstractDoor(false, dsm)
 {
     public override void Open()
     {
-        dsm.OpenDoor();
+        dsm.Next(this);
     }
 
     public override void Close()

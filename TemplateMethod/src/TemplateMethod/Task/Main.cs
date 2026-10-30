@@ -6,13 +6,13 @@ namespace dev.kaldiroglu.TemplateMethod.Task;
 /// <see cref="Run()"/> takes about ten seconds. The demo runner calls <see cref="Run(int)"/>
 /// with an interval of 0, which prints the same lines without the waits.
 /// </remarks>
-public static class Test
+public static class Main
 {
     public static void Run() => Run(1);
 
     public static void Run(int interval)
     {
-        Task task = new Print("Printing", interval, 10);
+        Task task = new Print(interval, 10);
         task.Run();
     }
 }

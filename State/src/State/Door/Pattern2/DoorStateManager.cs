@@ -2,7 +2,7 @@ namespace dev.kaldiroglu.State.Door.Pattern2;
 
 /// <summary>
 /// The transitions in one central place. Only the manager knows all the states; a state asks
-/// the manager to open or close the door.
+/// the manager for the next state, and does not name it.
 /// </summary>
 public class DoorStateManager
 {
@@ -16,20 +16,12 @@ public class DoorStateManager
         this.door = door;
         openState = new OpenDoor(this);
         closedState = new ClosedDoor(this);
+        door.ChangeState(closedState);
     }
 
-    public void ChangeState(IDoorState newState)
+    /// <summary>The one place that says which state follows which.</summary>
+    public void Next(IDoorState current)
     {
-        door.ChangeState(newState);
-    }
-
-    public void CloseDoor()
-    {
-        ChangeState(closedState);
-    }
-
-    public void OpenDoor()
-    {
-        ChangeState(openState);
+        door.ChangeState(current == openState ? closedState : openState);
     }
 }

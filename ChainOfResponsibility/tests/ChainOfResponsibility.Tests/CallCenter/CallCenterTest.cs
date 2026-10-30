@@ -6,7 +6,7 @@ using static dev.kaldiroglu.ChainOfResponsibility.Tests.Printed;
 
 /// <summary>
 /// The call center: standard, then gold, then VIP. The chain is built here as
-/// Test.CreateCallTakers builds it, without the random customers.
+/// Main.CreateCallTakers builds it, without the random customers.
 /// </summary>
 public class CallCenterTest
 {
@@ -60,6 +60,23 @@ public class CallCenterTest
             "VipCallTaker received a customer.",
             "Answer: Here is your VIP answer!"
         }, DesksAndAnswers(new VipCustomer()));
+    }
+
+
+    /// <summary>The order of the desks does not matter: with the VIP desk first, a gold customer still reaches gold.</summary>
+    [Fact]
+    public void TheOrderDoesNotMatter()
+    {
+        ICallTaker first = new VipCallTaker(new StandardCallTaker(new GoldCallTaker(null)));
+        Assert.Contains("Answer: Here is your GOLD answer!", By(() => first.Answer(new GoldCustomer())));
+    }
+
+    /// <summary>A customer no desk serves reaches the end of the chain and is told so, with no exception.</summary>
+    [Fact]
+    public void NoDeskCanAnswer()
+    {
+        ICallTaker first = new StandardCallTaker(new GoldCallTaker(null));
+        Assert.Contains("Answer: No desk can answer you.", By(() => first.Answer(new VipCustomer())));
     }
 
     /// <summary>The VIP desk is the end of the chain and has no next desk.</summary>

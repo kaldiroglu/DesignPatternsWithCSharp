@@ -9,7 +9,7 @@ using GofSolutionMain = dev.kaldiroglu.ChainOfResponsibility.Gof.Solution.Main;
 using MaintenanceMain = dev.kaldiroglu.ChainOfResponsibility.Hw.Maintenance.Main;
 using MiddlewareMain = dev.kaldiroglu.ChainOfResponsibility.Hw.Middleware.Main;
 using CashDispenserMain = dev.kaldiroglu.ChainOfResponsibility.Hw.CashDispenser.Main;
-using CallCenterTest = dev.kaldiroglu.ChainOfResponsibility.CallCenter.Test;
+using CallCenterMain = dev.kaldiroglu.ChainOfResponsibility.CallCenter.Main;
 
 namespace dev.kaldiroglu.ChainOfResponsibility.Demo;
 
@@ -38,7 +38,7 @@ public static class Program
         ["hw-maintenance"] = ("HOMEWORK", MaintenanceMain.Run),
         ["hw-middleware"] = ("HOMEWORK", MiddlewareMain.Run),
         ["hw-cashdispenser"] = ("HOMEWORK", CashDispenserMain.Run),
-        ["callcenter"] = ("A CALL CENTER", CallCenterTest.Run),
+        ["callcenter"] = ("A CALL CENTER", CallCenterMain.Run),
     };
 
     public static void Main(string[] args)

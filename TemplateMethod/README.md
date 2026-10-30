@@ -86,9 +86,9 @@ output of the Java `main` method it ports, with one exception: the last line of
 
 - **`final` became "not `virtual`".** See the section above. Each template method's doc
   comment says this where the Java one says `final`.
-- **The task demo does not wait.** Java's `Test` runs a print task ten times with a
-  one-second interval: nine waits, about nine seconds. `Task.Test.Run()` does the same; the
-  runner calls `Task.Test.Run(interval: 0)` instead, which prints the same lines without the
+- **The task demo does not wait.** Java's `Main` runs a print task ten times with a
+  one-second interval: nine waits, about nine seconds. `Task.Main.Run()` does the same; the
+  runner calls `Task.Main.Run(interval: 0)` instead, which prints the same lines without the
   waits. The `Run(int)` overload exists only for that. `Task.Run()` itself waits
   `Interval` seconds only between repetitions, as the Java does.
 - **Fields became properties.** The Java protected fields `name`, `interval` and

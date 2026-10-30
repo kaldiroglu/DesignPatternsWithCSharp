@@ -8,14 +8,14 @@ namespace dev.kaldiroglu.ChainOfResponsibility.CallCenter;
 /// It chooses customers at random, so the output changes from run to run. Run it with
 /// <c>dotnet run --project src/ChainOfResponsibility.Demo -- callcenter</c>.
 /// </remarks>
-public class Test
+public class Main
 {
     private ICallTaker? first;
     private List<ICustomer> customers = [];
 
     public static void Run()
     {
-        Test test = new Test();
+        Main test = new Main();
         test.CreateCallTakers();
         test.CreateCustomers(5);
         test.StartTakingCalls();

@@ -32,7 +32,7 @@ Helpers in the test root:
 
 ### The slow test
 
-`TaskTests.TheClientPrintsTenTimesWithNineWaits` runs `Task.Test.Run()`: a print task ten
+`TaskTests.TheClientPrintsTenTimesWithNineWaits` runs `Task.Main.Run()`: a print task ten
 times, one second apart. It checks that the run takes at least 9,000 ms and less than
 10,000 ms. It is the only slow test; the whole run takes about ten seconds.
 

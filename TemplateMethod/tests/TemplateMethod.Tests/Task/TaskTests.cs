@@ -8,7 +8,7 @@ using TaskBase = global::dev.kaldiroglu.TemplateMethod.Task.Task;
 using Fax = global::dev.kaldiroglu.TemplateMethod.Task.Fax;
 using Print = global::dev.kaldiroglu.TemplateMethod.Task.Print;
 using Scan = global::dev.kaldiroglu.TemplateMethod.Task.Scan;
-using Client = global::dev.kaldiroglu.TemplateMethod.Task.Test;
+using Client = global::dev.kaldiroglu.TemplateMethod.Task.Main;
 
 /// <summary>
 /// The repeated task. The Part 3 notes say the client runs a print task ten times, one
@@ -42,7 +42,7 @@ public class TaskTests
     [Fact]
     public void TheOrderOfTheSteps()
     {
-        List<string> lines = Printed.By(() => new Scan("Scanning", 0, 2).Run())
+        List<string> lines = Printed.By(() => new Scan(0, 2).Run())
             .Where(line => !string.IsNullOrWhiteSpace(line))
             .ToList();
 
@@ -71,7 +71,7 @@ public class TaskTests
         var worker = new Thread(() =>
         {
             Thread.CurrentThread.Interrupt();
-            lines = Printed.By(() => new Fax("Faxing", 1, 3).Run());
+            lines = Printed.By(() => new Fax(1, 3).Run());
             try
             {
                 Thread.Sleep(0);
@@ -103,13 +103,13 @@ public class TaskTests
     }
 
     /// <summary>A task whose step always throws.</summary>
-    private sealed class FailingTask() : TaskBase("Failing", 0, 3)
+    private sealed class FailingTask() : TaskBase(0, 3)
     {
-        public override void DoTask() => throw new InvalidOperationException("the device is off");
+        protected override void DoTask() => throw new InvalidOperationException("the device is off");
     }
 
     /// <summary>
-    /// Run is final, DoTask is the only abstract step, and the four hooks are public.
+    /// Run is final, DoTask is the only abstract step, and the four hooks are protected.
     /// </summary>
     [Fact]
     public void TheKindsOfMethod()
@@ -126,8 +126,8 @@ public class TaskTests
 
         foreach (string hook in new[] { "Prepare", "Before", "After", "Clean" })
         {
-            var method = typeof(TaskBase).GetMethod(hook, Type.EmptyTypes)!;
-            Assert.True(method.IsPublic, hook);
+            var method = typeof(TaskBase).GetMethod(hook, BindingFlags.Instance | BindingFlags.NonPublic)!;
+            Assert.True(method.IsFamily, hook);
             Assert.False(method.IsAbstract, hook);
         }
     }

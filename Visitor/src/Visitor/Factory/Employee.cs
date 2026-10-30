@@ -25,7 +25,7 @@ public class Employee
         Console.WriteLine("Employee is working!");
     }
 
-    public virtual double CalculateSalary()
+    public virtual int CalculateSalary()
     {
         return Year * BaseSalary;
     }

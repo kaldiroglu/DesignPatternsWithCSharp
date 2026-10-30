@@ -8,47 +8,44 @@ namespace dev.kaldiroglu.TemplateMethod.Task;
 /// <see cref="Run"/> is the template method. It is a public method without <c>virtual</c>,
 /// so no subclass can override it. <see cref="DoTask"/> is abstract. <see cref="Prepare"/>,
 /// <see cref="Before"/>, <see cref="After"/> and
-/// <see cref="Clean"/> are hooks with a default: <c>virtual</c>, and public.
+/// <see cref="Clean"/> are hooks with a default: <c>virtual</c>, and protected.
 /// </para>
 /// </summary>
 public abstract class Task
 {
-    protected string Name { get; set; }
-
     /// <summary>The wait after each repetition, in seconds.</summary>
     protected int Interval { get; set; }
 
     /// <summary>How many times the task runs.</summary>
     protected int Repetition { get; set; }
 
-    protected Task(string name, int interval, int repetition)
+    protected Task(int interval, int repetition)
     {
-        Name = name;
         Interval = interval;
         Repetition = repetition;
     }
 
-    public virtual void Prepare()
+    protected virtual void Prepare()
     {
         Console.WriteLine("*** in prepare() ***");
     }
 
-    public virtual void Clean()
+    protected virtual void Clean()
     {
         Console.WriteLine("*** in clean() ***");
     }
 
-    public virtual void Before()
+    protected virtual void Before()
     {
         Console.WriteLine("\n- in before() -");
     }
 
-    public virtual void After()
+    protected virtual void After()
     {
         Console.WriteLine("- in after() -\n");
     }
 
-    public abstract void DoTask();
+    protected abstract void DoTask();
 
     /// <summary>The template method. Not <c>virtual</c>, so no subclass can override it.</summary>
     public void Run()

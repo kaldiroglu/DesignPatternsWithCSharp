@@ -1,9 +1,9 @@
 namespace dev.kaldiroglu.TemplateMethod.Task;
 
 /// <summary>A <b>ConcreteClass</b>: writes <c>DoTask()</c> only.</summary>
-public class Fax(string name, int interval, int repetition) : Task(name, interval, repetition)
+public class Fax(int interval, int repetition) : Task(interval, repetition)
 {
-    public override void DoTask()
+    protected override void DoTask()
     {
         Console.WriteLine("I'm faxing!");
     }

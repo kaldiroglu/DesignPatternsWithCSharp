@@ -23,7 +23,7 @@ public class Manager : Employee
         Console.WriteLine("Manager manages department: " + departmentManaged);
     }
 
-    public override double CalculateSalary()
+    public override int CalculateSalary()
     {
         return base.CalculateSalary() + ManagementPayment;
     }

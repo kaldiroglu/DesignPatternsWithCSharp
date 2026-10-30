@@ -8,7 +8,7 @@ namespace dev.kaldiroglu.Visitor.Factory;
 /// output changes from run to run. Run it with
 /// <c>dotnet run --project src/Visitor.Demo -- factory</c>.
 /// </remarks>
-public static class Test
+public static class Main
 {
     public static void Run()
     {

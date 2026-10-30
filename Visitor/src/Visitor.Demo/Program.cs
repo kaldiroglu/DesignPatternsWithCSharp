@@ -12,10 +12,11 @@ using GofSolutionMain = dev.kaldiroglu.Visitor.Gof.Solution.Main;
 using AccountPrintMain = dev.kaldiroglu.Visitor.Hw.AccountPrint.Main;
 using FileTreeMain = dev.kaldiroglu.Visitor.Hw.FileTree.Main;
 using ExpressionMain = dev.kaldiroglu.Visitor.Hw.Expression.Main;
-using FileProblem1Test = dev.kaldiroglu.Visitor.File.Problem1.Test;
-using FileProblem2Test = dev.kaldiroglu.Visitor.File.Problem2.Test;
-using FilePattern1Test = dev.kaldiroglu.Visitor.File.Pattern1.Test;
-using FactoryTest = dev.kaldiroglu.Visitor.Factory.Test;
+using FileProblem1Test = dev.kaldiroglu.Visitor.File.Problem1.Main;
+using FileProblem2Test = dev.kaldiroglu.Visitor.File.Problem2.Main;
+using FilePattern1Test = dev.kaldiroglu.Visitor.File.Pattern1.Main;
+using FileAccessMain = dev.kaldiroglu.Visitor.File.Pattern1.AccessMain;
+using FactoryTest = dev.kaldiroglu.Visitor.Factory.Main;
 using InterpreterMain = dev.kaldiroglu.Visitor.Interpreter.Main;
 
 namespace dev.kaldiroglu.Visitor.Demo;
@@ -46,6 +47,7 @@ public static class Program
         ["file-problem1"] = ("TEXT FILES AND XML FILES", FileProblem1Test.Run),
         ["file-problem2"] = ("TEXT FILES AND XML FILES", FileProblem2Test.Run),
         ["file-pattern1"] = ("TEXT FILES AND XML FILES", FilePattern1Test.Run),
+        ["file-access"] = ("TEXT FILES AND XML FILES", FileAccessMain.Run),
         ["factory"] = ("A HEALTH CHECK IN A COMPANY", FactoryTest.Run),
         ["interpreter"] = ("INTERPRETER: A RULE LANGUAGE", InterpreterMain.Run),
         ["hw-accountprint"] = ("HOMEWORK", AccountPrintMain.Run),

@@ -10,6 +10,14 @@ namespace dev.kaldiroglu.Visitor.Tests.Factory;
 public class HealthVisitorTests
 {
     [Fact]
+    public void Salaries()
+    {
+        Assert.Equal(3000, new F.Employee(1, "Ali", 6, "Sales").CalculateSalary());
+        Assert.Equal(10000, new F.Manager(4, "Metin", 14, "Production", "Production").CalculateSalary());
+        Assert.Equal(17500, new F.Director(5, "Zeynep", 14, "Management", "Management", 4500).CalculateSalary());
+    }
+
+    [Fact]
     public void MoreThanFiveYears()
     {
         var visitor = new F.HealthVisitor();
