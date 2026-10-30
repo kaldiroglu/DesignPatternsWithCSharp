@@ -65,8 +65,15 @@ namespace dev.kaldiroglu.Observer.Tests.Price
             Assert.Equal(new[] { 100, 100, 102 }, chart.Points);
             // The feed holds only numbers.
             Assert.All(Printed.DeclaredFieldTypes(typeof(PriceFeed)), t => Assert.Equal(typeof(int), t));
-            // A new reader is an edit to PollingReaders.
-            var fieldTypes = Printed.DeclaredFieldTypes(typeof(PollingReaders));
+        }
+
+        // Stages two and three: the reader classes hold every screen, so a new screen is an edit to them.
+        [Theory]
+        [InlineData(typeof(PollingReaders))]
+        [InlineData(typeof(ChangeOnlyReaders))]
+        public void ANewScreenIsAnEditToTheReaders(Type readers)
+        {
+            var fieldTypes = Printed.DeclaredFieldTypes(readers);
             Assert.Contains(typeof(Chart), fieldTypes);
             Assert.Contains(typeof(Ticker), fieldTypes);
             Assert.Contains(typeof(PriceAlert), fieldTypes);
