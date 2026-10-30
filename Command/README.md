@@ -27,7 +27,7 @@ and lets a bank queue the day's standing orders for the night run.
 | `Command.Account` | A bank teller with an Undo button. `Domain` is the account that does banking and nothing else. `Problem` is three naive stages — the account remembers its last move, the account keeps a history, the history moves into a teller — and the third breaks the moment transfers are added. `Solution` makes each transaction an object: `Deposit`, `Withdraw`, `CloseOut`, a `Transfer` made of the first two, a `Teller` that holds them, and `StandingOrders` that queue them for the night. |
 | `Command.Gof` | GoF's own example (Design Patterns, pp. 233–235): menu items, documents and an application. `Problem.MenuItem` branches on its own label; `Solution` gives it an `ICommand`, with `OpenCommand`, `PasteCommand`, `MacroCommand` and `SimpleCommand`. |
 | `Command.Lender` | A classroom example in three steps: a lender bound to one borrower class, then to a borrower interface, then to a command that a borrower and a tax office both implement. |
-| `Command.Ac` | A classroom example: a wall switch that turns an air conditioner on and off and drives its heater and cooler through one command object per button. |
+| `Command.Ac` | A classroom example: a wall switch that turns an air conditioner on and off and drives its heater and cooler. Each press makes one command that holds its temperature, and runs it. |
 | `Command.Hw` | The three homework exercises: a television remote with undo (`Remote`), a restaurant's order rail (`Kitchen`), and an editor that records a macro and replays it on another editor (`Macro`). |
 
 ### Things worth stopping on

@@ -43,12 +43,14 @@ public class AirConditioner
     {
         if (_isOn)
         {
-            _targetTemperature = targetTemperature.Value;
-            if (_targetTemperature > _currentTemperature)
+            if (targetTemperature.Value > _currentTemperature)
             {
+                _targetTemperature = targetTemperature.Value;
                 _currentTemperature = _targetTemperature;
                 Console.WriteLine("Heater is turned on. Target temperature is: " + targetTemperature.Value);
             }
+            else
+                Console.WriteLine("The heater is not needed: the room is at " + _currentTemperature + ".");
         }
         else
             Console.WriteLine("AirConditioner is off, please first turn it on!");
@@ -58,12 +60,14 @@ public class AirConditioner
     {
         if (_isOn)
         {
-            _targetTemperature = targetTemperature.Value;
-            if (_targetTemperature < _currentTemperature)
+            if (targetTemperature.Value < _currentTemperature)
             {
+                _targetTemperature = targetTemperature.Value;
                 _currentTemperature = _targetTemperature;
                 Console.WriteLine("Cooler is turned on. Target temperature is: " + targetTemperature.Value);
             }
+            else
+                Console.WriteLine("The cooler is not needed: the room is at " + _currentTemperature + ".");
         }
         else
             Console.WriteLine("AirConditioner is off, please first turn it on!");

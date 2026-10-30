@@ -9,18 +9,18 @@ public class TurnOffCommand : ICommand
         _ac = ac;
     }
 
-    public void Execute(Temperature? temperature)
+    public void Execute()
     {
         _ac.TurnOff();
     }
 
     public void Undo()
     {
-        // TODO: not implemented
+        // Left open: an exercise writes it.
     }
 
     public void Redo()
     {
-        // TODO: not implemented
+        // Left open: an exercise writes it.
     }
 }

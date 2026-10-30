@@ -3,24 +3,26 @@ namespace dev.kaldiroglu.Command.Ac;
 public class CoolCommand : ICommand
 {
     private readonly AirConditioner _ac;
+    private readonly Temperature _temperature;
 
-    public CoolCommand(AirConditioner ac)
+    public CoolCommand(AirConditioner ac, Temperature temperature)
     {
         _ac = ac;
+        _temperature = temperature;
     }
 
-    public void Execute(Temperature? temperature)
+    public void Execute()
     {
-        _ac.TurnOnCooler(temperature!);
+        _ac.TurnOnCooler(_temperature);
     }
 
     public void Undo()
     {
-        // TODO: not implemented
+        // Left open: an exercise writes it.
     }
 
     public void Redo()
     {
-        // TODO: not implemented
+        // Left open: an exercise writes it.
     }
 }

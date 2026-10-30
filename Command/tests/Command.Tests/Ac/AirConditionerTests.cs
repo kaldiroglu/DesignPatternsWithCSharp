@@ -1,6 +1,5 @@
 namespace dev.kaldiroglu.Command.Tests.Ac;
 
-using System.Reflection;
 using dev.kaldiroglu.Command.Ac;
 using Xunit;
 
@@ -84,12 +83,14 @@ public class AirConditionerTests
         Printed.By(() => acSwitch.TurnOn(22));
         var lines = Printed.By(() =>
         {
-            acSwitch.TurnOnCooler(25);   // warmer than the room: ignored
+            acSwitch.TurnOnCooler(25);   // warmer than the room
             acSwitch.TurnOnCooler(18);
-            acSwitch.TurnOnHeater(15);   // colder than the room: ignored
+            acSwitch.TurnOnHeater(15);   // colder than the room
             acSwitch.TurnOnHeater(23);
         });
-        Assert.Equal(["Cooler is turned on. Target temperature is: 18",
+        Assert.Equal(["The cooler is not needed: the room is at 22.",
+            "Cooler is turned on. Target temperature is: 18",
+            "The heater is not needed: the room is at 18.",
             "Heater is turned on. Target temperature is: 23"], lines);
     }
 
@@ -99,10 +100,10 @@ public class AirConditionerTests
         var ac = new AirConditioner(new Temperature(22));
         var lines = Printed.By(() =>
         {
-            new TurnOnCommand(ac).Execute(new Temperature(22));
-            new HeatCommand(ac).Execute(new Temperature(24));
-            new CoolCommand(ac).Execute(new Temperature(19));
-            new TurnOffCommand(ac).Execute(null);
+            new TurnOnCommand(ac, new Temperature(22)).Execute();
+            new HeatCommand(ac, new Temperature(24)).Execute();
+            new CoolCommand(ac, new Temperature(19)).Execute();
+            new TurnOffCommand(ac).Execute();
         });
         Assert.Equal(["", "Fan is turned on. Target temperature is: 22",
             "Heater is turned on. Target temperature is: 24",
@@ -110,14 +111,10 @@ public class AirConditionerTests
             "AirConditioner is turned off.", ""], lines);
     }
 
-    [Fact(DisplayName = "the switch holds its four requests as Command objects")]
-    public void TheSwitchHoldsCommands()
+    [Fact(DisplayName = "execute takes no argument: a command holds what it needs")]
+    public void ACommandIsComplete()
     {
-        var commands = typeof(ACSwitch)
-            .GetFields(BindingFlags.Instance | BindingFlags.Static | BindingFlags.Public
-                       | BindingFlags.NonPublic | BindingFlags.DeclaredOnly)
-            .Count(f => f.FieldType == typeof(ICommand));
-        Assert.Equal(4, commands);
+        Assert.Empty(typeof(ICommand).GetMethod(nameof(ICommand.Execute))!.GetParameters());
         // Creating the switch prints nothing.
         Assert.Empty(Printed.By(() => new ACSwitch()));
     }
@@ -127,7 +124,8 @@ public class AirConditionerTests
     {
         var ac = new AirConditioner(new Temperature(22));
         List<ICommand> all =
-            [new TurnOnCommand(ac), new TurnOffCommand(ac), new HeatCommand(ac), new CoolCommand(ac)];
+            [new TurnOnCommand(ac, new Temperature(22)), new TurnOffCommand(ac),
+             new HeatCommand(ac, new Temperature(24)), new CoolCommand(ac, new Temperature(19))];
         var lines = Printed.By(() =>
         {
             foreach (var command in all)

@@ -1,7 +1,7 @@
 namespace dev.kaldiroglu.Command.Ac.Lambda;
 
 /// <summary>
-/// The same steps as <c>Ac.Person</c>, through the switch whose requests are functions.
+/// The same steps as <c>Ac.Main</c>, through the switch whose requests are functions.
 /// Run it with <c>dotnet run --project src/Command.Demo -- ac-lambda</c>.
 /// </summary>
 public static class Main

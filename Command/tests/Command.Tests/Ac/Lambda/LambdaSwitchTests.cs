@@ -17,10 +17,10 @@ public class LambdaSwitchTests
         Assert.DoesNotContain(typeof(dev.kaldiroglu.Command.Ac.ICommand), types);
     }
 
-    [Fact(DisplayName = "the steps of Person print the same lines through either switch")]
+    [Fact(DisplayName = "the steps of Main print the same lines through either switch")]
     public void SameOutputAsTheCommandSwitch()
     {
-        Assert.Equal(Printed.By(dev.kaldiroglu.Command.Ac.Person.Run), Printed.By(Main.Run));
+        Assert.Equal(Printed.By(dev.kaldiroglu.Command.Ac.Main.Run), Printed.By(Main.Run));
     }
 
     [Fact(DisplayName = "turning on below the room temperature starts the cooler")]

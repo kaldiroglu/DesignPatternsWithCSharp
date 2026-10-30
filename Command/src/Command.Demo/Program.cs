@@ -12,7 +12,7 @@ using LenderProblem2 = dev.kaldiroglu.Command.Lender.Problem2.Main;
 using LenderPattern = dev.kaldiroglu.Command.Lender.Pattern.Main;
 using LenderLambda = dev.kaldiroglu.Command.Lender.Lambda.Main;
 using AcLambda = dev.kaldiroglu.Command.Ac.Lambda.Main;
-using Person = dev.kaldiroglu.Command.Ac.Person;
+using AcMain = dev.kaldiroglu.Command.Ac.Main;
 using HwKitchen = dev.kaldiroglu.Command.Hw.Kitchen.Main;
 using HwMacro = dev.kaldiroglu.Command.Hw.Macro.Main;
 using HwRemote = dev.kaldiroglu.Command.Hw.Remote.Main;
@@ -51,7 +51,7 @@ public static class Program
         ["lender-problem2"] = ("THE LENDER", LenderProblem2.Run),
         ["lender-pattern"] = ("THE LENDER", LenderPattern.Run),
         ["lender-lambda"] = ("THE LENDER", LenderLambda.Run),
-        ["ac"] = ("THE AIR CONDITIONER", Person.Run),
+        ["ac"] = ("THE AIR CONDITIONER", AcMain.Run),
         ["ac-lambda"] = ("THE AIR CONDITIONER", AcLambda.Run),
         ["hw-remote"] = ("HOMEWORK", HwRemote.Run),
         ["hw-kitchen"] = ("HOMEWORK", HwKitchen.Run),

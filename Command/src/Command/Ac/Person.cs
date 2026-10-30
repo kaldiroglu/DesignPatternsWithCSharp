@@ -9,17 +9,6 @@ public class Person
         _acSwitch = acSwitch;
     }
 
-    /// <summary>
-    /// Run it with
-    /// <c>dotnet run --project src/Command.Demo -- ac</c>.
-    /// </summary>
-    public static void Run()
-    {
-        var acSwitch = new ACSwitch();
-        var person = new Person(acSwitch);
-        person.Action();
-    }
-
     public void Action()
     {
         var temperature = 20;
