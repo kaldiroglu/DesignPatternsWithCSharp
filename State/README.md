@@ -29,7 +29,6 @@ of failed deliveries, so that a new shipment starts again at zero.
 | `State.Account` | A bank account that is `Active`, `Overdrawn`, `Frozen` or `Closed`. |
 | `State.Elevator` | An elevator that is stopped, going up or going down. The caller sets the state. |
 | `State.Person` | A person who says hello and goodbye in a happy or a sad way. |
-| `State.Pattern` | An earlier outline of GoF's TCP example. Its methods are empty, as in the Java, so `Main` only names the three state classes. |
 | `State.Hw` | The three homework exercises: an air conditioner whose states decide the next state (`AirConditioner`), a document whose transitions are one central table (`Document`), and a vending machine with a coin slot (`Vending`). |
 
 ### Things worth stopping on
@@ -73,7 +72,7 @@ implements the interface member.
 ## Architecture
 
 - **One class library, `State`**, holding every example as nested namespaces — `Order`,
-  `Gof`, `Door`, `Account`, `Elevator`, `Person`, `Pattern` and `Hw`. Sources mirror
+  `Gof`, `Door`, `Account`, `Elevator`, `Person` and `Hw`. Sources mirror
   namespaces: `src/State/Order/Solution/…`.
 - **A console runner, `State.Demo`**, that runs the Java original's `main` methods — the
   order's problem and solution, GoF's connection before and after the pattern, the short
@@ -86,10 +85,8 @@ implements the interface member.
 ## Differences from the Java original
 
 The port is faithful in behavior. The output of every runner entry is byte for byte the
-output of the Java `main` method it ports, with two exceptions that come from C# names.
-`gof-solution` prints `State after ActiveOpen`, where the Java prints `activeOpen`, and
-`pattern` prints `TCPClosed implements ITCPState`, where the Java prints `TCPState`, because
-C# interfaces take the `I` prefix. The whole runner prints the same under a Turkish and a
+output of the Java `main` method it ports, with one exception that comes from C# names.
+`gof-solution` prints `State after ActiveOpen`, where the Java prints `activeOpen`. The whole runner prints the same under a Turkish and a
 Swedish locale. What had to change:
 
 - **Interfaces take the `I` prefix**: `IOrderState`, `IDoorState` (in both door patterns),
@@ -206,7 +203,7 @@ cd ~/"Development/NET/Design Patterns/Design Patterns with CSharp/State"
 The runner accepts: `order-problem-stage-one`, `order-problem-stage-two`,
 `order-problem-stage-three`, `order-problem-second-shipment`, `order-second-shipment`,
 `order-refused-request`, `gof-problem`, `gof-solution`, `gof`,
-`pattern`, `door-problem`, `door-pattern1`, `door-pattern2`, `account`, `elevator`,
+`door-problem`, `door-pattern1`, `door-pattern2`, `account`, `elevator`,
 `person`, `hw-airconditioner`, `hw-document`, `hw-vending`.
 
 Run the tests with `~/.dotnet/dotnet test State.sln`.

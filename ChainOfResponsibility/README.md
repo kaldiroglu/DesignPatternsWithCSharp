@@ -31,7 +31,6 @@ say so.
 | `ChainOfResponsibility.Gof` | GoF's own example (Design Patterns, pp. 223–232): context-sensitive help. `Problem.HelpDesk` knows every control by name. `Solution` has `HelpHandler`, `Widget`, `Button`, `Dialog` and `Application`; each widget's parent is its successor. |
 | `ChainOfResponsibility.Hw` | The three homework exercises: a maintenance queue that hands requests to developers (`Maintenance`), a middleware chain where every link may act (`Middleware`), and a cash machine where each slot pays part of the amount (`CashDispenser`). |
 | `ChainOfResponsibility.CallCenter` | Customers call a call center. Every call reaches the standard desk first, then the gold desk, then the VIP desk. `Test` creates random customers. |
-| `ChainOfResponsibility.Pattern` | Three handlers give help for three contexts: more specific, specific and generic. A handler that does not match asks the next handler and adds its own help to the answer. |
 
 ### Things worth stopping on
 
@@ -73,7 +72,7 @@ ASP.NET Core's class of the same name.
 ## Architecture
 
 - **One class library, `ChainOfResponsibility`**, holding every example as nested
-  namespaces — `Expense`, `Gof`, `Hw`, `CallCenter` and `Pattern`. Sources mirror
+  namespaces — `Expense`, `Gof`, `Hw` and `CallCenter`. Sources mirror
   namespaces: `src/ChainOfResponsibility/Expense/Solution/…`.
 - **A console runner, `ChainOfResponsibility.Demo`**, that runs the Java original's `main`
   methods — the expense approval before and after the pattern, GoF's help, the three
@@ -86,8 +85,8 @@ ASP.NET Core's class of the same name.
 
 The port is faithful in behavior. The output of `expense-problem-stage-one`,
 `expense-problem-stage-two`, `expense-problem-stage-three`, `expense-six-expenses`,
-`expense-audit-log`, `gof-problem`, `gof-solution`, `hw-maintenance`, `hw-middleware`,
-`hw-cashdispenser` and `pattern` is byte for byte the output of the Java `main` methods, and
+`expense-audit-log`, `gof-problem`, `gof-solution`, `hw-maintenance`, `hw-middleware`
+and `hw-cashdispenser` is byte for byte the output of the Java `main` methods, and
 a call-center driver that sends one VIP and one gold customer prints the same lines in both
 languages. These outputs are the same under a Turkish and a Swedish locale. `callcenter` chooses customers at random, so its output has the
 same shape as the Java's, but not the same lines. What had to change:
@@ -100,8 +99,7 @@ same shape as the Java's, but not the same lines. What had to change:
 - **`Request.Kind` is the separate enum `RequestKind`.** In the Java it is nested in the
   record. A C# record cannot hold both a property `Kind` and a nested type `Kind` (error
   CS0102), so the enum is a type of its own in the same namespace. Its constants keep the
-  Java names — `BUG`, `UI_CHANGE`, `IMPROVEMENT`, `PROJECT` — as `Pattern.Context` keeps
-  `GENERIC`, `SPECIFIC` and `MORE_SPECIFIC`.
+  Java names — `BUG`, `UI_CHANGE`, `IMPROVEMENT`, `PROJECT`.
 - **`Endpoint` and `Middleware` are delegates**, and `Middleware.chain` is
   `MiddlewareChain.Chain`. See the section above. `Links` is a `static` class; Java's is
   `final` with a private constructor. `Links.Logging` takes an `IList<string>`, because it
@@ -145,9 +143,9 @@ same shape as the Java's, but not the same lines. What had to change:
     uses `MiddlewareChain`, `Links` and `Endpoint`, and never names the delegate.
   - `Gof.Solution` has `Application`, `Button` and `Dialog`. The library uses no UI
     framework, so nothing else in scope has these names.
-  - `Pattern.Context` and `Hw.Middleware.HttpRequest` do not meet any type that implicit
+  - `Hw.Middleware.HttpRequest` does not meet any type that implicit
     usings bring in.
-  - Seven namespaces have a class named `Main` or `Test`, as in the Java. `Main` is a static
+  - Six namespaces have a class named `Main` or `Test`, as in the Java. `Main` is a static
     class with a `Run()` method, which C# allows. In `ChainOfResponsibility.Demo` the runner
     reaches them through aliases: `GofProblemMain`, `GofSolutionMain`, `MaintenanceMain`,
     `MiddlewareMain`, `CashDispenserMain`, `CallCenterTest` and `PatternTest`. The expense
@@ -185,7 +183,7 @@ cd ~/"Development/NET/Design Patterns/Design Patterns with CSharp/ChainOfRespons
 
 The runner accepts: `expense-problem-stage-one`, `expense-problem-stage-two`,
 `expense-problem-stage-three`, `expense-six-expenses`, `expense-audit-log`, `gof-problem`,
-`gof-solution`, `hw-maintenance`, `hw-middleware`, `hw-cashdispenser`, `callcenter`, `pattern`.
+`gof-solution`, `hw-maintenance`, `hw-middleware`, `hw-cashdispenser`, `callcenter`.
 
 Run the tests:
 

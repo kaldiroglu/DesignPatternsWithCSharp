@@ -25,7 +25,6 @@ bad.
 |---|---|
 | `TemplateMethod.Export` | The main worked example. A reporting tool exports the same report as CSV, HTML or Markdown. `Domain` holds `Report`, `Sale`, `User`, `Export`, `AuditLog` and `ExportNotAllowedException`. `Problem` is three naive stages: a full copy per format (`StandaloneCsvExport`, `StandaloneHtmlExport`), one class with a switch on `Format` (`SwitchingExporter`), and a base class with shared helpers where each format writes its own `Export()` (`ExportSupport`, `CsvExport`, `MarkdownExport`). `Solution` has `ReportExporter`, whose `Export()` is the template method, and `CsvExporter`, `HtmlExporter`, `MarkdownExporter`. |
 | `TemplateMethod.Gof` | GoF's own example (Design Patterns, pp. 325–330). `Problem` has two applications that each write the whole of `OpenDocument`. `Solution` has `Application` with the template method `OpenDocument`, the primitive operation `CanOpenDocument`, the factory method `DoCreateDocument` and the hook `AboutToOpenDocument`, and `Document` with the primitive operation `DoRead`. |
-| `TemplateMethod.Pattern` | The same example in a short form: `Application.OpenDocument` checks, creates and adds a document. `MyApplication` writes the two abstract steps. |
 | `TemplateMethod.Task` | A task that repeats: `Task.Run()` is the template method, `DoTask()` is abstract, and `Prepare`, `Before`, `After` and `Clean` are hooks with a default. `Fax` and `Scan` write `DoTask()` only; `Print` also overrides `Prepare` and `Clean`. |
 | `TemplateMethod.Hw` | The three homework exercises: importing call records from three call centers (`CallCenter.CallImport`), the first day of an employee or a contractor (`Onboarding.Onboarding`), and reading a file of records (`RecordFile.RecordFileReader<T>`). |
 
@@ -67,7 +66,7 @@ method is left as it is.
 ## Architecture
 
 - **One class library, `TemplateMethod`**, holding every example as nested namespaces —
-  `Export`, `Gof`, `Pattern`, `Task` and `Hw`. Sources mirror namespaces:
+  `Export`, `Gof`, `Task` and `Hw`. Sources mirror namespaces:
   `src/TemplateMethod/Export/Solution/…`.
 - **A console runner, `TemplateMethod.Demo`**, with one entry for each runnable class:
   the export's stages one and two and its missing audit, the solution's three exports and
@@ -100,11 +99,6 @@ output of the Java `main` method it ports, with one exception: the last line of
 - **The task's hooks stay public.** In Java `prepare`, `before`, `after`, `clean` and
   `doTask` are `public`, so in C# they are `public virtual` and `public abstract`, not
   `protected`.
-- **The short form keeps its open methods.** In `pattern`, the Java methods have package
-  access and are not `final`. In C# they are `internal`, and `OpenDocument` and
-  `AddDocument` are `internal virtual`, so a subclass could still override them, as in the
-  Java. The `Gof` namespace has the closed form. The Java `Document`'s protected field
-  `name` with its getter `getName()` is the property `Name`, with a protected setter.
 - **GoF's `Document.DoRead` is `protected internal`.** `Application.OpenDocument` calls it,
   and `Application` is not a subclass of `Document`. In Java `protected` also opens a member
   to its package; C#'s `protected` does not, and `protected internal` opens it to the
@@ -181,7 +175,7 @@ cd ~/"Development/NET/Design Patterns/Design Patterns with CSharp/TemplateMethod
 
 The runner accepts: `export-problem-stage-one`, `export-problem-stage-two`,
 `export-problem-missing-audit`, `export-three-exports`, `export-audit-logs`, `gof-problem`,
-`gof-solution`, `pattern`, `task`, `hw-callcenter`, `hw-onboarding`, `hw-recordfile`.
+`gof-solution`, `task`, `hw-callcenter`, `hw-onboarding`, `hw-recordfile`.
 Each entry prints what one slide of the deck shows.
 
 Run the tests. They take about ten seconds, because one test waits nine:

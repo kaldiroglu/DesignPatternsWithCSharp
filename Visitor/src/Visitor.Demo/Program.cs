@@ -9,7 +9,6 @@ using CheckoutGiftCardMain = dev.kaldiroglu.Visitor.Checkout.Problem.GiftCardMai
 using CheckoutModernMain = dev.kaldiroglu.Visitor.Checkout.Modern.Main;
 using GofProblemMain = dev.kaldiroglu.Visitor.Gof.Problem.Main;
 using GofSolutionMain = dev.kaldiroglu.Visitor.Gof.Solution.Main;
-using PatternProblemMain = dev.kaldiroglu.Visitor.Pattern.Problem.Main;
 using AccountPrintMain = dev.kaldiroglu.Visitor.Hw.AccountPrint.Main;
 using FileTreeMain = dev.kaldiroglu.Visitor.Hw.FileTree.Main;
 using ExpressionMain = dev.kaldiroglu.Visitor.Hw.Expression.Main;
@@ -18,9 +17,6 @@ using FileProblem2Test = dev.kaldiroglu.Visitor.File.Problem2.Test;
 using FilePattern1Test = dev.kaldiroglu.Visitor.File.Pattern1.Test;
 using FactoryTest = dev.kaldiroglu.Visitor.Factory.Test;
 using InterpreterMain = dev.kaldiroglu.Visitor.Interpreter.Main;
-using AnimalProblemTest = dev.kaldiroglu.Visitor.Animal.Problem.Test;
-using AnimalPattern1Test = dev.kaldiroglu.Visitor.Animal.Pattern1.Test;
-using AnimalPattern2Test = dev.kaldiroglu.Visitor.Animal.Pattern2.Test;
 
 namespace dev.kaldiroglu.Visitor.Demo;
 
@@ -28,8 +24,7 @@ namespace dev.kaldiroglu.Visitor.Demo;
 /// Runs the Visitor examples.
 /// <para>
 /// The file examples and <c>factory</c> choose at random, so their output changes from run to
-/// run. The <c>Pattern</c> outline has empty methods, so <c>pattern-problem</c> only names its
-/// classes and methods.
+/// run.
 /// </para>
 /// <para>
 /// Each example runs on its own — <c>dotnet run -- gof</c> — and with no argument all of them
@@ -48,15 +43,11 @@ public static class Program
         ["checkout-modern"] = ("A CHECKOUT", CheckoutModernMain.Run),
         ["gof-problem"] = ("GOF'S COMPILER", GofProblemMain.Run),
         ["gof-solution"] = ("GOF'S COMPILER", GofSolutionMain.Run),
-        ["pattern-problem"] = ("GOF'S COMPILER, SHORT FORM", PatternProblemMain.Run),
         ["file-problem1"] = ("TEXT FILES AND XML FILES", FileProblem1Test.Run),
         ["file-problem2"] = ("TEXT FILES AND XML FILES", FileProblem2Test.Run),
         ["file-pattern1"] = ("TEXT FILES AND XML FILES", FilePattern1Test.Run),
         ["factory"] = ("A HEALTH CHECK IN A COMPANY", FactoryTest.Run),
         ["interpreter"] = ("INTERPRETER: A RULE LANGUAGE", InterpreterMain.Run),
-        ["animal-problem"] = ("ANIMALS AND FEEDERS", AnimalProblemTest.Run),
-        ["animal-pattern1"] = ("ANIMALS AND FEEDERS", AnimalPattern1Test.Run),
-        ["animal-pattern2"] = ("ANIMALS AND FEEDERS", AnimalPattern2Test.Run),
         ["hw-accountprint"] = ("HOMEWORK", AccountPrintMain.Run),
         ["hw-filetree"] = ("HOMEWORK", FileTreeMain.Run),
         ["hw-expression"] = ("HOMEWORK", ExpressionMain.Run)

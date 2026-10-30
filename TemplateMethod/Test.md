@@ -21,9 +21,6 @@ process. One test is slow on purpose (see below).
 | `Hw/HomeworkTests.cs` | 7 | 7 | The three homework solutions: call centers and the private `Verify` step, the onboarding equipment hook, and the record file reader that closes its reader when a line fails. |
 | **Total** | **40** | **40** | |
 
-The `Pattern` namespace (the short `Application` and `Document` version) has no Java test,
-so it has no C# test either.
-
 Helpers in the test root:
 
 - `Printed.By(action)` captures `Console.Out` with a `StringWriter` and returns the printed

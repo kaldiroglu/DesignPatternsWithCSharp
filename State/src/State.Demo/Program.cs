@@ -11,7 +11,6 @@ using OrderSecondShipmentMain = dev.kaldiroglu.State.Order.Solution.SecondShipme
 using GofMain = dev.kaldiroglu.State.Gof.Main;
 using GofProblemMain = dev.kaldiroglu.State.Gof.Problem.Main;
 using GofSolutionMain = dev.kaldiroglu.State.Gof.Solution.Main;
-using PatternMain = dev.kaldiroglu.State.Pattern.Main;
 using DoorProblemTest = dev.kaldiroglu.State.Door.Problem.Test;
 using DoorPattern1Test = dev.kaldiroglu.State.Door.Pattern1.Test;
 using DoorPattern2Test = dev.kaldiroglu.State.Door.Pattern2.Test;
@@ -26,9 +25,6 @@ namespace dev.kaldiroglu.State.Demo;
 
 /// <summary>
 /// Runs the State examples.
-/// <para>
-/// The <c>Pattern</c> outline has empty methods, so <c>pattern</c> only names its classes.
-/// </para>
 /// <para>
 /// Each example runs on its own — <c>dotnet run -- gof</c> — and with no argument all of them
 /// run in the order the course presents them.
@@ -47,7 +43,6 @@ public static class Program
         ["gof-problem"] = ("GOF'S TCP CONNECTION", GofProblemMain.Run),
         ["gof-solution"] = ("GOF'S TCP CONNECTION", GofSolutionMain.Run),
         ["gof"] = ("GOF'S TCP CONNECTION", GofMain.Run),
-        ["pattern"] = ("GOF'S TCP CONNECTION, SHORT FORM", PatternMain.Run),
         ["door-problem"] = ("A DOOR", DoorProblemTest.Run),
         ["door-pattern1"] = ("A DOOR", DoorPattern1Test.Run),
         ["door-pattern2"] = ("A DOOR", DoorPattern2Test.Run),

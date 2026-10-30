@@ -9,7 +9,6 @@ using GofSolutionMain = dev.kaldiroglu.TemplateMethod.Gof.Solution.Main;
 using CallCenterMain = dev.kaldiroglu.TemplateMethod.Hw.CallCenter.Main;
 using OnboardingMain = dev.kaldiroglu.TemplateMethod.Hw.Onboarding.Main;
 using RecordFileMain = dev.kaldiroglu.TemplateMethod.Hw.RecordFile.Main;
-using PatternTest = dev.kaldiroglu.TemplateMethod.Pattern.Test;
 using TaskTest = dev.kaldiroglu.TemplateMethod.Task.Test;
 
 namespace dev.kaldiroglu.TemplateMethod.Demo;
@@ -37,7 +36,6 @@ public static class Program
         ["export-audit-logs"] = ("THE REPORT EXPORT", ExportAuditLogsMain.Run),
         ["gof-problem"] = ("GOF'S APPLICATIONS AND DOCUMENTS", GofProblemMain.Run),
         ["gof-solution"] = ("GOF'S APPLICATIONS AND DOCUMENTS", GofSolutionMain.Run),
-        ["pattern"] = ("APPLICATION AND DOCUMENT, SHORT FORM", PatternTest.Run),
         ["task"] = ("A REPEATED TASK", () => TaskTest.Run(interval: 0)),
         ["hw-callcenter"] = ("HOMEWORK", CallCenterMain.Run),
         ["hw-onboarding"] = ("HOMEWORK", OnboardingMain.Run),

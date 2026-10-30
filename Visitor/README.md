@@ -31,8 +31,6 @@ when a new kind of item is added, every visitor that does not handle it stops co
 | `Visitor.File` | Text files and XML files that must be checked before they are read. `Domain` has the files only; `Problem1` tests types in the client; `Problem2` moves the type tests into `FileOperator`; `Pattern1` has `File.Accept(IVisitor)` and `FileVisitor`. |
 | `Visitor.Factory` | A company's employees and its boss get a health check. `Boss` is not an `Employee`, so a visitor can visit classes that have no common parent. `HR` creates random employees. |
 | `Visitor.Interpreter` | Interpreter, taught as a section of the Visitor deck (Design Patterns, pp. 243–255): a rule language for a shop. `IRule` is the abstract expression; `CategoryIs` and `PriceBelow` are terminal expressions; `And`, `Or` and `Not` are nonterminal ones. Each interprets itself against a `Product`. The Java `Rule` is a `sealed` interface; C# cannot close an interface, so `IRule` is open and each record is sealed. |
-| `Visitor.Animal` | A dog and a cat, and a feeder. `Problem` tests the type in `Feed`; `Pattern1` lets the animal's `Accept` choose the right `Feed` overload; `Pattern2` has one feeder per animal, and an animal refuses the wrong feeder. |
-| `Visitor.Pattern` | An earlier outline of GoF's nodes. Its methods are empty, as in the Java, so `Main` only names the two node classes and their methods. |
 
 ### Things worth stopping on
 
@@ -92,12 +90,12 @@ it stops compiling.
 ## Architecture
 
 - **One class library, `Visitor`**, holding every example as nested namespaces —
-  `Checkout`, `Gof`, `Hw`, `File`, `Factory`, `Animal` and `Pattern`. Sources mirror
+  `Checkout`, `Gof`, `Hw`, `File` and `Factory`. Sources mirror
   namespaces: `src/Visitor/Checkout/Solution/…`.
 - **A console runner, `Visitor.Demo`**, that runs the Java original's `main` methods — the
   checkout's three stages, its visitors and its switch, GoF's compiler before and after the
-  pattern, the short outline, the three file examples, the health check, the rule language,
-  the three animal examples and the three homework exercises — each on its own.
+  pattern, the three file examples, the health check, the rule language and the three
+  homework exercises — each on its own.
 - `net10.0`, nullable reference types on, implicit usings on — set once in
   `Directory.Build.props` and inherited by both projects.
 - **A test project, `Visitor.Tests`**, with xUnit tests ported from the Java tests. See `Test.md`.
@@ -105,19 +103,17 @@ it stops compiling.
 ## Differences from the Java original
 
 The port is faithful in behavior. The output of every runner entry that does not choose at
-random is byte for byte the output of the Java `main` method it ports, with two exceptions
-that come from C# names: `checkout-problem-stage-two` says an item is held as an `IItem`, so
-`TaxOf(IItem)` is called, where the Java says `Item` and `taxOf(Item)`; and
-`pattern-problem` names the methods `TypeCheck`, `GenerateCode` and `PrettyPrint`. These
+random is byte for byte the output of the Java `main` method it ports, with one exception
+that comes from C# names: `checkout-problem-stage-two` says an item is held as an `IItem`, so
+`TaxOf(IItem)` is called, where the Java says `Item` and `taxOf(Item)`. These
 outputs are the same under a Turkish and a Swedish locale. The file examples and `factory`
 choose at random, so their output has the same shape as the Java's, but not the same lines.
 What had to change:
 
 - **Interfaces take the `I` prefix**: `IItem` (in `Problem`, `Problem.Methods`, `Solution`
-  and `Modern`), `IItemVisitor<R>`, `INode` (in `Gof.Problem`, `Gof.Solution` and
-  `Pattern.Problem`), `INodeVisitor`, `IAccount`, `IAccountVisitor`, `IEntry`,
-  `IEntryVisitor`, `IExpr`, `IExprVisitor<R>`, `IVisitor` (in `File.Pattern1` and
-  `Factory`), `IAnimal` (in all three animal namespaces) and `IFeeder`. GoF's method names
+  and `Modern`), `IItemVisitor<R>`, `INode` (in `Gof.Problem` and `Gof.Solution`), `INodeVisitor`, `IAccount`, `IAccountVisitor`, `IEntry`,
+  `IEntryVisitor`, `IExpr`, `IExprVisitor<R>`, and `IVisitor` (in `File.Pattern1` and
+  `Factory`). GoF's method names
   are PascalCase: `VisitAssignment`, `VisitVariableRef`, `VisitConstant`, `VisitAdd`.
 - **The generic method `<R> R accept(ItemVisitor<R>)` is `R Accept<R>(IItemVisitor<R>)`**,
   and the same for `IExpr`. Java's `Integer` is `int`: `TaxVisitor` and `ShippingVisitor`
@@ -150,8 +146,6 @@ What had to change:
   `Name`, and the protected field `name` stays.
 - **`virtual` is explicit.** In `Factory`, `Employee.Work`, `CalculateSalary` and
   `PrintInfo` and `Manager.Manage` are `virtual`, because the subclasses override them.
-  `Pattern2.AbstractAnimal` declares `Eat` and `Accept` as `abstract`: Java's abstract class
-  does not mention them, but a C# abstract class must declare every member of its interface.
 - **Lists are returned as `IReadOnlyList<T>`**, copied first, as the Java returns
   `List.copyOf` or `Stream.toList()`. Parameters that take a list are `IReadOnlyList<T>`;
   the Java problem nodes' `Set<String>` and `List<String>` are `ISet<string>` and
@@ -160,8 +154,7 @@ What had to change:
 - **Number formats do not depend on the machine's locale.** Numbers that are printed are
   formatted with the invariant culture. Under a Swedish locale, -20000 and -20 would
   otherwise print with the minus sign U+2212.
-- **The `main` methods became `Run()` methods** called by `Visitor.Demo`. The commented-out
-  lines in the Java (the animal `Test` classes and the `Feeder` overloads) are not ported.
+- **The `main` methods became `Run()` methods** called by `Visitor.Demo`.
 - **`HR.GetAnEmployee` ends with `return e!;`.** The Java can return `null` in theory; the
   random number is always 0 to 9, so one of the ten cases always sets `e`. The `!` tells
   the compiler so.
@@ -218,9 +211,8 @@ cd ~/"Development/NET/Design Patterns/Design Patterns with CSharp/Visitor"
 
 The runner accepts: `checkout-problem-stage-one`, `checkout-problem-stage-two`,
 `checkout-problem-stage-three`, `checkout-problem-gift-card`, `checkout`, `checkout-modern`,
-`gof-problem`, `gof-solution`, `pattern-problem`, `file-problem1`, `file-problem2`,
-`file-pattern1`, `factory`, `interpreter`, `animal-problem`, `animal-pattern1`,
-`animal-pattern2`, `hw-accountprint`, `hw-filetree`, `hw-expression`.
+`gof-problem`, `gof-solution`, `file-problem1`, `file-problem2`,
+`file-pattern1`, `factory`, `interpreter`, `hw-accountprint`, `hw-filetree`, `hw-expression`.
 
 ```bash
 # run the tests

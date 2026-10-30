@@ -2,8 +2,7 @@
 
   <!-- Class library holding every Visitor example: the checkout in its three naive stages,
        its visitors and its switch over records, GoF's compiler, the three homework
-       exercises, and the earlier examples (files, a company's health check, animals and
-       their feeders, and an outline of GoF's nodes). -->
+       exercises, and the earlier examples (files and a company's health check). -->
   <PropertyGroup>
     <AssemblyName>Visitor</AssemblyName>
   </PropertyGroup>
