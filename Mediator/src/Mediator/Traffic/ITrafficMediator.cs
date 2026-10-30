@@ -5,8 +5,6 @@ namespace dev.kaldiroglu.Mediator.Traffic;
 /// </summary>
 public interface ITrafficMediator
 {
-    void Receive(IVehicle vehicle);
-
     void AskPermitToPass(IVehicle vehicle);
 
     void Done(IVehicle vehicle);

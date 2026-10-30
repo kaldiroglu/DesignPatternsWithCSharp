@@ -28,7 +28,7 @@ meet in the mediator.
 | `Mediator.Chat` | The main worked example: a team chat with messages to everyone and private messages. The promise: a private message is seen only by the person it is sent to. `Problem.Direct` is stage one: every member holds every other member (4 members, 12 references). `Problem.Directory` is stage two: one shared `Directory`, but every sender applies the rules itself. `Problem.Bus` is stage three: a `MessageBus` delivers every message to every client, and each client decides what to show. `Solution` has the mediator `ChatRoom`, the colleague `IParticipant`, the concrete colleagues `Member` and `Guest`, and one runnable class per slide: `ChatRoomMain` runs the pattern on its own, `ReferencesMain` counts the references of stage one, and `TwoWaysMain` sends the same private message through the bus and through the room. Each stage also has a `Main` of its own. |
 | `Mediator.Gof` | GoF's own example (Design Patterns, pp. 273–282): a font dialog. `Problem.FontDialog` has widgets that call each other. `Solution` has the mediator `DialogDirector`, the concrete mediator `FontDialogDirector`, the colleague `Widget`, and the general widgets `ListBox`, `EntryField` and `Button`. `Problem.Main` and `Solution.Main` run the same steps, one design each. |
 | `Mediator.Hw` | The three homework exercises: a bank branch where a `QueueManager` pairs customers with tellers (`BankQueue`), an airport where a `ControlTower` gives the runway to one aircraft at a time (`AirTraffic`), and a meeting-room `BookingForm` that is the mediator of its own fields (`BookingForm`). |
-| `Mediator.Traffic` | Cars at a junction ask a traffic police officer for permission to pass. Each car runs on its own thread. `Test` creates five cars. |
+| `Mediator.Traffic` | Cars at a junction ask a traffic police officer for permission to pass. Each car runs on its own thread, asks once, and blocks until the officer tells it to proceed. `Main` creates five cars. |
 
 ### Things worth stopping on
 
@@ -43,8 +43,8 @@ no other widget. The whole behavior of the dialog is in `FontDialogDirector.Widg
 
 **A shared mediator is where threads meet.** `Hw.AirTraffic.ControlTower` locks every
 public method, so the check "is the runway free?" and the step "give it to this aircraft"
-happen together. `Traffic.TrafficPolice` does the same for the junction: the check and the
-step happen inside one lock, and the car proceeds or waits outside it.
+happen together. `Traffic.TrafficPolice` does the same for the junction: it decides inside one lock, keeps the
+waiting cars in a queue, and calls the cars outside the lock.
 
 ## Architecture
 
@@ -65,8 +65,8 @@ The port is faithful in behavior. The output of `chat-problem-direct`,
 for byte the output of the Java `main` methods. These outputs
 are the same under a Turkish and a Swedish locale.
 `traffic` runs on five threads, so the order of its lines changes from run to run in both
-languages; its first 14 lines (the junction, the officer and the five cars) are the same as
-the Java's, and in the runs checked each car asked once and passed once in both languages. What had to change:
+languages; its first 3 lines (the junction, the officer and a blank line) are the same as
+the Java's, and each car asks once and passes once in both languages, which `MainOutput` checks. What had to change:
 
 - **Interfaces take the `I` prefix**: `IParticipant`, `IClient`, `IVehicle` and
   `ITrafficMediator`.
@@ -101,22 +101,12 @@ the Java's, and in the runs checked each car asked once and passed once in both 
   `InvalidOperationException`.
 - **`BookingForm`'s capacities are a `static readonly IReadOnlyDictionary<string, int>`**,
   where the Java uses `Map.of`. `getOrDefault` is `GetValueOrDefault`.
-- **`Car` holds a thread; it is not one.** In the Java, `Car` extends `Thread`. In C#
-  `Thread` is `sealed`, so a car creates a `Thread` in its constructor, named with the car's
-  name, and `Car.Start()` starts it. The thread calls `Car.Run()`, as Java's `start()` calls
-  `run()`. `Car.Name` is the thread's name, as `getName()` is in Java. `Test` keeps a
-  `Car[]` where the Java keeps a `Thread[]`. The threads are foreground threads, so the
-  program waits for them before it exits, as the JVM waits for its threads.
-- **`stopp()` is `Stop()`.** The Java spells it with two p's because `Car` extends `Thread`
-  there, and `Thread.stop()` is `final`, so a car cannot declare a method with that name.
-  A C# car does not extend `Thread`, so the method has its plain name.
-- **`Thread.sleep(1000)` is `Thread.Sleep(1000)`**, and `InterruptedException` is
-  `ThreadInterruptedException`. The Java sets the interrupt flag again; the C# car simply
-  asks again.
+- **A car's `CountDownLatch` is a `ManualResetEventSlim`.** `countDown()` is `Set()` and
+  `await()` is `Wait()`. `Run()` is a method that `Main` passes to a `Thread`, where the Java
+  `Car` is a `Runnable`.
 - **Number formats do not depend on the machine's locale.** Numbers that are printed are
   formatted with the invariant culture.
-- **The `main` methods became `Run()` methods** called by `Mediator.Demo`. `traffic` runs last when every example runs, because its
-  threads go on printing after its `Run()` returns.
+- **The `main` methods became `Run()` methods** called by `Mediator.Demo`. `traffic` runs last when every example runs.
 - **Names that clash, and how they are resolved.**
   - Three classes are named `Member`, in `Chat.Problem.Direct`, `Chat.Problem.Directory` and
     `Chat.Solution`, as in the Java. Inside each namespace the plain name means that
@@ -136,11 +126,11 @@ the Java's, and in the runs checked each car asked once and passed once in both 
     bring in. The library uses no UI framework.
   - The root namespace is `dev.kaldiroglu.Mediator`, and no type is named `Mediator`, so the
     name always means the namespace.
-  - Nine namespaces have a class named `Main` or `Test`, as in the Java. `Main` is a
+  - Nine namespaces have a class named `Main`, as in the Java. `Main` is a
     static class with a `Run()` method, which C# allows. In `Mediator.Demo` the runner
     reaches them through aliases: `ChatDirectMain`, `ChatDirectoryMain`, `ChatBusMain`,
     `GofProblemMain`, `GofSolutionMain`, `BankQueueMain`, `AirTrafficMain`,
-    `BookingFormMain` and `TrafficTest`; `ChatReferencesMain` and `ChatTwoWaysMain` name the
+    `BookingFormMain` and `TrafficMain`; `ChatReferencesMain` and `ChatTwoWaysMain` name the
     two runnable classes of `Chat.Solution`. `Gof.Problem.Main` and `Gof.Solution.Main` have
     the same short name, so a test that uses both writes them in full.
 - **The `uml/` diagrams, the `CD.png` image and the per-package `README.md` files in the Java
@@ -148,7 +138,7 @@ the Java's, and in the runs checked each car asked once and passed once in both 
 
 ## Tests
 
-`tests/Mediator.Tests` holds 31 xUnit tests in 9 test classes. They are ported from the
+`tests/Mediator.Tests` holds 38 xUnit tests in 9 test classes. They are ported from the
 JUnit tests of the Java repository, one C# test class for each Java test class, with the
 same expected values, except where `Test.md` notes a change. `Test.md` lists what each
 class tests, and the Java tests that are not ported, with the reason.

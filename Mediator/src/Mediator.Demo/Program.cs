@@ -10,7 +10,7 @@ using GofSolutionMain = dev.kaldiroglu.Mediator.Gof.Solution.Main;
 using BankQueueMain = dev.kaldiroglu.Mediator.Hw.BankQueue.Main;
 using AirTrafficMain = dev.kaldiroglu.Mediator.Hw.AirTraffic.Main;
 using BookingFormMain = dev.kaldiroglu.Mediator.Hw.BookingForm.Main;
-using TrafficTest = dev.kaldiroglu.Mediator.Traffic.Test;
+using TrafficMain = dev.kaldiroglu.Mediator.Traffic.Main;
 
 namespace dev.kaldiroglu.Mediator.Demo;
 
@@ -22,8 +22,7 @@ namespace dev.kaldiroglu.Mediator.Demo;
 /// </para>
 /// <para>
 /// Each example runs on its own — <c>dotnet run -- gof-problem</c> — and with no argument all of them
-/// run in the order the course presents them. <c>traffic</c> is last, because its threads go
-/// on printing after its <c>Run()</c> returns.
+/// run in the order the course presents them.
 /// </para>
 /// </summary>
 public static class Program
@@ -41,7 +40,7 @@ public static class Program
         ["hw-bankqueue"] = ("HOMEWORK", BankQueueMain.Run),
         ["hw-airtraffic"] = ("HOMEWORK", AirTrafficMain.Run),
         ["hw-bookingform"] = ("HOMEWORK", BookingFormMain.Run),
-        ["traffic"] = ("A TRAFFIC POLICE OFFICER AT A JUNCTION", TrafficTest.Run)
+        ["traffic"] = ("A TRAFFIC POLICE OFFICER AT A JUNCTION", TrafficMain.Run)
     };
 
     public static void Main(string[] args)

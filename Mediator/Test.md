@@ -36,12 +36,12 @@ PascalCase, and the expected values are the same. The Java `@DisplayName` text i
 | `Chat/Problem/Bus/BusTest.cs` | 4 | Stage three: the bus delivers a private message to 3 clients, and the guest client shows it; `Main.Run()` output. |
 | `Chat/Solution/SolutionTest.cs` | 6 | The chat room delivers to Mert only, keeps the blocks, is the only reference a member holds; the output of `ChatRoomMain.Run()`, `ReferencesMain.Run()` and `TwoWaysMain.Run()`. |
 | `Gof/FontDialogTest.cs` | 8 | GoF's font dialog with a director; who holds whom before and after; both designs give the same results; the output of `Problem.Main.Run()` and `Solution.Main.Run()`. |
-| `Traffic/TrafficPoliceTest.cs` | 1 | One vehicle in the junction at a time, with a recording vehicle instead of `Car`. |
+| `Traffic/TrafficPoliceTest.cs` | 6 | The officer tells the next waiting car; cars pass in the order they asked; the junction stays busy until the last car; 200 threads never put two cars in the junction; `Main.Run()`: each car asks once and passes once; `Car` holds no `Junction` and has no loop. |
 | `Hw/BankQueue/QueueManagerTest.cs` | 2 | Homework 1: customers and tellers paired in arrival order; neither holds the other. |
 | `Hw/AirTraffic/ControlTowerTest.cs` | 2 | Homework 2: one aircraft on the runway at a time; every public member takes the lock. |
 | `Hw/BookingForm/BookingFormTest.cs` | 2 | Homework 3: Book needs a room, a date and people who fit; a small room warns. |
 
-Java has 10 test classes and 32 test methods. 9 classes and 31 methods are ported.
+Java has 10 test classes and 39 test methods. 9 classes and 38 methods are ported.
 
 ## Java tests not ported
 
@@ -59,11 +59,8 @@ Java has 10 test classes and 32 test methods. 9 classes and 31 methods are porte
   of each of those public members contains `lock (`.
 - **`DirectoryTest.TheRulesAreInTheSender` counts `blocked.Contains(Name)`**, the C#
   spelling of the Java `blocked.contains(name)`. The expected value is still 2.
-- **`TrafficPoliceTest.Recorder` implements `Stop()`**, which is the Java `stopp()`; the
-  README explains the name.
 
-The slow and thread-based `Traffic.Car` is not tested, in C# as in Java: a waiting car
-sleeps for a second. No test failed, and no behavior difference between the C# and the
+No test failed, and no behavior difference between the C# and the
 Java was found.
 
 ## Run it with

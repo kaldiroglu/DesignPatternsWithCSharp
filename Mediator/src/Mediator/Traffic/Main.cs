@@ -5,11 +5,10 @@ namespace dev.kaldiroglu.Mediator.Traffic;
 /// </summary>
 /// <remarks>
 /// The cars run on their own threads, so the order of the output changes from run to run.
-/// <c>Run()</c> starts the threads and returns without waiting for them; the threads are
-/// foreground threads, so the program waits for them before it exits. Run it with
+/// <c>Run()</c> waits for every car to pass. Run it with
 /// <c>dotnet run --project src/Mediator.Demo -- traffic</c>.
 /// </remarks>
-public class Test
+public class Main
 {
     public static void Run()
     {
@@ -19,19 +18,21 @@ public class Test
         Console.WriteLine();
 
         int numberOfCars = 5;
-        Car[] cars = new Car[numberOfCars];
+        Thread[] cars = new Thread[numberOfCars];
 
         for (int i = 0; i < numberOfCars; i++)
         {
-            Car car = new Car("Car" + i, junction, police);
-            cars[i] = car;
+            cars[i] = new Thread(new Car("Car" + i, police).Run);
         }
 
-        Console.WriteLine();
-
-        foreach (Car car in cars)
+        foreach (Thread car in cars)
         {
             car.Start();
+        }
+
+        foreach (Thread car in cars)
+        {
+            car.Join();
         }
     }
 }

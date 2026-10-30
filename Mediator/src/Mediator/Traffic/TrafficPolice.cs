@@ -1,35 +1,29 @@
 namespace dev.kaldiroglu.Mediator.Traffic;
 
 /// <summary>
-/// The <b>ConcreteMediator</b>: a traffic police officer who keeps the junction busy or free,
-/// and lets one car pass at a time.
+/// The <b>ConcreteMediator</b>: a traffic police officer who lets one car pass at a time.
 /// <para>
-/// Every car calls this object from its own thread. The check "is the junction busy?" and
-/// the step "make it busy" therefore happen together, inside one lock, so two cars can never
-/// both find it free. The car proceeds or waits outside the lock, so a waiting car does not
-/// hold up the others.
+/// A car asks once. If the junction is free, the officer tells it to proceed. If not, the
+/// officer tells it to stop and keeps it in <c>waiting</c>. When a car is done, the officer
+/// tells the first waiting car to proceed, so no car has to ask again, and the junction stays
+/// busy while it passes from one car to the next.
+/// </para>
+/// <para>
+/// Every car calls this object from its own thread, so the decisions are made inside one
+/// lock. The officer calls the car outside the lock, so a car does not hold up the others.
 /// </para>
 /// </summary>
 public class TrafficPolice : ITrafficMediator
 {
     private readonly object gate = new();
     private readonly Junction junction;
-    private readonly List<IVehicle> vehicles;
+    private readonly Queue<IVehicle> waiting;
 
     public TrafficPolice(string name, Junction junction)
     {
         this.junction = junction;
-        vehicles = [];
+        waiting = [];
         Console.WriteLine("TrafficPolice " + name + " created.");
-    }
-
-    public void Receive(IVehicle vehicle)
-    {
-        lock (gate)
-        {
-            vehicle.Stop();
-            vehicles.Add(vehicle);
-        }
     }
 
     public void AskPermitToPass(IVehicle vehicle)
@@ -42,6 +36,10 @@ public class TrafficPolice : ITrafficMediator
             {
                 junction.SetBusy(true);
             }
+            else
+            {
+                waiting.Enqueue(vehicle);
+            }
         }
         if (granted)
         {
@@ -49,16 +47,20 @@ public class TrafficPolice : ITrafficMediator
         }
         else
         {
-            vehicle.WaitForAWhile();
+            vehicle.Stop();
         }
     }
 
     public void Done(IVehicle vehicle)
     {
+        IVehicle? next;
         lock (gate)
         {
-            vehicles.Remove(vehicle);
-            junction.SetBusy(false);
+            if (!waiting.TryDequeue(out next))
+            {
+                junction.SetBusy(false);
+            }
         }
+        next?.Proceed();
     }
 }

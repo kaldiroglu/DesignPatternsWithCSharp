@@ -1,77 +1,48 @@
 namespace dev.kaldiroglu.Mediator.Traffic;
 
 /// <summary>
-/// A <b>ConcreteColleague</b>: a car. Each car runs on its own thread.
+/// A <b>ConcreteColleague</b>: a car. It knows only the mediator. It asks once, then blocks
+/// until the officer tells it to proceed, so it does not poll.
 /// </summary>
-/// <remarks>
-/// <c>Thread</c> is <c>sealed</c>, so a car holds a thread. The thread is created in the
-/// constructor with the car's name, and <see cref="Start"/> starts it; the thread then calls
-/// <see cref="Run"/>.
-/// </remarks>
 public class Car : IVehicle
 {
-    private readonly Junction junction;
+    private const int PassingMilliseconds = 100;
+
+    private readonly string name;
     private readonly ITrafficMediator mediator;
-    private readonly Thread thread;
-    private bool waiting;
+    private readonly ManualResetEventSlim permit = new(false);
 
-    public Car(string name, Junction junction, ITrafficMediator mediator)
+    public Car(string name, ITrafficMediator mediator)
     {
-        thread = new Thread(Run) { Name = name };
-        this.junction = junction;
+        this.name = name;
         this.mediator = mediator;
-        Approach();
-        mediator.Receive(this);
-    }
-
-    /// <summary>The car's name, which is also its thread's name.</summary>
-    public string Name => thread.Name!;
-
-    /// <summary>Starts the car's thread, which calls <see cref="Run"/>.</summary>
-    public void Start()
-    {
-        thread.Start();
     }
 
     public void Approach()
     {
-        Console.WriteLine("Car " + Name + " is approaching junction " + junction.Name);
+        Console.WriteLine("Car " + name + " is approaching the junction.");
     }
 
+    /// <summary>Called by the officer, often from another car's thread. It only releases this car.</summary>
     public void Proceed()
     {
-        Console.WriteLine("Car " + Name + " is proceeding through junction " + junction.Name);
-        mediator.Done(this);
+        permit.Set();
     }
 
     public void Stop()
     {
-        Console.WriteLine("Car " + Name + " has stopped.");
+        Console.WriteLine("Car " + name + " has stopped.");
     }
 
-    /// <summary>Waits, then lets <see cref="Run"/> ask again. It does not call the mediator itself.</summary>
-    public void WaitForAWhile()
-    {
-        Console.WriteLine("Car " + Name + " is waiting.");
-        waiting = true;
-        try
-        {
-            Thread.Sleep(1000);
-        }
-        catch (ThreadInterruptedException)
-        {
-            // The car was interrupted: it simply asks again.
-        }
-    }
-
-    /// <summary>What the car's thread does: ask the mediator until it may pass.</summary>
+    /// <summary>What the car's thread does.</summary>
     public void Run()
     {
-        Console.WriteLine("Car " + Name + " is asking permit to pass junction " + junction.Name);
-        do
-        {
-            waiting = false;
-            mediator.AskPermitToPass(this);
-        } while (waiting);
+        Approach();
+        Console.WriteLine("Car " + name + " is asking permit to pass the junction.");
+        mediator.AskPermitToPass(this);
+        permit.Wait();
+        Console.WriteLine("Car " + name + " is proceeding through the junction.");
+        Thread.Sleep(PassingMilliseconds);
+        mediator.Done(this);
     }
 }
