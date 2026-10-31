@@ -1,6 +1,6 @@
 @startuml Adapter
+skinparam nodesep 20
 skinparam linetype polyline
-skinparam nodesep 70
 skinparam class {
   BackgroundColor<<spacer>> transparent
   BorderColor<<spacer>> transparent
@@ -52,21 +52,15 @@ IAdvancedMediaPlayer <|.. Mp4Player
 note right of IMediaPlayer : Target
 note right of MediaAdapter : Adapter
 note right of IAdvancedMediaPlayer : Adaptee interface
-note bottom of VlcPlayer : Adaptee
+note top of VlcPlayer : Adaptee
 note bottom of Mp4Player : Adaptee
 note bottom of SolutionDemo : Client
-
-class " " as Spacer1 <<spacer>>
-IMediaPlayer -[hidden]- Spacer1
-IMediaPlayer -[hidden]- Spacer1
-MediaAdapter -[hidden]right- Spacer1
-Spacer1 -[hidden]right- AudioPlayer
-class " " as Spacer2 <<spacer>>
-IAdvancedMediaPlayer -[hidden]- Spacer2
-IAdvancedMediaPlayer -[hidden]- Spacer2
-VlcPlayer -[hidden]right- Spacer2
-Spacer2 -[hidden]right- Mp4Player
 MediaAdapter o--> IAdvancedMediaPlayer : _advanced
-AudioPlayer ..> MediaAdapter : delegates vlc/mp4
+AudioPlayer .[norank].> MediaAdapter : delegates vlc/mp4
 SolutionDemo ..> IMediaPlayer
+class " " as Spacer1 <<spacer>>
+IAdvancedMediaPlayer -[hidden]- Spacer1
+IAdvancedMediaPlayer -[hidden]- Spacer1
+Mp4Player -[hidden]right- Spacer1
+Spacer1 -[hidden]right- VlcPlayer
 @enduml

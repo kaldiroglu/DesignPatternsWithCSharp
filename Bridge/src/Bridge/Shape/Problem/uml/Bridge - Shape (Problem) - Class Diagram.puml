@@ -1,4 +1,5 @@
 @startuml "Bridge - Shape (Problem) - Class Diagram"
+skinparam nodesep 30
 skinparam linetype polyline
 skinparam class {
   BackgroundColor<<spacer>> transparent
@@ -53,32 +54,15 @@ note as N1
   plus 4 abstract ones.
   A third device: <b>+3</b>. A fourth shape: <b>+2</b>.
 end note
-
-AbstractShape -[hidden]- Rectangle
-AbstractShape -[hidden]- Rectangle
-Circle -[hidden]right- Rectangle
-Rectangle -[hidden]right- Triangle
 class " " as Spacer1 <<spacer>>
 Circle -[hidden]- Spacer1
 Circle -[hidden]- Spacer1
 CircleMacOS -[hidden]right- Spacer1
 Spacer1 -[hidden]right- CircleXWindows
 class " " as Spacer2 <<spacer>>
-Rectangle -[hidden]- Spacer2
-Rectangle -[hidden]- Spacer2
-RectangleMacOS -[hidden]right- Spacer2
-Spacer2 -[hidden]right- RectangleXWindows
-class " " as Spacer3 <<spacer>>
-Triangle -[hidden]- Spacer3
-Triangle -[hidden]- Spacer3
-TriangleMacOS -[hidden]right- Spacer3
-Spacer3 -[hidden]right- TriangleXWindows
-class " " as Spacer66 <<spacer>>
-Circle -[hidden]- Spacer66
-CircleMacOS -[hidden]right- Spacer66
-Spacer66 -[hidden]right- CircleXWindows
-class " " as Spacer67 <<spacer>>
-Triangle -[hidden]- Spacer67
-TriangleMacOS -[hidden]right- Spacer67
-Spacer67 -[hidden]right- TriangleXWindows
+Triangle -[hidden]- Spacer2
+Triangle -[hidden]- Spacer2
+TriangleMacOS -[hidden]right- Spacer2
+Spacer2 -[hidden]right- TriangleXWindows
+RectangleXWindows -[hidden]right- TriangleMacOS
 @enduml

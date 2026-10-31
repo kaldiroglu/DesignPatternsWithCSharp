@@ -1,4 +1,5 @@
 @startuml Proxy
+skinparam nodesep 20
 skinparam linetype polyline
 skinparam classAttributeIconSize 0
 title Proxy — Simpler example (C#)
@@ -34,5 +35,6 @@ note bottom of ImageProxy : Proxy (virtual / lazy loading)
 note bottom of SolutionDemo : Client
 
 ImageProxy o-[norank]-> RealImage : _real (lazy)
-SolutionDemo .[norank].> IImage
+SolutionDemo ..> IImage
+
 @enduml

@@ -1,4 +1,5 @@
 @startuml "Bridge - Window (Problem) - Class Diagram"
+skinparam nodesep 20
 skinparam linetype polyline
 skinparam class {
   BackgroundColor<<spacer>> transparent
@@ -61,7 +62,7 @@ IconWindow <|-- XIconWindow
 TransientWindow <|-- PMTransientWindow
 TransientWindow <|-- XTransientWindow
 
-note right of XIconWindow
+note bottom of XIconWindow
   Inherits the <i>icon</i> behavior,
   and must <b>copy</b> the X drawing
   code out of XWindow. A class
@@ -87,26 +88,16 @@ note as N1
   platform is chosen when the code is compiled,
   not when the program runs.
 end note
-
 class " " as Spacer1 <<spacer>>
+class " " as Spacer2 <<spacer>>
+class " " as Spacer3 <<spacer>>
 Window -[hidden]- Spacer1
 Window -[hidden]- Spacer1
 XWindow -[hidden]right- TransientWindow
-TransientWindow -[hidden]right- Spacer1
+TransientWindow -[hidden]right- Spacer2
+Spacer2 -[hidden]right- Spacer3
+Spacer3 -[hidden]right- Spacer1
 Spacer1 -[hidden]right- IconWindow
 IconWindow -[hidden]right- PMWindow
-class " " as Spacer2 <<spacer>>
-IconWindow -[hidden]- Spacer2
-IconWindow -[hidden]- Spacer2
-XIconWindow -[hidden]right- Spacer2
-Spacer2 -[hidden]right- PMIconWindow
-class " " as Spacer3 <<spacer>>
-TransientWindow -[hidden]- Spacer3
-TransientWindow -[hidden]- Spacer3
-XTransientWindow -[hidden]right- Spacer3
-Spacer3 -[hidden]right- PMTransientWindow
-class " " as Spacer66 <<spacer>>
-IconWindow -[hidden]- Spacer66
-PMIconWindow -[hidden]right- Spacer66
-Spacer66 -[hidden]right- XIconWindow
+PMTransientWindow -[hidden]right- XIconWindow
 @enduml

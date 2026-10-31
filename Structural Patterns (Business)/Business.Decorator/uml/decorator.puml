@@ -1,4 +1,5 @@
 @startuml Decorator
+skinparam nodesep 20
 skinparam linetype polyline
 skinparam class {
   BackgroundColor<<spacer>> transparent
@@ -70,20 +71,25 @@ HttpClientDecorator <|-- AuthDecorator
 HttpClientDecorator <|-- RetryDecorator
 HttpClientDecorator <|-- LoggingDecorator
 HttpClientDecorator <|-- CachingDecorator
-
-class " " as Spacer1 <<spacer>>
-IHttpClient -[hidden]- Spacer1
-IHttpClient -[hidden]- Spacer1
-HttpClientDecorator -[hidden]right- Spacer1
-Spacer1 -[hidden]right- RealHttpClient
-class " " as Spacer2 <<spacer>>
-HttpClientDecorator -[hidden]- Spacer2
-HttpClientDecorator -[hidden]- Spacer2
-AuthDecorator -[hidden]right- RetryDecorator
-RetryDecorator -[hidden]right- Spacer2
-Spacer2 -[hidden]right- LoggingDecorator
-LoggingDecorator -[hidden]right- CachingDecorator
 HttpClientDecorator o-[norank]-> IHttpClient : Delegate (inner)
 IHttpClient .[norank].> HttpRequest
-IHttpClient .[norank].> HttpResponse
+IHttpClient ..> HttpResponse
+class " " as Spacer1 <<spacer>>
+class " " as Spacer2 <<spacer>>
+class " " as Spacer3 <<spacer>>
+IHttpClient -[hidden]- Spacer1
+IHttpClient -[hidden]- Spacer1
+RealHttpClient -[hidden]right- Spacer2
+Spacer2 -[hidden]right- Spacer3
+Spacer3 -[hidden]right- Spacer1
+Spacer1 -[hidden]right- HttpClientDecorator
+class " " as Spacer4 <<spacer>>
+class " " as Spacer5 <<spacer>>
+HttpClientDecorator -[hidden]- Spacer4
+HttpClientDecorator -[hidden]- Spacer4
+AuthDecorator -[hidden]right- RetryDecorator
+RetryDecorator -[hidden]right- Spacer4
+Spacer4 -[hidden]right- Spacer5
+Spacer5 -[hidden]right- LoggingDecorator
+LoggingDecorator -[hidden]right- CachingDecorator
 @enduml

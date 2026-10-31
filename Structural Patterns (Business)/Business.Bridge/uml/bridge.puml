@@ -1,4 +1,5 @@
 @startuml Bridge
+skinparam nodesep 20
 skinparam linetype polyline
 skinparam class {
   BackgroundColor<<spacer>> transparent
@@ -76,17 +77,15 @@ Notification <|-- PasswordReset
 IDeliveryChannel <|.. EmailChannel
 IDeliveryChannel <|.. SmsChannel
 IDeliveryChannel <|.. SlackChannel
-
+Notification o--> IDeliveryChannel : Channel
+Notification .[norank].> Recipient
+Notification .[norank].> RenderedMessage
 class " " as Spacer1 <<spacer>>
 Notification -[hidden]- Spacer1
 Notification -[hidden]- Spacer1
 OrderConfirmation -[hidden]right- Spacer1
 Spacer1 -[hidden]right- PasswordReset
 IDeliveryChannel -[hidden]- SmsChannel
-IDeliveryChannel -[hidden]- SmsChannel
 EmailChannel -[hidden]right- SmsChannel
 SmsChannel -[hidden]right- SlackChannel
-Notification o-[norank]-> IDeliveryChannel : Channel
-Notification .[norank].> Recipient
-Notification .[norank].> RenderedMessage
 @enduml
