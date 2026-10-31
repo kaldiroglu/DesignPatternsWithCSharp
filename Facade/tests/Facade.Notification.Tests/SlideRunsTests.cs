@@ -15,6 +15,7 @@ public class SlideRunsTests
     [Theory]
     [InlineData("notification-problem", "[EMAIL] To: alice@example.com | Subject: Order #ORD-9876 Confirmed", "[PUSH]  Token: dev_toke*** | Title: Order #ORD-9876 Confirmed")]
     [InlineData("notification", "Order ORD-9876 confirmed.", "NotificationResult{email=True, sms=True, slack=True, push=True}")]
+    [InlineData("notification-channels", "NotificationResult{email=True, sms=True}", "NotificationResult{slack=True, push=True}", "NotificationResult{email=True}")]
     public void PrintsWhatTheSlideQuotes(string entry, params string[] lines)
     {
         var printed = Printed.By("Facade.Notification", entry);

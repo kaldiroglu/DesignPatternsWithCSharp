@@ -52,8 +52,8 @@ void Solution()
     after.ConfirmOrder(user, "ORD-9876");
 }
 
-// One slide, one run: `dotnet run -- notification-problem` or `-- notification`. With no
-// argument, both.
+// One slide, one run: `dotnet run -- notification-problem`, `-- notification` or
+// `-- notification-channels`. With no argument, all three.
 switch (args.FirstOrDefault())
 {
     case "notification-problem":
@@ -62,12 +62,17 @@ switch (args.FirstOrDefault())
     case "notification":
         Solution();
         break;
+    case "notification-channels":
+        dev.kaldiroglu.Facade.Notification.Solution2.Client.Run();
+        break;
     case null:
         Problem();
         Console.WriteLine();
         Solution();
+        Console.WriteLine();
+        dev.kaldiroglu.Facade.Notification.Solution2.Client.Run();
         break;
     default:
-        Console.WriteLine($"unknown example '{args[0]}'. One of: notification-problem, notification");
+        Console.WriteLine($"unknown example '{args[0]}'. One of: notification-problem, notification, notification-channels");
         break;
 }

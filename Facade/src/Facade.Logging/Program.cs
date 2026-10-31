@@ -2,21 +2,25 @@ using dev.kaldiroglu.Facade.Logging;
 using Microsoft.Extensions.Logging;
 
 // ILogger is the .NET logging facade — the analog of SLF4J's org.slf4j.Logger.
-// The application (OrderService) logs through ILogger and never names a provider.
-// Below, the SAME OrderService runs against two different backends.
+// The clients (LoggingClient, OrderService) log through ILogger and never name a provider.
+// logging-console runs LoggingClient on the console provider; logging-recording runs
+// OrderService on a custom in-memory provider.
 
 void ConsoleBackend()
 {
-    // ── Backend 1: the built-in Console provider ──
-    Console.WriteLine("== Backend 1: Console provider ==");
+    // The client logs through ILogger only. The console provider writes on its own thread,
+    // so disposing the factory flushes it before the last line is printed.
+    bool debugEnabled;
     using (ILoggerFactory consoleFactory = LoggerFactory.Create(builder => builder
                .SetMinimumLevel(LogLevel.Information)
                .AddSimpleConsole(options => options.SingleLine = true)))
     {
-        var service = new OrderService(consoleFactory.CreateLogger<OrderService>());
-        service.ConfirmOrder("user_42", "ORD-9876", rowCount: 42);
-        service.ConfirmOrder("user_7", "ORD-0001", rowCount: 0);
+        var log = consoleFactory.CreateLogger<LoggingClient>();
+        LoggingClient.Run(log);
+        debugEnabled = log.IsEnabled(LogLevel.Debug);
     }
+
+    Console.WriteLine($"IsEnabled(LogLevel.Debug) = {debugEnabled}");
 }
 
 void RecordingBackend()

@@ -13,7 +13,7 @@ namespace dev.kaldiroglu.Facade.Logging.Tests;
 public class SlideRunsTests
 {
     [Theory]
-    [InlineData("logging-console", "Loaded 42 rows for user user_42")]
+    [InlineData("logging-console", "Loaded 42 rows for user john", "Disk usage at 91%", "IsEnabled(LogLevel.Debug) = False")]
     public void PrintsWhatTheSlideQuotes(string entry, params string[] lines)
     {
         var printed = Printed.By("Facade.Logging", entry);

@@ -79,4 +79,36 @@ public class OrderServiceLoggingTests
 
         Assert.NotEmpty(backend.Records);
     }
+
+    private static RecordingLoggerProvider RunTheClient(LogLevel min)
+    {
+        var backend = new RecordingLoggerProvider(min);
+        using ILoggerFactory factory = LoggerFactory.Create(b => b.SetMinimumLevel(min).AddProvider(backend));
+
+        LoggingClient.Run(factory.CreateLogger<LoggingClient>());
+
+        return backend;
+    }
+
+    [Fact]
+    public void TheClientLogsFourMessagesAtInformationLevel()
+    {
+        var backend = RunTheClient(LogLevel.Information);
+
+        Assert.Equal(
+            ["Application starting", "Loaded 42 rows for user john", "Disk usage at 91%",
+             "Failed to reach db-primary after 3 retries"],
+            backend.Records.Select(r => r.Message));
+        Assert.Equal(
+            [LogLevel.Information, LogLevel.Information, LogLevel.Warning, LogLevel.Error],
+            backend.Records.Select(r => r.Level));
+    }
+
+    [Fact]
+    public void TheClientPaysForTheDumpOnlyWhenDebugIsEnabled()
+    {
+        var backend = RunTheClient(LogLevel.Debug);
+
+        Assert.Contains(backend.Records, r => r.Message.StartsWith("Full request dump"));
+    }
 }

@@ -12,8 +12,8 @@ solution (`Facade.sln`) gathering three complementary Facade examples.
 | Example | Project | What it shows |
 |---------|---------|---------------|
 | **GoF compiler** | `Facade.Gof` | GoF p.185 — a `Compiler` facade over Scanner → Parser → ProgramNodeBuilder → CodeGenerator → BytecodeStream. |
-| **Notification** | `Facade.Notification` | A business facade — `NotificationFacade` over email / SMS / Slack / push / audit-log, with a before/after `OrderService`. |
-| **Logging (ILogger)** | `Facade.Logging` | The real .NET logging facade `Microsoft.Extensions.Logging.ILogger`, with a swappable custom provider. |
+| **Notification** | `Facade.Notification` | A business facade — `NotificationFacade` over email / SMS / Slack / push / audit-log, with a before/after `OrderService`, and `Solution2`, where each client picks its channels. |
+| **Logging (ILogger)** | `Facade.Logging` | The real .NET logging facade `Microsoft.Extensions.Logging.ILogger`, with a swappable custom provider. There is no hand-written `Logger`, because `ILogger` is that class in .NET. `LoggingClient` logs the same four messages as the Java `facade.slf4j.Main`. |
 
 ## Participants (GoF)
 
@@ -27,14 +27,14 @@ not an owner that hides its internals.
 ## Layout
 
 - `src/Facade.Gof`, `src/Facade.Notification`, `src/Facade.Logging` — runnable console apps.
-- `tests/Facade.*.Tests` — xUnit tests (20 total).
+- `tests/Facade.*.Tests` — xUnit tests (31 total).
 - `Facade.sln` — the umbrella solution, projects grouped by example (Gof / Notification / Logging).
 - Targets `net10.0` (matching the repo); `Facade.Logging` depends on `Microsoft.Extensions.Logging` (restored from NuGet).
 
 ## Run it with
 
 ```bash
-dotnet test                                   # all 24 tests (see Test.md)
+dotnet test                                   # all 31 tests (see Test.md)
 dotnet run --project src/Facade.Gof           # compiler demo
 dotnet run --project src/Facade.Notification  # notification before/after demo
 dotnet run --project src/Facade.Logging       # ILogger demo (Console + recording backend)
@@ -44,6 +44,6 @@ Each project also runs one slide's output on its own:
 
 ```bash
 dotnet run --project src/Facade.Gof -- compile                     # or compile-risc
-dotnet run --project src/Facade.Notification -- notification       # or notification-problem
+dotnet run --project src/Facade.Notification -- notification       # or notification-problem, notification-channels
 dotnet run --project src/Facade.Logging -- logging-console         # or logging-recording
 ```
