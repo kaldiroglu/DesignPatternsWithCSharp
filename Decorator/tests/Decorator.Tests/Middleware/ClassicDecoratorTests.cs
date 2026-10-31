@@ -84,7 +84,7 @@ public class ClassicDecoratorTests
         decorated.QuoteFor("SKU-999");
 
         Assert.Equal(1, vendor.CallCount); // the cache absorbed the second request
-        Assert.Equal(2, log.Size);         // logging sits outside the cache, so it saw both
+        Assert.Equal(2, log.Size);         // logging sits inside the cache, so it saw one call
     }
 
     [Fact(DisplayName = "the same chain wraps any supplier, however it gets its prices")]
