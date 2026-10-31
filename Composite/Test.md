@@ -22,6 +22,7 @@ deterministic and runs in milliseconds.
 | `Bom/NaiveBomTests` | That the naive design **works**, then each of the five things it costs |
 | `Bom/DesignComparisonTests` | Both designs give identical answers; 85 child entries against 13 |
 | `Drawing/CanvasTests` | Shape counts roll up; a canvas holds a canvas; a leaf has no `AddGraphic` to call |
+| `FileSystem/DirectoryTests` | A directory cannot hold itself or an ancestor; `Add` takes the child from its old parent; the disk report prints 167,816 and 45,000 |
 | `Hw/OrgChartTests` | The roll-up includes the manager; a shared report is silently counted twice; cycles refused |
 | `Hw/SurveyFormTests` | Validation concatenates rather than sums; `Add` on a `Question` compiles and throws |
 | `Hw/ExpressionTests` | The tree evaluates by recursion; a number substitutes for a sub-expression; divide-by-zero refuses |
@@ -29,7 +30,7 @@ deterministic and runs in milliseconds.
 ## Results
 
 ```
-Passed!  - Failed: 0, Passed: 67, Skipped: 0, Total: 67 - Composite.Tests.dll (net10.0)
+Passed!  - Failed: 0, Passed: 71, Skipped: 0, Total: 71 - Composite.Tests.dll (net10.0)
 ```
 
 The 49 GoF and bill-of-materials tests are the same assertions, with the same expected

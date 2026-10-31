@@ -40,7 +40,7 @@ var examples = new (string Name, string Group, Action Run)[]
     ("graphic-shape-count", "Shapes on a canvas — child management on the Composite", GraphicDemo.ShapeCount),
     ("graphic-safety", "Shapes on a canvas — child management on the Composite", GraphicDemo.Safety),
     ("file-system-six-questions", "A file system — roll-ups, a cache and an iterator", FileSystemDemo.SixQuestions),
-    ("file-system-disk-report", "A file system — roll-ups, a cache and an iterator", FileSystemDemo.DiskReportForOneFile),
+    ("file-system-disk-report", "A file system — roll-ups, a cache and an iterator", FileSystemDemo.DiskReportTotals),
     ("file-system-cache", "A file system — roll-ups, a cache and an iterator", FileSystemDemo.Cache),
     ("file-system-move", "A file system — roll-ups, a cache and an iterator", FileSystemDemo.Move),
     ("file-system-copy", "A file system — roll-ups, a cache and an iterator", FileSystemDemo.Copy),

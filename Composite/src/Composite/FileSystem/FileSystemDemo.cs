@@ -29,15 +29,23 @@ public static class FileSystemDemo
         Console.WriteLine("  Any depth, and not one loop at the call site.");
     }
 
-    public static void DiskReportForOneFile()
+    public static void DiskReportTotals()
     {
-        var tree = new SampleTree();
+        var home = new Directory("akin");
+        var dev = new Directory("Dev", home);
+        _ = new File("Readme.txt", dev, 2_048);
+        var report = new File("Report.docx", dev, 45_000);
+        var reports = new Directory("Reports", dev);
+        _ = new File("Important.docx", reports, 120_000);
 
-        Console.WriteLine("-- the same questions asked of a single file --");
-        var leafReport = new DiskReport(tree.Readme);
-        Console.Write(leafReport.Summary());
-        Console.WriteLine("  A leaf answers all five. The client cannot tell the difference.");
+        Console.WriteLine($"whole tree : {Bytes(new DiskReport(home))} bytes");
+        Console.WriteLine($"one file   : {Bytes(new DiskReport(report))} bytes");
+        Console.WriteLine("  The same client, and the same five questions. It cannot tell the");
+        Console.WriteLine("  difference, because it holds an IStorage.");
     }
+
+    private static string Bytes(DiskReport report) =>
+        report.TotalBytes().ToString("N0", System.Globalization.CultureInfo.InvariantCulture);
 
     public static void Cache()
     {

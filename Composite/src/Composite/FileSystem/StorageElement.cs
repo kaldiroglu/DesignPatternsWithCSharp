@@ -62,6 +62,7 @@ public abstract class StorageElement : IStorage
             throw new ArgumentException("an element cannot be moved into itself", nameof(target));
         }
 
+        target.CheckCanHold(this);        // before anything changes
         _parent?.Remove(this);
         _parent = target;
         target.Add(this);

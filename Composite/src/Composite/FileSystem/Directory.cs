@@ -172,20 +172,38 @@ public class Directory : StorageElement, IStorageContainer
 
     public void Add(IStorage element)
     {
-        if (ReferenceEquals(element, this))
-        {
-            throw new ArgumentException("a directory cannot contain itself", nameof(element));
-        }
-
+        CheckCanHold(element);
         if (!_elements.Contains(element))
         {
             _elements.Add(element);
             if (element is StorageElement child)
             {
+                var oldParent = child.GetParent();
+                if (oldParent is not null && !ReferenceEquals(oldParent, this))
+                {
+                    oldParent.Remove(element);        // an element lives in one directory
+                }
+
                 child.SetParent(this);
             }
 
             Invalidate();
+        }
+    }
+
+    /// <summary>
+    /// Refuses an element that is this directory or one of its ancestors. Moving a directory into
+    /// its own subtree cuts that subtree off from the root, and the recursion in
+    /// <see cref="Size"/> would never end.
+    /// </summary>
+    internal void CheckCanHold(IStorage element)
+    {
+        for (Directory? d = this; d is not null; d = d.GetParent())
+        {
+            if (ReferenceEquals(d, element))
+            {
+                throw new ArgumentException("a directory cannot contain itself", nameof(element));
+            }
         }
     }
 
