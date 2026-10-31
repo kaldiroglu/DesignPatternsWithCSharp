@@ -20,6 +20,7 @@ asserts and the deck quotes.
 | `TheSameObjectRendersInTwoFonts` | The `'i'` shared across both lines draws in Times on one and Courier on the other. |
 | `TheFlyweightHasNoFontField` | One field, the character code. The font is extrinsic; storing it would end the sharing. |
 | `TheDocumentIsCorrect` | The tree renders back to the text that was typed. |
+| `SlideRunsTests` | The `gof-font-ranges` entry returns normally and prints the lines the slide quotes. |
 
 ## Run it with
 

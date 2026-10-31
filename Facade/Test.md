@@ -4,17 +4,19 @@
 
 For further enquiry please contact Akin Kaldiroglu at akin@kaldiroglu.dev
 
-**Type:** Unit tests (xUnit), targeting `net10.0`. 20 tests across the three examples.
+**Type:** Unit tests (xUnit), targeting `net10.0`. 24 tests across the three examples.
 
 | Suite | Tests | Covers |
 |-------|:-----:|--------|
-| `Facade.Gof.Tests` | 6 | The `Compiler` facade, and the compiler subsystem used directly. |
-| `Facade.Notification.Tests` | 8 | `NotificationFacade` channel selection / rules, and channel services used directly. |
-| `Facade.Logging.Tests` | 6 | `ILogger` structured logging, level filtering, and capture via a custom provider. |
+| `Facade.Gof.Tests` | 7 | The `Compiler` facade, and the compiler subsystem used directly. |
+| `Facade.Notification.Tests` | 10 | `NotificationFacade` channel selection / rules, and channel services used directly. |
+| `Facade.Logging.Tests` | 7 | `ILogger` structured logging, level filtering, and capture via a custom provider. |
+
+Each project also has `SlideRunsTests`: each runner entry a slide names returns normally and prints the lines the slide quotes.
 
 ## Results
 
-All **20** tests pass (`Passed! - Failed: 0, Passed: 20, Skipped: 0`). The projects
+All **24** tests pass (`Passed! - Failed: 0, Passed: 24, Skipped: 0`). The projects
 target `net10.0` — build and test with the .NET 10 SDK:
 
 ```bash

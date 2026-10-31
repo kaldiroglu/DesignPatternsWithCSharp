@@ -34,7 +34,7 @@ not an owner that hides its internals.
 ## Run it with
 
 ```bash
-dotnet test                                   # all 20 tests (see Test.md)
+dotnet test                                   # all 24 tests (see Test.md)
 dotnet run --project src/Facade.Gof           # compiler demo
 dotnet run --project src/Facade.Notification  # notification before/after demo
 dotnet run --project src/Facade.Logging       # ILogger demo (Console + recording backend)

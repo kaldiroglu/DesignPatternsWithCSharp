@@ -37,7 +37,7 @@ public class TurkishHomeAppliance : HomeAppliance
 
     public override void Stop()
     {
-        Console.WriteLine("TurkishHomeAppliance " + name + " stoping!");
+        Console.WriteLine("TurkishHomeAppliance " + name + " stopping!");
         if (turkishPowerSource)
             powerSource.TurnOff();
         else

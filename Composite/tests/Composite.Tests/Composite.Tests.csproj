@@ -16,6 +16,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\src\Composite\Composite.csproj" />
+    <ProjectReference Include="..\..\src\Composite.Demo\Composite.Demo.csproj" />
   </ItemGroup>
 
 </Project>

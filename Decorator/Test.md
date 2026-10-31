@@ -43,7 +43,8 @@ cannot drift into being a plausible-looking guess.
 | `Hw/FeeEngineTests.cs` | 4 | Subtraction versus multiplication, and why one of them makes position matter. |
 | `Hw/InvoicePipelineTests.cs` | 5 | Round-trips, ordering against compressibility, and a wrong chain refused rather than silently wrong. |
 | `Hw/PowerUpsTests.cs` | 6 | Stacking, expiry, revocation, and a decorator that forwards zero times. |
-| `Io/InvoiceStreamTests.cs` | 1 | One more decorator, a smaller file, and the same total read back. |
+| `Io/InvoiceStreamTests.cs` | 3 | One more decorator, a smaller file, and the same total read back. The plain file is 274 bytes. The gzipped file is 194 bytes, and the same bytes in one write at the smallest size are 186. |
+| `SlideRunsTests.cs` | 15 | Each runner entry a slide names: it returns normally and prints the lines the slide quotes. |
 
 ## Two things worth knowing before changing them
 
@@ -67,7 +68,7 @@ is a fact about the test rather than a hope about the network.
 ```bash
 cd "~/Development/NET/Design Patterns/Design Patterns with CSharp/Decorator"
 
-# all 53
+# all 73
 ~/.dotnet/dotnet test tests/Decorator.Tests
 
 # one file's worth

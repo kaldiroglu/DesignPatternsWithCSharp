@@ -25,12 +25,13 @@ deterministic and runs in milliseconds.
 | `FileSystem/DirectoryTests` | A directory cannot hold itself or an ancestor; `Add` takes the child from its old parent; the disk report prints 167,816 and 45,000 |
 | `Hw/OrgChartTests` | The roll-up includes the manager; a shared report is silently counted twice; cycles refused |
 | `Hw/SurveyFormTests` | Validation concatenates rather than sums; `Add` on a `Question` compiles and throws |
+| `SlideRunsTests` | Each runner entry a slide names: it returns normally and prints the lines the slide quotes |
 | `Hw/ExpressionTests` | The tree evaluates by recursion; a number substitutes for a sub-expression; divide-by-zero refuses |
 
 ## Results
 
 ```
-Passed!  - Failed: 0, Passed: 73, Skipped: 0, Total: 73 - Composite.Tests.dll (net10.0)
+Passed!  - Failed: 0, Passed: 84, Skipped: 0, Total: 84 - Composite.Tests.dll (net10.0)
 ```
 
 The 49 GoF and bill-of-materials tests are the same assertions, with the same expected

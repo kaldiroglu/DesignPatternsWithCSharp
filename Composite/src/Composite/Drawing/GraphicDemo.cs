@@ -38,6 +38,7 @@ public static class GraphicDemo
 
         IGraphic asComponent = display;   // a Canvas is an IGraphic, so this needs no cast
         asComponent.Draw();
+        Console.WriteLine(display.ShapeCount());   // 5, across two levels, no loop
 
         Console.WriteLine();
         Console.WriteLine("A leaf cannot be given children, and the compiler says so:");

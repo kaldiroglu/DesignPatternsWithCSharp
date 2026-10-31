@@ -149,6 +149,9 @@ These all cost real time at least once. In rough order of how quietly they fail:
 - **`CallerFilePath` is filled in at the call site**, so a helper that resolves the source
   root must capture it in its own file, not on a parameter of the public method. A caller
   in a subfolder otherwise anchors the path one directory too deep.
+- **`SlideRunsTests` runs each runner entry a Structural slide names.** The test project
+  references the demo program and calls its `EntryPoint` in this process, so top-level
+  programs work too. A new `· run X` label needs a new row; nothing fails if it is missing.
 - **Parallelism and `Console.SetOut` do not mix.** The examples print, and Bridge's
   violation test captures `Console.Out` to prove a method prints *nothing* — under xUnit's
   default a capture opened by one class swallows another class's output. `Bridge.Tests`

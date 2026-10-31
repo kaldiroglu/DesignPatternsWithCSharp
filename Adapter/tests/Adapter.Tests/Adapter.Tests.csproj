@@ -23,6 +23,7 @@
     <ProjectReference Include="..\..\src\Pluggable.Parameterized\Pluggable.Parameterized.csproj" />
     <ProjectReference Include="..\..\src\Gof\Gof.csproj" />
     <ProjectReference Include="..\..\src\Gof.Pluggable\Gof.Pluggable.csproj" />
+    <ProjectReference Include="..\..\src\Electricity.Problem1\Electricity.Problem1.csproj" />
   </ItemGroup>
 
 </Project>

@@ -23,8 +23,9 @@ count the calls it forwards; where it exposes state, the tests assert the state 
 | `AbstractOperationsTests` | `Pluggable.AbstractOperations` (a) | the abstract `PowerAdapter` Template Method routes `TurnOn`/`TurnOff` to the abstract `Deliver`/`Cut` hooks (recording subclass) |
 | `DelegateObjectTests` | `Pluggable.DelegateObject` (b) | `DelegatingPowerAdapter` forwards to a swappable `PowerDelivery` delegate |
 | `ParameterizedTests` | `Pluggable.Parameterized` (c) | `PluggablePowerAdapter` runs the injected `Action` blocks once each, and keeps two operations correct on one toggle: a second `TurnOn` or `TurnOff` does nothing |
+| `SlideRunsTests` | the four programs the slides name | each one returns normally and prints the lines the slide quotes; the runs happen in this process |
 
-**14 tests total.**
+**18 tests total.**
 
 ## Notes
 

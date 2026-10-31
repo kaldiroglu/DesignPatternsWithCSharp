@@ -54,6 +54,11 @@ The tests assert the same figures in every stage: two calls, one passed on, one 
 | `TheRealSubjectIsNotPublic` | `RealPM` is `internal`. |
 | `StageThreeLimits` | In Pm3, `Citizen` takes a `PMSecretary` and `RealPM` is public. |
 
+## SlideRunsTests
+
+Each of the eight runner entries a slide names returns normally and prints the lines the
+slide quotes.
+
 ## Run it with
 
 ```bash

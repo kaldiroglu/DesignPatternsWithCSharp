@@ -67,6 +67,7 @@ at compile time, so the tests do not depend on the working directory.
 | `Retrofit/RetrofitTests.cs` | 6 | The legacy caller undisturbed, and the standard satisfied over it. |
 | `Hw/StatementRunTests.cs` | 6 | The screen reader, and why no primitive is about paper. |
 | `Hw/PaymentDeskTests.cs` | 6 | Cash collapsing the two phases, and no capability booleans. |
+| `SlideRunsTests.cs` | 11 | Each runner entry a slide names: it returns normally and prints the lines the slide quotes. |
 | `Hw/RoutePlannerTests.cs` | 5 | Two maps, different answers, and no vendor type in the abstraction. |
 
 ## Two things the port had to handle
@@ -88,7 +89,7 @@ count by one. The Java original has no equivalent trap.
 ```bash
 cd "~/Development/NET/Design Patterns/Design Patterns with CSharp/Bridge"
 
-# all 96
+# all 112
 ~/.dotnet/dotnet test tests/Bridge.Tests
 
 # one file's worth
