@@ -1,8 +1,8 @@
 namespace dev.kaldiroglu.Proxy.Pm.Pm3;
 
 /// <summary>
-/// Client that depends only on <see cref="IPM"/>. It obtains its reference from
-/// the <see cref="PMSecretary"/> and never knows it is holding a proxy.
+/// A citizen who holds an <see cref="IPM"/>, which is an interface. The screening happens, and
+/// this class does not know it does.
 /// </summary>
 public class Citizen
 {
@@ -12,16 +12,10 @@ public class Citizen
     public Citizen(string name, PMSecretary secretary)
     {
         _name = name;
-        _pm = secretary.GetMePM();
+        _pm = secretary.GetPM();
     }
 
-    public void TellProblem()
-    {
-        _pm.Listen("The problem is ...");
-    }
+    public void TellProblem(string problem) => _pm.Listen(problem);
 
-    public void AskForJob()
-    {
-        _pm.FindJob(_name);
-    }
+    public void AskForJob() => _pm.FindJob(_name);
 }

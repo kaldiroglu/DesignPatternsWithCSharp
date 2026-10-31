@@ -40,4 +40,13 @@ public class NetworkProxyTests
 
         Assert.Null(ex);
     }
+
+    [Fact]
+    public void TelnetFrom100IsAllowed()
+    {
+        INetwork network = new ProxyServer();
+
+        network.Telnet("100.64.0.1", "88.168.2.200");
+        network.Telnet("101.2.3.4", "88.168.2.200");
+    }
 }

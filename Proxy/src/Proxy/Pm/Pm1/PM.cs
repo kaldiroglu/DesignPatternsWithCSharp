@@ -1,35 +1,43 @@
 namespace dev.kaldiroglu.Proxy.Pm.Pm1;
 
 /// <summary>
-/// Stage 1 — no proxy at all. The Prime Minister is a single concrete class and
-/// the <see cref="Citizen"/> talks to it directly. This is the starting point we
-/// will refactor toward the Proxy pattern in <c>Pm2</c> and <c>Pm3</c>.
+/// Stage 1, no proxy at all. The Prime Minister takes the calls herself. This class does two
+/// jobs: it resolves problems, which is her work, and it decides which problems are worth her
+/// time, which is not. The screening logic sits inside the class it exists to protect.
 /// </summary>
 public class PM
 {
+    public int ProblemsHeard { get; private set; }
+
+    public int ProblemsResolved { get; private set; }
+
     public void Listen(string problem)
     {
-        Console.WriteLine("PM: Listening to you.");
-        if (SortOut(problem))
+        ProblemsHeard++;
+        Console.WriteLine("PM: listening to you.");
+        if (WorthMyTime(problem))
         {
             Resolve(problem);
+        }
+        else
+        {
+            Console.WriteLine("PM: that is not something I deal with.");
         }
     }
 
     public void FindJob(string name)
     {
-        Console.WriteLine("PM: Don't ask me to find a job for you!");
+        Console.WriteLine($"PM: do not ask me to find a job for you, {name}.");
     }
 
-    private static bool SortOut(string problem)
-    {
-        bool b = true;
-        // ...decide whether the problem is worth escalating.
-        return b;
-    }
+    /// <summary>A sensible rule in the wrong class: she runs it herself on every call.</summary>
+    private static bool WorthMyTime(string problem) =>
+        !problem.Contains("job", StringComparison.OrdinalIgnoreCase)
+        && !problem.Contains("cousin", StringComparison.OrdinalIgnoreCase);
 
-    private static void Resolve(string problem)
+    private void Resolve(string problem)
     {
-        Console.WriteLine($"PM: Please resolve this: {problem}");
+        ProblemsResolved++;
+        Console.WriteLine("PM: I will have this resolved — " + problem);
     }
 }

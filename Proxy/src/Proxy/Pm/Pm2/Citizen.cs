@@ -1,6 +1,10 @@
 namespace dev.kaldiroglu.Proxy.Pm.Pm2;
 
-/// <summary>Client that talks to a <see cref="PmProxy"/> instead of the real PM.</summary>
+/// <summary>
+/// A citizen who now telephones a <see cref="PmProxy"/>. The field type changed from the one in
+/// Pm1, so the client was rewritten because the way she is answered changed. That is the
+/// defect of this stage.
+/// </summary>
 public class Citizen
 {
     private readonly string _name;
@@ -12,13 +16,7 @@ public class Citizen
         _proxy = proxy;
     }
 
-    public void TellProblem()
-    {
-        _proxy.Listen("The problem is ...");
-    }
+    public void TellProblem(string problem) => _proxy.Listen(problem);
 
-    public void AskForJob()
-    {
-        _proxy.FindJob(_name);
-    }
+    public void AskForJob() => _proxy.FindJob(_name);
 }

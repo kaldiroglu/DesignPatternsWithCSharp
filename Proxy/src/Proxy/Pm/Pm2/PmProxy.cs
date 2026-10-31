@@ -1,15 +1,18 @@
 namespace dev.kaldiroglu.Proxy.Pm.Pm2;
 
 /// <summary>
-/// Stage 2 proxy. It intercepts the citizen's requests, decides what to pass on
-/// (<see cref="SortOut"/>), and only then delegates to the real <see cref="PM"/>.
-/// It is still a hand-rolled stand-in: because it shares no interface with
-/// <see cref="PM"/>, the <see cref="Citizen"/> must know it is a proxy. Stage 3
-/// fixes that with a common interface.
+/// Stage 2, a stand-in that screens, and not yet the solution. The screening has moved out of
+/// <see cref="PM"/>, but this class shares no type with it, so <see cref="Citizen"/> had to
+/// change its field from <see cref="PM"/> to <see cref="PmProxy"/>. Pm3 fixes that with one
+/// interface.
 /// </summary>
 public class PmProxy
 {
     private readonly PM _pm;
+
+    public int CallsScreened { get; private set; }
+
+    public int CallsPassedOn { get; private set; }
 
     public PmProxy(PM pm)
     {
@@ -18,27 +21,25 @@ public class PmProxy
 
     public void Listen(string problem)
     {
-        Console.WriteLine("Proxy: Listening to you.");
-        if (SortOut(problem))
+        CallsScreened++;
+        Console.WriteLine("Proxy: let me hear it first.");
+        if (WorthHerTime(problem))
         {
-            Delegate(problem);
+            CallsPassedOn++;
+            _pm.Listen(problem);
+        }
+        else
+        {
+            Console.WriteLine("Proxy: I am afraid that is not something she deals with.");
         }
     }
 
     public void FindJob(string name)
     {
-        Console.WriteLine("Proxy: 'I'll find out what I can do for you!'");
+        Console.WriteLine($"Proxy: I will see what can be done, {name}.");
     }
 
-    private void Delegate(string problem)
-    {
-        _pm.Listen(problem);
-    }
-
-    private static bool SortOut(string problem)
-    {
-        bool b = true;
-        // ...
-        return b;
-    }
+    private static bool WorthHerTime(string problem) =>
+        !problem.Contains("job", StringComparison.OrdinalIgnoreCase)
+        && !problem.Contains("cousin", StringComparison.OrdinalIgnoreCase);
 }

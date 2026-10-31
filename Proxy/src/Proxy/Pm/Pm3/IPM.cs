@@ -1,10 +1,9 @@
 namespace dev.kaldiroglu.Proxy.Pm.Pm3;
 
 /// <summary>
-/// Stage 3 — the Subject. Now both the real PM and the proxy implement a common
-/// interface, so the <see cref="Citizen"/> depends only on <see cref="IPM"/> and
-/// cannot tell whether it holds the real subject or its proxy. This is the Proxy
-/// pattern in its canonical form.
+/// The Subject: what a citizen may ask of the Prime Minister's office. <see cref="RealPM"/> and
+/// <see cref="ProxyPM"/> both implement it, so a citizen cannot tell which she holds and is not
+/// rewritten when the answer changes.
 /// </summary>
 public interface IPM
 {

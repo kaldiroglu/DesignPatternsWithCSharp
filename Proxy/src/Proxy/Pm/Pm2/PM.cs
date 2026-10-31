@@ -1,25 +1,27 @@
 namespace dev.kaldiroglu.Proxy.Pm.Pm2;
 
 /// <summary>
-/// Stage 2 — the real Prime Minister. A <see cref="PmProxy"/> now stands in front
-/// of it, filtering requests before delegating. Note the proxy and the PM do not
-/// yet share a common interface, so the client is still coupled to concrete types.
+/// Stage 2, the Prime Minister without the screening. This class does one job, and everything
+/// that reaches <see cref="Listen"/> is something she should hear.
 /// </summary>
 public class PM
 {
+    public int ProblemsHeard { get; private set; }
+
     public void Listen(string problem)
     {
-        Console.WriteLine("PM: Listening to you.");
+        ProblemsHeard++;
+        Console.WriteLine("PM: listening to you.");
         Resolve(problem);
     }
 
     public void FindJob(string name)
     {
-        Console.WriteLine("PM: Don't ask me to find a job for you!");
+        Console.WriteLine($"PM: do not ask me to find a job for you, {name}.");
     }
 
     private static void Resolve(string problem)
     {
-        Console.WriteLine($"PM: Please resolve this: {problem}");
+        Console.WriteLine("PM: I will have this resolved — " + problem);
     }
 }

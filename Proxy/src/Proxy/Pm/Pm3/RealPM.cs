@@ -1,21 +1,24 @@
 namespace dev.kaldiroglu.Proxy.Pm.Pm3;
 
-/// <summary>RealSubject — the actual Prime Minister behind the proxy.</summary>
+/// <summary>The RealSubject: the Prime Minister, doing one job. She screens nothing.</summary>
 public class RealPM : IPM
 {
+    public int ProblemsHeard { get; private set; }
+
     public void Listen(string problem)
     {
-        Console.WriteLine("RealPM: Listening to you.");
+        ProblemsHeard++;
+        Console.WriteLine("RealPM: listening to you.");
         Resolve(problem);
     }
 
     public void FindJob(string name)
     {
-        Console.WriteLine("RealPM: Don't ask me to find a job for you!");
+        Console.WriteLine($"RealPM: do not ask me to find a job for you, {name}.");
     }
 
     private static void Resolve(string problem)
     {
-        Console.WriteLine($"RealPM: Please resolve this: {problem}");
+        Console.WriteLine("RealPM: I will have this resolved — " + problem);
     }
 }

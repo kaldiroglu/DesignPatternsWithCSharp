@@ -20,7 +20,7 @@ The client always programs to the **Subject** interface and never learns whether
 |---------|-----------|------------|---------------|
 | **GoF** | `dev.kaldiroglu.Proxy.Gof` | Virtual proxy | The book's document-editor example (p. 207). `ImageProxy` caches the `Extent` and defers loading the expensive real `Image` until the first `Draw`. |
 | **Network** | `dev.kaldiroglu.Proxy.Network` | Protection proxy | `ProxyServer` implements the same `INetwork` as the real `Gateway`, but logs and enforces an access policy (blocks FTP to `192.*`, telnet from `10.*`) before delegating. |
-| **PM** | `dev.kaldiroglu.Proxy.Pm.Pm1/Pm2/Pm3/Pm4` | Teaching progression | A three-stage refactoring of a "citizen ↔ Prime Minister" scenario from *no proxy* (`Pm1`) → a *hand-rolled proxy* (`Pm2`) → the *canonical GoF proxy* sharing an `IPM` interface (`Pm3`). |
+| **PM** | `dev.kaldiroglu.Proxy.Pm.Pm1/Pm2/Pm3/Pm4` | Teaching progression | A four-stage refactoring of a "citizen ↔ Prime Minister" scenario. `Pm1`: no proxy, the PM screens her own calls. `Pm2`: a stand-in screens, but it shares no type with the PM. `Pm3`: a protection proxy sharing an `IPM` interface; the first citizen creates the PM. `Pm4`: the proxy also creates the PM on the first forwarded call. Each entry prints the counters on the slides: two calls, one passed on, one refused. |
 
 ## Participants (GoF roles)
 
@@ -47,4 +47,4 @@ dotnet run --project src/Proxy.Demo     # run all three demos
 dotnet run --project src/Proxy.Demo -- pm3-screening     # run one entry
 ```
 
-The runner accepts: `gof`, `network`, `pm1`, `pm2`, `pm3-secretary`, `pm3-screening`, `pm4`.
+The runner accepts: `gof`, `gof-twenty-figures`, `network`, `pm1`, `pm2`, `pm3-secretary`, `pm3-screening`, `pm4`.

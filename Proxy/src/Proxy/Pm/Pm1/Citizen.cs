@@ -1,6 +1,6 @@
 namespace dev.kaldiroglu.Proxy.Pm.Pm1;
 
-/// <summary>Client that depends directly on the concrete <see cref="PM"/>.</summary>
+/// <summary>A citizen who holds the Prime Minister's own telephone number.</summary>
 public class Citizen
 {
     private readonly string _name;
@@ -12,13 +12,7 @@ public class Citizen
         _pm = pm;
     }
 
-    public void TellProblem()
-    {
-        _pm.Listen("The problem is ...");
-    }
+    public void TellProblem(string problem) => _pm.Listen(problem);
 
-    public void AskForJob()
-    {
-        _pm.FindJob(_name);
-    }
+    public void AskForJob() => _pm.FindJob(_name);
 }

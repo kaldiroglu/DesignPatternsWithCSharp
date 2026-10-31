@@ -22,4 +22,24 @@ public static class GofDemo
         Console.WriteLine("\n== Drawing again (images already loaded — no reload) ==");
         doc.Draw(new Point(0, 0));
     }
+
+    /// <summary>A document of twenty figures is laid out, and not one image is read from disk.</summary>
+    public static void TwentyFigures()
+    {
+        var a4 = new Extent(210, 297);
+        var document = new TextDocument();
+        var images = new ImageProxy[20];
+        for (var i = 0; i < images.Length; i++)
+        {
+            images[i] = new ImageProxy($"figure-{i}.png", a4);
+            document.Insert(images[i]);
+        }
+
+        var totalHeight = images.Sum(image => image.GetExtent().Height);
+        var loaded = images.Count(image => image.IsImageLoaded);
+
+        Console.WriteLine($"figures in the document : {images.Length}");
+        Console.WriteLine($"total page height       : {totalHeight}");
+        Console.WriteLine($"images read from disk   : {loaded}");
+    }
 }

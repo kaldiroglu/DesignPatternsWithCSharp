@@ -64,4 +64,25 @@ public class GofProxyTests
         Assert.Equal(new Extent(800, 600), real.GetExtent());
         Assert.Equal(new Extent(800, 600), proxy.GetExtent());
     }
+
+    [Fact]
+    public void TwentyFiguresDemoPrintsTheFigures()
+    {
+        TextWriter original = Console.Out;
+        var buffer = new StringWriter();
+        Console.SetOut(buffer);
+        try
+        {
+            GofDemo.TwentyFigures();
+        }
+        finally
+        {
+            Console.SetOut(original);
+        }
+
+        string printed = buffer.ToString();
+        Assert.Contains("figures in the document : 20", printed);
+        Assert.Contains($"total page height       : {20 * 297}", printed);
+        Assert.Contains("images read from disk   : 0", printed);
+    }
 }

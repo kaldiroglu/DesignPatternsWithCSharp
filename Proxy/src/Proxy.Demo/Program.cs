@@ -12,6 +12,7 @@ using dev.kaldiroglu.Proxy.Pm.Pm4;
 var examples = new (string Name, Action? Heading, Action Run)[]
 {
     ("gof", () => Section("1. GoF virtual proxy — lazy image loading (Design Patterns, p. 207)"), GofDemo.Run),
+    ("gof-twenty-figures", null, GofDemo.TwentyFigures),
     ("network", () => Section("2. Network protection proxy — access control + logging"), NetworkDemo.Run),
     ("pm1", () =>
     {

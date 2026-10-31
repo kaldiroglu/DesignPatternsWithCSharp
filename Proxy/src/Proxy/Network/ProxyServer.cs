@@ -40,7 +40,7 @@ public class ProxyServer : INetwork
             throw new AccessDeniedException($"FTP to {targetIp} is forbidden!");
         }
 
-        if (protocol == "telnet" && ip.StartsWith("10"))
+        if (protocol == "telnet" && ip.StartsWith("10."))
         {
             throw new AccessDeniedException($"Telnet from {ip} is forbidden!");
         }
