@@ -37,7 +37,7 @@ The client always programs to the **Subject** interface and never learns whether
 
 ## Notes on the port
 
-The Java `network` example used Turkish identifiers and messages (`YasakKardesimException`, Turkish log text). These were translated to English — `YasakKardesimException` became `AccessDeniedException` — while the filtering rules and behaviour were preserved exactly.
+`Network` is ported line for line: `dotnet run -- network` prints exactly what the Java `proxy.network.Main` prints, with the same three requests, the same `[log]` and `refused:` lines, and the counts 3 logged and 1 forwarded. The earlier Turkish names are gone on both sides: `YasakKardesimException` is `ForbiddenAccessException`.
 
 ## Run it with
 

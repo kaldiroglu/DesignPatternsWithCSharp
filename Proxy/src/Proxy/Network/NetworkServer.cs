@@ -1,9 +1,10 @@
 namespace dev.kaldiroglu.Proxy.Network;
 
 /// <summary>
-/// Hands the client an <see cref="INetwork"/> — but always the protection
-/// <see cref="ProxyServer"/>, never the real <see cref="Gateway"/> directly.
-/// This is how the proxy is transparently substituted for the real subject.
+/// How a client obtains an <see cref="INetwork"/>, and why it can never obtain the real one.
+/// The server hands out a <see cref="ProxyServer"/>. The returned type is
+/// <see cref="INetwork"/>, so no client can tell, and none is ever given a reference to the
+/// <see cref="Gateway"/>.
 /// </summary>
 public class NetworkServer
 {
@@ -15,7 +16,7 @@ public class NetworkServer
         _network = new ProxyServer();
     }
 
-    public INetwork GetNetwork() => _network;
-
     public static NetworkServer GetInstance() => Instance;
+
+    public INetwork GetNetwork() => _network;
 }

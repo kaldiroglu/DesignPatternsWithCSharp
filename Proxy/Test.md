@@ -22,11 +22,13 @@
 
 | Test | What it proves |
 |------|----------------|
-| `ServerReturnsProxy` | The server hands the client a `ProxyServer`, never the real `Gateway`. |
-| `FtpTo192IsForbidden` | FTP to a `192.*` address throws `AccessDeniedException`. |
-| `TelnetFrom10IsForbidden` | Telnet from a `10.*` address throws `AccessDeniedException`. |
-| `TelnetFrom100IsAllowed` | `100.*` and `101.*` are not in the `10` network, so telnet from them is forwarded. |
-| `AllowedFtpIsDelegated` | An allowed request passes through to the real gateway without throwing. |
+| `Permitted` | A permitted request reaches the gateway: one ftp call is counted there. |
+| `FtpRuleStopsIt` | Ftp to a `192.*` address throws `ForbiddenAccessException`, and the gateway counts no call. |
+| `TelnetRuleStopsIt` | Telnet from a `10.*` address throws `ForbiddenAccessException`, and the gateway counts no call. |
+| `RefusedRequestsAreLogged` | A refused request is still in `Logger.Entries()`: the proxy saw it. |
+| `TheRealSubjectKnowsNothing` | Sent straight to the gateway, the forbidden request succeeds, so the rule is only in the proxy. |
+| `TheServerHandsOutTheProxy` | The server hands the client a `ProxyServer`, never the real `Gateway`. |
+| `AnAddressThatOnlyBeginsWithTheDigitsIsAllowed` | `100.*` and `101.*` are not in the `10` network, so telnet from them is forwarded. |
 
 ### `PmProxyTests` — the three stages (Pm1, Pm2, Pm3)
 

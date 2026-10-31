@@ -1,15 +1,15 @@
 namespace dev.kaldiroglu.Proxy.Network;
 
 /// <summary>
-/// Subject role of the Proxy pattern. Both the real <see cref="Gateway"/> and
-/// the access-controlling <see cref="ProxyServer"/> implement this interface, so
-/// a client uses them interchangeably.
+/// The Subject: what any network endpoint offers. <see cref="Gateway"/> is the real thing
+/// and <see cref="ProxyServer"/> stands in front of it. Because both implement this,
+/// <see cref="NetworkServer"/> can hand out either and no client can tell.
 /// </summary>
 public interface INetwork
 {
-    /// <exception cref="AccessDeniedException">Thrown when the proxy forbids the connection.</exception>
+    /// <exception cref="ForbiddenAccessException">Thrown when the proxy refuses the request.</exception>
     void Telnet(string ip, string targetIp);
 
-    /// <exception cref="AccessDeniedException">Thrown when the proxy forbids the connection.</exception>
+    /// <exception cref="ForbiddenAccessException">Thrown when the proxy refuses the request.</exception>
     void Ftp(string ip, string targetIp);
 }

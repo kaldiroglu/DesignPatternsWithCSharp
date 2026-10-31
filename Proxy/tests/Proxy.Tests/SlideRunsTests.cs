@@ -18,7 +18,7 @@ public class SlideRunsTests
     [InlineData("pm3-screening", "calls screened : 2", "passed on      : 1", "refused        : 1")]
     [InlineData("pm3-secretary", "Prime Minister created yet? False\nPrime Minister created yet? True")]
     [InlineData("pm4", "RealPM: the Prime Minister takes office.", "calls screened : 2", "passed on      : 1", "refused        : 1")]
-    [InlineData("network", "FTP to 192.168.2.200 is forbidden!", "10.0.0.2 makes an ftp to 202.168.2.200")]
+    [InlineData("network", "refused: telnet from 10.0.0.2 is not permitted", "refused: ftp to 192.168.2.200 is not permitted", "requests logged by the proxy : 3", "requests that reached the gateway : 1")]
     [InlineData("gof", "Total page extent: 1024x1368", "[Image] Loading raster data from 'diagram.png' (expensive)...")]
     [InlineData("gof-twenty-figures", "figures in the document : 20", "total page height       : 5940", "images read from disk   : 0")]
     public void PrintsWhatTheSlideQuotes(string entry, params string[] lines)
