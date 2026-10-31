@@ -7,11 +7,15 @@ namespace dev.kaldiroglu.Adapter.Pluggable.Parameterized;
 /// interface is just "turn on" / "turn off", supplied as <see cref="System.Action"/> blocks. This replaces the
 /// family <c>USTurkishPowerAdapter</c>, <c>UKTurkishPowerAdapter</c>, &hellip; with a single
 /// parameterizable class &ndash; the answer to the deck's "one adapter per interface" consequence.</para>
+///
+/// <para>The sources here have one toggle, so both blocks may be the same call. The <c>on</c> field keeps the
+/// meaning of the two operations: a second <c>TurnOn</c> does not switch the power off.</para>
 /// </summary>
 public sealed class PluggablePowerAdapter : TurkishPowerSource
 {
     private readonly Action onTurnOn;
     private readonly Action onTurnOff;
+    private bool on;
 
     public PluggablePowerAdapter(Action onTurnOn, Action onTurnOff)
     {
@@ -21,11 +25,19 @@ public sealed class PluggablePowerAdapter : TurkishPowerSource
 
     public void TurnOn()
     {
-        onTurnOn();
+        if (!on)
+        {
+            onTurnOn();
+            on = true;
+        }
     }
 
     public void TurnOff()
     {
-        onTurnOff();
+        if (on)
+        {
+            onTurnOff();
+            on = false;
+        }
     }
 }

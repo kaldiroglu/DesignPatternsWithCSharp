@@ -22,9 +22,9 @@ count the calls it forwards; where it exposes state, the tests assert the state 
 | `TwoWayAdapterTests` | `Electricity.TwoWayAdapter` | from the US side `TurnOn` pushes the US switch; from the Turkish side `PushSwitch` turns on the Turkish source |
 | `AbstractOperationsTests` | `Pluggable.AbstractOperations` (a) | the abstract `PowerAdapter` Template Method routes `TurnOn`/`TurnOff` to the abstract `Deliver`/`Cut` hooks (recording subclass) |
 | `DelegateObjectTests` | `Pluggable.DelegateObject` (b) | `DelegatingPowerAdapter` forwards to a swappable `PowerDelivery` delegate |
-| `ParameterizedTests` | `Pluggable.Parameterized` (c) | `PluggablePowerAdapter` runs the injected `Action` blocks (`TurnOn` twice, `TurnOff` once → 2/1) |
+| `ParameterizedTests` | `Pluggable.Parameterized` (c) | `PluggablePowerAdapter` runs the injected `Action` blocks once each, and keeps two operations correct on one toggle: a second `TurnOn` or `TurnOff` does nothing |
 
-**13 tests total.**
+**14 tests total.**
 
 ## Notes
 
