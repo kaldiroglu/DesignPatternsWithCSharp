@@ -28,12 +28,12 @@ public sealed class Transports
 
     public Transports(TransportLog log) => _log = log;
 
+    /// <summary>Opens one connection to a vendor. A channel does this once, before its first send.</summary>
+    public void OpenConnection() => _log.OpenConnection();
+
     /// <summary>The mail vendor's API: a subject and a body, to an address.</summary>
-    public bool SmtpSend(string emailAddress, string subject, string body)
-    {
-        _log.OpenConnection();
-        return _log.Record("email", emailAddress, body);
-    }
+    public bool SmtpSend(string emailAddress, string subject, string body) =>
+        _log.Record("email", emailAddress, body);
 
     /// <summary>
     /// The SMS vendor's API: one string, to a number. No subject. Hard 160-character limit.
@@ -45,7 +45,6 @@ public sealed class Transports
             throw new ArgumentException($"SMS over {SmsLimit} characters");
         }
 
-        _log.OpenConnection();
         return _log.Record("sms", phoneNumber, text);
     }
 
@@ -57,7 +56,6 @@ public sealed class Transports
             throw new ArgumentException($"push payload over {PushLimit}");
         }
 
-        _log.OpenConnection();
         return _log.Record("push", deviceToken, payload);
     }
 }

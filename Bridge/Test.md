@@ -59,11 +59,11 @@ at compile time, so the tests do not depend on the working directory.
 | `Gof/WindowSolutionTests.cs` | 6 | The same pictures, a run-time swap, and a third platform written inside the test. |
 | `Gof/DesignComparisonTests.cs` | 3 | Both designs draw byte-identical output; nine types against six. |
 | `Notifications/ProblemTests.cs` | 9 | The three naive designs, and the forgotten SMS rule. |
-| `Notifications/ClassicBridgeTests.cs` | 10 | 3 x 3 combinations, the retry written once, the channel's limits asked for. |
+| `Notifications/ClassicBridgeTests.cs` | 11 | 3 x 3 combinations, the retry written once, the channel's limits asked for. |
 | `Notifications/DesignComparisonTests.cs` | 2 | All designs agree on the wire; a fourth channel is one class. |
-| `Notifications/VariationsTests.cs` | 6 | GoF implementation issues 2 and 3: a factory chooses, and one implementor is shared. |
-| `Files/FileProblemTests.cs` | 7 | The retention breach nothing throws on. |
-| `Files/FileBridgeTests.cs` | 7 | One rule over three stores, and a live manager moved between them. |
+| `Notifications/VariationsTests.cs` | 7 | GoF implementation issues 2 and 3: a factory chooses, and one implementor is shared. |
+| `Files/FileProblemTests.cs` | 9 | The retention breach nothing throws on. |
+| `Files/FileBridgeTests.cs` | 8 | One rule over three stores, and a live manager moved between them. |
 | `Retrofit/RetrofitTests.cs` | 6 | The legacy caller undisturbed, and the standard satisfied over it. |
 | `Hw/StatementRunTests.cs` | 6 | The screen reader, and why no primitive is about paper. |
 | `Hw/PaymentDeskTests.cs` | 6 | Cash collapsing the two phases, and no capability booleans. |

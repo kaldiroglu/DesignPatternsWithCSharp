@@ -507,7 +507,7 @@ public static class Program
                   Both rules are right this time, and each was written by hand. The two
                   classes differ by one number; the Evernote calls in them are identical.
                   Two departments and three stores is six such classes, and a fourth store
-                  is three more.
+                  is two more.
                 """);
     }
 
@@ -561,9 +561,9 @@ public static class Program
             }
 
             Console.WriteLine($"{store.Name,-12} finance keeps {finance.RetainedVersions}, "
-                              + $"live versions {Live(finance.Versions("q3-report"), finance.RetainedVersions)}");
+                              + $"live versions {Show(finance.Versions("q3-report"))}");
             Console.WriteLine($"{store.Name,-12} insurance keeps {insurance.RetainedVersions}, "
-                              + $"live versions {Live(insurance.Versions("policy-4417"), insurance.RetainedVersions)}\n");
+                              + $"live versions {Show(insurance.Versions("policy-4417"))}\n");
         }
 
         Console.WriteLine("2 departments + 3 stores = 5 classes, 6 combinations.");
@@ -582,8 +582,8 @@ public static class Program
         Console.WriteLine($"  {moved.Read("memo")}");
     }
 
-    private static string Live(IReadOnlyList<int> versions, int keep) =>
-        "[" + string.Join(", ", versions.Skip(Math.Max(0, versions.Count - keep))) + "]";
+    private static string Show(IReadOnlyList<int> versions) =>
+        "[" + string.Join(", ", versions) + "]";
 
     // -------------------------------------------- a standard over a working system
 

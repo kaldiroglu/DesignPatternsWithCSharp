@@ -10,6 +10,7 @@ namespace dev.kaldiroglu.Bridge.Notifications.Solution.Classic;
 public sealed class EmailChannel : INotificationChannel
 {
     private readonly Transports _transports;
+    private bool _connected;
 
     public EmailChannel(Transports transports) => _transports = transports;
 
@@ -21,6 +22,14 @@ public sealed class EmailChannel : INotificationChannel
 
     public bool SupportsSubject => true;
 
-    public bool Deliver(string address, string subject, string body) =>
-        _transports.SmtpSend(address, subject, body);
+    public bool Deliver(string address, string subject, string body)
+    {
+        if (!_connected)
+        {
+            _transports.OpenConnection();
+            _connected = true;
+        }
+
+        return _transports.SmtpSend(address, subject, body);
+    }
 }

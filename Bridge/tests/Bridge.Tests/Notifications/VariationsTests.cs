@@ -78,6 +78,22 @@ public class VariationsTests
 
     // --------------------------------------------- variation 2: sharing an implementor
 
+    [Fact(DisplayName = "not shared: three notifications with their own channels open three connections")]
+    public void OwnChannelsOpenOwnConnections()
+    {
+        List<Notification> notifications =
+        [
+            new SimpleNotification(new EmailChannel(_transports)),
+            new UrgentNotification(new EmailChannel(_transports)),
+            new DigestNotification(new EmailChannel(_transports))
+        ];
+
+        var akin = Recipient.Of("Akin", ChannelKind.Email);
+        notifications.ForEach(n => n.Notify(akin, Short));
+
+        Assert.Equal(3, _log.ConnectionsOpened);
+    }
+
     [Fact(DisplayName = "shared: one channel object serves many notifications")]
     public void OneChannelManyNotifications()
     {
@@ -96,6 +112,7 @@ public class VariationsTests
         Assert.Equal(3, pooled.Users);          // three abstractions, one implementor
         Assert.Equal(3, pooled.MessagesSent);
         Assert.Equal(3, _log.SendCountFor("email"));
+        Assert.Equal(1, _log.ConnectionsOpened);
     }
 
     [Fact(DisplayName = "shared: the abstractions really do hold the same object")]

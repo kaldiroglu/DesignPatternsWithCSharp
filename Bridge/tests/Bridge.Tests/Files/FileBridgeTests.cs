@@ -26,7 +26,7 @@ public class FileBridgeTests
                 finance.Save("q3", $"draft {i}");
             }
 
-            Assert.Equal(8, finance.Versions("q3").Count);
+            Assert.Equal([4, 5, 6, 7, 8], finance.Versions("q3"));
             Assert.Equal("draft 8", finance.Read("q3"));
             Assert.Equal(5, finance.RetainedVersions);
         }
@@ -45,12 +45,12 @@ public class FileBridgeTests
     public void TheStoreCanChangeAtRunTime()
     {
         FileManager finance = new FinanceFileManager(new EvernoteProvider());
-        finance.Save("memo", "on Evernote");
-        Assert.Equal("on Evernote", finance.Read("memo"));
+        finance.Save("memo", "written on Evernote");
+        Assert.Equal("written on Evernote", finance.Read("memo"));
 
         finance.SetProvider(new FileNetProvider());
-        finance.Save("memo", "on FileNet");
-        Assert.Equal("on FileNet", finance.Read("memo"));
+        finance.Save("memo", "written on FileNet");
+        Assert.Equal("written on FileNet", finance.Read("memo"));
     }
 
     [Fact(DisplayName = "the provider offers storage primitives, not the manager's operations")]
@@ -110,9 +110,26 @@ public class FileBridgeTests
 
         // Eight versions were written and six were trimmed, but version 8 is still version 8 —
         // otherwise every retention pass would silently rewrite the audit trail's own numbering.
-        Assert.Equal(8, insurance.Versions("policy").Count);
+        Assert.Equal([7, 8], insurance.Versions("policy"));
         Assert.Equal("draft 8", insurance.Read("policy"));
         Assert.Equal(2, insurance.RetainedVersions);
         Assert.Equal(Encoding.UTF8.GetBytes("draft 8"), store.Read(store.Open("policy")));
+    }
+
+    [Fact(DisplayName = "a deleted version is not listed, and later version numbers do not move")]
+    public void DeletedVersionsAreNotListed()
+    {
+        foreach (var store in new IFileProvider[] { new EvernoteProvider(), new SharePointProvider(), new FileNetProvider() })
+        {
+            FileManager insurance = new InsuranceFileManager(store);
+            for (var i = 1; i <= 8; i++)
+            {
+                insurance.Save("policy", $"draft {i}");
+            }
+
+            Assert.Equal([7, 8], insurance.Versions("policy"));
+            Assert.Equal(9, insurance.Save("policy", "draft 9"));
+            Assert.Equal([8, 9], insurance.Versions("policy"));
+        }
     }
 }

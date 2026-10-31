@@ -9,8 +9,9 @@ namespace dev.kaldiroglu.Bridge.Retrofit;
 /// regulator has ever heard of.
 /// </para>
 /// <para>
-/// The engine is not rewritten and not recompiled. <see cref="LegacyEngine.ReportDirectly"/>
-/// still works, and its callers never learn that any of this happened.
+/// The engine is not rewritten. It gains one <c>: IVendorClient</c> clause, so it is compiled
+/// once more, and none of its methods change. <see cref="LegacyEngine.ReportDirectly"/> still
+/// works, and its callers do not change.
 /// </para>
 /// </summary>
 public abstract class RegulatoryReport

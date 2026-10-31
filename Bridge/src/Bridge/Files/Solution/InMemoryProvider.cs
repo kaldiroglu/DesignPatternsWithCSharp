@@ -10,7 +10,8 @@ namespace dev.kaldiroglu.Bridge.Files.Solution;
 /// </summary>
 public abstract class InMemoryProvider : IFileProvider
 {
-    private readonly Dictionary<string, List<byte[]>> _documents = new();
+    private readonly Dictionary<string, SortedDictionary<int, byte[]>> _documents = new();
+    private readonly Dictionary<string, int> _lastVersion = new();
 
     protected InMemoryProvider(string name) => Name = name;
 
@@ -21,7 +22,7 @@ public abstract class InMemoryProvider : IFileProvider
         var handle = $"{Name}:{path}";
         if (!_documents.ContainsKey(handle))
         {
-            _documents[handle] = [];
+            _documents[handle] = new SortedDictionary<int, byte[]>();
         }
 
         return handle;
@@ -35,32 +36,30 @@ public abstract class InMemoryProvider : IFileProvider
             throw new InvalidOperationException($"nothing stored at {handle}");
         }
 
-        return (byte[])stored[^1].Clone();
+        return (byte[])stored.Values.Last().Clone();
     }
 
     public int Write(string handle, byte[] content)
     {
         var stored = ContentsOf(handle);
-        stored.Add((byte[])content.Clone());
-        return stored.Count;
+        var version = _lastVersion.GetValueOrDefault(handle) + 1;
+        _lastVersion[handle] = version;
+        stored[version] = (byte[])content.Clone();
+        return version;
     }
 
     public IReadOnlyList<int> Versions(string handle) =>
-        Enumerable.Range(1, ContentsOf(handle).Count).ToList();
+        ContentsOf(handle).Keys.ToList();
 
     public void DeleteVersion(string handle, int version)
     {
-        var stored = ContentsOf(handle);
-        if (version < 1 || version > stored.Count)
+        if (!ContentsOf(handle).Remove(version))
         {
             throw new ArgumentException($"no version {version} at {handle}");
         }
-
-        // Tombstoned, so later numbers do not shift.
-        stored[version - 1] = [];
     }
 
-    private List<byte[]> ContentsOf(string handle)
+    private SortedDictionary<int, byte[]> ContentsOf(string handle)
     {
         if (!_documents.TryGetValue(handle, out var stored))
         {

@@ -30,13 +30,16 @@ public sealed class VendorStores
     /// <summary>Content per "vendor|address|version".</summary>
     private readonly Dictionary<string, string> _contents = new();
 
+    /// <summary>The last number issued per "vendor|address". A deleted version's id is never issued again.</summary>
+    private readonly Dictionary<string, int> _lastIssued = new();
+
     // ------------------------------------------------------------ Evernote
 
     /// <summary>Evernote's API: a note in a notebook, addressed by title. Returns a note GUID.</summary>
     public string EvernoteCreateNote(string notebook, string title, string body)
     {
         var address = $"{notebook}/{title}";
-        var guid = $"note-{Count("Evernote", address) + 1}";
+        var guid = $"note-{NextNumber("Evernote", address)}";
         StoreVersion("Evernote", address, guid, body);
         return guid;
     }
@@ -52,7 +55,7 @@ public sealed class VendorStores
     /// <summary>SharePoint's API: bytes to a site-relative URL. Versions are numbered from 1.</summary>
     public int SharePointUpload(string siteRelativeUrl, byte[] content)
     {
-        var version = Count("SharePoint", siteRelativeUrl) + 1;
+        var version = NextNumber("SharePoint", siteRelativeUrl);
         StoreVersion("SharePoint", siteRelativeUrl, version.ToString(),
             Encoding.UTF8.GetString(content));
         return version;
@@ -70,7 +73,7 @@ public sealed class VendorStores
     public string FileNetCheckin(string objectStore, string documentId, byte[] content)
     {
         var address = $"{objectStore}!{documentId}";
-        var seriesId = $"vs-{Count("FileNet", address) + 1}";
+        var seriesId = $"vs-{NextNumber("FileNet", address)}";
         StoreVersion("FileNet", address, seriesId, Encoding.UTF8.GetString(content));
         return seriesId;
     }
@@ -99,6 +102,14 @@ public sealed class VendorStores
     }
 
     // ------------------------------------------------------------- private
+
+    private int NextNumber(string vendor, string address)
+    {
+        var key = $"{vendor}|{address}";
+        var next = _lastIssued.GetValueOrDefault(key) + 1;
+        _lastIssued[key] = next;
+        return next;
+    }
 
     private void StoreVersion(string vendor, string address, string version, string content)
     {

@@ -28,7 +28,7 @@ public interface IFileProvider
     /// <summary>Stores content as a new version and returns that version's number.</summary>
     int Write(string handle, byte[] content);
 
-    /// <summary>Version numbers held for this document, oldest first.</summary>
+    /// <summary>Version numbers still held for this document, oldest first. Deleted versions are not listed.</summary>
     IReadOnlyList<int> Versions(string handle);
 
     void DeleteVersion(string handle, int version);

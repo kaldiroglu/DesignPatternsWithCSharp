@@ -38,8 +38,13 @@ public sealed class DigestNotification : Notification
     {
         var body = string.Join(" | ", _pending.Select(m => m.Body));
         var combined = new Message($"Your digest ({_pending.Count})", body);
-        _pending.Clear();
         // Fit() is inherited: whatever the channel's limit is, the digest respects it.
-        return Dispatch(to, combined, 1);
+        var result = Dispatch(to, combined, 1);
+        if (result.Delivered)
+        {
+            _pending.Clear();        // a failed send keeps the messages for the next flush
+        }
+
+        return result;
     }
 }

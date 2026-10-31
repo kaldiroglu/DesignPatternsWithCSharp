@@ -163,4 +163,29 @@ public class FileProblemTests
             System.Text.Encoding.UTF8.GetString(sharePoint.Read(sharePoint.Open(Path))));
         Assert.Equal(5, finance.RetainedVersions);
     }
+
+    [Fact(DisplayName = "a vendor never issues an id twice, even after old versions are deleted")]
+    public void IdsAreNotReused()
+    {
+        var manager = new SwitchingFileManager(_stores);
+        var issued = new List<string>();
+        for (var i = 1; i <= 8; i++)
+        {
+            issued.Add(manager.Save(Department.Insurance, Store.Evernote, Path, $"draft {i}"));
+        }
+
+        Assert.Equal(8, issued.Distinct().Count());
+        Assert.Equal(["note-7", "note-8"], _stores.EvernoteNoteVersions("insurance", Path));
+        Assert.Equal("draft 8", _stores.LatestContent("Evernote", $"insurance/{Path}"));
+    }
+
+    [Fact(DisplayName = "stage two: a fourth store adds one class per department, so two more")]
+    public void AFourthStoreIsTwoMoreClasses()
+    {
+        var demo = File.ReadAllText(System.IO.Path.Combine(
+            TypeCensus.SourceRoot, "..", "Bridge.Demo", "Program.cs"));
+
+        Assert.Equal(2, Enum.GetValues<Department>().Length);
+        Assert.Contains("is two more.", demo);
+    }
 }

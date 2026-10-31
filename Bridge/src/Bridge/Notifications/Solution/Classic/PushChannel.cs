@@ -8,6 +8,7 @@ namespace dev.kaldiroglu.Bridge.Notifications.Solution.Classic;
 public sealed class PushChannel : INotificationChannel
 {
     private readonly Transports _transports;
+    private bool _connected;
 
     public PushChannel(Transports transports) => _transports = transports;
 
@@ -19,6 +20,14 @@ public sealed class PushChannel : INotificationChannel
 
     public bool SupportsSubject => false;
 
-    public bool Deliver(string address, string subject, string body) =>
-        _transports.PushNotify(address, body);
+    public bool Deliver(string address, string subject, string body)
+    {
+        if (!_connected)
+        {
+            _transports.OpenConnection();
+            _connected = true;
+        }
+
+        return _transports.PushNotify(address, body);
+    }
 }

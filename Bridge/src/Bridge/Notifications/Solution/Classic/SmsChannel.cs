@@ -14,6 +14,7 @@ namespace dev.kaldiroglu.Bridge.Notifications.Solution.Classic;
 public sealed class SmsChannel : INotificationChannel
 {
     private readonly Transports _transports;
+    private bool _connected;
 
     public SmsChannel(Transports transports) => _transports = transports;
 
@@ -26,6 +27,14 @@ public sealed class SmsChannel : INotificationChannel
     // An SMS is one string; the abstraction folds the subject in.
     public bool SupportsSubject => false;
 
-    public bool Deliver(string address, string subject, string body) =>
-        _transports.SmsSubmit(address, body);
+    public bool Deliver(string address, string subject, string body)
+    {
+        if (!_connected)
+        {
+            _transports.OpenConnection();
+            _connected = true;
+        }
+
+        return _transports.SmsSubmit(address, body);
+    }
 }

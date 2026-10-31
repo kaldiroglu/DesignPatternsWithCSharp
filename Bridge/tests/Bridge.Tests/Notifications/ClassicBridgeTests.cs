@@ -99,6 +99,23 @@ public class ClassicBridgeTests
         Assert.Equal(1, _log.SendCountFor("sms"));
     }
 
+    [Fact(DisplayName = "a digest that fails to send keeps its messages for the next flush")]
+    public void AFailedFlushKeepsTheMessages()
+    {
+        var digest = new DigestNotification(new EmailChannel(_transports));
+        digest.Add(new Message("A", "first")).Add(new Message("B", "second"));
+        _log.FailNext(1);
+
+        Assert.False(digest.Flush(_akin).Delivered);
+        Assert.Equal(2, digest.PendingCount);
+
+        var second = digest.Flush(_akin);
+        Assert.True(second.Delivered);
+        Assert.Contains("first", second.BodySent);
+        Assert.Contains("second", second.BodySent);
+        Assert.Equal(0, digest.PendingCount);
+    }
+
     [Fact(DisplayName = "a refined abstraction may hold state and still know nothing about channels")]
     public void RefinementsMayHaveState()
     {
