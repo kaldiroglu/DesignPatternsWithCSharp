@@ -34,4 +34,7 @@ pins the SDK to 10.0.0, and the error it reports is the misleading
 ```bash
 ~/.dotnet/dotnet test                          # run the xUnit tests (see Test.md)
 ~/.dotnet/dotnet run --project src/Flyweight   # run the demo
+~/.dotnet/dotnet run --project src/Flyweight -- gof-sharing-count   # run one entry
 ```
+
+The demo accepts: `gof-font-ranges`, `gof-sharing-count`.

@@ -6,11 +6,17 @@ namespace dev.kaldiroglu.Proxy.Pm.Pm3;
 /// </summary>
 public static class Pm3Demo
 {
-    public static void Run()
+    /// <summary>The citizen goes to the secretary. No call is made yet.</summary>
+    public static void Secretary()
     {
         Console.WriteLine("Everything starts with a citizen coming to the PM Secretary and asking for the PM");
-        var secretary = new PMSecretary();
-        var citizen = new Citizen("John", secretary);
+        _ = new Citizen("John", new PMSecretary());
+    }
+
+    /// <summary>The citizen's two calls go through the proxy.</summary>
+    public static void Screening()
+    {
+        var citizen = new Citizen("John", new PMSecretary());
         citizen.TellProblem();
         citizen.AskForJob();
     }

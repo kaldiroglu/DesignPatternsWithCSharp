@@ -44,4 +44,7 @@ The Java `network` example used Turkish identifiers and messages (`YasakKardesim
 ```bash
 dotnet test                             # run the xUnit tests (see Test.md)
 dotnet run --project src/Proxy.Demo     # run all three demos
+dotnet run --project src/Proxy.Demo -- pm3-screening     # run one entry
 ```
+
+The runner accepts: `gof`, `network`, `pm1`, `pm2`, `pm3-secretary`, `pm3-screening`, `pm4`.

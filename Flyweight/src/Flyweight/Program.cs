@@ -2,49 +2,67 @@ using dev.kaldiroglu.Flyweight;
 
 // Client demo (GoF, p. 204).
 //
-// Builds a small two-line document out of shared Character flyweights, assigns
-// fonts per position range via a GlyphContext (extrinsic state), renders it,
-// and reports how many character objects were saved by sharing.
+// With no argument, it assigns fonts per position range via a GlyphContext (extrinsic state),
+// renders the document, and reports how many character objects were saved by sharing. One
+// entry runs on its own - `dotnet run -- gof-sharing-count` - and prints one slide's output.
 
-var factory = new GlyphFactory();
-
-string[] lines = { "flyweight is a nice solution", "lightweight is also a nice solution" };
-
-// Build the document tree: a Column of Rows of (shared) Characters.
-Column document = factory.CreateColumn();
-int occurrences = 0;
-foreach (string line in lines)
+var examples = new (string Name, Action Run)[]
 {
-    Row row = factory.CreateRow();
-    foreach (char c in line)
+    ("gof-font-ranges", FontRanges),
+    ("gof-sharing-count", SharingCount),
+};
+
+if (args.Length > 0)
+{
+    var name = args[0].ToLowerInvariant();
+    var example = examples.FirstOrDefault(e => e.Name == name);
+    if (example.Run is null)
     {
-        row.Insert(factory.CreateCharacter(c)); // <- sharing happens here
-        occurrences++;
+        Console.WriteLine($"unknown example '{name}'. One of: "
+                          + string.Join(", ", examples.Select(e => e.Name)));
+        return;
     }
-    document.Insert(row);
+
+    example.Run();
+    return;
 }
 
-// Extrinsic state: line 1 in Times, line 2 in Courier.
-var context = new GlyphContext(new Font("Helvetica"));
-context.Reset();
-context.SetFont(new Font("Times"), lines[0].Length);
-context.Next(lines[0].Length);
-context.SetFont(new Font("Courier"), lines[1].Length);
-
-// Render the document.
-var window = new Window();
-context.Reset();
-document.Draw(window, context);
-
-Console.WriteLine("Rendered document:");
-Console.WriteLine(window.Text());
+FontRanges();
 Console.WriteLine();
-Console.WriteLine("Per-glyph rendering (char @ position : font):");
-foreach (Window.RenderedGlyph r in window.Rendered)
+SharingCount();
+
+static void FontRanges()
 {
-    Console.WriteLine($"  '{r.Charcode}' @ ({r.X},{r.Y}) : {r.Font}");
+    var sample = new SampleDocument();
+    string[] lines = sample.Lines;
+
+    // Extrinsic state: line 1 in Times, line 2 in Courier.
+    var context = new GlyphContext(new Font("Helvetica"));
+    context.Reset();
+    context.SetFont(new Font("Times"), lines[0].Length);
+    context.Next(lines[0].Length);
+    context.SetFont(new Font("Courier"), lines[1].Length);
+
+    // Render the document.
+    var window = new Window();
+    context.Reset();
+    sample.Document.Draw(window, context);
+
+    Console.WriteLine("Rendered document:");
+    Console.WriteLine(window.Text());
+    Console.WriteLine();
+    Console.WriteLine("Per-glyph rendering (char @ position : font):");
+    foreach (Window.RenderedGlyph r in window.Rendered)
+    {
+        Console.WriteLine($"  '{r.Charcode}' @ ({r.X},{r.Y}) : {r.Font}");
+    }
 }
-Console.WriteLine();
-Console.WriteLine($"Character occurrences in document : {occurrences}");
-Console.WriteLine($"Distinct Character flyweights     : {factory.CreatedCharacterCount}");
-Console.WriteLine($"Objects saved by sharing          : {occurrences - factory.CreatedCharacterCount}");
+
+static void SharingCount()
+{
+    var sample = new SampleDocument();
+
+    Console.WriteLine($"Character occurrences in document : {sample.Occurrences}");
+    Console.WriteLine($"Distinct Character flyweights     : {sample.Factory.CreatedCharacterCount}");
+    Console.WriteLine($"Objects saved by sharing          : {sample.Occurrences - sample.Factory.CreatedCharacterCount}");
+}
