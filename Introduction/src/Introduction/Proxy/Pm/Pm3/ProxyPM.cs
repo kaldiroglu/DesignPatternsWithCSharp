@@ -31,7 +31,7 @@ public class ProxyPM : IPM
     {
         callsScreened++;
         Console.WriteLine("ProxyPM: let me hear it first.");
-        if (WorthHisTime(problem))
+        if (WorthHerTime(problem))
         {
             callsPassedOn++;
             pm.Listen(problem);
@@ -49,7 +49,7 @@ public class ProxyPM : IPM
         Console.WriteLine("ProxyPM: I will see what can be done, " + name + ".");
     }
 
-    private static bool WorthHisTime(string problem) =>
+    private static bool WorthHerTime(string problem) =>
         !problem.ToLowerInvariant().Contains("job")
         && !problem.ToLowerInvariant().Contains("cousin");
 

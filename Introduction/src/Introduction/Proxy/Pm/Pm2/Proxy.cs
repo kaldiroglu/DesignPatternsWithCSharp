@@ -34,7 +34,7 @@ public class Proxy
     {
         callsScreened++;
         Console.WriteLine("Proxy: let me hear it first.");
-        if (WorthHisTime(problem))
+        if (WorthHerTime(problem))
         {
             callsPassedOn++;
             pm.Listen(problem);
@@ -50,7 +50,7 @@ public class Proxy
         Console.WriteLine("Proxy: I will see what can be done, " + name + ".");
     }
 
-    private static bool WorthHisTime(string problem) =>
+    private static bool WorthHerTime(string problem) =>
         !problem.ToLowerInvariant().Contains("job")
         && !problem.ToLowerInvariant().Contains("cousin");
 
