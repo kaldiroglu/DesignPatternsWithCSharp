@@ -39,3 +39,11 @@ dotnet run --project src/Facade.Gof           # compiler demo
 dotnet run --project src/Facade.Notification  # notification before/after demo
 dotnet run --project src/Facade.Logging       # ILogger demo (Console + recording backend)
 ```
+
+Each project also runs one slide's output on its own:
+
+```bash
+dotnet run --project src/Facade.Gof -- compile                     # or compile-risc
+dotnet run --project src/Facade.Notification -- notification       # or notification-problem
+dotnet run --project src/Facade.Logging -- logging-console         # or logging-recording
+```

@@ -8,33 +8,44 @@ namespace dev.kaldiroglu.Composite.Bom.Problem;
 /// <remarks>
 /// The totals it prints are <b>correct</b> — this is not a demonstration of a broken
 /// program. It is a demonstration of a program that is correct today and expensive to
-/// keep correct. <c>Solution.SolutionDemo</c> runs straight afterwards; compare them.
+/// keep correct. <c>Solution.SolutionDemo</c> reaches the same totals; compare them. Each
+/// method prints one slide's output.
 /// </remarks>
 public static class ProblemDemo
 {
-    public static void Run()
+    public static void RightAnswers()
     {
-        var catalog = NaiveProductCatalog.CityBicycle();
-        var bicycle = catalog.Bicycle;
+        var bicycle = NaiveProductCatalog.CityBicycle().Bicycle;
 
         Console.WriteLine("=== The naive design gets the right answers ===");
         Console.WriteLine($"Bicycle cost:   {NaiveCosting.TotalCost(bicycle)}");
         Console.WriteLine($"Bicycle weight: {NaiveShipping.TotalWeightGrams(bicycle)} g");
         Console.WriteLine($"Bicycle parts:  {NaiveCosting.PartCount(bicycle)}");
+    }
 
-        Console.WriteLine();
+    public static void RepeatedWalks()
+    {
         Console.WriteLine("=== ...but every client re-implements the same walk ===");
         Console.WriteLine("NaiveCosting.TotalCost   — walk #1");
         Console.WriteLine("NaiveCosting.PartCount   — walk #2");
         Console.WriteLine("NaiveShipping.TotalWeightGrams — walk #3");
         Console.WriteLine("Each one branches on the type and iterates BOTH child lists.");
+    }
 
-        Console.WriteLine();
+    public static void ListEntries()
+    {
+        var bicycle = NaiveProductCatalog.CityBicycle().Bicycle;
+
         Console.WriteLine("=== ...and pays for every duplicated list entry ===");
-        Console.WriteLine($"Child-list entries walked per query: {ListEntries(bicycle)}");
+        Console.WriteLine($"Child-list entries walked per query: {CountEntries(bicycle)}");
         Console.WriteLine("(the Composite version walks 13)");
+    }
 
-        Console.WriteLine();
+    public static void WheelDrift()
+    {
+        var catalog = NaiveProductCatalog.CityBicycle();
+        var bicycle = catalog.Bicycle;
+
         Console.WriteLine("=== ...and cannot share a sub-assembly ===");
         Console.WriteLine("Are the two wheels the same object? "
                           + (ReferenceEquals(catalog.Wheel1, catalog.Wheel2) ? "true" : "false"));
@@ -50,8 +61,10 @@ public static class ProblemDemo
         Console.WriteLine("The two wheels have silently drifted apart, and the bicycle now "
                           + $"costs {NaiveCosting.TotalCost(bicycle)} "
                           + "instead of the $399.20 it should.");
+    }
 
-        Console.WriteLine();
+    public static void NewItem()
+    {
         Console.WriteLine("=== ...and breaks when a new kind of item arrives ===");
         var coating = new Service(Catalog.PowderCoating);
         try
@@ -68,12 +81,12 @@ public static class ProblemDemo
     }
 
     /// <summary>Counts the child-list entries any full traversal has to walk.</summary>
-    private static int ListEntries(Assembly assembly)
+    private static int CountEntries(Assembly assembly)
     {
         var entries = assembly.Parts.Count + assembly.SubAssemblies.Count;
         foreach (var sub in assembly.SubAssemblies)
         {
-            entries += ListEntries(sub);
+            entries += CountEntries(sub);
         }
 
         return entries;

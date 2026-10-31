@@ -1,3 +1,4 @@
+using dev.kaldiroglu.Decorator.Io;
 using dev.kaldiroglu.Decorator.Middleware.Domain;
 using dev.kaldiroglu.Decorator.Middleware.Problem;
 using dev.kaldiroglu.Decorator.Middleware.Solution.Classic;
@@ -32,11 +33,25 @@ public static class Program
         ["flags"] = ("THE PROBLEM", Flags),
         ["subclasses"] = ("THE PROBLEM", Subclasses),
         ["classic"] = ("THE SOLUTION — classic decorators", Classic),
-        ["ordering"] = ("THE SOLUTION — classic decorators", Ordering),
+        ["ordering-logging"] = ("THE SOLUTION — classic decorators", LoggingOrder),
+        ["ordering-timing"] = ("THE SOLUTION — classic decorators", TimingOrder),
+        ["ordering-cache-retry"] = ("THE SOLUTION — classic decorators", CacheRetryOrder),
         ["ratelimit"] = ("THE SOLUTION — classic decorators", RateLimitPlacement),
         ["vendor"] = ("THE SOLUTION — classic decorators", VendorFeed),
         ["functional"] = ("THE SOLUTION — variation: functional", FunctionalVariation),
-        ["fluent"] = ("THE SOLUTION — variation: fluent assembly", FluentVariation)
+        ["fluent"] = ("THE SOLUTION — variation: fluent assembly", FluentVariation),
+        ["toast-problem-menu"] = ("A SECOND EXAMPLE — the naive menu", ToastExamples.Menu),
+        ["toast-problem-cannot-sell"] = ("A SECOND EXAMPLE — the naive menu", ToastExamples.CannotSell),
+        ["toast-problem-combinations"] = ("A SECOND EXAMPLE — the naive menu", ToastExamples.Combinations),
+        ["toast-step-by-step"] = ("A SECOND EXAMPLE — the decorators", ToastExamples.StepByStep),
+        ["toast-one-expression"] = ("A SECOND EXAMPLE — the decorators", ToastExamples.OneExpression),
+        ["toast-double-cheese"] = ("A SECOND EXAMPLE — the decorators", ToastExamples.DoubleCheese),
+        ["toast-promotion-position"] = ("A SECOND EXAMPLE — the decorators", ToastExamples.PromotionPosition),
+        ["gof-visual-problem"] = ("GOF'S EXAMPLES", GofExamples.VisualProblem),
+        ["gof-visual"] = ("GOF'S EXAMPLES", GofExamples.VisualSolution),
+        ["gof-stream-problem"] = ("GOF'S EXAMPLES", GofExamples.StreamProblem),
+        ["gof-stream"] = ("GOF'S EXAMPLES", GofExamples.StreamSolution),
+        ["io"] = ("THE STANDARD LIBRARY", () => InvoiceStreamDemo.Run())
     };
 
     public static void Main(string[] args)
@@ -150,7 +165,7 @@ public static class Program
         Console.WriteLine("  classes needed : 5 decorators + 1 base, for every combination and order");
     }
 
-    private static void Ordering()
+    private static void LoggingOrder()
     {
         Section("order matters: logging inside or outside the retry");
 
@@ -170,7 +185,10 @@ public static class Program
                           + "logged, including the one that failed");
         Console.WriteLine($"  Both made {supplierA.CallCount} supplier calls. Same classes,");
         Console.WriteLine("  same settings, different observable behavior — decided by parentheses.");
+    }
 
+    private static void TimingOrder()
+    {
         Section("order matters: timing inside or outside the cache");
 
         var clockC = IClock.Manual();
@@ -194,7 +212,10 @@ public static class Program
         Console.WriteLine($"  Caching(Timing(feed)) : {innerMetrics.Size} sample  — what the supplier "
                           + "itself cost, hits never reach it");
         Console.WriteLine("  Both are useful numbers. They are different numbers, and the chain picks.");
+    }
 
+    private static void CacheRetryOrder()
+    {
         Section("and sometimes the order does not matter — check, do not assume");
 
         var clockE = IClock.Manual();

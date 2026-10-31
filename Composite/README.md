@@ -54,9 +54,17 @@ take both sides and say which:
 # every example, in the order the course covers them
 dotnet run --project src/Composite.Demo
 
+# one example on its own
+dotnet run --project src/Composite.Demo -- bom-roll-ups
+
 # the tests
 dotnet test
 ```
+
+The runner accepts: `gof-graphics`, `gof-equipment`, `bom-problem-right-answers`, `bom-problem-repeated-walks`, `bom-problem-list-entries`, `bom-problem-wheel-drift`, `bom-problem-new-item`, `bom-product-structure`, `bom-roll-ups`, `bom-sharing`, `bom-engineering-change`, `bom-shipping-estimate`, `bom-new-item`, `bom-acyclic`, `graphic-draw`, `graphic-shape-count`, `graphic-safety`, `file-system-six-questions`, `file-system-disk-report`, `file-system-cache`, `file-system-move`, `file-system-copy`, `file-system-walk`, `hw-org-chart`, `hw-survey-form`, `hw-expression`.
+
+An entry named for a topic prints one slide's output. `gof-graphics`, `gof-equipment` and the
+three `hw-` entries each print a whole example.
 
 Targets **net10.0**, like the Adapter and Facade projects, and honours the .NET 10 pin in the
 repository root's `global.json`.

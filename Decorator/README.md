@@ -113,8 +113,12 @@ cd "~/Development/NET/Design Patterns/Design Patterns with CSharp/Decorator"
 ~/.dotnet/dotnet run --project src/Decorator.Demo -- classic
 ```
 
-The runner accepts: `copypaste`, `flags`, `subclasses`, `classic`, `ordering`,
-`ratelimit`, `vendor`, `functional`, `fluent`.
+The runner accepts: `copypaste`, `flags`, `subclasses`, `classic`, `ordering-logging`,
+`ordering-timing`, `ordering-cache-retry`, `ratelimit`, `vendor`, `functional`, `fluent`,
+`toast-problem-menu`, `toast-problem-cannot-sell`, `toast-problem-combinations`,
+`toast-step-by-step`, `toast-one-expression`, `toast-double-cheese`,
+`toast-promotion-position`, `gof-visual-problem`, `gof-visual`, `gof-stream-problem`,
+`gof-stream`, `io`. Each entry prints one slide's output.
 
 From the repository root, `~/.dotnet/dotnet build "Design Patterns with CSharp.sln"`
 builds Decorator along with every other pattern.
