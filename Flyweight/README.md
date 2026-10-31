@@ -10,7 +10,7 @@ C#/.NET implementation of GoF's Lexi document-editor example for the Flyweight p
 
 ## Expected benefit
 
-Demonstrates how *sharing* fine-grained objects keeps memory bounded: a 20-character document is rendered using only **9** `CharacterGlyph` objects, because each distinct letter is a single shared flyweight.
+Demonstrates how *sharing* fine-grained objects keeps memory bounded: a 63-character document is rendered using only **16** `CharacterGlyph` objects, because each distinct letter is a single shared flyweight.
 
 ## Functional properties
 
