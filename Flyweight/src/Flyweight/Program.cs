@@ -4,12 +4,17 @@ using dev.kaldiroglu.Flyweight;
 //
 // With no argument, it assigns fonts per position range via a GlyphContext (extrinsic state),
 // renders the document, and reports how many character objects were saved by sharing. One
-// entry runs on its own - `dotnet run -- gof-sharing-count` - and prints one slide's output.
+// entry runs on its own - `dotnet run -- forest-problem` - and prints one slide's output.
 
 var examples = new (string Name, Action Run)[]
 {
     ("gof-font-ranges", FontRanges),
     ("gof-sharing-count", SharingCount),
+    ("forest-problem", dev.kaldiroglu.Flyweight.Forest.Problem.ForestDemo.Run),
+    ("forest", dev.kaldiroglu.Flyweight.Forest.Solution.ForestDemo.Run),
+    ("book-wrong", dev.kaldiroglu.Flyweight.Book.Wrong.BookDemo.Run),
+    ("book-correct", dev.kaldiroglu.Flyweight.Book.Correct.BookDemo.Run),
+    ("quote-problem", dev.kaldiroglu.Flyweight.Quote.Problem.QuoteDemo.Run),
 };
 
 if (args.Length > 0)

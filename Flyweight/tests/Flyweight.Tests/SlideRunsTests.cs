@@ -14,6 +14,11 @@ public class SlideRunsTests
 {
     [Theory]
     [InlineData("gof-font-ranges", "flyweight is a nice solution", "'n' @ (27,0) : Times", "'l' @ (0,1) : Courier")]
+    [InlineData("forest-problem", "Textures loaded      : 10000", "Texture bytes held   : 40,960,000")]
+    [InlineData("forest", "Textures loaded      : 2", "Texture bytes held   : 8,192")]
+    [InlineData("book-wrong", "this book")]
+    [InlineData("book-correct", "Character occurrences in the book : 236", "Distinct flyweights allocated     : 29", "Occurrences that cost no object   : 207")]
+    [InlineData("quote-problem", "Instruments in the universe         : 4", "Distinct symbol objects retained    : 100,000")]
     public void PrintsWhatTheSlideQuotes(string entry, params string[] lines)
     {
         var printed = Printed.By("Flyweight", entry);

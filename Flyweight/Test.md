@@ -20,7 +20,11 @@ asserts and the deck quotes.
 | `TheSameObjectRendersInTwoFonts` | The `'i'` shared across both lines draws in Times on one and Courier on the other. |
 | `TheFlyweightHasNoFontField` | One field, the character code. The font is extrinsic; storing it would end the sharing. |
 | `TheDocumentIsCorrect` | The tree renders back to the text that was typed. |
-| `SlideRunsTests` | The `gof-font-ranges` entry returns normally and prints the lines the slide quotes. |
+| `SlideRunsTests` | Each of the six runner entries a slide names returns normally and prints the lines the slide quotes. |
+
+`ForestFlyweightTests`, `BookFlyweightTests` and `QuoteFlyweightTests` port the tests of the same names. `ForestFlyweightTests` counts loads and bytes: 10,000 loads and 40,960,000 bytes without sharing, 2 loads and 8,192 bytes with it. `BookFlyweightTests` pins the four defects of `Book.Wrong` and holds `Book.Correct` to 236 characters, 29 objects and 207 occurrences that cost no object. `QuoteFlyweightTests` covers `Quote.Problem` only, because `Quote.Solution` is not ported; the tests that need it (a retained instrument, the registry) are left out, and the field count asserts the thirteen fields of the problem's `Quote`.
+
+The figures are counts, not heap sizes, so they are the same on both runtimes. 33 tests in all.
 
 ## Run it with
 
