@@ -1,4 +1,5 @@
 @startuml Proxy
+skinparam linetype polyline
 skinparam classAttributeIconSize 0
 title Proxy — Simpler example (C#)
 
@@ -26,12 +27,12 @@ class SolutionDemo {
 
 IImage <|.. RealImage
 IImage <|.. ImageProxy
-ImageProxy o--> RealImage : _real (lazy)
-SolutionDemo ..> IImage
 
 note right of IImage : Subject
 note bottom of RealImage : RealSubject
 note bottom of ImageProxy : Proxy (virtual / lazy loading)
 note bottom of SolutionDemo : Client
 
+ImageProxy o-[norank]-> RealImage : _real (lazy)
+SolutionDemo .[norank].> IImage
 @enduml

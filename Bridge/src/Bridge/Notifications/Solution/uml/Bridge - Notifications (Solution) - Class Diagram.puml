@@ -1,4 +1,5 @@
 @startuml "Bridge - Notifications (Solution) - Class Diagram"
+skinparam linetype polyline
 skinparam classAttributeIconSize 0
 title After — two hierarchies, one reference between them
 
@@ -38,7 +39,6 @@ class EmailChannel <<ConcreteImplementor>>
 class SmsChannel <<ConcreteImplementor>>
 class PushChannel <<ConcreteImplementor>>
 
-Notification o--> "_channel" INotificationChannel
 Notification <|-- SimpleNotification
 Notification <|-- UrgentNotification
 Notification <|-- DigestNotification
@@ -77,4 +77,5 @@ note as N1
   fourth channel breaks the assertion rather than the slide.
 end note
 
+Notification o-[norank]-> "_channel" INotificationChannel
 @enduml

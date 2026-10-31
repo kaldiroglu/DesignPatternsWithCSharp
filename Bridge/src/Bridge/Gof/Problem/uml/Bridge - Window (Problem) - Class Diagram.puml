@@ -1,4 +1,12 @@
 @startuml "Bridge - Window (Problem) - Class Diagram"
+skinparam linetype polyline
+skinparam class {
+  BackgroundColor<<spacer>> transparent
+  BorderColor<<spacer>> transparent
+  FontColor<<spacer>> transparent
+}
+hide <<spacer>> stereotype
+hide <<spacer>> circle
 skinparam classAttributeIconSize 0
 title Before — the platform is a base class (the problem, GoF p. 151)
 
@@ -44,14 +52,14 @@ class PMTransientWindow {
   + DrawText(..) : void
 }
 
-Window <|-- XWindow
-Window <|-- PMWindow
-Window <|-- IconWindow
 Window <|-- TransientWindow
-IconWindow <|-- XIconWindow
+Window <|-- IconWindow
+Window <|-- PMWindow
+Window <|-- XWindow
 IconWindow <|-- PMIconWindow
-TransientWindow <|-- XTransientWindow
+IconWindow <|-- XIconWindow
 TransientWindow <|-- PMTransientWindow
+TransientWindow <|-- XTransientWindow
 
 note right of XIconWindow
   Inherits the <i>icon</i> behavior,
@@ -80,4 +88,25 @@ note as N1
   not when the program runs.
 end note
 
+class " " as Spacer1 <<spacer>>
+Window -[hidden]- Spacer1
+Window -[hidden]- Spacer1
+XWindow -[hidden]right- TransientWindow
+TransientWindow -[hidden]right- Spacer1
+Spacer1 -[hidden]right- IconWindow
+IconWindow -[hidden]right- PMWindow
+class " " as Spacer2 <<spacer>>
+IconWindow -[hidden]- Spacer2
+IconWindow -[hidden]- Spacer2
+XIconWindow -[hidden]right- Spacer2
+Spacer2 -[hidden]right- PMIconWindow
+class " " as Spacer3 <<spacer>>
+TransientWindow -[hidden]- Spacer3
+TransientWindow -[hidden]- Spacer3
+XTransientWindow -[hidden]right- Spacer3
+Spacer3 -[hidden]right- PMTransientWindow
+class " " as Spacer66 <<spacer>>
+IconWindow -[hidden]- Spacer66
+PMIconWindow -[hidden]right- Spacer66
+Spacer66 -[hidden]right- XIconWindow
 @enduml

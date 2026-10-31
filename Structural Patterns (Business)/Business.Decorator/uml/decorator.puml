@@ -1,4 +1,12 @@
 @startuml Decorator
+skinparam linetype polyline
+skinparam class {
+  BackgroundColor<<spacer>> transparent
+  BorderColor<<spacer>> transparent
+  FontColor<<spacer>> transparent
+}
+hide <<spacer>> stereotype
+hide <<spacer>> circle
 skinparam classAttributeIconSize 0
 title Decorator — Business example (C#)
 
@@ -62,8 +70,20 @@ HttpClientDecorator <|-- AuthDecorator
 HttpClientDecorator <|-- RetryDecorator
 HttpClientDecorator <|-- LoggingDecorator
 HttpClientDecorator <|-- CachingDecorator
-HttpClientDecorator o--> IHttpClient : Delegate (inner)
-IHttpClient ..> HttpRequest
-IHttpClient ..> HttpResponse
 
+class " " as Spacer1 <<spacer>>
+IHttpClient -[hidden]- Spacer1
+IHttpClient -[hidden]- Spacer1
+HttpClientDecorator -[hidden]right- Spacer1
+Spacer1 -[hidden]right- RealHttpClient
+class " " as Spacer2 <<spacer>>
+HttpClientDecorator -[hidden]- Spacer2
+HttpClientDecorator -[hidden]- Spacer2
+AuthDecorator -[hidden]right- RetryDecorator
+RetryDecorator -[hidden]right- Spacer2
+Spacer2 -[hidden]right- LoggingDecorator
+LoggingDecorator -[hidden]right- CachingDecorator
+HttpClientDecorator o-[norank]-> IHttpClient : Delegate (inner)
+IHttpClient .[norank].> HttpRequest
+IHttpClient .[norank].> HttpResponse
 @enduml

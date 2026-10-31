@@ -1,4 +1,5 @@
 @startuml Proxy
+skinparam linetype polyline
 skinparam classAttributeIconSize 0
 title Proxy — Business example (C#)
 
@@ -55,12 +56,12 @@ note right of SolutionDemo : Client
 ICustomerProfileService <|.. RemoteCustomerProfileService
 ICustomerProfileService <|.. AuthorizationProxy
 ICustomerProfileService <|.. CachingProxy
-AuthorizationProxy o--> ICustomerProfileService : _inner
-CachingProxy o--> ICustomerProfileService : _inner
-AuthorizationProxy --> IAccessPolicy : _policy
 IAccessPolicy <|.. RegionalAccessPolicy
-ICustomerProfileService ..> CustomerProfile
-ICustomerProfileService ..> Caller
-SolutionDemo ..> ICustomerProfileService
 
+AuthorizationProxy o-[norank]-> ICustomerProfileService : _inner
+CachingProxy o-[norank]-> ICustomerProfileService : _inner
+AuthorizationProxy -[norank]-> IAccessPolicy : _policy
+ICustomerProfileService .[norank].> CustomerProfile
+ICustomerProfileService .[norank].> Caller
+SolutionDemo .[norank].> ICustomerProfileService
 @enduml

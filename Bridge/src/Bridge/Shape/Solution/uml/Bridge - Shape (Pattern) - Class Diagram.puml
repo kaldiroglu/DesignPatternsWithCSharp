@@ -1,4 +1,12 @@
 @startuml "Bridge - Shape (Pattern) - Class Diagram"
+skinparam linetype polyline
+skinparam class {
+  BackgroundColor<<spacer>> transparent
+  BorderColor<<spacer>> transparent
+  FontColor<<spacer>> transparent
+}
+hide <<spacer>> stereotype
+hide <<spacer>> circle
 skinparam classAttributeIconSize 0
 hide empty members
 title Bridge — primitives on one side, composition on the other
@@ -38,7 +46,6 @@ IShape <|.. AbstractShape
 AbstractShape <|-- Circle
 AbstractShape <|-- Rectangle
 AbstractShape <|-- Triangle
-AbstractShape o--> "1" IShapeDrawer : Drawer
 IShapeDrawer <|.. AbstractShapeDrawer
 AbstractShapeDrawer <|-- MacOSDrawer
 AbstractShapeDrawer <|-- XWindowsDrawer
@@ -77,6 +84,16 @@ note as N1
   first step towards an implementor that mirrors
   its abstraction.
 end note
-N1 .. AbstractShapeDrawer
 
+AbstractShape -[hidden]- Rectangle
+AbstractShape -[hidden]- Rectangle
+Circle -[hidden]right- Rectangle
+Rectangle -[hidden]right- Triangle
+class " " as Spacer1 <<spacer>>
+AbstractShapeDrawer -[hidden]- Spacer1
+AbstractShapeDrawer -[hidden]- Spacer1
+MacOSDrawer -[hidden]right- Spacer1
+Spacer1 -[hidden]right- XWindowsDrawer
+AbstractShape o-[norank]-> "1" IShapeDrawer : Drawer
+N1 .[norank]. AbstractShapeDrawer
 @enduml

@@ -1,9 +1,10 @@
 ' Model: Claude Opus 4.8 (1M context)
 ' Created: 2026-07-04
 ' Pluggable technique (c) — parameterized / lambdas (GoF p.143).
-' Models java/dev/kaldiroglu/adapter/gof/pluggable/electricity/PluggablePowerAdapter.java.
+' Models PluggablePowerAdapter.cs in this folder.
 
 @startuml pluggable-c-parameterized
+skinparam linetype polyline
 title Technique (c) — Parameterized (pluggable via lambdas)
 
 skinparam classAttributeIconSize 0
@@ -39,7 +40,6 @@ class KenyaPowerSource <<Adaptee>> {
 }
 
 TurkishPowerSource <|.. PluggablePowerAdapter
-PluggablePowerAdapter o--> "2" Runnable : lambdas
 
 note bottom of PluggablePowerAdapter
   One adapter class; the narrow interface is
@@ -48,7 +48,8 @@ note bottom of PluggablePowerAdapter
   new PluggablePowerAdapter(us::pushSwitch, us::pushSwitch)
 end note
 
-USPowerSource .[#gray,dashed].> Runnable : us::pushSwitch
-UKPowerSource .[#gray,dashed].> Runnable : uk::flipToggle
-KenyaPowerSource .[#gray,dashed].> Runnable : ke::hakunaMatata
+PluggablePowerAdapter o-[norank]-> "2" Runnable : lambdas
+USPowerSource .[dashed,norank].> Runnable : us::pushSwitch
+UKPowerSource .[dashed,norank].> Runnable : uk::flipToggle
+KenyaPowerSource .[dashed,norank].> Runnable : ke::hakunaMatata
 @enduml

@@ -1,4 +1,5 @@
 @startuml Adapter
+skinparam linetype polyline
 skinparam classAttributeIconSize 0
 title Adapter — Business example (C#)
 
@@ -62,14 +63,14 @@ enum FailureReason {
 }
 
 IPaymentProcessor <|.. AcmePayAdapter
-AcmePayAdapter o--> AcmeGatewayClient : delegates to
-AcmeGatewayClient ..> AcmeGatewayException : throws
-CheckoutService --> IPaymentProcessor
 PaymentResult <|-- Success
 PaymentResult <|-- Failure
-PaymentRequest *-- Money
-Failure --> FailureReason
-AcmePayAdapter ..> PaymentRequest
-AcmePayAdapter ..> PaymentResult
 
+AcmePayAdapter o-[norank]-> AcmeGatewayClient : delegates to
+AcmeGatewayClient .[norank].> AcmeGatewayException : throws
+CheckoutService -[norank]-> IPaymentProcessor
+PaymentRequest *-[norank]- Money
+Failure -[norank]-> FailureReason
+AcmePayAdapter .[norank].> PaymentRequest
+AcmePayAdapter .[norank].> PaymentResult
 @enduml

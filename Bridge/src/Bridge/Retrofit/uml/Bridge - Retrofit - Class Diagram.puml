@@ -1,4 +1,6 @@
 @startuml "Bridge - Retrofit - Class Diagram"
+skinparam linetype polyline
+skinparam nodesep 70
 skinparam classAttributeIconSize 0
 hide empty members
 title A standard arrives over a system that already works
@@ -33,7 +35,6 @@ package "What we already have — nobody rewrites this" {
   IVendorClient <|.. PurchasedEngine
 }
 
-RegulatoryReport o--> "Engine" IVendorClient
 
 note right of RegulatoryReport
   <b>Submit</b> is the operation the regulation names.
@@ -67,4 +68,5 @@ note as N1
   At 2 x 2 a wrapper per pair costs the same four classes.
   That is the last size at which it does.
 end note
+RegulatoryReport o--> "Engine" IVendorClient
 @enduml

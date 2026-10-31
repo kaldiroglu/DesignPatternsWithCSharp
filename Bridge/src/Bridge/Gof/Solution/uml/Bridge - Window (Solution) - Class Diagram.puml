@@ -1,4 +1,5 @@
 @startuml "Bridge - Window (Solution) - Class Diagram"
+skinparam linetype polyline
 skinparam classAttributeIconSize 0
 title After — the platform is an object the window holds (the solution)
 
@@ -37,7 +38,6 @@ class PMWindowImp <<ConcreteImplementor>> {
   + DeviceText(..) : void
 }
 
-Window o--> "_imp" IWindowImp
 Window <|-- IconWindow
 Window <|-- TransientWindow
 IWindowImp <|.. XWindowImp
@@ -85,4 +85,5 @@ note as N1
   at any price.
 end note
 
+Window o-[norank]-> "_imp" IWindowImp
 @enduml

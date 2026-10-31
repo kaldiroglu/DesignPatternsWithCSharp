@@ -1,4 +1,6 @@
 @startuml "Bridge - Route Planner (Solution) - Class Diagram"
+skinparam linetype polyline
+skinparam nodesep 110
 skinparam classAttributeIconSize 0
 hide empty members
 title Bridge — homework 3, route kinds over map providers
@@ -34,8 +36,6 @@ class Route <<record>> {
 RoutePlanner <|-- FastestRoute
 RoutePlanner <|-- CheapestRoute
 RoutePlanner <|-- StepFreeRoute
-RoutePlanner o--> "1" IMapProvider : Maps
-RoutePlanner ..> Route
 IMapProvider <|.. InHouseMaps
 IMapProvider <|.. VendorMaps
 
@@ -57,4 +57,6 @@ note as N1
   can get to asserting "the diff was empty".
 end note
 
+RoutePlanner o-[norank]-> "1" IMapProvider : Maps
+RoutePlanner .[norank].> Route
 @enduml

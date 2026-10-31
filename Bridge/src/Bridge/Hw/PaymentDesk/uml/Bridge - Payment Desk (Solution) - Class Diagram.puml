@@ -1,4 +1,5 @@
 @startuml "Bridge - Payment Desk (Solution) - Class Diagram"
+skinparam linetype polyline
 skinparam classAttributeIconSize 0
 hide empty members
 title Bridge — homework 2, payment kinds over providers
@@ -40,12 +41,9 @@ class Receipt <<record>> {
 Payment <|-- OneOffPayment
 Payment <|-- InstallmentPlan
 Payment <|-- Refund
-Payment o--> "1" IPaymentProvider : Provider
 IPaymentProvider <|.. BankGateway
 IPaymentProvider <|.. Wallet
 IPaymentProvider <|.. CashDrawer
-IPaymentProvider ..> Authorization
-IPaymentProvider ..> Receipt
 
 note bottom of CashDrawer
   <b>Cash cannot authorize then capture.</b>
@@ -76,4 +74,7 @@ note as N1
   member returning bool.
 end note
 
+Payment o-[norank]-> "1" IPaymentProvider : Provider
+IPaymentProvider .[norank].> Authorization
+IPaymentProvider .[norank].> Receipt
 @enduml

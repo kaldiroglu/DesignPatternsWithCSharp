@@ -1,4 +1,13 @@
 @startuml Decorator
+skinparam linetype polyline
+skinparam nodesep 70
+skinparam class {
+  BackgroundColor<<spacer>> transparent
+  BorderColor<<spacer>> transparent
+  FontColor<<spacer>> transparent
+}
+hide <<spacer>> stereotype
+hide <<spacer>> circle
 skinparam classAttributeIconSize 0
 title Decorator — Simpler example (C#)
 
@@ -46,8 +55,6 @@ ICoffee <|.. CoffeeDecorator
 CoffeeDecorator <|-- MilkDecorator
 CoffeeDecorator <|-- SugarDecorator
 CoffeeDecorator <|-- VanillaDecorator
-CoffeeDecorator o--> ICoffee : Wrapped
-SolutionDemo ..> ICoffee
 
 note right of ICoffee : Component
 note bottom of SimpleCoffee : ConcreteComponent
@@ -57,4 +64,15 @@ note bottom of SugarDecorator : ConcreteDecorator
 note bottom of VanillaDecorator : ConcreteDecorator
 note bottom of SolutionDemo : Client
 
+class " " as Spacer1 <<spacer>>
+ICoffee -[hidden]- Spacer1
+ICoffee -[hidden]- Spacer1
+CoffeeDecorator -[hidden]right- Spacer1
+Spacer1 -[hidden]right- SimpleCoffee
+CoffeeDecorator -[hidden]- SugarDecorator
+CoffeeDecorator -[hidden]- SugarDecorator
+MilkDecorator -[hidden]right- SugarDecorator
+SugarDecorator -[hidden]right- VanillaDecorator
+CoffeeDecorator o-[norank]-> ICoffee : Wrapped
+SolutionDemo .[norank].> ICoffee
 @enduml

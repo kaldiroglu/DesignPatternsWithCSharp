@@ -25,9 +25,8 @@ package "variation 1 - a factory chooses (GoF implementation issue 2)" {
 
     <b>kind</b> arrives as a
     Func&lt;INotificationChannel, Notification&gt;.
-    Java passes UrgentNotification::new; C# has
-    no constructor method group, so the call site
-    reads c =&gt; new UrgentNotification(c).
+    There is no constructor method group, so the
+    call site reads c =&gt; new UrgentNotification(c).
   end note
 }
 

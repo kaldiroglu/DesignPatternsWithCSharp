@@ -1,4 +1,5 @@
 @startuml Composite
+skinparam linetype polyline
 skinparam classAttributeIconSize 0
 title Composite — Simpler example (C#)
 
@@ -28,12 +29,12 @@ class SolutionDemo {
 
 IFileSystemNode <|.. File
 IFileSystemNode <|.. Directory
-Directory o--> "*" IFileSystemNode : _children
-SolutionDemo ..> IFileSystemNode
 
 note right of IFileSystemNode : Component
 note bottom of File : Leaf
 note bottom of Directory : Composite
 note bottom of SolutionDemo : Client
 
+Directory o-[norank]-> "*" IFileSystemNode : _children
+SolutionDemo .[norank].> IFileSystemNode
 @enduml

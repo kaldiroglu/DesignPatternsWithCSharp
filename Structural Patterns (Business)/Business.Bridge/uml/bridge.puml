@@ -1,4 +1,12 @@
 @startuml Bridge
+skinparam linetype polyline
+skinparam class {
+  BackgroundColor<<spacer>> transparent
+  BorderColor<<spacer>> transparent
+  FontColor<<spacer>> transparent
+}
+hide <<spacer>> stereotype
+hide <<spacer>> circle
 skinparam classAttributeIconSize 0
 title Bridge — Business example (C#)
 
@@ -68,8 +76,17 @@ Notification <|-- PasswordReset
 IDeliveryChannel <|.. EmailChannel
 IDeliveryChannel <|.. SmsChannel
 IDeliveryChannel <|.. SlackChannel
-Notification o--> IDeliveryChannel : Channel
-Notification ..> Recipient
-Notification ..> RenderedMessage
 
+class " " as Spacer1 <<spacer>>
+Notification -[hidden]- Spacer1
+Notification -[hidden]- Spacer1
+OrderConfirmation -[hidden]right- Spacer1
+Spacer1 -[hidden]right- PasswordReset
+IDeliveryChannel -[hidden]- SmsChannel
+IDeliveryChannel -[hidden]- SmsChannel
+EmailChannel -[hidden]right- SmsChannel
+SmsChannel -[hidden]right- SlackChannel
+Notification o-[norank]-> IDeliveryChannel : Channel
+Notification .[norank].> Recipient
+Notification .[norank].> RenderedMessage
 @enduml

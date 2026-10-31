@@ -1,4 +1,12 @@
 @startuml Bridge
+skinparam linetype polyline
+skinparam class {
+  BackgroundColor<<spacer>> transparent
+  BorderColor<<spacer>> transparent
+  FontColor<<spacer>> transparent
+}
+hide <<spacer>> stereotype
+hide <<spacer>> circle
 skinparam classAttributeIconSize 0
 title Bridge — Simpler example (C#)
 
@@ -38,8 +46,6 @@ IColor <|.. RedColor
 IColor <|.. BlueColor
 Shape <|-- Circle
 Shape <|-- Square
-Shape o--> IColor : Color (bridge)
-SolutionDemo ..> Shape
 
 note right of Shape : Abstraction
 note bottom of Circle : RefinedAbstraction
@@ -49,4 +55,16 @@ note left of RedColor : ConcreteImplementor
 note left of BlueColor : ConcreteImplementor
 note bottom of SolutionDemo : Client
 
+class " " as Spacer1 <<spacer>>
+IColor -[hidden]- Spacer1
+IColor -[hidden]- Spacer1
+RedColor -[hidden]right- Spacer1
+Spacer1 -[hidden]right- BlueColor
+class " " as Spacer2 <<spacer>>
+Shape -[hidden]- Spacer2
+Shape -[hidden]- Spacer2
+Circle -[hidden]right- Spacer2
+Spacer2 -[hidden]right- Square
+Shape o-[norank]-> IColor : Color (bridge)
+SolutionDemo .[norank].> Shape
 @enduml

@@ -1,4 +1,13 @@
 @startuml Adapter
+skinparam linetype polyline
+skinparam nodesep 70
+skinparam class {
+  BackgroundColor<<spacer>> transparent
+  BorderColor<<spacer>> transparent
+  FontColor<<spacer>> transparent
+}
+hide <<spacer>> stereotype
+hide <<spacer>> circle
 skinparam classAttributeIconSize 0
 title Adapter — Simpler example (C#)
 
@@ -39,9 +48,6 @@ IMediaPlayer <|.. MediaAdapter
 IMediaPlayer <|.. AudioPlayer
 IAdvancedMediaPlayer <|.. VlcPlayer
 IAdvancedMediaPlayer <|.. Mp4Player
-MediaAdapter o--> IAdvancedMediaPlayer : _advanced
-AudioPlayer ..> MediaAdapter : delegates vlc/mp4
-SolutionDemo ..> IMediaPlayer
 
 note right of IMediaPlayer : Target
 note right of MediaAdapter : Adapter
@@ -50,4 +56,17 @@ note bottom of VlcPlayer : Adaptee
 note bottom of Mp4Player : Adaptee
 note bottom of SolutionDemo : Client
 
+class " " as Spacer1 <<spacer>>
+IMediaPlayer -[hidden]- Spacer1
+IMediaPlayer -[hidden]- Spacer1
+MediaAdapter -[hidden]right- Spacer1
+Spacer1 -[hidden]right- AudioPlayer
+class " " as Spacer2 <<spacer>>
+IAdvancedMediaPlayer -[hidden]- Spacer2
+IAdvancedMediaPlayer -[hidden]- Spacer2
+VlcPlayer -[hidden]right- Spacer2
+Spacer2 -[hidden]right- Mp4Player
+MediaAdapter o--> IAdvancedMediaPlayer : _advanced
+AudioPlayer ..> MediaAdapter : delegates vlc/mp4
+SolutionDemo ..> IMediaPlayer
 @enduml

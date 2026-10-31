@@ -1,4 +1,12 @@
 @startuml "Bridge - Basic (Problem) - Class Diagram"
+skinparam linetype polyline
+skinparam class {
+  BackgroundColor<<spacer>> transparent
+  BorderColor<<spacer>> transparent
+  FontColor<<spacer>> transparent
+}
+hide <<spacer>> stereotype
+hide <<spacer>> circle
 skinparam classAttributeIconSize 0
 hide empty members
 title Bridge — the implementation as a base class
@@ -25,7 +33,6 @@ ASubAbstraction <|-- AConcreteImplementation1
 ASubAbstraction <|-- AConcreteImplementation2
 AnotherSubAbstraction <|-- AnotherConcreteImplementation1
 AnotherSubAbstraction <|-- AnotherConcreteImplementation2
-Client o--> "1" IAnAbstraction
 
 note bottom of AConcreteImplementation1
   Read the base class as the claim it makes:
@@ -50,6 +57,30 @@ note as N2
   is virtual at all — the variation moved into a
   field, so nothing needs to be overridable.
 end note
-N2 .. ASubAbstraction
 
+class " " as Spacer1 <<spacer>>
+IAnAbstraction -[hidden]- Spacer1
+IAnAbstraction -[hidden]- Spacer1
+ASubAbstraction -[hidden]right- Spacer1
+Spacer1 -[hidden]right- AnotherSubAbstraction
+class " " as Spacer2 <<spacer>>
+ASubAbstraction -[hidden]- Spacer2
+ASubAbstraction -[hidden]- Spacer2
+AConcreteImplementation1 -[hidden]right- Spacer2
+Spacer2 -[hidden]right- AConcreteImplementation2
+class " " as Spacer3 <<spacer>>
+AnotherSubAbstraction -[hidden]- Spacer3
+AnotherSubAbstraction -[hidden]- Spacer3
+AnotherConcreteImplementation1 -[hidden]right- Spacer3
+Spacer3 -[hidden]right- AnotherConcreteImplementation2
+Client o-[norank]-> "1" IAnAbstraction
+N2 .[norank]. ASubAbstraction
+class " " as Spacer66 <<spacer>>
+ASubAbstraction -[hidden]- Spacer66
+AConcreteImplementation1 -[hidden]right- Spacer66
+Spacer66 -[hidden]right- AConcreteImplementation2
+class " " as Spacer67 <<spacer>>
+AnotherSubAbstraction -[hidden]- Spacer67
+AnotherConcreteImplementation1 -[hidden]right- Spacer67
+Spacer67 -[hidden]right- AnotherConcreteImplementation2
 @enduml

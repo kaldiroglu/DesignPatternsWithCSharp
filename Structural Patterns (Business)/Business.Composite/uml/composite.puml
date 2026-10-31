@@ -1,4 +1,5 @@
 @startuml Composite
+skinparam linetype polyline
 skinparam classAttributeIconSize 0
 title Composite — Business example (C#)
 
@@ -40,7 +41,7 @@ note right of SolutionDemo : Client
 
 IOrgUnit <|.. Employee
 IOrgUnit <|.. Department
-Department o--> "0..*" IOrgUnit : _children
-SolutionDemo ..> IOrgUnit
 
+Department o-[norank]-> "0..*" IOrgUnit : _children
+SolutionDemo .[norank].> IOrgUnit
 @enduml
