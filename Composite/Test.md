@@ -30,7 +30,7 @@ deterministic and runs in milliseconds.
 ## Results
 
 ```
-Passed!  - Failed: 0, Passed: 71, Skipped: 0, Total: 71 - Composite.Tests.dll (net10.0)
+Passed!  - Failed: 0, Passed: 73, Skipped: 0, Total: 73 - Composite.Tests.dll (net10.0)
 ```
 
 The 49 GoF and bill-of-materials tests are the same assertions, with the same expected

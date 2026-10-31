@@ -111,4 +111,18 @@ public class StructureTests
 
         return count;
     }
+
+    [Fact(DisplayName = "bom takes the safe side: Add is on Assembly, and BomComponent has no Add")]
+    public void ChildManagementIsOnTheCompositeOnly()
+    {
+        Assert.DoesNotContain(typeof(BomComponent).GetMethods(), m => m.Name == "Add");
+        Assert.Contains(typeof(Assembly).GetMethods(), m => m.Name == "Add");
+    }
+
+    [Fact(DisplayName = "only an assembly knows its parents, so a part cannot walk up")]
+    public void APartHasNoParents()
+    {
+        Assert.Contains(typeof(Assembly).GetMembers(), m => m.Name == "Parents");
+        Assert.DoesNotContain(typeof(Part).GetMembers(), m => m.Name == "Parents");
+    }
 }
