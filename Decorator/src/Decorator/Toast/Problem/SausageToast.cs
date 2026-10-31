@@ -8,6 +8,6 @@ public class SausageToast : AbstractToast
     public override int CalculatePrice()
     {
         // bread plus sucuk, welded together the same way.
-        return 6;
+        return 8;
     }
 }

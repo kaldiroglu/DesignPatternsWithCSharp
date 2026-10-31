@@ -31,6 +31,15 @@ public class Pm4ProxyTests
     }
 
     [Fact]
+    public void StageThreeLimits()
+    {
+        var citizen = typeof(dev.kaldiroglu.Proxy.Pm.Pm3.Citizen);
+        var constructor = Assert.Single(citizen.GetConstructors());
+        Assert.Equal(typeof(dev.kaldiroglu.Proxy.Pm.Pm3.PMSecretary), constructor.GetParameters()[1].ParameterType);
+        Assert.True(typeof(dev.kaldiroglu.Proxy.Pm.Pm3.RealPM).IsPublic);
+    }
+
+    [Fact]
     public void TheRealSubjectIsNotPublic()
     {
         var real = typeof(ProxyPM).Assembly.GetType("dev.kaldiroglu.Proxy.Pm.Pm4.RealPM")!;

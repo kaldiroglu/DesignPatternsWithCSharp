@@ -10,9 +10,9 @@ public class CheeseSausageToast : AbstractToast
 
     public override int CalculatePrice()
     {
-        // Copied out of CheeseToast (5) and SausageToast (6), less the bread that would
+        // Copied out of CheeseToast (8) and SausageToast (8), less the bread that would
         // otherwise be charged for twice. The subtraction is a guess, because no class in
         // this namespace ever says what the bread costs on its own.
-        return 5 + 6 - 3;
+        return 8 + 8 - 5;
     }
 }

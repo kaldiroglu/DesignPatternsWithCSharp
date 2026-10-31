@@ -8,6 +8,6 @@ public class CheeseTomatoToast : AbstractToast
     public override int CalculatePrice()
     {
         // Copied from CheeseToast, plus a tomato nobody else prices.
-        return 5 + 2;
+        return 8 + 2;
     }
 }

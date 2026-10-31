@@ -15,9 +15,9 @@ public class ToastTests
     [Fact(DisplayName = "the naive menu prices each combination as a welded number")]
     public void TheNaiveMenu()
     {
-        Assert.Equal(5, new CheeseToast().CalculatePrice());
-        Assert.Equal(6, new SausageToast().CalculatePrice());
-        Assert.Equal(8, new CheeseSausageToast().CalculatePrice()); // 5 + 6 - 3, a guess
+        Assert.Equal(8, new CheeseToast().CalculatePrice());
+        Assert.Equal(8, new SausageToast().CalculatePrice());
+        Assert.Equal(11, new CheeseSausageToast().CalculatePrice()); // 8 + 8 - 5, a guess
     }
 
     [Fact(DisplayName = "a class per combination: 2^5 - 1 = 31 for five toppings")]

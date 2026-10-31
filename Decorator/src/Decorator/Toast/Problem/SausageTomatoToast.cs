@@ -8,6 +8,6 @@ public class SausageTomatoToast : AbstractToast
     public override int CalculatePrice()
     {
         // Copied from SausageToast. The tomato is priced twice in this package now.
-        return 6 + 2;
+        return 8 + 2;
     }
 }

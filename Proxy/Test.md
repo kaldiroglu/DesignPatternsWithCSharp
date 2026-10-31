@@ -41,6 +41,7 @@
 | `CreatedOnTheFirstForwardedCall` | A refused call and `FindJob` do not create the Prime Minister; the first forwarded call does. |
 | `TheClientKnowsOnlyTheInterface` | `Citizen` has one constructor, and it takes `IPM`. |
 | `TheRealSubjectIsNotPublic` | `RealPM` is `internal`. |
+| `StageThreeLimits` | In Pm3, `Citizen` takes a `PMSecretary` and `RealPM` is public. |
 
 ## Run it with
 

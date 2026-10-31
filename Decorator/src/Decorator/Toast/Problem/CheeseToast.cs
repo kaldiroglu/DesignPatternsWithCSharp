@@ -9,6 +9,6 @@ public class CheeseToast : AbstractToast
     {
         // 5 = bread plus cheese, welded into one number. Neither part exists on its own
         // anywhere here, so neither can be repriced on its own.
-        return 5;
+        return 8;
     }
 }
