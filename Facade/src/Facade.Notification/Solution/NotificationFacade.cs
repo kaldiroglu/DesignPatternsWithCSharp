@@ -41,9 +41,10 @@ public sealed class NotificationFacade
         {
             TryChannel(result, user.Id, "email", () => _email.Send(user.Email, title, body));
         }
-        if (user.Phone is not null && body.Length <= 160)
+        if (user.Phone is not null)
         {
-            TryChannel(result, user.Id, "sms", () => _sms.Send(user.Phone, body));
+            // A body the SMS gateway cannot carry is not sent, and the result says so.
+            TryChannel(result, user.Id, "sms", () => body.Length <= 160 && _sms.Send(user.Phone, body));
         }
         if (user.SlackChannel is not null && !user.DoNotDisturb)
         {

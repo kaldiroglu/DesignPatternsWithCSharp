@@ -37,7 +37,7 @@ public class NotificationFacadeTests
     }
 
     [Fact]
-    public void SmsIsSkippedWhenBodyExceeds160Chars()
+    public void AnSmsOver160CharsIsReportedAsAFailure()
     {
         var facade = NewFacade();
         var user = new User("u1") { Phone = "+1555" };
@@ -45,7 +45,8 @@ public class NotificationFacadeTests
 
         NotificationResult result = facade.Notify(user, "Title", longBody);
 
-        Assert.DoesNotContain("sms", result.Results.Keys);
+        Assert.False(result.Results["sms"]);
+        Assert.False(result.AllSucceeded);
     }
 
     [Fact]
