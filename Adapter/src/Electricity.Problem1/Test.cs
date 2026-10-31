@@ -10,17 +10,17 @@ public class Test
         TurkishPowerSource turkishPowerSource = new TurkishPowerProvider();
 
         // Can't have a reference of type Appliance anymore
-        TurkishHomeAppliance turkishMixer = new TurkishHomeAppliance("Mixer");
-        turkishMixer.SetPowerSource(turkishPowerSource);
-        turkishMixer.Start();
-        turkishMixer.Stop();
+        TurkishHomeAppliance turkishShaver = new TurkishHomeAppliance("Shaver");
+        turkishShaver.SetPowerSource(turkishPowerSource);
+        turkishShaver.Start();
+        turkishShaver.Stop();
 
         Console.WriteLine();
 
         USPowerSource usPowerSource = new USPowerProvider();
 
-        turkishMixer.SetUsPowerSource(usPowerSource);
-        turkishMixer.Start();
-        turkishMixer.Stop();
+        turkishShaver.SetUsPowerSource(usPowerSource);
+        turkishShaver.Start();
+        turkishShaver.Stop();
     }
 }

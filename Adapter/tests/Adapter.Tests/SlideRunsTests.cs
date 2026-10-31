@@ -13,7 +13,7 @@ namespace dev.kaldiroglu.Adapter.Tests;
 public class SlideRunsTests
 {
     [Theory]
-    [InlineData("Electricity.Problem1", "", "USPowerProvider started to provide electricity.")]
+    [InlineData("Electricity.Problem1", "", "TurkishHomeAppliance Shaver is starting!", "USPowerProvider started to provide electricity.")]
     [InlineData("Electricity.PowerAdapter1", "", "USTurkishPowerAdapter: Converting from USPowerSource to TurkishPowerSource", "USPowerProvider started to provide electricity.")]
     [InlineData("Electricity.ClassAdapter", "", "US source: switch pushed -> LIVE (110V/60Hz)", "after pushSwitch(); isLive=True")]
     [InlineData("Pluggable.Parameterized", "demo", "US source: switch pushed (110V / 60Hz)", "UK source: toggle flipped (230V / 50Hz)", "Kenyan source: switch is pushed")]
