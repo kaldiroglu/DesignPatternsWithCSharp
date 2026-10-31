@@ -133,9 +133,17 @@ cd "~/Development/NET/Design Patterns/Design Patterns with CSharp/Bridge"
 ./render-uml.sh
 ```
 
-The runner accepts: `violation`, `basic`, `notifications-problem`, `notifications`,
-`notifications-factory`, `notifications-shared`, `shapes`, `window`, `files-problem`,
-`files`, `retrofit`.
+The runner accepts: `violation`, `basic`, `notifications-problem-stage-one`,
+`notifications-problem-forgotten-rule`, `notifications-problem-stage-two`,
+`notifications-problem-stage-three`, `notifications-combinations`,
+`notifications-channel-rules`, `notifications-swap`, `notifications-factory-preference`,
+`notifications-factory-kind-and-channel`, `notifications-factory-re-route`,
+`notifications-shared`, `shapes`, `window`, `files-problem-stage-one`,
+`files-problem-stage-two`, `files-problem-stage-three`, `files-combinations`, `files-swap`,
+`retrofit`.
+
+An entry named for a stage or a topic prints one slide's output. `basic`, `shapes`,
+`window` and `retrofit` each print several sections.
 
 From the repository root, `~/.dotnet/dotnet build "Design Patterns with CSharp.sln"`
 builds Bridge along with every other pattern.

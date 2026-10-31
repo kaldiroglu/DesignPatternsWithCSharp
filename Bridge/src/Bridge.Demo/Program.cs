@@ -31,14 +31,24 @@ public static class Program
     {
         ["violation"] = ("WHY NOT INHERITANCE", RunViolation),
         ["basic"] = ("THE PATTERN, REDUCED TO ITS BONES", RunBasic),
-        ["notifications-problem"] = ("AN ORDER SYSTEM — the naive designs", RunNotificationsProblem),
-        ["notifications"] = ("AN ORDER SYSTEM — the bridge", RunNotifications),
-        ["notifications-factory"] = ("AN ORDER SYSTEM — who chooses the implementor", RunFactory),
+        ["notifications-problem-stage-one"] = ("AN ORDER SYSTEM — the naive designs", RunNotificationsStageOne),
+        ["notifications-problem-forgotten-rule"] = ("AN ORDER SYSTEM — the naive designs", RunNotificationsForgottenRule),
+        ["notifications-problem-stage-two"] = ("AN ORDER SYSTEM — the naive designs", RunNotificationsStageTwo),
+        ["notifications-problem-stage-three"] = ("AN ORDER SYSTEM — the naive designs", RunNotificationsStageThree),
+        ["notifications-combinations"] = ("AN ORDER SYSTEM — the bridge", RunNotificationsCombinations),
+        ["notifications-channel-rules"] = ("AN ORDER SYSTEM — the bridge", RunNotificationsChannelRules),
+        ["notifications-swap"] = ("AN ORDER SYSTEM — the bridge", RunNotificationsSwap),
+        ["notifications-factory-preference"] = ("AN ORDER SYSTEM — who chooses the implementor", RunFactoryPreference),
+        ["notifications-factory-kind-and-channel"] = ("AN ORDER SYSTEM — who chooses the implementor", RunFactoryKindAndChannel),
+        ["notifications-factory-re-route"] = ("AN ORDER SYSTEM — who chooses the implementor", RunFactoryReRoute),
         ["notifications-shared"] = ("AN ORDER SYSTEM — sharing an implementor", RunShared),
         ["shapes"] = ("SHAPES OVER TWO WINDOW SYSTEMS", RunShapes),
         ["window"] = ("GOF'S OWN EXAMPLE", RunWindow),
-        ["files-problem"] = ("A DOCUMENT STORE — the naive designs", RunFilesProblem),
-        ["files"] = ("A DOCUMENT STORE — the bridge", RunFiles),
+        ["files-problem-stage-one"] = ("A DOCUMENT STORE — the naive designs", RunFilesStageOne),
+        ["files-problem-stage-two"] = ("A DOCUMENT STORE — the naive designs", RunFilesStageTwo),
+        ["files-problem-stage-three"] = ("A DOCUMENT STORE — the naive designs", RunFilesStageThree),
+        ["files-combinations"] = ("A DOCUMENT STORE — the bridge", RunFilesCombinations),
+        ["files-swap"] = ("A DOCUMENT STORE — the bridge", RunFilesSwap),
         ["retrofit"] = ("A STANDARD OVER A WORKING SYSTEM", RunRetrofit)
     };
 
@@ -135,7 +145,7 @@ public static class Program
 
     // ------------------------------------------------------- the order system
 
-    private static void RunNotificationsProblem()
+    private static void RunNotificationsStageOne()
     {
         var log = new TransportLog();
         var transports = new Transports(log);
@@ -149,7 +159,14 @@ public static class Program
             akin, Scenario.ShortMessage());
         Console.WriteLine($"  works: {log.SendCount} messages on the wire");
         Console.WriteLine("  but 3 kinds x 3 channels = 9 branches, in one method");
+    }
 
+    private static void RunNotificationsForgottenRule()
+    {
+        var notifier = new NotificationsProblem.SwitchingNotifier(new Transports(new TransportLog()));
+        var akin = Recipient.Of("Akin", ChannelKind.Email);
+
+        Scenario.Section("1. one class, a switch on each axis");
         Console.WriteLine("\n  the 160-character rule is stated in two of the three SMS branches, so:");
         try
         {
@@ -162,6 +179,11 @@ public static class Program
             Console.WriteLine($"  {e.GetType().Name}: {e.Message}");
             Console.WriteLine("  nobody removed the rule from the digest branch — it was never added");
         }
+    }
+
+    private static void RunNotificationsStageTwo()
+    {
+        var akin = Recipient.Of("Akin", ChannelKind.Email);
 
         Scenario.Section("2. a class for every (kind, channel) pair");
         var pairLog = new TransportLog();
@@ -176,7 +198,10 @@ public static class Program
 
                   3 kinds x 3 channels = 9 classes; a fourth channel is 3 more.
                 """);
+    }
 
+    private static void RunNotificationsStageThree()
+    {
         Scenario.Section("3. the notification inherits the channel");
         var bora = Recipient.Of("Bora", ChannelKind.Sms);
         var result = new NotificationsProblem.EmailBoundUrgentNotification(new Transports(new TransportLog()))
@@ -192,7 +217,7 @@ public static class Program
                 """);
     }
 
-    private static void RunNotifications()
+    private static void RunNotificationsCombinations()
     {
         var log = new TransportLog();
         var transports = new Transports(log);
@@ -217,6 +242,12 @@ public static class Program
         }
 
         Console.WriteLine($"  {log.SendCount} messages, and every combination worked");
+    }
+
+    private static void RunNotificationsChannelRules()
+    {
+        var transports = new Transports(new TransportLog());
+        var akin = Recipient.Of("Akin", ChannelKind.Email);
 
         Scenario.Section("the channel's rules are asked for, never assumed");
         var message = Scenario.LongMessage();
@@ -234,6 +265,11 @@ public static class Program
                   The notification asked MaxBodyLength. It never asked which channel it
                   was holding — and there is no type test anywhere in that namespace.
                 """);
+    }
+
+    private static void RunNotificationsSwap()
+    {
+        var akin = Recipient.Of("Akin", ChannelKind.Email);
 
         Scenario.Section("the channel can change on a notification that already exists");
         var swapLog = new TransportLog();
@@ -250,7 +286,7 @@ public static class Program
                           + $"{swapLog.SendCountFor("sms")} sms");
     }
 
-    private static void RunFactory()
+    private static void RunFactoryPreference()
     {
         Scenario.Section("each recipient is reached the way they asked to be");
         var log = new TransportLog();
@@ -275,7 +311,23 @@ public static class Program
                   One notification kind, one call site, three channels — chosen from a
                   value that came out of a database while the program was running.
                 """);
+    }
 
+    private static void RunFactoryKindAndChannel()
+    {
+        Scenario.Section("the kind and the channel are chosen separately");
+        var service = new NotificationService(new PreferenceChannelFactory(new Transports(new TransportLog())));
+        var bora = Recipient.Of("Bora", ChannelKind.Sms);
+
+        var simple = service.Send(c => new Classic.SimpleNotification(c), bora, Scenario.ShortMessage());
+        var urgent = service.Send(c => new Classic.UrgentNotification(c), bora, Scenario.ShortMessage());
+        Console.WriteLine($"  simple -> {simple.Channel}");
+        Console.WriteLine($"  urgent -> {urgent.Channel}");
+        Console.WriteLine("  the caller named neither a channel class nor a combination class");
+    }
+
+    private static void RunFactoryReRoute()
+    {
         Scenario.Section("when a vendor goes down");
         var reroutedLog = new TransportLog();
         var reroutedTransports = new Transports(reroutedLog);
@@ -402,9 +454,11 @@ public static class Program
 
     // ---------------------------------------------------------- the document store
 
-    private static void RunFilesProblem()
+    private const string DraftPath = "claims/2026/case-4021";
+
+    private static void RunFilesStageOne()
     {
-        const string path = "claims/2026/case-4021";
+        const string path = DraftPath;
 
         Scenario.Section("1. one class, a switch on each axis");
         var stores = new FilesProblem.VendorStores();
@@ -430,6 +484,36 @@ public static class Program
                   is holding eight, because the FileNet branch never applied the rule.
                   Nothing threw. The vendor is happy. Only an auditor would find it.
                 """);
+    }
+
+    private static void RunFilesStageTwo()
+    {
+        const string path = DraftPath;
+
+        Scenario.Section("2. one class per (department, store) pair");
+        var stores = new FilesProblem.VendorStores();
+        var finance = new FilesProblem.FinanceEvernoteManager(stores);
+        var insurance = new FilesProblem.InsuranceEvernoteManager(stores);
+
+        for (var draft = 1; draft <= 8; draft++)
+        {
+            finance.Save(path, $"draft {draft}");
+            insurance.Save(path, $"draft {draft}");
+        }
+
+        Report(stores, "Evernote", $"finance/{path}", FilesProblem.Department.Finance);
+        Report(stores, "Evernote", $"insurance/{path}", FilesProblem.Department.Insurance);
+        Console.WriteLine("""
+                  Both rules are right this time, and each was written by hand. The two
+                  classes differ by one number; the Evernote calls in them are identical.
+                  Two departments and three stores is six such classes, and a fourth store
+                  is three more.
+                """);
+    }
+
+    private static void RunFilesStageThree()
+    {
+        const string path = DraftPath;
 
         Scenario.Section("3. the store becomes the base class");
         var inherited = new FilesProblem.VendorStores();
@@ -457,7 +541,7 @@ public static class Program
         Console.WriteLine($"    {vendor,-10} {address,-34} kept {held}, allowed {allowed}{flag}");
     }
 
-    private static void RunFiles()
+    private static void RunFilesCombinations()
     {
         FilesSolution.IFileProvider[] stores =
         [
@@ -482,6 +566,12 @@ public static class Program
                               + $"live versions {Live(insurance.Versions("policy-4417"), insurance.RetainedVersions)}\n");
         }
 
+        Console.WriteLine("2 departments + 3 stores = 5 classes, 6 combinations.");
+        Console.WriteLine("A fourth store is one class, and no retention rule is touched.");
+    }
+
+    private static void RunFilesSwap()
+    {
         // The move that makes it a Bridge rather than a choice made once.
         FilesSolution.FileManager moved =
             new FilesSolution.FinanceFileManager(new FilesSolution.EvernoteProvider());
@@ -490,10 +580,6 @@ public static class Program
         moved.Save("memo", "written on FileNet");
         Console.WriteLine("The same manager object, moved between stores at run time:");
         Console.WriteLine($"  {moved.Read("memo")}");
-
-        Console.WriteLine();
-        Console.WriteLine("2 departments + 3 stores = 5 classes, 6 combinations.");
-        Console.WriteLine("A fourth store is one class, and no retention rule is touched.");
     }
 
     private static string Live(IReadOnlyList<int> versions, int keep) =>
