@@ -162,6 +162,11 @@ These all cost real time at least once. In rough order of how quietly they fail:
 the pattern root to regenerate. This mirrors the Java repository. Nothing in the build
 depends on them; `.csproj` globs `*.cs` only.
 
+- **After `render-uml.sh` or `plantuml -tsvg -tpng`, run `python3 tools/redraw-diagrams.py`.**
+  PlantUML overwrites both images, and Graphviz bends some is-a lines. The script finds the
+  bent lines itself, straightens them in the `.svg` and renders the `.png` again. `--check`
+  only reports them. `.puml` hints and `<<spacer>>` classes set the layout: parent above and
+  centered over its children, children on one row, straight lines, no colored arrows.
 - **A `<b>` span does not survive a line break.** PlantUML closes it at end of line and
   then prints the stray `</b>` literally on the image. Keep each `<b>…</b>` on one line.
   Six of these were found in one pass, two inherited verbatim from the Java originals —
