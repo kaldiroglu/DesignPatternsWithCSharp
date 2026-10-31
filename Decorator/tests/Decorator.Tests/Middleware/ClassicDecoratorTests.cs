@@ -144,4 +144,42 @@ public class ClassicDecoratorTests
     [Fact(DisplayName = "a decorator must decorate something")]
     public void NullInnerIsRejected() =>
         Assert.Throws<ArgumentNullException>(() => new RetryingPriceFeed(null!, 3));
+
+    [Fact(DisplayName = "logging inside the cache sees one call; logging outside it sees both requests")]
+    public void ThePlaceOfLoggingDecidesWhatItSees()
+    {
+        var vendor = new VendorPriceFeed();
+        var inside = new CallLog();
+        IPriceFeed cacheOutside = new CachingPriceFeed(
+            new LoggingPriceFeed(vendor, inside, "vendor"), _clock, Ttl);
+        cacheOutside.QuoteFor("SKU-999");
+        cacheOutside.QuoteFor("SKU-999");
+        Assert.Equal(2, inside.Size);
+
+        var outside = new CallLog();
+        IPriceFeed logOutside = new LoggingPriceFeed(
+            new CachingPriceFeed(vendor, _clock, Ttl), outside, "vendor");
+        logOutside.QuoteFor("SKU-999");
+        logOutside.QuoteFor("SKU-999");
+        Assert.Equal(4, outside.Size);
+    }
+
+    [Fact(DisplayName = "the limiter counts three requests while the supplier takes nine calls")]
+    public void RetriesAreInvisibleToTheRateLimiter()
+    {
+        IPriceFeed feed = new dev.kaldiroglu.Decorator.Middleware.Problem.FlaggedPriceFeed(
+            _supplier, _clock,
+            false, false, true, false, true,
+            new CallLog(), new Metrics(), 3,
+            Ttl, 3, TimeSpan.FromMinutes(1));
+
+        for (var request = 1; request <= 3; request++)
+        {
+            _supplier.FailNext(2);
+            feed.QuoteFor("SKU-200");
+        }
+
+        Assert.Throws<RateLimitExceededException>(() => feed.QuoteFor("SKU-200"));
+        Assert.Equal(9, _supplier.CallCount);
+    }
 }

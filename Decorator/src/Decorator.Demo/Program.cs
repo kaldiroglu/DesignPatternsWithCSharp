@@ -31,6 +31,7 @@ public static class Program
     {
         ["copypaste"] = ("THE PROBLEM", CopyPaste),
         ["flags"] = ("THE PROBLEM", Flags),
+        ["flags-rate-limit"] = ("THE PROBLEM", FlagsRateLimit),
         ["subclasses"] = ("THE PROBLEM", Subclasses),
         ["classic"] = ("THE SOLUTION — classic decorators", Classic),
         ["ordering-logging"] = ("THE SOLUTION — classic decorators", LoggingOrder),
@@ -51,6 +52,7 @@ public static class Program
         ["gof-visual"] = ("GOF'S EXAMPLES", GofExamples.VisualSolution),
         ["gof-stream-problem"] = ("GOF'S EXAMPLES", GofExamples.StreamProblem),
         ["gof-stream"] = ("GOF'S EXAMPLES", GofExamples.StreamSolution),
+        ["gof-stream-sample-code"] = ("GOF'S EXAMPLES", GofExamples.StreamSampleCode),
         ["io"] = ("THE STANDARD LIBRARY", () => InvoiceStreamDemo.Run())
     };
 
@@ -118,6 +120,38 @@ public static class Program
         Console.WriteLine($"  works: {supplier.CallCount} supplier call for 2 requests");
         Console.WriteLine("  but: 5 booleans = 32 configurations, and the cache/retry order");
         Console.WriteLine("  is welded into one method that every concern has to share");
+    }
+
+    /// <summary>The fixed order in FlaggedPriceFeed: the limiter counts requests, not supplier calls.</summary>
+    private static void FlagsRateLimit()
+    {
+        Section("a limit of three, with three attempts per request");
+        var clock = IClock.Manual();
+        var supplier = SimulatedRemotePriceFeed.WithDefaults(clock);
+        IPriceFeed feed = new FlaggedPriceFeed(supplier, clock,
+            false, false, true, false, true,   // logging, timing, retry, caching, rate limit
+            new CallLog(), new Metrics(), 3,
+            TimeSpan.FromSeconds(60), 3, TimeSpan.FromMinutes(1));
+
+        var counted = 0;
+        for (var request = 1; request <= 3; request++)
+        {
+            supplier.FailNext(2);              // each request meets two outages
+            feed.QuoteFor(Sku);
+            counted++;
+        }
+
+        try
+        {
+            feed.QuoteFor(Sku);
+        }
+        catch (RateLimitExceededException)
+        {
+            Console.WriteLine("  fourth request  : refused");
+        }
+
+        Console.WriteLine($"  limiter counted : {counted}");
+        Console.WriteLine($"  supplier calls  : {supplier.CallCount}");
     }
 
     private static void Subclasses()
@@ -277,6 +311,7 @@ public static class Program
         decorated.QuoteFor("SKU-999");
 
         Console.WriteLine($"  vendor calls: {vendor.CallCount} for 2 requests, with logging and caching added");
+        Console.WriteLine($"  log lines   : {log.Size} (logging is inside the cache, so it saw one call)");
         Console.WriteLine("  subclassing was never an option here — decoration did not need one");
     }
 

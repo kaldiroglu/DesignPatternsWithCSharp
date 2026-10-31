@@ -36,21 +36,17 @@ public static class GofExamples
     public static void VisualSolution()
     {
         Console.WriteLine("--- solution: two decorators, composed ----------------------------------");
-        IVisualComponent text = new TextView(30, 4, Text);
-        Show("new BorderDecorator(text)",
-            IVisualComponent.Render(new BorderDecorator(text)));
-        Show("new ScrollDecorator(text)",
-            IVisualComponent.Render(new ScrollDecorator(text)));
+        IVisualComponent text = new TextView(5, 2, "hello there");
         Show("new BorderDecorator(new ScrollDecorator(text))",
             IVisualComponent.Render(new BorderDecorator(new ScrollDecorator(text))));
         Show("new ScrollDecorator(new BorderDecorator(text))",
             IVisualComponent.Render(new ScrollDecorator(new BorderDecorator(text))));
-        Show("new BorderDecorator(new BorderDecorator(text))  — GoF: a property, twice",
+        Show("new BorderDecorator(new BorderDecorator(text))",
             IVisualComponent.Render(new BorderDecorator(new BorderDecorator(text))));
         Console.WriteLine(
             """
-            One border class, one scrollbar class, and every combination — including
-            combinations nobody anticipated — is available at run time.
+
+            Two decorator classes, three chains, three pictures.
             """);
     }
 
@@ -72,6 +68,28 @@ public static class GofExamples
             the two bodies above are identical apart from their base class. The pair
             in the other order would be two classes more.
             """);
+    }
+
+    /// <summary>GoF's client code on p. 184: one chain over a file, one decorator over a socket.</summary>
+    public static void StreamSampleCode()
+    {
+        var file = new StreamSolutions.FileStream();
+
+        Stream output =
+            new StreamSolutions.CompressingStream(
+                new StreamSolutions.ASCII7Stream(file));
+
+        output.PutInt(12);
+        output.PutString(" aaa café");
+        output.Close();
+        Console.WriteLine($"file now holds   : {file.Contents()}");
+
+        var socket = new StreamSolutions.SocketStream();
+        Stream sameDecorator = new StreamSolutions.CompressingStream(socket);
+        sameDecorator.PutInt(12);
+        sameDecorator.PutString(" aaa café");
+        sameDecorator.Close();
+        Console.WriteLine($"socket now holds : {socket.Contents()}");
     }
 
     public static void StreamSolution()

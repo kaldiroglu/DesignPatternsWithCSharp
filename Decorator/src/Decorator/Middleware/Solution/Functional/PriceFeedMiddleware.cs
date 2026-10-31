@@ -88,23 +88,26 @@ public static class Middleware
 
     public static PriceFeedMiddleware Caching(IClock clock, TimeSpan ttl)
     {
-        // The state lives in the closure. One dictionary per pipeline built, which is the
-        // same lifetime a CachingPriceFeed instance would have had.
-        var quotes = new Dictionary<string, Quote>();
-        var storedAt = new Dictionary<string, DateTimeOffset>();
-
-        return next => new Lambda(sku =>
+        return next =>
         {
-            if (storedAt.TryGetValue(sku, out var at) && clock.Now() - at < ttl)
-            {
-                return quotes[sku];
-            }
+            // The state lives in the closure, created once for each feed this wraps. That is
+            // the same lifetime a CachingPriceFeed instance would have had.
+            var quotes = new Dictionary<string, Quote>();
+            var storedAt = new Dictionary<string, DateTimeOffset>();
 
-            var quote = next.QuoteFor(sku);
-            quotes[sku] = quote;
-            storedAt[sku] = clock.Now();
-            return quote;
-        });
+            return new Lambda(sku =>
+            {
+                if (storedAt.TryGetValue(sku, out var at) && clock.Now() - at < ttl)
+                {
+                    return quotes[sku];
+                }
+
+                var quote = next.QuoteFor(sku);
+                quotes[sku] = quote;
+                storedAt[sku] = clock.Now();
+                return quote;
+            });
+        };
     }
 
     /// <summary>

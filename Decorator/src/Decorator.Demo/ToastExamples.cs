@@ -116,7 +116,7 @@ public static class ToastExamples
         Console.WriteLine($"  outermost, so it discounts everything   {discountOutside.CalculatePrice()}");
         Console.WriteLine($"  innermost, so it discounts only bread   {discountInside.CalculatePrice()}");
         Console.WriteLine("  Order is a design decision, not a detail. The solution makes it");
-        Console.WriteLine("  visible and cheap to change; the problem namespace made it neither.");
+        Console.WriteLine("  visible and cheap to change; the naive menu made it neither.");
     }
 
     private static IToastable FullToast() =>

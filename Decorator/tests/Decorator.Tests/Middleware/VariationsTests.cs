@@ -102,4 +102,17 @@ public class VariationsTests
 
         Assert.Equal("SKU-200", upperCasing.QuoteFor("sku-200").Sku);
     }
+
+    [Fact(DisplayName = "functional: one caching middleware keeps a separate cache for each feed it wraps")]
+    public void CachingKeepsOneCachePerWrappedFeed()
+    {
+        var clock = IClock.Manual();
+        var cache = global::dev.kaldiroglu.Decorator.Middleware.Solution.Functional.Middleware.Caching(clock, TimeSpan.FromSeconds(60));
+
+        IPriceFeed first = cache(new global::dev.kaldiroglu.Decorator.Middleware.Solution.Functional.Middleware.Lambda(sku => Quote.Of(sku, "1.00")));
+        IPriceFeed second = cache(new global::dev.kaldiroglu.Decorator.Middleware.Solution.Functional.Middleware.Lambda(sku => Quote.Of(sku, "2.00")));
+
+        Assert.Equal(1.00m, first.QuoteFor("SKU-1").Amount);
+        Assert.Equal(2.00m, second.QuoteFor("SKU-1").Amount);
+    }
 }

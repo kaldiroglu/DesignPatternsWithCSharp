@@ -35,8 +35,8 @@ cannot drift into being a plausible-looking guess.
 |---|---|---|
 | `Toast/ToastTests.cs` | 7 | The Ayvalık toast shop: welded prices against five topping classes, the same topping twice, and a multiplying decorator whose position changes the bill. |
 | `Middleware/SubclassChainTests.cs` | 3 | The combination class works; the supplier is the top of the hierarchy, so a `sealed` class cannot take its place; copy-paste and flags hold a field, so both work on it. |
-| `Middleware/ClassicDecoratorTests.cs` | 9 | Each decorator on its own, ordering, decoration over a `sealed` class, and GoF's third consequence. |
-| `Middleware/VariationsTests.cs` | 3 | Classic, fluent and functional assembly produce identical behavior and identical numbers. |
+| `Middleware/ClassicDecoratorTests.cs` | 11 | Each decorator on its own, ordering, decoration over a `sealed` class, and GoF's third consequence. |
+| `Middleware/VariationsTests.cs` | 4 | Classic, fluent and functional assembly produce identical behavior and identical numbers. |
 | `Gof/Visual/DesignComparisonTests.cs` | 5 | Subclassing and decorating draw the same picture; the difference is what a third embellishment costs. |
 | `Gof/Visual/SkinAndGutsTests.cs` | 5 | A style is a separate hierarchy, so a fourth style leaves the decorator untouched. |
 | `Gof/Stream/StreamTests.cs` | 5 | Transformations against destinations, added instead of multiplied, and `Close` reaching all the way down. |
