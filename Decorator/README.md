@@ -83,6 +83,11 @@ The port is faithful in behavior and in every number. What had to change:
 - **`java.io` became `System.IO`.** `DataOutputStream` over `BufferedOutputStream` over
   `FileOutputStream` is `BinaryWriter` over `BufferedStream` over a file, and
   `GZIPOutputStream` is `GZipStream`. The shapes are the same; only the names moved.
+- **The `io` entry prints 274 and 194 bytes; the Java run prints 274 and 186.** The plain
+  files are the same bytes, because `InvoiceStreamDemo` writes Java's format by hand. The
+  gzip difference is in the libraries: `BufferedStream` passes its flush on to `GZipStream`,
+  which ends a block there, and `GZIPOutputStream` does not by default. `InvoiceStreamTests`
+  asserts both sizes, and that the same bytes in one write at `SmallestSize` take 186.
 - **`final` became `sealed`, and the point survives intact.** Java's `VendorPriceFeed` is
   `final` and its test is named "decoration works on a final class, where subclassing
   cannot"; the C# one is `sealed` and says the same. This is a rename, not a new argument.

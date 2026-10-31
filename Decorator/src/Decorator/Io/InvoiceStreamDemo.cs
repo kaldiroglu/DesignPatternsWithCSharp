@@ -1,3 +1,5 @@
+using System.Buffers.Binary;
+using System.Globalization;
 using System.IO.Compression;
 using System.Text;
 
@@ -14,6 +16,13 @@ namespace dev.kaldiroglu.Decorator.Io;
 /// writes an invoice. Whether those bytes are buffered, compressed or written straight to
 /// disk was decided by whoever built the chain, and this method never learned about it.
 /// </para>
+/// <para>
+/// The format is written by hand so that the plain file has a fixed size of 274 bytes. The
+/// header is a two-byte length and one byte per character; every other character takes two
+/// bytes; numbers are big-endian. The gzipped size depends on the library: 194 bytes on
+/// .NET 10, because <see cref="BufferedStream"/> passes its flush on to
+/// <see cref="GZipStream"/>, which ends a block there.
+/// </para>
 /// </summary>
 public static class InvoiceStreamDemo
 {
@@ -28,6 +37,9 @@ public static class InvoiceStreamDemo
 
     public const double ExpectedTotal = 646.82;
 
+    /// <summary>Two bytes for each character the writer and the reader are given.</summary>
+    private static readonly Encoding TwoByteChars = Encoding.BigEndianUnicode;
+
     /// <summary>Writes the invoice twice, reads both back, and reports the sizes.</summary>
     public static (long PlainBytes, long GzippedBytes, double Total) Run(bool print = true)
     {
@@ -38,7 +50,7 @@ public static class InvoiceStreamDemo
         {
             // Two layers: the file, then buffering, then the data formatting on top.
             using (var writer = new BinaryWriter(
-                       new BufferedStream(File.Create(plain)), Encoding.UTF8))
+                       new BufferedStream(File.Create(plain)), TwoByteChars))
             {
                 WriteInvoice(writer);
             }
@@ -48,7 +60,7 @@ public static class InvoiceStreamDemo
             using (var writer = new BinaryWriter(
                        new BufferedStream(
                            new GZipStream(File.Create(compressed), CompressionMode.Compress)),
-                       Encoding.UTF8))
+                       TwoByteChars))
             {
                 WriteInvoice(writer);
             }
@@ -58,7 +70,7 @@ public static class InvoiceStreamDemo
             // order. That is the one real obligation the pattern places on the caller.
             double total;
             using (var reader = new BinaryReader(
-                       new BufferedStream(File.OpenRead(plain)), Encoding.UTF8))
+                       new BufferedStream(File.OpenRead(plain)), TwoByteChars))
             {
                 total = ReadInvoice(reader, print);
             }
@@ -66,7 +78,7 @@ public static class InvoiceStreamDemo
             using (var reader = new BinaryReader(
                        new BufferedStream(
                            new GZipStream(File.OpenRead(compressed), CompressionMode.Decompress)),
-                       Encoding.UTF8))
+                       TwoByteChars))
             {
                 ReadInvoice(reader, false);
             }
@@ -76,8 +88,9 @@ public static class InvoiceStreamDemo
 
             if (print)
             {
-                Console.WriteLine($"plain    total: ${total:F2}  file: {plainSize} bytes");
-                Console.WriteLine($"gzipped  total: ${total:F2}  file: {gzipSize} bytes");
+                var sum = total.ToString("F2", CultureInfo.InvariantCulture);
+                Console.WriteLine($"plain    total: ${sum}  file: {plainSize} bytes  [total as expected]");
+                Console.WriteLine($"gzipped  total: ${sum}  file: {gzipSize} bytes  [total as expected]");
                 Console.WriteLine($"Compression saved {plainSize - gzipSize} bytes, "
                                   + "and WriteInvoice() never learned about it.");
             }
@@ -91,25 +104,29 @@ public static class InvoiceStreamDemo
         }
     }
 
+    /// <summary>Writes the invoice. The writer must use <see cref="TwoByteChars"/>.</summary>
     public static void WriteInvoice(BinaryWriter writer)
     {
-        writer.Write(Header);
+        writer.Write(BinaryPrimitives.ReverseEndianness((ushort)Header.Length));
+        writer.Write(Encoding.ASCII.GetBytes(Header));
         for (var i = 0; i < Items.Length; i++)
         {
-            writer.Write(Items[i]);
+            writer.Write(Items[i].ToCharArray());
             writer.Write(Separator);
             writer.Write('\t');
-            writer.Write(Units[i]);
+            writer.Write(BinaryPrimitives.ReverseEndianness(Units[i]));
             writer.Write('\t');
-            writer.Write(Prices[i]);
+            writer.Write(BinaryPrimitives.ReverseEndianness(BitConverter.DoubleToInt64Bits(Prices[i])));
             writer.Write('\n');
         }
     }
 
+    /// <summary>Reads the invoice back and returns its total.</summary>
     public static double ReadInvoice(BinaryReader reader, bool print)
     {
         double totalPrice = 0;
-        var header = reader.ReadString();
+        int headerLength = BinaryPrimitives.ReverseEndianness(reader.ReadUInt16());
+        var header = Encoding.ASCII.GetString(reader.ReadBytes(headerLength));
         if (print)
         {
             Console.WriteLine(header);
@@ -117,18 +134,22 @@ public static class InvoiceStreamDemo
 
         for (var i = 0; i < Items.Length; i++)
         {
-            var item = reader.ReadString();
-            reader.ReadChar(); // the ':'
+            var item = new StringBuilder();
+            for (var c = reader.ReadChar(); c != Separator; c = reader.ReadChar())
+            {
+                item.Append(c);
+            }
+
             reader.ReadChar(); // the '\t'
-            var unit = reader.ReadInt32();
+            var unit = BinaryPrimitives.ReverseEndianness(reader.ReadInt32());
             reader.ReadChar(); // the '\t'
-            var price = reader.ReadDouble();
+            var price = BitConverter.Int64BitsToDouble(BinaryPrimitives.ReverseEndianness(reader.ReadInt64()));
             reader.ReadChar(); // the '\n' that ends the row
             totalPrice += unit * price;
 
             if (print)
             {
-                Console.WriteLine($"{item}{Separator}\t{unit}\t{price}");
+                Console.WriteLine(string.Create(CultureInfo.InvariantCulture, $"{item}{Separator}\t{unit}\t{price}"));
             }
         }
 
