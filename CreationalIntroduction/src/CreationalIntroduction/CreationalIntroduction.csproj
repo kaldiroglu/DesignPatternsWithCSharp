@@ -1,0 +1,8 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <!-- Class library holding the examples of the chapter before the creational patterns. -->
+  <PropertyGroup>
+    <AssemblyName>CreationalIntroduction</AssemblyName>
+  </PropertyGroup>
+
+</Project>

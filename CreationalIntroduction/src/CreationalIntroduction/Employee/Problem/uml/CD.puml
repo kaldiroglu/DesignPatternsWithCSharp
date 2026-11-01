@@ -1,0 +1,34 @@
+@startuml
+skinparam classAttributeIconSize 0
+class Employee {
+  + FirstName : string? {get; set;}
+  + LastName : string? {get; set;}
+  + Email : string? {get; set;}
+  + PhoneNumber : string? {get; set;}
+  + Department : string? {get; set;}
+  + Position : string? {get; set;}
+  + EmployeeId : string? {get; set;}
+  + HireDate : DateOnly? {get; set;}
+  + BirthDate : DateOnly? {get; set;}
+  + Salary : decimal? {get; set;}
+  + Manager : string? {get; set;}
+  + WorkLocation : string? {get; set;}
+  + EmploymentType : string? {get; set;}
+  + SecurityClearance : string? {get; set;}
+  + EmergencyContact : string? {get; set;}
+  + EmergencyPhone : string? {get; set;}
+  + IsRemoteWorker : bool {get; set;}
+  + TimeZone : string? {get; set;}
+  + Skills : string? {get; set;}
+  + Education : string? {get; set;}
+  + PreviousCompany : string? {get; set;}
+
+  + Employee()
+  + Employee(firstName : string, lastName : string, email : string, department : string)
+  + Employee(firstName : string, lastName : string, email : string, department : string,
+             position : string, hireDate : DateOnly)
+  + Employee(firstName : string, lastName : string, email : string, phoneNumber : string,
+             department : string, position : string, employeeId : string, hireDate : DateOnly,
+             salary : decimal, manager : string)
+}
+@enduml

@@ -1,0 +1,56 @@
+@startuml
+skinparam classAttributeIconSize 0
+skinparam linetype ortho
+title Refactored Employee - Class Diagram
+
+class Employee {
+  + Personal : PersonalInfo
+  + Contact : ContactInfo
+  + Job : JobInfo
+  + Work : WorkInfo
+  + Compensation : Compensation
+  + Employee(PersonalInfo?, ContactInfo?, JobInfo?, WorkInfo?, Compensation?)
+}
+
+class PersonalInfo {
+  + FirstName : string
+  + LastName : string
+  + BirthDate : DateOnly?
+  + Education : string
+  + Skills : string
+  + PreviousCompany : string
+}
+
+class ContactInfo {
+  + Email : string
+  + PhoneNumber : string
+  + EmergencyContact : string
+  + EmergencyPhone : string
+}
+
+class JobInfo {
+  + EmployeeId : string
+  + Department : string
+  + Position : string
+  + Manager : string
+  + HireDate : DateOnly
+  + EmploymentType : string
+  + SecurityClearance : string
+}
+
+class WorkInfo {
+  + WorkLocation : string
+  + IsRemoteWorker : bool
+  + TimeZone : string
+}
+
+class Compensation {
+  + Salary : decimal
+}
+
+Employee "1" *-- "1" PersonalInfo
+Employee "1" *-- "1" ContactInfo
+Employee "1" *-- "1" JobInfo
+Employee "1" *-- "1" WorkInfo
+Employee "1" *-- "1" Compensation
+@enduml

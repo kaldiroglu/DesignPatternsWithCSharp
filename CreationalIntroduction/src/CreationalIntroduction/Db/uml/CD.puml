@@ -1,0 +1,16 @@
+@startuml
+skinparam classAttributeIconSize 0
+hide empty members
+skinparam linetype ortho
+title A connection that cannot be created invalid
+class DatabaseConnection {
+  + {static} CreateBuilder(host, database, username, password) : Builder
+}
+class Builder {
+  + Port(int) : Builder
+  + UseSSL(bool) : Builder
+  + Build() : DatabaseConnection
+}
+DatabaseConnection +-- Builder
+Builder ..> DatabaseConnection : creates
+@enduml

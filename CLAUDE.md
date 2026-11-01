@@ -27,7 +27,9 @@ ported; each pattern's `Test.md` lists them. `creational` exists in the Java rep
 empty. **`Introduction`** (since 2026-10-29) ports the Java package
 `dev.kaldiroglu.dp.introduction`, which belongs to no family: `Problems.Users`,
 `Problems.Pricing` (a copy of Strategy's stage one) and `Proxy.Pm`. Its Prime Minister follows the Java `introduction.proxy.pm`, the version the
-Introduction deck runs, not this repository's older `Proxy/Pm`. **A new family
+Introduction deck runs, not this repository's older `Proxy/Pm`.
+**`CreationalIntroduction`** (since 2026-11-01) ports `dev.kaldiroglu.dp.creational.introduction`;
+it is not named `Introduction` because that folder already ports the course introduction. **A new family
 adds pattern folders beside the existing ones; it does not need a new repository, and
 nothing in this file is structural-specific.** The C# folder is named for the pattern, not
 the family — `Observer`, not `Behavioral.Observer` — and its root namespace is
