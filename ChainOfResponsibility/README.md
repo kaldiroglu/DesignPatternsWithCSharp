@@ -27,7 +27,7 @@ say so.
 
 | Namespace | What it shows |
 |---|---|
-| `ChainOfResponsibility.Expense` | The main worked example: Elif leads the team (up to 1,000), Burak manages (10,000), Cem directs (50,000) and Deniz is the CFO (200,000). `Problem.ApprovalService` is stage one: one method with every name, limit and rule. `Problem.TeamLead`, `Manager`, `Director` and `Cfo` are stage two: each approver creates the next one by class. `Problem.LimitTable` is stage three: a table of limits, which chooses by amount alone. `StageOneMain`, `StageTwoMain` and `StageThreeMain` run one stage each on six expenses. `Solution` has the handler `ExpenseHandler`, the concrete handlers `Approver` and `AuditLog`, `SixExpensesMain`, which runs six expenses through every design, and `AuditLogMain`, which prints that the audit log saw all 6. |
+| `ChainOfResponsibility.Expense` | The main worked example: Elif leads the team (up to 1,000), Burak manages (10,000), Cem directs (50,000) and Deniz is the CFO (200,000). `Problem.ApprovalService` is stage one: one method with every name, limit and rule. `Problem.TeamLead`, `Manager`, `Director` and `Cfo` are stage two: each approver creates the next one by class. `Problem.LimitTable` is stage three: a table of limits, which chooses by amount alone. `Problem.SkippingLimitTable` repairs stage three in the table: it skips the submitter, so its answers are right, but it applies the approvers' rule and its loop is a chain inside the table. `StageOneMain`, `StageTwoMain`, `StageThreeMain` and `SkippingTableMain` run one design each on six expenses. `Solution` has the handler `ExpenseHandler`, the concrete handlers `Approver` and `AuditLog`, `SixExpensesMain`, which runs six expenses through every design, and `AuditLogMain`, which prints that the audit log saw all 6. |
 | `ChainOfResponsibility.Gof` | GoF's own example (Design Patterns, pp. 223–232): context-sensitive help. `Problem.HelpDesk` knows every control by name. `Solution` has `HelpHandler`, `Widget`, `Button`, `Dialog` and `Application`; each widget's parent is its successor. |
 | `ChainOfResponsibility.Hw` | The three homework exercises: a maintenance queue that hands requests to developers (`Maintenance`), a middleware chain where every link may act (`Middleware`), and a cash machine where each slot pays part of the amount (`CashDispenser`). |
 | `ChainOfResponsibility.CallCenter` | Customers call a call center. Every call reaches the standard desk first, then the gold desk, then the VIP desk. `Test` creates random customers. |
@@ -106,7 +106,8 @@ same shape as the Java's, but not the same lines. What had to change:
   adds to it.
 - **`LimitTable` uses a `SortedDictionary<int, string>`** where the Java uses a `TreeMap`.
   Java's `ceilingEntry(amount)` is a loop over the sorted rows that returns the first row
-  whose limit is at least the amount. When there is none, the answer is "no one may approve
+  whose limit is at least the amount. In `SkippingLimitTable` the Java's `ceilingEntry` and
+  `higherEntry` are one loop that also skips a row whose approver is the submitter. When there is none, the answer is "no one may approve
   it", as in the Java.
 - **Accessors became properties**: `AuditLog.Seen`, `AbstractHelp.Description`,
   `IHelp.OtherHelp` (Java's `getOtherHelp`), and `AbstractCallTaker.Next` (a getter and
@@ -150,7 +151,7 @@ same shape as the Java's, but not the same lines. What had to change:
     reaches them through aliases: `GofProblemMain`, `GofSolutionMain`, `MaintenanceMain`,
     `MiddlewareMain`, `CashDispenserMain`, `CallCenterTest` and `PatternTest`. The expense
     example has one runnable class per slide: `StageOneMain`, `StageTwoMain`,
-    `StageThreeMain`, `SixExpensesMain` and `AuditLogMain`. `Gof.Problem` and `Gof.Solution`
+    `StageThreeMain`, `SkippingTableMain`, `SixExpensesMain` and `AuditLogMain`. `Gof.Problem` and `Gof.Solution`
     have a `Main` each, so a test that uses both writes each with its full name.
 - **The `uml/` diagrams, the `CD1.png`, `ClassDiagram1.png`, `SD1.png` and
   `SequenceDiagram*.png` images, and the per-package `README.md` files in the Java packages
@@ -158,7 +159,7 @@ same shape as the Java's, but not the same lines. What had to change:
 
 ## Tests
 
-`tests/ChainOfResponsibility.Tests` holds 41 xUnit tests in 7 test classes. They are ported from the
+`tests/ChainOfResponsibility.Tests` holds 45 xUnit tests in 7 test classes. They are ported from the
 JUnit tests of the Java repository, one C# test class for each Java test class, with the
 same expected values, except where `Test.md` notes a change. `Test.md` lists what each
 class tests, and the Java tests that are not ported, with the reason.

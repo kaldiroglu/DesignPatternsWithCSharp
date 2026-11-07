@@ -2,6 +2,7 @@
 using StageOneMain = dev.kaldiroglu.ChainOfResponsibility.Expense.Problem.StageOneMain;
 using StageTwoMain = dev.kaldiroglu.ChainOfResponsibility.Expense.Problem.StageTwoMain;
 using StageThreeMain = dev.kaldiroglu.ChainOfResponsibility.Expense.Problem.StageThreeMain;
+using SkippingTableMain = dev.kaldiroglu.ChainOfResponsibility.Expense.Problem.SkippingTableMain;
 using SixExpensesMain = dev.kaldiroglu.ChainOfResponsibility.Expense.Solution.SixExpensesMain;
 using AuditLogMain = dev.kaldiroglu.ChainOfResponsibility.Expense.Solution.AuditLogMain;
 using GofProblemMain = dev.kaldiroglu.ChainOfResponsibility.Gof.Problem.Main;
@@ -31,6 +32,7 @@ public static class Program
         ["expense-problem-stage-one"] = ("WHO APPROVES AN EXPENSE", StageOneMain.Run),
         ["expense-problem-stage-two"] = ("WHO APPROVES AN EXPENSE", StageTwoMain.Run),
         ["expense-problem-stage-three"] = ("WHO APPROVES AN EXPENSE", StageThreeMain.Run),
+        ["expense-problem-skipping-table"] = ("WHO APPROVES AN EXPENSE", SkippingTableMain.Run),
         ["expense-six-expenses"] = ("WHO APPROVES AN EXPENSE", SixExpensesMain.Run),
         ["expense-audit-log"] = ("WHO APPROVES AN EXPENSE", AuditLogMain.Run),
         ["gof-problem"] = ("GOF'S CONTEXT-SENSITIVE HELP", GofProblemMain.Run),

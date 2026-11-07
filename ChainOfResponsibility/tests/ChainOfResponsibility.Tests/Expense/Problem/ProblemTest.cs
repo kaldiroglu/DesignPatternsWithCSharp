@@ -169,4 +169,52 @@ public class ProblemTest
             "Emre, 500000, a new office", "  stage three: no one may approve it"
         }, By(StageThreeMain.Run));
     }
+
+    private static SkippingLimitTable SkippingTable() =>
+        new SkippingLimitTable().Add("Elif", 1_000).Add("Burak", 10_000).Add("Cem", 50_000).Add("Deniz", 200_000);
+
+    /// <summary>The table that skips the submitter keeps the rule for all six expenses.</summary>
+    [Fact]
+    public void SkippingTableIsCorrect()
+    {
+        SkippingLimitTable table = SkippingTable();
+        Assert.Equal(TheRuleSays, Six.Select(table.Approve).ToList());
+    }
+
+    /// <summary>Burak's 5,000 goes to Cem and Cem's 30,000 goes to Deniz in the skipping table.</summary>
+    [Fact]
+    public void SkippingTableMovesOn()
+    {
+        SkippingLimitTable table = SkippingTable();
+        Assert.Equal("approved by Cem", table.Approve(new Expense("Burak", 5_000, "a conference")));
+        Assert.Equal("approved by Deniz", table.Approve(new Expense("Cem", 30_000, "a training course")));
+    }
+
+    /// <summary>The skipping table applies the submitter rule itself, in a loop over the rows.</summary>
+    [Fact]
+    public void SkippingTableHoldsTheRuleInALoop()
+    {
+        string code = CodeOf(Source + "SkippingLimitTable.cs");
+        Assert.Equal(1, CountOf(code, "foreach ("));
+        Assert.Equal(1, CountOf(code, "Submitter"));
+        foreach (string name in Names)
+        {
+            Assert.Equal(0, CountOf(code, name));
+        }
+    }
+
+    /// <summary>SkippingTableMain prints the rule's answer for each of the six expenses.</summary>
+    [Fact]
+    public void SkippingTableMainOutput()
+    {
+        Assert.Equal(new[]
+        {
+            "Emre, 800, books", "  skipping table: approved by Elif",
+            "Emre, 5000, a laptop", "  skipping table: approved by Burak",
+            "Burak, 5000, a conference", "  skipping table: approved by Cem",
+            "Emre, 30000, a server", "  skipping table: approved by Cem",
+            "Cem, 30000, a training course", "  skipping table: approved by Deniz",
+            "Emre, 500000, a new office", "  skipping table: no one may approve it"
+        }, By(SkippingTableMain.Run));
+    }
 }
