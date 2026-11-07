@@ -26,8 +26,7 @@ public class Originator
         public string State { get; }
     }
 
-    private readonly object sync = new object();
-    private volatile string state;
+    private string state;
 
     public Originator(string state)
     {
@@ -37,25 +36,19 @@ public class Originator
     /// <summary>Sets the state and prints it. It stays a method because it does more than set a value.</summary>
     public void SetState(string state)
     {
-        lock (sync)
-        {
-            Console.WriteLine("\nNew state: " + state);
-            this.state = state;
-        }
+        Console.WriteLine("New state: " + state);
+        this.state = state;
     }
 
     public IMemento CreateMemento()
     {
-        lock (sync)
-        {
-            return new Memento(state);
-        }
+        return new Memento(state);
     }
 
     /// <summary>Takes back a memento this class created. Any other IMemento throws InvalidCastException.</summary>
     public void Restore(IMemento memento)
     {
-        SetState(((Memento)memento).State);
+        state = ((Memento)memento).State;
     }
 
     public override string ToString()

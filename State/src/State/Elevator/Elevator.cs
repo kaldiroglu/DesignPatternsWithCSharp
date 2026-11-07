@@ -1,12 +1,15 @@
 namespace dev.kaldiroglu.State.Elevator;
 
 /// <summary>
-/// The <b>Context</b>. It implements the same interface as its states and forwards every
-/// request to the current one. Here the caller changes the state with <see cref="SetState"/>.
+/// The <b>Context</b>. It forwards every request to the current state. The states never
+/// change the state; the caller does, with <see cref="SetState"/>. That makes this example
+/// closer to Strategy than to State.
 /// </summary>
-public class Elevator(IElevatorState state) : IElevatorState
+public class Elevator(IElevatorState state)
 {
     private IElevatorState state = state;
+
+    public IElevatorState State => state;
 
     public void SetState(IElevatorState state)
     {

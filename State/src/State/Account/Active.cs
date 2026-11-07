@@ -38,6 +38,11 @@ public class Active : IAccountStatus
                 account.Status = new Overdrawn(account);
             }
         }
+        else
+        {
+            Console.WriteLine("Status: Active and balance: " + Text(account.Balance));
+            Console.WriteLine("You can not withdraw money!");
+        }
     }
 
     public void Deposit(int amount)

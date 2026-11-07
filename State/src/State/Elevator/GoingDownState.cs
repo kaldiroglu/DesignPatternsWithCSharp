@@ -5,7 +5,7 @@ public class GoingDownState : IElevatorState
 {
     public void GoDown()
     {
-        Console.WriteLine(":)");
+        Console.WriteLine("Already going down.");
     }
 
     public void GoUp()

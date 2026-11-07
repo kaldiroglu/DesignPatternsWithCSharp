@@ -1,35 +1,18 @@
 namespace dev.kaldiroglu.Memento.Pattern1;
 
 /// <summary>
-/// The <b>Caretaker</b>: on its own thread, it keeps the mementos and decides when to save and
-/// when to undo. It never reads the state inside a memento for itself; it only prints it.
+/// The <b>Caretaker</b>: it keeps the mementos and decides when to save and when to undo. It
+/// reads the state inside a memento only to print it, which this namespace allows because the
+/// memento's <see cref="Memento.State"/> is public.
 /// </summary>
-/// <remarks>
-/// <c>Thread</c> is <c>sealed</c>, so the caretaker holds a thread. <see cref="Start"/> starts it, and the thread
-/// calls <see cref="Run"/>.
-/// </remarks>
 public class Caretaker
 {
     private readonly Originator originator;
     private readonly Stack<Memento> history = new();
-    private readonly Thread thread;
 
     public Caretaker(Originator originator)
     {
         this.originator = originator;
-        thread = new Thread(Run);
-    }
-
-    /// <summary>Starts the caretaker's thread, which calls <see cref="Run"/>.</summary>
-    public void Start()
-    {
-        thread.Start();
-    }
-
-    /// <summary>Waits until the caretaker's thread ends.</summary>
-    public void Join()
-    {
-        thread.Join();
     }
 
     public void Save()
@@ -39,36 +22,16 @@ public class Caretaker
         Console.WriteLine("Caretaker: Saving state: " + memento.State);
     }
 
-    /// <summary>Goes back to the state saved before the last one.</summary>
+    /// <summary>Goes back to the last saved state, and forgets that save.</summary>
     public void Undo()
     {
-        if (history.Count < 2)
+        if (history.Count == 0)
         {
-            Console.Error.WriteLine("Caretaker: Nothing to undo.");
+            Console.WriteLine("Caretaker: Nothing to undo.");
             return;
         }
-        history.Pop();
-        Memento previous = history.Peek();
-        originator.Restore(previous);
-        Console.Error.WriteLine("Caretaker: Undoing to: " + previous.State);
-    }
-
-    public void Run()
-    {
-        for (int i = 0; i < 11; i++)
-        {
-            if (i != 0 && i % 5 == 0)
-                Undo();
-            else
-                Save();
-            try
-            {
-                Thread.Sleep(2000);
-            }
-            catch (ThreadInterruptedException e)
-            {
-                Console.Error.WriteLine(e);
-            }
-        }
+        Memento last = history.Pop();
+        originator.Restore(last);
+        Console.WriteLine("Caretaker: Undoing to: " + last.State);
     }
 }

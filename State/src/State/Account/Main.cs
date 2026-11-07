@@ -4,11 +4,11 @@ namespace dev.kaldiroglu.State.Account;
 /// Deposits, transfers and withdraws until the account is overdrawn, then deposits and
 /// closes it.
 /// </summary>
-public static class Test
+public static class Main
 {
     public static void Run()
     {
-        Account account = new Account(1000, false);
+        Account account = new Account(1000);
         account.Deposit(1000);
         account.Transfer(200);
         account.Withdraw(2500);

@@ -43,6 +43,6 @@ public class Frozen : IAccountStatus
 
     public void Close()
     {
-        Console.WriteLine("In frozen state the  account can't be closed!");
+        Console.WriteLine("In frozen state the account can't be closed!");
     }
 }

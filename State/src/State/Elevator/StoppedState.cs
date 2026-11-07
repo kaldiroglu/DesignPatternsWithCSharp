@@ -1,16 +1,16 @@
 namespace dev.kaldiroglu.State.Elevator;
 
-/// <summary>A <b>ConcreteState</b>: the elevator is stopped. It may go up, go down or open its door.</summary>
+/// <summary>A <b>ConcreteState</b>: the elevator is stopped. It may open its door; the caller decides when it starts to move.</summary>
 public class StoppedState : IElevatorState
 {
     public void GoDown()
     {
-        Console.WriteLine("Going down.");
+        Console.WriteLine("Starting to go down.");
     }
 
     public void GoUp()
     {
-        Console.WriteLine("Going up.");
+        Console.WriteLine("Starting to go up.");
     }
 
     public void OpenDoor()
@@ -20,6 +20,6 @@ public class StoppedState : IElevatorState
 
     public void Stop()
     {
-        Console.WriteLine(":)");
+        Console.WriteLine("Already stopped.");
     }
 }

@@ -31,6 +31,6 @@ public class Closed : IAccountStatus
 
     public void Close()
     {
-        // TODO Auto-generated method stub
+        Console.WriteLine("Account is already closed!");
     }
 }

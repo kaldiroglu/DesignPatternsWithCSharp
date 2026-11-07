@@ -4,7 +4,7 @@
 
 For further enquiry please contact Akin Kaldiroglu at akin@kaldiroglu.dev
 
-36 xUnit tests in one project, `tests/State.Tests`. All of them are **unit tests**: no
+48 xUnit tests in one project, `tests/State.Tests`. All of them are **unit tests**: no
 process boundary, no network. Two tests read C# source files of the library, found from
 the test file's own path (`CallerFilePath`), so they do not depend on the working directory.
 
@@ -22,8 +22,11 @@ in Java.
 | `Order/SolutionTests.cs` | `SolutionTest` | 10 | 10 | The second shipment counts 1, 2 and 3 and goes back. A new `Shipped` starts at zero. Refusals by default. The end states override nothing. The five states. The context only forwards. The lines `SecondShipmentMain` and `RefusedRequestMain` print. |
 | `Gof/TCPConnectionTests.cs` | `TCPConnectionTest` | 7 | 7 | Both versions give the same log and state for all 125 sequences of three requests. Five switches over three states. Default "ignored" behavior and an `internal` `ChangeState`. Each concrete state is one shared object. |
 | `Door/DoorTests.cs` | `DoorTest` | 5 | 5 | `Pattern1` and `Pattern2` print the same story. The states decide in `Pattern1`; the manager decides in `Pattern2`. Two state objects per `Pattern1` door. The version with a boolean. |
+| `Account/AccountTests.cs` | `AccountTest` | 5 | 5 | `Main` goes Active, Overdrawn, Frozen, Active, Closed. No `bool` flag for frozen. Amounts that are not positive throw, and the balance stays. Active refuses a withdrawal beyond the limit. Closing twice. |
+| `Elevator/ElevatorTests.cs` | `ElevatorTest` | 4 | 4 | `Main` output. No request changes the state; only the caller does. A stopped elevator says it is starting. The elevator is not a state. |
+| `Person/PersonTests.cs` | `PersonTest` | 3 | 3 | `Main` output. The person is not a state. A greeting does not change the state. |
 | `KnownUsesTests.cs` | `KnownUsesTest` | 3 | 2 | The .NET rows of the known-uses table: `TaskStatus` and `WebSocketState` are enums with the names the deck shows. |
-| **Total** | | **37** | **36** | |
+| **Total** | | **49** | **48** | |
 
 `Printed.cs` holds the helpers: `By` captures `Console.Out` (restored in `finally`) and
 returns the printed lines; `CodeOf` reads a source file and strips its comments, because

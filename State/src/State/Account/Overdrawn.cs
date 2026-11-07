@@ -56,7 +56,7 @@ public class Overdrawn : IAccountStatus
 
     public void Close()
     {
-        Console.WriteLine("In overdrawn state the  account can't be closed!");
+        Console.WriteLine("In overdrawn state the account can't be closed!");
     }
 
     // A negative balance prints with a plain "-" on every machine.

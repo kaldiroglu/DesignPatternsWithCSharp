@@ -4,7 +4,7 @@
 
 For further enquiry please contact Akin Kaldiroglu at akin@kaldiroglu.dev
 
-33 xUnit tests in one project, `tests/Memento.Tests`. All of them are **unit tests**: no
+39 xUnit tests in one project, `tests/Memento.Tests`. All of them are **unit tests**: no
 process boundary, no network, no threads and no sleeping. Three tests capture `Console.Out`.
 
 The tests are ported from the JUnit tests of the Java repository
@@ -17,7 +17,7 @@ PascalCase, and the expected values are the same except where noted below. The J
 
 - `Printed.cs` is the port of the Java `Printed` class: `By` captures `Console.Out` with a
   `StringWriter` and restores it in `finally`. It also has `CodeOf` and `CountOf`, as in the
-  other patterns; no Memento test reads source text.
+  other patterns; the `Pattern1` and `Pattern2` tests use `CodeOf` to check that no thread or lock is left.
 - `Methods.cs` is the port of the Java `Methods` class. `PublicMethodsOf(type)` lists the
   public methods a class declares, sorted. `PublicSettersOf(type)` keeps the ones that set a
   value: a property setter, named `set_Name` by the compiler, or a method named `Set...`.
@@ -37,6 +37,8 @@ PascalCase, and the expected values are the same except where noted below. The J
 | `Hw/Editor/HistoryTest.cs` | 3 | Homework 1: undo and redo with two stacks; a new change clears redo; the cursor is saved. |
 | `Hw/Rollback/BatchTest.cs` | 2 | Homework 2: a failed batch is rolled back; a good batch is done. |
 | `Hw/Incremental/SheetTest.cs` | 2 | Homework 3: two cells on a 10,000-cell sheet make a memento of 2 entries; undo in reverse order. |
+| `Pattern1/CaretakerTest.cs` | 3 | Each undo goes back exactly one save; `Main.Run()` output; no thread or lock in the source. |
+| `Pattern2/CaretakerTest.cs` | 3 | The same for the memento nested in the originator. |
 
 Java has 10 test classes and 34 test methods. 9 classes and 33 methods are ported.
 
@@ -75,8 +77,8 @@ sees only an **empty public interface** (`ConstraintSolver.IMemento`, `Player.IC
   and **`ThePlayerKeepsTheSlots` looks for a `Stack<>` field** where the Java looks for a
   `Deque`. The port uses `Stack<T>`, as the README says.
 
-The thread-based `Pattern1` and `Pattern2` examples are not tested, in C# as in Java: they
-sleep and their output order changes from run to run. No test failed, and no behavior
+`Pattern1` and `Pattern2` ran on two threads until 2026-11-08, and were not tested. Since
+then they run on one thread and are tested like the other examples. No test failed, and no behavior
 difference between the C# and the Java was found.
 
 ## Run it with

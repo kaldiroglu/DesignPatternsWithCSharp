@@ -9,17 +9,13 @@ using EditorMain = dev.kaldiroglu.Memento.Hw.Editor.Main;
 using RollbackMain = dev.kaldiroglu.Memento.Hw.Rollback.Main;
 using IncrementalMain = dev.kaldiroglu.Memento.Hw.Incremental.Main;
 using GuiMain = dev.kaldiroglu.Memento.Gui.Main;
-using Pattern1Test = dev.kaldiroglu.Memento.Pattern1.Test;
-using Pattern2Test = dev.kaldiroglu.Memento.Pattern2.Test;
+using Pattern1Main = dev.kaldiroglu.Memento.Pattern1.Main;
+using Pattern2Main = dev.kaldiroglu.Memento.Pattern2.Main;
 
 namespace dev.kaldiroglu.Memento.Demo;
 
 /// <summary>
 /// Runs the Memento examples.
-/// <para>
-/// <c>pattern1</c> and <c>pattern2</c> run two threads each for about twenty
-/// seconds, so their lines depend on the timing of the threads.
-/// </para>
 /// <para>
 /// Each example runs on its own — <c>dotnet run -- gof</c> — and with no argument all of them
 /// run in the order the course presents them.
@@ -39,8 +35,8 @@ public static class Program
         ["hw-rollback"] = ("HOMEWORK", RollbackMain.Run),
         ["hw-incremental"] = ("HOMEWORK", IncrementalMain.Run),
         ["gui"] = ("THE EARLIER EXAMPLES", GuiMain.Run),
-        ["pattern1"] = ("THE EARLIER EXAMPLES", Pattern1Test.Run),
-        ["pattern2"] = ("THE EARLIER EXAMPLES", Pattern2Test.Run)
+        ["pattern1"] = ("THE EARLIER EXAMPLES", Pattern1Main.Run),
+        ["pattern2"] = ("THE EARLIER EXAMPLES", Pattern2Main.Run)
     };
 
     public static void Main(string[] args)

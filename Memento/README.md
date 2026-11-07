@@ -29,7 +29,7 @@ mementos must be restored in the reverse order they were made.
 | `Memento.Gof` | GoF's own example (Design Patterns, pp. 283–291): a constraint solver keeps a line with one bend between two boxes. `Problem` undoes a move by moving the box back, and the bend does not come back. In `Solution`, `MoveCommand` (the caretaker) takes a memento from `ConstraintSolver` (the originator) before the move and gives it back on undo. `Main` runs the same steps in both designs; `Problem.Main` and `Solution.Main` run one design each. |
 | `Memento.Hw` | The three homework exercises: a `TextEditor` with undo and redo kept by a `History` (`Editor`), a `Batch` of transfers that gives every `Account` its memento back when one transfer fails (`Rollback`), and a `Sheet` whose memento holds only the cells one edit changed (`Incremental`). |
 | `Memento.Gui` | A window whose state is one object, `GuiComponentState`, kept by a `GuiComponentMemento`. `Main` is the caretaker: it keeps the memento while the window moves and resizes, then gives it back. |
-| `Memento.Pattern1` | An originator whose state changes every second on one thread, and a caretaker thread that keeps mementos in a stack, saves every two seconds and undoes every fifth time. `Memento` is a class of its own, with a public `State`. |
+| `Memento.Pattern1` | An originator and a caretaker that keeps mementos in a stack. `Main` saves twice and undoes three times: each undo goes back one save, and the third finds nothing to undo. `Memento` is a class of its own, with a public `State`. |
 | `Memento.Pattern2` | The same, with the memento nested in the originator, so only the originator can read it. |
 
 ### Things worth stopping on
@@ -89,7 +89,7 @@ The load methods' XML comments say so.
   `src/Memento/Game/Solution/…`.
 - **A console runner, `Memento.Demo`**, that runs the Java original's `main` methods — the
   game's three stages and the memento, GoF's constraint solver before and after the pattern,
-  the three homework exercises, the GUI component and the two threaded examples — each on
+  the three homework exercises, the GUI component and the two caretaker examples — each on
   its own.
 - `net10.0`, nullable reference types on, implicit usings on — set once in
   `Directory.Build.props` and inherited by both projects.
@@ -99,12 +99,8 @@ The load methods' XML comments say so.
 
 The port is faithful in behavior. The output of `game-problem-setters`,
 `game-problem-history`, `game-problem-copy`, `game`, `gof-problem`, `gof-solution`,
-`hw-editor`, `hw-rollback`, `hw-incremental` and `gui` is byte for byte the output of the Java `main` methods. These
-outputs are the same under a US English, a Turkish and a Swedish locale. `pattern1` and `pattern2` run two threads each, so the order of their
-lines changes from run to run in both languages. In the runs checked, the C# and the Java
-printed the same number of lines, the same number of saves and state changes, and the same
-undo lines on the error stream (`state-6` and `state-16` for `pattern1`, `state-6` for
-`pattern2`). What had to change:
+`hw-editor`, `hw-rollback`, `hw-incremental`, `gui`, `pattern1` and `pattern2` is byte for byte the output of the Java `main` methods. These
+outputs are the same under a US English, a Turkish and a Swedish locale. What had to change:
 
 - **The mementos are an empty public interface and a private class**, as explained above.
   The Java memento types `Player.Checkpoint`, `ConstraintSolver.Memento`,
@@ -140,22 +136,8 @@ undo lines on the error stream (`state-6` and `state-16` for `pattern1`, `state-
   cell and then throws `NullPointerException` in `Map.copyOf`; the C# throws
   `KeyNotFoundException` before it sets anything. No example uses a cell that does not
   exist. `Map.copyOf` is a new `Dictionary`, and `putAll` is a loop.
-- **`Caretaker` and `OriginatorTrigger` hold a thread; they are not one.** In the Java they
-  extend `Thread`. In C# `Thread` is `sealed`, so each creates a `Thread` in its constructor
-  and `Start()` starts it; the thread calls `Run()`, as Java's `start()` calls `run()`. This
-  is how the Mediator port's `Traffic.Car` does it.
-- **The two threaded `Test.Run()` methods wait for their threads.** The Java `main` returns
-  at once, and the JVM waits for the threads before it exits, so the output is the same. Here
-  the runner must not start `pattern2` while `pattern1` is still printing, so `Run()` calls
-  `Join()` on both threads. `Caretaker` and `OriginatorTrigger` have a `Join()` method for
-  this.
-- **`synchronized` methods lock a private object**, and `Thread.sleep` is `Thread.Sleep`.
-  `InterruptedException` is `ThreadInterruptedException`, printed to the error stream as
-  `printStackTrace()` does. One difference: an exception that ends a Java thread prints a
-  stack trace and the other threads go on; in C# it ends the whole program. No example
-  throws on a thread.
-- **Undo messages go to `Console.Error`**, as the Java's go to `System.err`. In `Pattern1`
-  and `Pattern2` the caretaker keeps its mementos in a `Stack<T>`; undo after a single save
+- **In `Pattern1` and `Pattern2` the caretaker keeps its mementos in a `Stack<T>`**, where
+  the Java uses a `Deque`. Undo pops the last save and restores it; undo with no save left
   prints "Caretaker: Nothing to undo."
 - **Number formats do not depend on the machine's locale.** Numbers that are printed are
   formatted with the invariant culture.

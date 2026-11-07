@@ -1,13 +1,12 @@
 namespace dev.kaldiroglu.State.Person;
 
 /// <summary>
-/// The <b>Context</b>. It implements the same interface as its states and answers with the
-/// words of its current emotional state.
+/// The <b>Context</b>. It answers with the words of its current emotional state. The caller
+/// changes the state with <see cref="SetEmotionalState"/>; the states never do.
 /// </summary>
-public class Person(IEmotionalState emotionalState) : IEmotionalState
+public class Person(IEmotionalState emotionalState)
 {
-    // Internal: other classes in this assembly may set it.
-    internal IEmotionalState emotionalState = emotionalState;
+    private IEmotionalState emotionalState = emotionalState;
 
     public void SetEmotionalState(IEmotionalState emotionalState)
     {

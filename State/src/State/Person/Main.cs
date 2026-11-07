@@ -1,7 +1,7 @@
 namespace dev.kaldiroglu.State.Person;
 
 /// <summary>A person says hello and goodbye, happy and then sad.</summary>
-public static class Test
+public static class Main
 {
     public static void Run()
     {

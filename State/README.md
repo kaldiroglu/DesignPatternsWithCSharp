@@ -118,8 +118,7 @@ Swedish locale. What had to change:
   `TCPEstablished` and the four air-conditioner states.
 - **Accessors became properties**: `State`, `Status`, `Events`, `Log`, `Name`, `IsOpen`,
   `Room`, `Target`, `Stock`, `OverdraftLimit`. The account's three getter and setter pairs
-  became read-write properties: `Status`, `Balance` and `IsFrozen` (Java: `isFrozen()` and
-  `setFrozen`). Setters that are alone or that do more than store a value stay methods:
+  became read-write properties: `Status` and `Balance`. Setters that are alone or that do more than store a value stay methods:
   `SetTarget`, `SetState`, `SetEmotionalState`, `SetDoor`, `SetOpenState`, `SetClosedState`.
 - **The internal log method is `Record`.** `AirConditioner` and `VendingMachine` have
   `log(String)` to add a line and `log()` to read the lines. C# cannot give a method and a
@@ -132,7 +131,7 @@ Swedish locale. What had to change:
   `Account`, `Elevator` and `Person` each hold a class with the same name. Inside each
   namespace the plain name means the class, because a type in the current namespace wins.
   In `State.Demo`, one level up, the plain name would mean the namespace, so the runner uses
-  aliases (`OrderSecondShipmentMain`, `DoorPattern1Test`, `AccountTest` and so on). The homework enum
+  aliases (`OrderSecondShipmentMain`, `DoorPattern1Test`, `AccountMain` and so on). The homework enum
   `Hw.Document.Action` shares its name with `System.Action`; inside its namespace the enum
   wins, so `Hw.Document.Main` uses it by its plain name, and the runner's own table uses
   `System.Action`. `SwitchingOrder.Status` and `Document.Status` are
@@ -141,15 +140,16 @@ Swedish locale. What had to change:
   inside a class the property is found first.
 - **Package access became `internal`**: `TCPConnection.ChangeState` and `Record`,
   `Order.Event`, `EnumOrder`'s `TrackingNumber`, `FailedAttempts` and `MaxAttempts`, both
-  `Door.ChangeState` methods, `Door.dsm` in `Pattern2`, `Person.emotionalState`, the
+  `Door.ChangeState` methods, `Door.dsm` in `Pattern2`, the
   air-conditioner and vending-machine members the states use, and the package-private types
   `AcState` and `IVendingState` with its states. `internal` is the whole assembly rather than
   one package. C# has nothing closer.
 - **`Optional<Status>` became `Status?`.** `Workflow.After` returns `null` when an action is
   not allowed, and `Document.Apply` throws with `??`, as the Java throws with `orElseThrow`.
   `EnumMap` is `Dictionary`.
-- **`IllegalStateException` is `InvalidOperationException`**, and the account's
-  `RuntimeException` is `Exception`.
+- **`IllegalStateException` is `InvalidOperationException`**, the account's
+  `RuntimeException` is `Exception`, and its `IllegalArgumentException` for an amount that is
+  not positive is `ArgumentOutOfRangeException`.
 - **`getClass().getSimpleName()` is `GetType().Name`** in `VendingMachine.State`.
 - **The door demos print `true` and `false` in lower case**, as Java prints a `boolean`;
   C# would print `True` and `False`. The runner prints lists as `[a, b, c]`, as Java's
@@ -167,7 +167,7 @@ Swedish locale. What had to change:
   `ConcreteTCPConnection` suppresses that one warning around the field, and keeps the field
   and the empty methods as the Java has them.
 - **The `main` methods became `Run()` methods** called by `State.Demo`. The commented-out
-  lines in the account's Java `Test` are not ported.
+  lines in the account's Java `Main` are not ported.
 - **The `uml/` diagrams and the `CD1.png` / `SD1.png` images in the Java packages are not
   ported yet.**
 

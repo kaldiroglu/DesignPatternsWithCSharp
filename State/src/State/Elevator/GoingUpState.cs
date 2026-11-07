@@ -10,7 +10,7 @@ public class GoingUpState : IElevatorState
 
     public void GoUp()
     {
-        Console.WriteLine(":)");
+        Console.WriteLine("Already going up.");
     }
 
     public void OpenDoor()
