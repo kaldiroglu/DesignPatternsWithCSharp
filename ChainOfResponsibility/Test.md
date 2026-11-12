@@ -4,7 +4,7 @@
 
 For further enquiry please contact Akin Kaldiroglu at akin@kaldiroglu.dev
 
-45 xUnit tests in one project, `tests/ChainOfResponsibility.Tests`. All of them are **unit
+46 xUnit tests in one project, `tests/ChainOfResponsibility.Tests`. All of them are **unit
 tests**: no process boundary, no network. Five tests read source files of the library, and
 ten tests capture `Console.Out`.
 
@@ -32,7 +32,7 @@ would otherwise take the output of other test classes.
 
 | File | Tests | What it tests |
 |---|---|---|
-| `Expense/Problem/ProblemTest.cs` | 15 | The three Part 1 designs on six expenses. Stage three lets Burak and Cem approve their own; the skipping table gives the rule's answers with the submitter check and a loop in the table; source checks count the names and the `new` calls; the output of `StageOneMain`, `StageTwoMain`, `StageThreeMain` and `SkippingTableMain`. |
+| `Expense/Problem/ProblemTest.cs` | 16 | The three Part 1 designs on six expenses. Stage one repeats the own-expense rule in all four branches. Stage three lets Burak and Cem approve their own; the skipping table gives the rule's answers with the submitter check and a loop in the table; source checks count the names and the `new` calls; the output of `StageOneMain`, `StageTwoMain`, `StageThreeMain` and `SkippingTableMain`. |
 | `Expense/Solution/SolutionTest.cs` | 9 | The chain gives the six answers the rule asks for, the audit log sees 6, a finance check is one more link, no link names another, and the output of `SixExpensesMain` and `AuditLogMain`. |
 | `Gof/HelpTest.cs` | 7 | GoF's context-sensitive help: a button, its dialog and the application answer in turn; the help desk before the pattern; the output of the problem's and the solution's `Main`, and the same help for the first three controls in both. |
 | `CallCenter/CallCenterTest.cs` | 6 | Standard, gold and VIP customers reach the right desk; the VIP desk has no next desk. |
@@ -40,7 +40,7 @@ would otherwise take the output of other test classes.
 | `Hw/CashDispenser/NoteSlotTest.cs` | 3 | Homework 3: each slot pays its part; 380 and 260 leave 10 that cannot be paid. |
 | `Hw/Maintenance/MaintenanceTest.cs` | 2 | Homework 1: each request finds its developer; a request nobody takes goes back to the team lead. |
 
-Java has the same 7 test classes and 45 test methods. Every one is ported.
+Java has the same 7 test classes and 46 test methods. Every one is ported.
 
 ## Changes from the Java tests
 
@@ -61,7 +61,7 @@ No test failed, and no behavior difference between the C# and the Java was found
 ```bash
 cd ~/"Development/NET/Design Patterns/Design Patterns with CSharp/ChainOfResponsibility"
 
-# all 45
+# all 46
 ~/.dotnet/dotnet test ChainOfResponsibility.sln
 
 # one class

@@ -61,6 +61,15 @@ public class ProblemTest
         }
     }
 
+    /// <summary>Stage one repeats the own-expense rule in every one of its four branches.</summary>
+    [Fact]
+    public void StageOneRepeatsTheRuleInEveryBranch()
+    {
+        string code = CodeOf(Source + "ApprovalService.cs");
+        Assert.Equal(4, CountOf(code, "return \"approved by "));
+        Assert.Equal(4, CountOf(code, "submitter != "));
+    }
+
     /// <summary>Stage two keeps the rule for all six expenses.</summary>
     [Fact]
     public void StageTwoIsCorrect()
