@@ -1,5 +1,6 @@
 namespace dev.kaldiroglu.ChainOfResponsibility.CallCenter;
 
+/// <summary>Serves standard customers only.</summary>
 public class StandardCallTaker : AbstractCallTaker
 {
     public StandardCallTaker(ICallTaker? next) : base(next)
@@ -18,6 +19,5 @@ public class StandardCallTaker : AbstractCallTaker
         {
             PassOn(customer);
         }
-        Console.WriteLine();
     }
 }

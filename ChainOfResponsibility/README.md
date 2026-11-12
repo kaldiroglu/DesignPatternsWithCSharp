@@ -30,7 +30,7 @@ say so.
 | `ChainOfResponsibility.Expense` | The main worked example: Elif leads the team (up to 1,000), Burak manages (10,000), Cem directs (50,000) and Deniz is the CFO (200,000). `Problem.ApprovalService` is stage one: one method with every name, limit and rule. `Problem.TeamLead`, `Manager`, `Director` and `Cfo` are stage two: each approver creates the next one by class. `Problem.LimitTable` is stage three: a table of limits, which chooses by amount alone. `Problem.SkippingLimitTable` repairs stage three in the table: it skips the submitter, so its answers are right, but one method still decides for every approver. `StageOneMain`, `StageTwoMain`, `StageThreeMain` and `SkippingTableMain` run one design each on six expenses. `Solution` has the handler `ExpenseHandler`, the concrete handlers `Approver` and `AuditLog`, `SixExpensesMain`, which runs six expenses through every design, and `AuditLogMain`, which prints that the audit log saw all 6. |
 | `ChainOfResponsibility.Gof` | GoF's own example (Design Patterns, pp. 223–232): context-sensitive help. `Problem.HelpDesk` knows every control by name. `Solution` has `HelpHandler`, `Widget`, `Button`, `Dialog` and `Application`; each widget's parent is its successor. |
 | `ChainOfResponsibility.Hw` | The three homework exercises: a maintenance queue that hands requests to developers (`Maintenance`), a middleware chain where every link may act (`Middleware`), and a cash machine where each slot pays part of the amount (`CashDispenser`). |
-| `ChainOfResponsibility.CallCenter` | Customers call a call center. Every call reaches the standard desk first, then the gold desk, then the VIP desk. `Test` creates random customers. |
+| `ChainOfResponsibility.CallCenter` | Customers call a call center. Every call reaches the standard desk first, then the gold desk, then the VIP desk. A higher desk also serves lower customers, so each customer is answered by the first desk that serves them. `Main` sends one customer of each kind; `VipFirstMain` puts the VIP desk first, and it answers all three. |
 
 ### Things worth stopping on
 
@@ -84,12 +84,11 @@ ASP.NET Core's class of the same name.
 ## Differences from the Java original
 
 The port is faithful in behavior. The output of `expense-problem-stage-one`,
-`expense-problem-stage-two`, `expense-problem-stage-three`, `expense-six-expenses`,
-`expense-audit-log`, `gof-problem`, `gof-solution`, `hw-maintenance`, `hw-middleware`
-and `hw-cashdispenser` is byte for byte the output of the Java `main` methods, and
-a call-center driver that sends one VIP and one gold customer prints the same lines in both
-languages. These outputs are the same under a Turkish and a Swedish locale. `callcenter` chooses customers at random, so its output has the
-same shape as the Java's, but not the same lines. What had to change:
+`expense-problem-stage-two`, `expense-problem-stage-three`, `expense-problem-skipping-table`, `expense-six-expenses`,
+`expense-audit-log`, `gof-problem`, `gof-solution`, `hw-maintenance`, `hw-middleware`,
+`hw-cashdispenser`, `callcenter` and `callcenter-vip-first` is byte for byte the output of
+the Java `main` methods. These outputs are the same under a Turkish and a Swedish locale.
+What had to change:
 
 - **Interfaces take the `I` prefix**: `ICallTaker`, `ICustomer`, `IHandler` and `IHelp`.
 - **Java records are `sealed record`s** with the Java accessor names as properties:
@@ -126,8 +125,6 @@ same shape as the Java's, but not the same lines. What had to change:
   `GoldCallTaker`, `ConcreteHandler1`, `ConcreteHandler2`), the port writes `next!` or
   `successor!`: it fails in the same place the Java would. `AbstractHandler.help` starts as
   `null!`, because every concrete handler sets it in its constructor.
-- **`Math.random()` is `Random.Shared.NextDouble()`** in `CallCenter.Main`, with the same
-  thresholds.
 - **Number formats do not depend on the machine's locale.** Numbers that are printed are
   formatted with the invariant culture, and `Expense.Solution.SixExpensesMain` and
   `AuditLogMain` parse the amounts with it.
@@ -149,7 +146,7 @@ same shape as the Java's, but not the same lines. What had to change:
   - Six namespaces have a class named `Main` or `Test`, as in the Java. `Main` is a static
     class with a `Run()` method, which C# allows. In `ChainOfResponsibility.Demo` the runner
     reaches them through aliases: `GofProblemMain`, `GofSolutionMain`, `MaintenanceMain`,
-    `MiddlewareMain`, `CashDispenserMain`, `CallCenterTest` and `PatternTest`. The expense
+    `MiddlewareMain`, `CashDispenserMain`, `CallCenterMain`, `CallCenterVipFirstMain` and `PatternTest`. The expense
     example has one runnable class per slide: `StageOneMain`, `StageTwoMain`,
     `StageThreeMain`, `SkippingTableMain`, `SixExpensesMain` and `AuditLogMain`. `Gof.Problem` and `Gof.Solution`
     have a `Main` each, so a test that uses both writes each with its full name.
@@ -159,7 +156,7 @@ same shape as the Java's, but not the same lines. What had to change:
 
 ## Tests
 
-`tests/ChainOfResponsibility.Tests` holds 48 xUnit tests in 7 test classes. They are ported from the
+`tests/ChainOfResponsibility.Tests` holds 51 xUnit tests in 7 test classes. They are ported from the
 JUnit tests of the Java repository, one C# test class for each Java test class, with the
 same expected values, except where `Test.md` notes a change. `Test.md` lists what each
 class tests, and the Java tests that are not ported, with the reason.
@@ -183,8 +180,9 @@ cd ~/"Development/NET/Design Patterns/Design Patterns with CSharp/ChainOfRespons
 ```
 
 The runner accepts: `expense-problem-stage-one`, `expense-problem-stage-two`,
-`expense-problem-stage-three`, `expense-six-expenses`, `expense-audit-log`, `gof-problem`,
-`gof-solution`, `hw-maintenance`, `hw-middleware`, `hw-cashdispenser`, `callcenter`.
+`expense-problem-stage-three`, `expense-problem-skipping-table`, `expense-six-expenses`, `expense-audit-log`, `gof-problem`,
+`gof-solution`, `hw-maintenance`, `hw-middleware`, `hw-cashdispenser`, `callcenter`,
+`callcenter-vip-first`.
 
 Run the tests:
 

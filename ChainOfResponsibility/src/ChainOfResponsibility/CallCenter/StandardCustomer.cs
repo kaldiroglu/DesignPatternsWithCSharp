@@ -4,11 +4,6 @@ public class StandardCustomer : AbstractCustomer
 {
     public override void AskAQuestion()
     {
-        AskAStandardQuestion();
-    }
-
-    private void AskAStandardQuestion()
-    {
-        Console.WriteLine("\nStandard Customer: Asking a question!");
+        Console.WriteLine("Standard customer: asking a question.");
     }
 }

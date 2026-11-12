@@ -4,11 +4,6 @@ public class GoldCustomer : AbstractCustomer
 {
     public override void AskAQuestion()
     {
-        AskAGoldQuestion();
-    }
-
-    private void AskAGoldQuestion()
-    {
-        Console.WriteLine("\n--- Gold Customer: Asking a GOLD question!");
+        Console.WriteLine("Gold customer: asking a GOLD question.");
     }
 }

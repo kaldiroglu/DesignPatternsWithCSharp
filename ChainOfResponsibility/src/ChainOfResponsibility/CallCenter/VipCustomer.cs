@@ -4,11 +4,6 @@ public class VipCustomer : AbstractCustomer
 {
     public override void AskAQuestion()
     {
-        AskAVipQuestion();
-    }
-
-    private void AskAVipQuestion()
-    {
-        Console.WriteLine("\n*** Vip Customer: Asking a VIP question!");
+        Console.WriteLine("VIP customer: asking a VIP question.");
     }
 }

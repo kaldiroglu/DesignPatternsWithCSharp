@@ -1,63 +1,32 @@
 namespace dev.kaldiroglu.ChainOfResponsibility.CallCenter;
 
 /// <summary>
-/// Builds the chain standard, gold, VIP, creates five random customers and lets every one of
-/// them call the standard desk.
+/// Builds the chain standard, then gold, then VIP, and sends one customer of each kind to
+/// the standard desk. Each customer is answered by the first desk that serves them.
 /// </summary>
 /// <remarks>
-/// It chooses customers at random, so the output changes from run to run. Run it with
-/// <c>dotnet run --project src/ChainOfResponsibility.Demo -- callcenter</c>.
+/// Run it with <c>dotnet run --project src/ChainOfResponsibility.Demo -- callcenter</c>.
 /// </remarks>
 public class Main
 {
-    private ICallTaker? first;
-    private List<ICustomer> customers = [];
-
     public static void Run()
     {
-        Main test = new Main();
-        test.CreateCallTakers();
-        test.CreateCustomers(5);
-        test.StartTakingCalls();
+        ICallTaker first = CreateCallTakers();
+        foreach (ICustomer customer in Customers())
+        {
+            first.Answer(customer);
+            Console.WriteLine();
+        }
     }
 
-    public void CreateCallTakers()
+    public static ICallTaker CreateCallTakers()
     {
         VipCallTaker vipCT = new VipCallTaker(null);
         GoldCallTaker goldCT = new GoldCallTaker(vipCT);
         StandardCallTaker standardCT = new StandardCallTaker(goldCT);
-        first = standardCT;
+        return standardCT;
     }
 
-    public void CreateCustomers(int count)
-    {
-        customers = [];
-        for (int i = 0; i < count; i++)
-        {
-            double random = Random.Shared.NextDouble();
-            if (random < 0.33)
-            {
-                StandardCustomer customer = new StandardCustomer();
-                customers.Add(customer);
-            }
-            else if (random < 0.66)
-            {
-                GoldCustomer customer = new GoldCustomer();
-                customers.Add(customer);
-            }
-            else
-            {
-                VipCustomer customer = new VipCustomer();
-                customers.Add(customer);
-            }
-        }
-    }
-
-    private void StartTakingCalls()
-    {
-        foreach (ICustomer customer in customers)
-        {
-            first!.Answer(customer);
-        }
-    }
+    public static IReadOnlyList<ICustomer> Customers() =>
+        [new StandardCustomer(), new GoldCustomer(), new VipCustomer()];
 }

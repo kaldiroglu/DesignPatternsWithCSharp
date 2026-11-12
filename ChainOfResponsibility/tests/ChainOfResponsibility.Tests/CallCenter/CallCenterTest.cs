@@ -5,26 +5,16 @@ using Xunit;
 using static dev.kaldiroglu.ChainOfResponsibility.Tests.Printed;
 
 /// <summary>
-/// The call center: standard, then gold, then VIP. The chain is built here as
-/// Main.CreateCallTakers builds it, without the random customers.
+/// The call center: standard, then gold, then VIP. A higher desk also serves lower customers,
+/// so more than one desk may answer a call, and the order of the desks decides which one does.
 /// </summary>
 public class CallCenterTest
 {
-    private static ICallTaker StandardDesk()
-    {
-        VipCallTaker vip = new VipCallTaker(null);
-        GoldCallTaker gold = new GoldCallTaker(vip);
-        return new StandardCallTaker(gold);
-    }
-
-    private static List<string> DesksAndAnswers(ICustomer customer)
-    {
-        ICallTaker first = StandardDesk();
-        return By(() => first.Answer(customer))
+    private static List<string> DesksAndAnswers(ICallTaker first, ICustomer customer) =>
+        By(() => first.Answer(customer))
             .Where(line => line.EndsWith("received a customer.", StringComparison.Ordinal)
                            || line.StartsWith("Answer:", StringComparison.Ordinal))
             .ToList();
-    }
 
     /// <summary>A standard customer is answered by the standard desk.</summary>
     [Fact]
@@ -34,7 +24,7 @@ public class CallCenterTest
         {
             "StandardCallTaker received a customer.",
             "Answer: Here is your answer!"
-        }, DesksAndAnswers(new StandardCustomer()));
+        }, DesksAndAnswers(Main.CreateCallTakers(), new StandardCustomer()));
     }
 
     /// <summary>A gold customer passes the standard desk and is answered by the gold desk.</summary>
@@ -46,7 +36,7 @@ public class CallCenterTest
             "StandardCallTaker received a customer.",
             "GoldCallTaker received a customer.",
             "Answer: Here is your GOLD answer!"
-        }, DesksAndAnswers(new GoldCustomer()));
+        }, DesksAndAnswers(Main.CreateCallTakers(), new GoldCustomer()));
     }
 
     /// <summary>A VIP customer passes two desks and gets the VIP answer.</summary>
@@ -59,16 +49,34 @@ public class CallCenterTest
             "GoldCallTaker received a customer.",
             "VipCallTaker received a customer.",
             "Answer: Here is your VIP answer!"
-        }, DesksAndAnswers(new VipCustomer()));
+        }, DesksAndAnswers(Main.CreateCallTakers(), new VipCustomer()));
     }
 
-
-    /// <summary>The order of the desks does not matter: with the VIP desk first, a gold customer still reaches gold.</summary>
+    /// <summary>A higher desk serves lower customers: without the standard desk, gold answers a standard customer.</summary>
     [Fact]
-    public void TheOrderDoesNotMatter()
+    public void HigherDesksServeLowerCustomers()
     {
-        ICallTaker first = new VipCallTaker(new StandardCallTaker(new GoldCallTaker(null)));
-        Assert.Contains("Answer: Here is your GOLD answer!", By(() => first.Answer(new GoldCustomer())));
+        ICallTaker first = new GoldCallTaker(new VipCallTaker(null));
+        Assert.Equal(new[]
+        {
+            "GoldCallTaker received a customer.",
+            "Answer: Here is your GOLD answer!"
+        }, DesksAndAnswers(first, new StandardCustomer()));
+        ICallTaker vipOnly = new VipCallTaker(null);
+        foreach (ICustomer customer in Main.Customers())
+        {
+            Assert.Contains("Answer: Here is your VIP answer!", DesksAndAnswers(vipOnly, customer));
+        }
+    }
+
+    /// <summary>The order matters: with the VIP desk first, it answers all three customers.</summary>
+    [Fact]
+    public void TheOrderMatters()
+    {
+        IReadOnlyList<string> lines = By(VipFirstMain.Run);
+        Assert.Equal(3, lines.Count(line => line == "Answer: Here is your VIP answer!"));
+        Assert.DoesNotContain("GoldCallTaker received a customer.", lines);
+        Assert.DoesNotContain("StandardCallTaker received a customer.", lines);
     }
 
     /// <summary>A customer no desk serves reaches the end of the chain and is told so, with no exception.</summary>
@@ -76,7 +84,8 @@ public class CallCenterTest
     public void NoDeskCanAnswer()
     {
         ICallTaker first = new StandardCallTaker(new GoldCallTaker(null));
-        Assert.Contains("Answer: No desk can answer you.", By(() => first.Answer(new VipCustomer())));
+        IReadOnlyList<string> lines = By(() => first.Answer(new VipCustomer()));
+        Assert.Contains("Answer: No desk can answer you.", lines);
     }
 
     /// <summary>The VIP desk is the end of the chain and has no next desk.</summary>
@@ -85,5 +94,50 @@ public class CallCenterTest
     {
         VipCallTaker vip = new VipCallTaker(null);
         Assert.Null(vip.Next);
+    }
+
+    /// <summary>Main prints each customer reaching the first desk that serves them, one blank line per customer.</summary>
+    [Fact]
+    public void MainOutput()
+    {
+        Assert.Equal(new[]
+        {
+            "StandardCallTaker received a customer.",
+            "Standard customer: asking a question.",
+            "Answer: Here is your answer!",
+            "",
+            "StandardCallTaker received a customer.",
+            "GoldCallTaker received a customer.",
+            "Gold customer: asking a GOLD question.",
+            "Answer: Here is your GOLD answer!",
+            "",
+            "StandardCallTaker received a customer.",
+            "GoldCallTaker received a customer.",
+            "VipCallTaker received a customer.",
+            "VIP customer: asking a VIP question.",
+            "Answer: Here is your VIP answer!",
+            ""
+        }, By(Main.Run));
+    }
+
+    /// <summary>VipFirstMain prints the VIP desk answering all three customers.</summary>
+    [Fact]
+    public void VipFirstMainOutput()
+    {
+        Assert.Equal(new[]
+        {
+            "VipCallTaker received a customer.",
+            "Standard customer: asking a question.",
+            "Answer: Here is your VIP answer!",
+            "",
+            "VipCallTaker received a customer.",
+            "Gold customer: asking a GOLD question.",
+            "Answer: Here is your VIP answer!",
+            "",
+            "VipCallTaker received a customer.",
+            "VIP customer: asking a VIP question.",
+            "Answer: Here is your VIP answer!",
+            ""
+        }, By(VipFirstMain.Run));
     }
 }

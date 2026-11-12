@@ -3,7 +3,7 @@ namespace dev.kaldiroglu.ChainOfResponsibility.CallCenter;
 /// <summary>Holds the next desk in the chain.</summary>
 public abstract class AbstractCallTaker : ICallTaker
 {
-    protected ICallTaker? next;
+    private readonly ICallTaker? next;
 
     public AbstractCallTaker(ICallTaker? next)
     {

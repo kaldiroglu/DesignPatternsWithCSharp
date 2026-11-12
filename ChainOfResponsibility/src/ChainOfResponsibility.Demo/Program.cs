@@ -11,15 +11,12 @@ using MaintenanceMain = dev.kaldiroglu.ChainOfResponsibility.Hw.Maintenance.Main
 using MiddlewareMain = dev.kaldiroglu.ChainOfResponsibility.Hw.Middleware.Main;
 using CashDispenserMain = dev.kaldiroglu.ChainOfResponsibility.Hw.CashDispenser.Main;
 using CallCenterMain = dev.kaldiroglu.ChainOfResponsibility.CallCenter.Main;
+using CallCenterVipFirstMain = dev.kaldiroglu.ChainOfResponsibility.CallCenter.VipFirstMain;
 
 namespace dev.kaldiroglu.ChainOfResponsibility.Demo;
 
 /// <summary>
 /// Runs the Chain of Responsibility examples.
-/// <para>
-/// <c>callcenter</c> chooses customers at random, so its output changes from run to
-/// run.
-/// </para>
 /// <para>
 /// Each example runs on its own — <c>dotnet run -- gof</c> — and with no argument all of them
 /// run in the order the course presents them.
@@ -41,6 +38,7 @@ public static class Program
         ["hw-middleware"] = ("HOMEWORK", MiddlewareMain.Run),
         ["hw-cashdispenser"] = ("HOMEWORK", CashDispenserMain.Run),
         ["callcenter"] = ("A CALL CENTER", CallCenterMain.Run),
+        ["callcenter-vip-first"] = ("A CALL CENTER", CallCenterVipFirstMain.Run),
     };
 
     public static void Main(string[] args)
