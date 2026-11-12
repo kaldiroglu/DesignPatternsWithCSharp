@@ -27,7 +27,7 @@ say so.
 
 | Namespace | What it shows |
 |---|---|
-| `ChainOfResponsibility.Expense` | The main worked example: Elif leads the team (up to 1,000), Burak manages (10,000), Cem directs (50,000) and Deniz is the CFO (200,000). `Problem.ApprovalService` is stage one: one method with every name, limit and rule. `Problem.TeamLead`, `Manager`, `Director` and `Cfo` are stage two: each approver creates the next one by class. `Problem.LimitTable` is stage three: a table of limits, which chooses by amount alone. `Problem.SkippingLimitTable` repairs stage three in the table: it skips the submitter, so its answers are right, but one method still decides for every approver. `StageOneMain`, `StageTwoMain`, `StageThreeMain` and `SkippingTableMain` run one design each on six expenses. `Solution` has the handler `ExpenseHandler`, the concrete handlers `Approver` and `AuditLog`, `SixExpensesMain`, which runs six expenses through every design, and `AuditLogMain`, which prints that the audit log saw all 6. |
+| `ChainOfResponsibility.Expense` | The main worked example: Elif leads the team (up to 1,000), Burak manages (10,000), Cem directs (50,000) and Deniz is the CFO (200,000). `Problem.ApprovalService` is stage one: one method with every name, limit and rule. `Problem.TeamLead`, `Manager`, `Director` and `Cfo` are stage two: each approver creates the next one by class. `Problem.LimitTable` is stage three: a table of limits, which chooses by amount alone. `Problem.SkippingLimitTable` repairs stage three in the table: it skips the submitter, so its answers are right, but one method still decides for every approver. `StageOneMain`, `StageTwoMain`, `StageThreeMain` and `SkippingTableMain` run one design each on six expenses. `Solution` has the handler `ExpenseHandler`, the concrete handlers `Approver` and `AuditLog`, `SixExpensesMain`, which runs six expenses through every design, and `AuditLogMain`, which prints that the audit log saw all 6. `ListChain` keeps the same chain as a list: `ApprovalChain` holds the handlers in order and one loop asks each in turn, and `ListChainMain` prints the same six answers. |
 | `ChainOfResponsibility.Gof` | GoF's own example (Design Patterns, pp. 223–232): context-sensitive help. `Problem.HelpDesk` knows every control by name. `Solution` has `HelpHandler`, `Widget`, `Button`, `Dialog` and `Application`; each widget's parent is its successor. |
 | `ChainOfResponsibility.Hw` | The three homework exercises: a maintenance queue that hands requests to developers (`Maintenance`), a middleware chain where every link may act (`Middleware`), and a cash machine where each slot pays part of the amount (`CashDispenser`). |
 | `ChainOfResponsibility.CallCenter` | Customers call a call center. Every call reaches the standard desk first, then the gold desk, then the VIP desk. A higher desk also serves lower customers, so each customer is answered by the first desk that serves them. `Main` sends one customer of each kind; `VipFirstMain` puts the VIP desk first, and it answers all three. |
@@ -86,11 +86,13 @@ ASP.NET Core's class of the same name.
 The port is faithful in behavior. The output of `expense-problem-stage-one`,
 `expense-problem-stage-two`, `expense-problem-stage-three`, `expense-problem-skipping-table`, `expense-six-expenses`,
 `expense-audit-log`, `gof-problem`, `gof-solution`, `hw-maintenance`, `hw-middleware`,
-`hw-cashdispenser`, `callcenter` and `callcenter-vip-first` is byte for byte the output of
+`hw-cashdispenser`, `expense-list-chain`, `callcenter` and `callcenter-vip-first` is byte for byte the output of
 the Java `main` methods. These outputs are the same under a Turkish and a Swedish locale.
 What had to change:
 
-- **Interfaces take the `I` prefix**: `ICallTaker`, `ICustomer`, `IHandler` and `IHelp`.
+- **Interfaces take the `I` prefix**: `ICallTaker`, `ICustomer`, `IHandler`, `IHelp` and `ILink`.
+- **The Java package `expense.list` is the namespace `Expense.ListChain`.** A namespace named
+  `List` would hide `List<T>` inside it.
 - **Java records are `sealed record`s** with the Java accessor names as properties:
   `Expense(string Submitter, int Amount, string Purpose)` (in `Problem` and in `Solution`),
   `Request(RequestKind Kind, string Title, int Days)` and `HttpRequest(string Path, string
@@ -156,7 +158,7 @@ What had to change:
 
 ## Tests
 
-`tests/ChainOfResponsibility.Tests` holds 51 xUnit tests in 7 test classes. They are ported from the
+`tests/ChainOfResponsibility.Tests` holds 57 xUnit tests in 8 test classes. They are ported from the
 JUnit tests of the Java repository, one C# test class for each Java test class, with the
 same expected values, except where `Test.md` notes a change. `Test.md` lists what each
 class tests, and the Java tests that are not ported, with the reason.
@@ -182,7 +184,7 @@ cd ~/"Development/NET/Design Patterns/Design Patterns with CSharp/ChainOfRespons
 The runner accepts: `expense-problem-stage-one`, `expense-problem-stage-two`,
 `expense-problem-stage-three`, `expense-problem-skipping-table`, `expense-six-expenses`, `expense-audit-log`, `gof-problem`,
 `gof-solution`, `hw-maintenance`, `hw-middleware`, `hw-cashdispenser`, `callcenter`,
-`callcenter-vip-first`.
+`callcenter-vip-first`, `expense-list-chain`.
 
 Run the tests:
 

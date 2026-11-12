@@ -5,6 +5,7 @@ using StageThreeMain = dev.kaldiroglu.ChainOfResponsibility.Expense.Problem.Stag
 using SkippingTableMain = dev.kaldiroglu.ChainOfResponsibility.Expense.Problem.SkippingTableMain;
 using SixExpensesMain = dev.kaldiroglu.ChainOfResponsibility.Expense.Solution.SixExpensesMain;
 using AuditLogMain = dev.kaldiroglu.ChainOfResponsibility.Expense.Solution.AuditLogMain;
+using ListChainMain = dev.kaldiroglu.ChainOfResponsibility.Expense.ListChain.ListChainMain;
 using GofProblemMain = dev.kaldiroglu.ChainOfResponsibility.Gof.Problem.Main;
 using GofSolutionMain = dev.kaldiroglu.ChainOfResponsibility.Gof.Solution.Main;
 using MaintenanceMain = dev.kaldiroglu.ChainOfResponsibility.Hw.Maintenance.Main;
@@ -32,6 +33,7 @@ public static class Program
         ["expense-problem-skipping-table"] = ("WHO APPROVES AN EXPENSE", SkippingTableMain.Run),
         ["expense-six-expenses"] = ("WHO APPROVES AN EXPENSE", SixExpensesMain.Run),
         ["expense-audit-log"] = ("WHO APPROVES AN EXPENSE", AuditLogMain.Run),
+        ["expense-list-chain"] = ("WHO APPROVES AN EXPENSE", ListChainMain.Run),
         ["gof-problem"] = ("GOF'S CONTEXT-SENSITIVE HELP", GofProblemMain.Run),
         ["gof-solution"] = ("GOF'S CONTEXT-SENSITIVE HELP", GofSolutionMain.Run),
         ["hw-maintenance"] = ("HOMEWORK", MaintenanceMain.Run),
