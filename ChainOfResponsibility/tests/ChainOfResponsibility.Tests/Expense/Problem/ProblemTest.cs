@@ -78,6 +78,16 @@ public class ProblemTest
         Assert.Equal(TheRuleSays, Six.Select(lead.Approve).ToList());
     }
 
+    /// <summary>Stage two copies the own-expense rule into each of its four classes.</summary>
+    [Fact]
+    public void StageTwoCopiesTheRuleIntoEveryClass()
+    {
+        foreach (string cls in new[] { "TeamLead", "Manager", "Director", "Cfo" })
+        {
+            Assert.Equal(1, CountOf(CodeOf(Source + cls + ".cs"), "expense.Submitter != "));
+        }
+    }
+
     /// <summary>In stage two each approver creates the next one by class, so the order is fixed in code.</summary>
     [Fact]
     public void StageTwoFixesTheOrder()
