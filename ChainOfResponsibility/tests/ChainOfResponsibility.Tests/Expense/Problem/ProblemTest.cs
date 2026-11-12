@@ -174,6 +174,16 @@ public class ProblemTest
         }, By(StageTwoMain.Run));
     }
 
+    /// <summary>In stage three the limits decide the order, not the order of the Add calls.</summary>
+    [Fact]
+    public void StageThreeOrderComesFromTheLimits()
+    {
+        LimitTable reversed = new LimitTable()
+            .Add("Deniz", 200_000).Add("Cem", 50_000).Add("Burak", 10_000).Add("Elif", 1_000);
+        LimitTable table = Table();
+        Assert.Equal(Six.Select(table.Approve).ToList(), Six.Select(reversed.Approve).ToList());
+    }
+
     /// <summary>StageThreeMain marks the two expenses approved by the person who spent them.</summary>
     [Fact]
     public void StageThreeMainOutput()

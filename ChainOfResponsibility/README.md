@@ -159,7 +159,7 @@ same shape as the Java's, but not the same lines. What had to change:
 
 ## Tests
 
-`tests/ChainOfResponsibility.Tests` holds 47 xUnit tests in 7 test classes. They are ported from the
+`tests/ChainOfResponsibility.Tests` holds 48 xUnit tests in 7 test classes. They are ported from the
 JUnit tests of the Java repository, one C# test class for each Java test class, with the
 same expected values, except where `Test.md` notes a change. `Test.md` lists what each
 class tests, and the Java tests that are not ported, with the reason.
