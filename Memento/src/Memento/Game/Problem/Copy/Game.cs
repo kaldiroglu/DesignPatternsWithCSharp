@@ -14,4 +14,7 @@ public sealed class Game
     {
         player.RestoreFrom(checkpoint!);
     }
+
+    /// <summary>The load screen: the game reads the save, because the save is a whole Player.</summary>
+    public string LoadScreen() => "Saved game: " + checkpoint;
 }

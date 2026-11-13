@@ -2,6 +2,7 @@
 using GameSettersMain = dev.kaldiroglu.Memento.Game.Problem.Setters.Main;
 using GameHistoryMain = dev.kaldiroglu.Memento.Game.Problem.History.Main;
 using GameCopyMain = dev.kaldiroglu.Memento.Game.Problem.Copy.Main;
+using GameCopyReadTheSaveMain = dev.kaldiroglu.Memento.Game.Problem.Copy.ReadTheSaveMain;
 using GameMain = dev.kaldiroglu.Memento.Game.Solution.Main;
 using GofProblemMain = dev.kaldiroglu.Memento.Gof.Problem.Main;
 using GofSolutionMain = dev.kaldiroglu.Memento.Gof.Solution.Main;
@@ -28,6 +29,7 @@ public static class Program
         ["game-problem-setters"] = ("A GAME CHECKPOINT", GameSettersMain.Run),
         ["game-problem-history"] = ("A GAME CHECKPOINT", GameHistoryMain.Run),
         ["game-problem-copy"] = ("A GAME CHECKPOINT", GameCopyMain.Run),
+        ["game-problem-copy-read-the-save"] = ("A GAME CHECKPOINT", GameCopyReadTheSaveMain.Run),
         ["game"] = ("A GAME CHECKPOINT", GameMain.Run),
         ["gof-problem"] = ("GOF'S CONSTRAINT SOLVER", GofProblemMain.Run),
         ["gof-solution"] = ("GOF'S CONSTRAINT SOLVER", GofSolutionMain.Run),

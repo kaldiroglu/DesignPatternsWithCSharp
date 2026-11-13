@@ -4,7 +4,7 @@
 
 For further enquiry please contact Akin Kaldiroglu at akin@kaldiroglu.dev
 
-39 xUnit tests in one project, `tests/Memento.Tests`. All of them are **unit tests**: no
+41 xUnit tests in one project, `tests/Memento.Tests`. All of them are **unit tests**: no
 process boundary, no network, no threads and no sleeping. Three tests capture `Console.Out`.
 
 The tests are ported from the JUnit tests of the Java repository
@@ -30,7 +30,7 @@ PascalCase, and the expected values are the same except where noted below. The J
 |---|---|---|
 | `Game/Problem/Setters/SettersTest.cs` | 3 | Stage one: loading is correct, and any code may set `Health` to 999; `Main.Run()` output. |
 | `Game/Problem/History/HistoryTest.cs` | 3 | Stage two: loading is correct with no public getters or setters; the player keeps the save slots; `Main.Run()` output. |
-| `Game/Problem/Copy/CopyTest.cs` | 4 | Stage three: the copy shares the inventory list, so loading gives `[shield, potion]`; `Main.Run()` output. |
+| `Game/Problem/Copy/CopyTest.cs` | 6 | Stage three: the copy shares the inventory list, so loading gives `[shield, potion]`; the game keeps a whole `Player`, so every public method works on the save; the load screen reads the save; the output of `Main.Run()` and `ReadTheSaveMain.Run()`. |
 | `Game/Solution/SolutionTest.cs` | 5 | The checkpoint keeps the promise, can be loaded twice, and is closed; public setters in each stage; `Main.Run()` output. |
 | `Gof/ConstraintSolverTest.cs` | 6 | GoF's constraint solver: undo by moving back leaves the bend at 20, the memento puts it at 50; undo order; the memento is closed; the output of `Problem.Main.Run()` and `Solution.Main.Run()`. |
 | `Gui/GuiTest.cs` | 5 | The memento restores the saved state; the caretaker can keep two; the window holds none; a saved state cannot be changed but anyone can read it; `Main.Run()` output. |
@@ -86,7 +86,7 @@ difference between the C# and the Java was found.
 ```bash
 cd ~/"Development/NET/Design Patterns/Design Patterns with CSharp/Memento"
 
-# all 33
+# all 41
 ~/.dotnet/dotnet test Memento.sln
 
 # one class

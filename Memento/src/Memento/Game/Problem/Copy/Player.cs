@@ -5,11 +5,17 @@ namespace dev.kaldiroglu.Memento.Game.Problem.Copy;
 /// <summary>
 /// Stage three: the player can make a copy of itself, and take its values back from a copy.
 /// <para>
-/// The game keeps the copies, so the player has no save slots, and nothing outside sees the
-/// fields. But the copy constructor copies the reference to the inventory list, not the list:
-/// the copy and the player share one list. Whatever the player picks up or drops after the
-/// checkpoint, the checkpoint picks up or drops too.
+/// The game keeps the copies, so the player has no save slots and no public setters. Two
+/// things go wrong.
 /// </para>
+/// <list type="bullet">
+///   <item>The copy constructor copies the reference to the inventory list, not the list: the
+///   copy and the player share one list. Whatever the player picks up or drops after the
+///   checkpoint, the checkpoint picks up or drops too. Copying the list fixes this.</item>
+///   <item>The checkpoint is a whole <c>Player</c>, so whoever keeps it can call every public
+///   method on it: <c>ToString()</c> reads the save, and <c>PickUp</c> changes it. Copying the
+///   list does not fix this.</item>
+/// </list>
 /// </summary>
 public sealed class Player
 {
@@ -51,11 +57,12 @@ public sealed class Player
         inventory.Remove(item);
     }
 
+    /// <summary>Takes the values back from a copy, field by field, as the copy constructor does.</summary>
     public void RestoreFrom(Player copy)
     {
         health = copy.health;
         position = copy.position;
-        inventory = new List<string>(copy.inventory);
+        inventory = copy.inventory;
     }
 
     public override string ToString() =>

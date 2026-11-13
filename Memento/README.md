@@ -98,7 +98,7 @@ The load methods' XML comments say so.
 ## Differences from the Java original
 
 The port is faithful in behavior. The output of `game-problem-setters`,
-`game-problem-history`, `game-problem-copy`, `game`, `gof-problem`, `gof-solution`,
+`game-problem-history`, `game-problem-copy`, `game-problem-copy-read-the-save`, `game`, `gof-problem`, `gof-solution`,
 `hw-editor`, `hw-rollback`, `hw-incremental`, `gui`, `pattern1` and `pattern2` is byte for byte the output of the Java `main` methods. These
 outputs are the same under a US English, a Turkish and a Swedish locale. What had to change:
 
@@ -196,7 +196,7 @@ cd ~/"Development/NET/Design Patterns/Design Patterns with CSharp/Memento"
 ```
 
 The runner accepts: `game-problem-setters`, `game-problem-history`, `game-problem-copy`,
-`game`, `gof-problem`, `gof-solution`, `hw-editor`, `hw-rollback`, `hw-incremental`, `gui`,
+`game-problem-copy-read-the-save`, `game`, `gof-problem`, `gof-solution`, `hw-editor`, `hw-rollback`, `hw-incremental`, `gui`,
 `pattern1`, `pattern2`. Each prints the output of one slide.
 
 Run the tests:

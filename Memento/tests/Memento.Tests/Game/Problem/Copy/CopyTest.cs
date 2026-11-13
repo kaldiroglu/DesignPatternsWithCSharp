@@ -2,6 +2,7 @@ namespace dev.kaldiroglu.Memento.Tests.Game.Problem.Copy;
 
 // These directives are inside the namespace on purpose. The test namespace Tests.Game
 // would otherwise hide the class Game.
+using System.Reflection;
 using dev.kaldiroglu.Memento.Game.Problem.Copy;
 using Xunit;
 using static dev.kaldiroglu.Memento.Tests.Methods;
@@ -56,5 +57,27 @@ public class CopyTest
             "After loading:     health 100, at bridge, carrying [shield, potion]",
             "Health and place are back, but the inventory is the one from the cave."
         }, By(Main.Run));
+    }
+
+    /// <summary>The game keeps a whole Player, so every public method of Player works on the save.</summary>
+    [Fact]
+    public void TheSaveIsAWholePlayer()
+    {
+        FieldInfo checkpoint = typeof(Game).GetField("checkpoint", BindingFlags.Instance | BindingFlags.NonPublic)!;
+        Assert.Equal(typeof(Player), checkpoint.FieldType);
+        var methods = typeof(Player)
+            .GetMethods(BindingFlags.Instance | BindingFlags.Public | BindingFlags.DeclaredOnly)
+            .Where(m => !m.IsSpecialName)
+            .Select(m => m.Name)
+            .Order(StringComparer.Ordinal)
+            .ToList();
+        Assert.Equal(["Drop", "MoveTo", "PickUp", "RestoreFrom", "TakeDamage", "ToString"], methods);
+    }
+
+    /// <summary>The load screen reads the save: health, position and inventory.</summary>
+    [Fact]
+    public void TheGameReadsTheSave()
+    {
+        Assert.Equal(["Saved game: health 100, at bridge, carrying [sword, shield]"], By(ReadTheSaveMain.Run));
     }
 }
