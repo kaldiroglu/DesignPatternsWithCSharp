@@ -1,7 +1,7 @@
 namespace dev.kaldiroglu.ChainOfResponsibility.Gof.Solution;
 
 /// <summary>
-/// Builds the editor's window as a chain: button, dialog, application. A control without
+/// Creates the editor's controls as a chain: button, dialog, application. A control without
 /// its own help passes the request to its parent.
 /// </summary>
 /// <remarks>

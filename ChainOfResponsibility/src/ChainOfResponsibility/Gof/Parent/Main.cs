@@ -1,7 +1,7 @@
 namespace dev.kaldiroglu.ChainOfResponsibility.Gof.Parent;
 
 /// <summary>
-/// Builds the editor's window and asks three buttons for help. Each line shows where the
+/// Creates the editor, its dialogs and three buttons, and asks each button for help. Each line shows where the
 /// button is, then its help.
 /// </summary>
 /// <remarks>

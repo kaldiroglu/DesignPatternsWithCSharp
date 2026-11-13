@@ -1,7 +1,7 @@
 namespace dev.kaldiroglu.ChainOfResponsibility.Gof.Parent;
 
 /// <summary>
-/// A control on the screen: a window, a dialog or a button.
+/// A control on the screen: the editor, a dialog or a button.
 /// <para>
 /// Every widget keeps its parent, the widget that holds it. <see cref="Path"/> uses the
 /// parent to say where the widget is. <see cref="HandleHelp"/> uses the same parent as the
