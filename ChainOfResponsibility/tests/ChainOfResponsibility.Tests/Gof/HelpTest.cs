@@ -2,6 +2,7 @@ namespace dev.kaldiroglu.ChainOfResponsibility.Tests.Gof;
 
 using dev.kaldiroglu.ChainOfResponsibility.Gof.Problem;
 using dev.kaldiroglu.ChainOfResponsibility.Gof.Solution;
+using System.Reflection;
 using Xunit;
 using static dev.kaldiroglu.ChainOfResponsibility.Tests.Printed;
 
@@ -99,5 +100,19 @@ public class HelpTest
         {
             Assert.EndsWith(desk.HelpFor(controls[i]), lines[i]);
         }
+    }
+
+    /// <summary>The application is not a widget, so the chain needs a successor field in HelpHandler.</summary>
+    [Fact]
+    public void TheApplicationIsNotAWidget()
+    {
+        Assert.False(typeof(Widget).IsAssignableFrom(typeof(Application)));
+        Assert.True(typeof(HelpHandler).IsAssignableFrom(typeof(Application)));
+        var links = typeof(HelpHandler)
+            .GetFields(BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public)
+            .Where(f => f.FieldType == typeof(HelpHandler))
+            .Select(f => f.Name)
+            .ToList();
+        Assert.Equal(["successor"], links);
     }
 }

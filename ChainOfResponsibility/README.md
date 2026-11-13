@@ -158,7 +158,7 @@ What had to change:
 
 ## Tests
 
-`tests/ChainOfResponsibility.Tests` holds 61 xUnit tests in 9 test classes. They are ported from the
+`tests/ChainOfResponsibility.Tests` holds 62 xUnit tests in 9 test classes. They are ported from the
 JUnit tests of the Java repository, one C# test class for each Java test class, with the
 same expected values, except where `Test.md` notes a change. `Test.md` lists what each
 class tests, and the Java tests that are not ported, with the reason.
