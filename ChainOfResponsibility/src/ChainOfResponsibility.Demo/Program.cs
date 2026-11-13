@@ -8,6 +8,7 @@ using AuditLogMain = dev.kaldiroglu.ChainOfResponsibility.Expense.Solution.Audit
 using ListChainMain = dev.kaldiroglu.ChainOfResponsibility.Expense.ListChain.ListChainMain;
 using GofProblemMain = dev.kaldiroglu.ChainOfResponsibility.Gof.Problem.Main;
 using GofSolutionMain = dev.kaldiroglu.ChainOfResponsibility.Gof.Solution.Main;
+using GofParentMain = dev.kaldiroglu.ChainOfResponsibility.Gof.Parent.Main;
 using MaintenanceMain = dev.kaldiroglu.ChainOfResponsibility.Hw.Maintenance.Main;
 using MiddlewareMain = dev.kaldiroglu.ChainOfResponsibility.Hw.Middleware.Main;
 using CashDispenserMain = dev.kaldiroglu.ChainOfResponsibility.Hw.CashDispenser.Main;
@@ -36,6 +37,7 @@ public static class Program
         ["expense-list-chain"] = ("WHO APPROVES AN EXPENSE", ListChainMain.Run),
         ["gof-problem"] = ("GOF'S CONTEXT-SENSITIVE HELP", GofProblemMain.Run),
         ["gof-solution"] = ("GOF'S CONTEXT-SENSITIVE HELP", GofSolutionMain.Run),
+        ["gof-parent"] = ("GOF'S CONTEXT-SENSITIVE HELP", GofParentMain.Run),
         ["hw-maintenance"] = ("HOMEWORK", MaintenanceMain.Run),
         ["hw-middleware"] = ("HOMEWORK", MiddlewareMain.Run),
         ["hw-cashdispenser"] = ("HOMEWORK", CashDispenserMain.Run),

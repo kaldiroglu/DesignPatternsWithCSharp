@@ -4,7 +4,7 @@
 
 For further enquiry please contact Akin Kaldiroglu at akin@kaldiroglu.dev
 
-57 xUnit tests in one project, `tests/ChainOfResponsibility.Tests`. All of them are **unit
+61 xUnit tests in one project, `tests/ChainOfResponsibility.Tests`. All of them are **unit
 tests**: no process boundary, no network. Five tests read source files of the library, and
 ten tests capture `Console.Out`.
 
@@ -36,12 +36,13 @@ would otherwise take the output of other test classes.
 | `Expense/Solution/SolutionTest.cs` | 9 | The chain gives the six answers the rule asks for, the audit log sees 6, a finance check is one more link, no link names another, and the output of `SixExpensesMain` and `AuditLogMain`. |
 | `Expense/ListChain/ListChainTest.cs` | 6 | The chain kept as a list gives the same six answers as the chain with a next field; no handler has a field for another; one loop does the passing; the list order is the chain order; the audit log sees all six; the output of `ListChainMain`. |
 | `Gof/HelpTest.cs` | 7 | GoF's context-sensitive help: a button, its dialog and the application answer in turn; the help desk before the pattern; the output of the problem's and the solution's `Main`, and the same help for the first three controls in both. |
+| `Gof/Parent/ParentLinkTest.cs` | 4 | The help chain made from the parent field: the same help as with a successor field; `parent` is the only field that holds a widget; `Path` and `HandleHelp` both follow it; the output of `Gof.Parent.Main`. |
 | `CallCenter/CallCenterTest.cs` | 9 | Standard, gold and VIP customers reach the first desk that serves them; a higher desk serves lower customers; with the VIP desk first it answers all three, so the order matters; a customer no desk serves is told so; the VIP desk has no next desk; the exact output of `Main` and `VipFirstMain`. |
 | `Hw/Middleware/MiddlewareTest.cs` | 3 | Homework 2: every link runs, the admin check stops a request, the list decides the order. |
 | `Hw/CashDispenser/NoteSlotTest.cs` | 3 | Homework 3: each slot pays its part; 380 and 260 leave 10 that cannot be paid. |
 | `Hw/Maintenance/MaintenanceTest.cs` | 2 | Homework 1: each request finds its developer; a request nobody takes goes back to the team lead. |
 
-Java has the same 8 test classes and 57 test methods. Every one is ported.
+Java has the same 9 test classes and 61 test methods. Every one is ported.
 
 ## Changes from the Java tests
 
@@ -62,7 +63,7 @@ No test failed, and no behavior difference between the C# and the Java was found
 ```bash
 cd ~/"Development/NET/Design Patterns/Design Patterns with CSharp/ChainOfResponsibility"
 
-# all 57
+# all 61
 ~/.dotnet/dotnet test ChainOfResponsibility.sln
 
 # one class

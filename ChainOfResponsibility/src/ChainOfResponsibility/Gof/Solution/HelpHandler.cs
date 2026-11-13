@@ -5,9 +5,9 @@ namespace dev.kaldiroglu.ChainOfResponsibility.Gof.Solution;
 /// successor.
 /// <para>
 /// If it has a topic, it shows the help; if not, it passes the request to its successor.
-/// GoF implementation issue 1 (implementing the successor chain): here the chain is not a
-/// new set of links — each widget's parent is its successor, so the chain is the window's
-/// own containment.
+/// The successor is a field of its own, as in GoF's sample code: GoF implementation issue 1
+/// (implementing the successor chain), "define new links". Namespace <c>Gof.Parent</c> shows
+/// the other choice, "use existing links": the widget's parent field is the next link.
 /// </para>
 /// </summary>
 public abstract class HelpHandler
