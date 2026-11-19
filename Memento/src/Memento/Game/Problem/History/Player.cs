@@ -5,10 +5,9 @@ namespace dev.kaldiroglu.Memento.Game.Problem.History;
 /// <summary>
 /// Stage two: the player keeps its own checkpoints.
 /// <para>
-/// Nothing outside sees the fields, and loading is correct. But the player class now also
-/// manages save slots: how many to keep, which one to load, when to throw old ones away.
-/// Those are decisions of the game, not of the player: three save slots and an autosave would
-/// all be new code in this class.
+/// Nothing outside sees the fields, and loading is correct. But the saves are now a field of
+/// the player. The game can only say "save" or "load", and loading always gives back the
+/// last save. Three save slots and an autosave would all be new code in this class.
 /// </para>
 /// </summary>
 public sealed class Player

@@ -40,6 +40,35 @@ public class HistoryTest
             f => f.FieldType.IsGenericType && f.FieldType.GetGenericTypeDefinition() == typeof(Stack<>));
     }
 
+    /// <summary>The game can only say save or load, and loading always gives back the last save.</summary>
+    [Fact]
+    public void TheGameGetsOnlyTheLastSave()
+    {
+        Player player = new Player();
+        player.MoveTo("bridge");
+        player.SaveCheckpoint();
+        player.MoveTo("cave");
+        player.SaveCheckpoint();
+        player.MoveTo("tower");
+        player.LoadCheckpoint();
+        Assert.Equal("health 100, at cave, carrying []", player.ToString());
+        player.LoadCheckpoint();
+        Assert.Equal("health 100, at cave, carrying []", player.ToString());
+
+        var saveMethods = typeof(Player)
+            .GetMethods(BindingFlags.Instance | BindingFlags.Public | BindingFlags.DeclaredOnly)
+            .Where(m => m.Name.Contains("Checkpoint"))
+            .OrderBy(m => m.Name, StringComparer.Ordinal)
+            .ToList();
+        Assert.Equal(new[] { "LoadCheckpoint", "SaveCheckpoint" }, saveMethods.Select(m => m.Name));
+        // No argument to pick a save, and no save handed back: the game never sees one.
+        Assert.All(saveMethods, m =>
+        {
+            Assert.Empty(m.GetParameters());
+            Assert.Equal(typeof(void), m.ReturnType);
+        });
+    }
+
     /// <summary>Main prints the play: loading is correct, and the player keeps the saves.</summary>
     [Fact]
     public void MainOutput()
