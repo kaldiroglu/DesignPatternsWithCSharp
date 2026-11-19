@@ -7,8 +7,8 @@ namespace dev.kaldiroglu.Memento.Game.Problem.History;
 /// <para>
 /// Nothing outside sees the fields, and loading is correct. But the player class now also
 /// manages save slots: how many to keep, which one to load, when to throw old ones away.
-/// Those are decisions of the game, not of the player, and every other object the game wants
-/// to save — enemies, doors, chests — needs the same code.
+/// Those are decisions of the game, not of the player: three save slots and an autosave would
+/// all be new code in this class.
 /// </para>
 /// </summary>
 public sealed class Player
