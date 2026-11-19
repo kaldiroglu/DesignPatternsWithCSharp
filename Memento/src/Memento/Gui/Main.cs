@@ -10,8 +10,8 @@ public static class Main
 
         GuiComponentMemento saved = window.CreateMemento();
 
-        window.X = 20;
-        window.Length = 40;
+        window.MoveTo(20, 0);
+        window.Resize(40, 10);
         Console.WriteLine(window);
 
         window.Restore(saved);

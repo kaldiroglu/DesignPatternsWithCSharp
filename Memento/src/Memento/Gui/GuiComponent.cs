@@ -8,38 +8,49 @@ namespace dev.kaldiroglu.Memento.Gui;
 /// </summary>
 public class GuiComponent
 {
+    private int x;
+    private int y;
+    private int length;
+    private int width;
+
     public GuiComponent(string name, int x, int y, int length, int width)
     {
         Name = name;
-        X = x;
-        Y = y;
-        Length = length;
-        Width = width;
+        this.x = x;
+        this.y = y;
+        this.length = length;
+        this.width = width;
     }
 
-    public string Name { get; set; }
+    public string Name { get; }
 
-    public int X { get; set; }
+    /// <summary>Moves the window. The only way to change its position.</summary>
+    public void MoveTo(int x, int y)
+    {
+        this.x = x;
+        this.y = y;
+    }
 
-    public int Y { get; set; }
-
-    public int Length { get; set; }
-
-    public int Width { get; set; }
+    /// <summary>Changes the window's size. The only way to change its length and width.</summary>
+    public void Resize(int length, int width)
+    {
+        this.length = length;
+        this.width = width;
+    }
 
     /// <summary>Puts the current values in a new memento, so later changes cannot reach it.</summary>
-    public GuiComponentMemento CreateMemento() => new(new GuiComponentState(X, Y, Length, Width));
+    public GuiComponentMemento CreateMemento() => new(new GuiComponentState(x, y, length, width));
 
     public void Restore(GuiComponentMemento memento)
     {
         GuiComponentState state = memento.State;
-        X = state.X;
-        Y = state.Y;
-        Length = state.Length;
-        Width = state.Width;
+        x = state.X;
+        y = state.Y;
+        length = state.Length;
+        width = state.Width;
     }
 
     public override string ToString() =>
         string.Create(CultureInfo.InvariantCulture,
-            $"GuiComponent [name={Name}, x={X}, y={Y}, length={Length}, width={Width}]");
+            $"GuiComponent [name={Name}, x={x}, y={y}, length={length}, width={width}]");
 }

@@ -14,8 +14,8 @@ public class GuiTest
     {
         GuiComponent window = new GuiComponent("window", 0, 0, 20, 10);
         GuiComponentMemento saved = window.CreateMemento();
-        window.X = 20;
-        window.Length = 40;
+        window.MoveTo(20, 0);
+        window.Resize(40, 10);
         window.Restore(saved);
         Assert.Equal("GuiComponent [name=window, x=0, y=0, length=20, width=10]", window.ToString());
     }
@@ -26,14 +26,23 @@ public class GuiTest
     {
         GuiComponent window = new GuiComponent("window", 0, 0, 20, 10);
         GuiComponentMemento first = window.CreateMemento();
-        window.X = 20;
+        window.MoveTo(20, 0);
         GuiComponentMemento second = window.CreateMemento();
-        window.X = 40;
+        window.MoveTo(40, 0);
 
         window.Restore(first);
-        Assert.Equal(0, window.X);
+        Assert.Equal("GuiComponent [name=window, x=0, y=0, length=20, width=10]", window.ToString());
         window.Restore(second);
-        Assert.Equal(20, window.X);
+        Assert.Equal("GuiComponent [name=window, x=20, y=0, length=20, width=10]", window.ToString());
+    }
+
+    /// <summary>The window has no public setters: it changes only through MoveTo and Resize.</summary>
+    [Fact]
+    public void NoPublicSetters()
+    {
+        Assert.Empty(PublicSettersOf(typeof(GuiComponent)));
+        Assert.Equal(new[] { "CreateMemento", "MoveTo", "Resize", "Restore", "ToString", "get_Name" },
+            PublicMethodsOf(typeof(GuiComponent)).Order(StringComparer.Ordinal));
     }
 
     /// <summary>The window holds no memento: the caretaker keeps it.</summary>
