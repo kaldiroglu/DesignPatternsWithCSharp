@@ -39,6 +39,45 @@ public class CopyTest
         Assert.Equal("health 100, at start, carrying [sword]", copy.ToString());
     }
 
+    /// <summary>The step table: the checkpoint's inventory changes with the player's, its health and place do not.</summary>
+    [Fact]
+    public void TheStepTable()
+    {
+        Player player = new Player();
+        Game game = new Game();
+        player.PickUp("sword");
+        player.PickUp("shield");
+        player.MoveTo("bridge");
+        game.Checkpoint(player);
+        Assert.Equal("health 100, at bridge, carrying [sword, shield]", player.ToString());
+        Assert.Equal("Saved game: health 100, at bridge, carrying [sword, shield]", game.LoadScreen());
+
+        player.Drop("sword");
+        player.PickUp("potion");
+        Assert.Equal("health 100, at bridge, carrying [shield, potion]", player.ToString());
+        Assert.Equal("Saved game: health 100, at bridge, carrying [shield, potion]", game.LoadScreen());
+
+        player.MoveTo("cave");
+        player.TakeDamage(100);
+        Assert.Equal("health 0, at cave, carrying [shield, potion]", player.ToString());
+        Assert.Equal("Saved game: health 100, at bridge, carrying [shield, potion]", game.LoadScreen());
+
+        game.Load(player);
+        Assert.Equal("health 100, at bridge, carrying [shield, potion]", player.ToString());
+    }
+
+    /// <summary>Whoever holds the save can change it: <c>PickUp("potion")</c> on the checkpoint.</summary>
+    [Fact]
+    public void TheSaveCanBeChanged()
+    {
+        Player player = new Player();
+        player.PickUp("sword");
+        player.MoveTo("bridge");
+        Player checkpoint = new Player(player);
+        checkpoint.PickUp("potion");
+        Assert.Equal("health 100, at bridge, carrying [sword, potion]", checkpoint.ToString());
+    }
+
     /// <summary>Stage three keeps the rules: the player has no public setters.</summary>
     [Fact]
     public void NoPublicSetters()

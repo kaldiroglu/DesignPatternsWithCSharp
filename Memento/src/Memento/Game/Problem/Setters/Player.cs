@@ -7,7 +7,7 @@ namespace dev.kaldiroglu.Memento.Game.Problem.Setters;
 /// every field back.
 /// <para>
 /// So every field needs a public getter and a public setter. Now any code can call
-/// <c>Health = 999</c> — the rule "health only changes through damage and healing" is
+/// <c>Health = 999</c> — the rule "health only changes through damage" is
 /// gone. And the game's save code lists the fields one by one, so a field added later is not
 /// saved until someone remembers to add it there too.
 /// </para>
