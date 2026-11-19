@@ -2,6 +2,7 @@ namespace dev.kaldiroglu.Memento.Tests.Game.Problem.Setters;
 
 // These directives are inside the namespace on purpose. The test namespace Tests.Game
 // would otherwise hide the class Game.
+using System.Reflection;
 using dev.kaldiroglu.Memento.Game.Problem.Setters;
 using Xunit;
 using static dev.kaldiroglu.Memento.Tests.Methods;
@@ -47,6 +48,25 @@ public class SettersTest
         player.Health = 999;
         Assert.Equal(999, player.Health);
         Assert.Equal(new[] { "set_Health", "set_Inventory", "set_Position" }, PublicSettersOf(typeof(Player)));
+    }
+
+    /// <summary>
+    /// Game keeps one saved field for each field of Player, so a new field in Player means a
+    /// change in Game.
+    /// </summary>
+    [Fact]
+    public void GameListsEveryFieldOfPlayer()
+    {
+        const BindingFlags Fields = BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.DeclaredOnly;
+        var playerFields = typeof(Player).GetFields(Fields)
+            .Select(f => f.Name).Order().ToList();
+        var gameFields = typeof(Game).GetFields(Fields)
+            .Select(f => f.Name)
+            .Where(name => name.StartsWith("saved"))
+            .Select(name => char.ToLowerInvariant(name[5]) + name[6..])
+            .Order().ToList();
+        Assert.Equal(new[] { "health", "inventory", "position" }, playerFields);
+        Assert.Equal(playerFields, gameFields);
     }
 
     /// <summary>Main prints the play, then <c>Health</c> set to 999 from outside the player.</summary>
