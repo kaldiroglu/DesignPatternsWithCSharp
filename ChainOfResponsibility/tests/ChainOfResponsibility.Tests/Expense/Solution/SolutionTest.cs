@@ -172,10 +172,19 @@ public class SolutionTest
         }, lines);
     }
 
-    /// <summary>AuditLogMain prints that the audit log saw all 6 expenses.</summary>
+    /// <summary>AuditLogMain prints each expense and its answer, then that the audit log saw all 6.</summary>
     [Fact]
     public void AuditLogMainOutput()
     {
-        Assert.Equal(new[] { "The audit log saw 6 expenses." }, By(AuditLogMain.Run));
+        Assert.Equal(new[]
+        {
+            "Expense info: by Emre amount: 800 --> approved by Elif",
+            "Expense info: by Emre amount: 5000 --> approved by Burak",
+            "Expense info: by Burak amount: 5000 --> approved by Cem",
+            "Expense info: by Emre amount: 30000 --> approved by Cem",
+            "Expense info: by Cem amount: 30000 --> approved by Deniz",
+            "Expense info: by Emre amount: 500000 --> no one may approve it",
+            "The audit log saw 6 expenses."
+        }, By(AuditLogMain.Run));
     }
 }
