@@ -27,7 +27,6 @@ of failed deliveries, so that a new shipment starts again at zero.
 | `State.Gof` | GoF's own example (Design Patterns, pp. 305–313). `Problem.TCPConnection` switches over three states in every operation. `Solution` has the context `TCPConnection`, the abstract state `TCPState`, and `TCPClosed`, `TCPListen` and `TCPEstablished`, each a single shared object. |
 | `State.Door` | A door that is open or closed. `Problem` uses a boolean and an `if`. In `Pattern1` the states change the door's state, and each state knows the other one. In `Pattern2` the door passes each request to its state, then asks a central `DoorStateManager` for the next state; the manager's table maps a state and a request to the next state, and the states know no other state. |
 | `State.Account` | A bank account that is `Active`, `Overdrawn`, `Frozen` or `Closed`. |
-| `State.Elevator` | An elevator that is stopped, going up or going down. The caller sets the state. |
 | `State.Person` | A person who says hello and goodbye in a happy or a sad way. |
 | `State.Hw` | The three homework exercises: an air conditioner whose states decide the next state (`AirConditioner`), a document whose transitions are one central table (`Document`), and a vending machine with a coin slot (`Vending`). |
 
@@ -42,7 +41,7 @@ zero.
 
 **Who changes the state.** In `Order.Solution`, `Gof.Solution`, `Door.Pattern1` and
 `Hw.AirConditioner` the states decide. In `Door.Pattern2` and `Hw.Document` one central
-object decides. In `Elevator` and `Person` the caller decides.
+object decides. In `Person` the caller decides.
 
 **Deposits add to the balance.** In `Frozen.Deposit` a frozen account that is back above
 the overdraft limit becomes overdrawn, and at 0 or above it becomes active. In the demo the
@@ -72,15 +71,15 @@ implements the interface member.
 ## Architecture
 
 - **One class library, `State`**, holding every example as nested namespaces — `Order`,
-  `Gof`, `Door`, `Account`, `Elevator`, `Person` and `Hw`. Sources mirror
+  `Gof`, `Door`, `Account`, `Person` and `Hw`. Sources mirror
   namespaces: `src/State/Order/Solution/…`.
 - **A console runner, `State.Demo`**, that runs the Java original's `main` methods — the
   order's problem and solution, GoF's connection before and after the pattern, the short
-  outline, the three doors, the account, the elevator, the person and the three homework
+  outline, the three doors, the account, the person and the three homework
   exercises — each on its own.
 - `net10.0`, nullable reference types on, implicit usings on — set once in
   `Directory.Build.props` and inherited by both projects.
-- **A test project, `State.Tests`**, with 65 xUnit tests ported from the Java JUnit tests.
+- **A test project, `State.Tests`**, with 61 xUnit tests ported from the Java JUnit tests.
 
 ## Differences from the Java original
 
@@ -90,7 +89,7 @@ output of the Java `main` method it ports, with one exception that comes from C#
 Swedish locale. What had to change:
 
 - **Interfaces take the `I` prefix**: `IOrderState`, `IDoorState` (in both door patterns),
-  `IAccountStatus`, `IElevatorState`, `IEmotionalState`, `IVendingState`, and the outline's
+  `IAccountStatus`, `IEmotionalState`, `IVendingState`, and the outline's
   `ITCPConnection` and `ITCPState`. GoF's `TCPState` in `Gof.Solution` is an abstract class,
   so it keeps its name.
 - **`OrderStatus` is a class, not an enum.** A C# enum cannot have methods, and stage three
@@ -128,7 +127,7 @@ Swedish locale. What had to change:
   named `State`. A C# class cannot have a nested type and a property with the same name,
   and the property `State` is what `Main` reads.
 - **Names that clash, and how they are resolved.** The namespaces `Order`, `Door`,
-  `Account`, `Elevator` and `Person` each hold a class with the same name. Inside each
+  `Account` and `Person` each hold a class with the same name. Inside each
   namespace the plain name means the class, because a type in the current namespace wins.
   In `State.Demo`, one level up, the plain name would mean the namespace, so the runner uses
   aliases (`OrderSecondShipmentMain`, `DoorPattern1Test`, `AccountMain` and so on). The homework enum
@@ -173,7 +172,7 @@ Swedish locale. What had to change:
 
 ## Tests
 
-`tests/State.Tests` holds 65 xUnit tests, one test class for each Java test class, with the
+`tests/State.Tests` holds 61 xUnit tests, one test class for each Java test class, with the
 same assertions and the same expected values. The Java known-uses tests check JDK types and
 are replaced by two tests of the .NET rows of the same table. `Test.md` lists what is tested
 and every change from the Java.
@@ -203,7 +202,7 @@ cd ~/"Development/NET/Design Patterns/Design Patterns with CSharp/State"
 The runner accepts: `order-problem-stage-one`, `order-problem-stage-two`,
 `order-problem-stage-three`, `order-problem-second-shipment`, `order-second-shipment`, `order-side-by-side`,
 `order-refused-request`, `gof-problem`, `gof-solution`, `gof`,
-`door-problem`, `door-pattern1`, `door-pattern2`, `account`, `elevator`,
+`door-problem`, `door-pattern1`, `door-pattern2`, `account`,
 `person`, `hw-airconditioner`, `hw-document`, `hw-vending`.
 
 Run the tests with `~/.dotnet/dotnet test State.sln`.

@@ -2,7 +2,7 @@
 
   <!-- Class library holding every State example: the online order in its three naive and
        one pattern form, GoF's TCP connection, the door in three forms, the bank account,
-       the elevator, the person, the short TCP outline, and the three homework exercises. -->
+       the person, the short TCP outline, and the three homework exercises. -->
   <PropertyGroup>
     <AssemblyName>State</AssemblyName>
     <!-- CS8509 is "the switch expression does not handle all possible values". Java refuses

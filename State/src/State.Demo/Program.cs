@@ -1,6 +1,6 @@
 // Several examples have a class called Main or Test, the order's
 // problem and solution both have a SecondShipmentMain, and several
-// namespaces share a name with their main class (Order, Door, Account, Elevator, Person).
+// namespaces share a name with their main class (Order, Door, Account, Person).
 // Aliases name them apart.
 using OrderProblemStageOneMain = dev.kaldiroglu.State.Order.Problem.StageOneMain;
 using OrderProblemStageTwoMain = dev.kaldiroglu.State.Order.Problem.StageTwoMain;
@@ -16,7 +16,6 @@ using DoorProblemMain = dev.kaldiroglu.State.Door.Problem.Main;
 using DoorPattern1Main = dev.kaldiroglu.State.Door.Pattern1.Main;
 using DoorPattern2Main = dev.kaldiroglu.State.Door.Pattern2.Main;
 using AccountMain = dev.kaldiroglu.State.Account.Main;
-using ElevatorMain = dev.kaldiroglu.State.Elevator.Main;
 using PersonMain = dev.kaldiroglu.State.Person.Main;
 using AirConditionerMain = dev.kaldiroglu.State.Hw.AirConditioner.Main;
 using DocumentMain = dev.kaldiroglu.State.Hw.Document.Main;
@@ -49,7 +48,6 @@ public static class Program
         ["door-pattern1"] = ("A DOOR", DoorPattern1Main.Run),
         ["door-pattern2"] = ("A DOOR", DoorPattern2Main.Run),
         ["account"] = ("A BANK ACCOUNT", AccountMain.Run),
-        ["elevator"] = ("AN ELEVATOR", ElevatorMain.Run),
         ["person"] = ("A PERSON", PersonMain.Run),
         ["hw-airconditioner"] = ("HOMEWORK", AirConditionerMain.Run),
         ["hw-document"] = ("HOMEWORK", DocumentMain.Run),
