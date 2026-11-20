@@ -1,8 +1,8 @@
 namespace dev.kaldiroglu.State.Order.Problem;
 
 /// <summary>
-/// The problem with stage three: the parcel is shipped again and fails three more times. The
-/// count was not reset, so the failures are attempts 4, 5 and 6 and the order stays shipped.
+/// The problem with stage three: the parcel is shipped again and fails five times. The count
+/// was not reset, so the failures are attempts 4 to 8 and the order stays shipped.
 /// </summary>
 /// <remarks>
 /// Run it with
@@ -14,7 +14,7 @@ public static class SecondShipmentMain
     {
         var order = SampleOrder.BackFromTheFirstShipment();
         order.Ship("TR-2");
-        for (int i = 0; i < 3; i++)
+        for (int i = 0; i < 5; i++)
         {
             order.FailDelivery();
         }
