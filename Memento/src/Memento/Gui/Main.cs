@@ -8,7 +8,7 @@ public static class Main
         GuiComponent window = new GuiComponent("window", 0, 0, 20, 10);
         Console.WriteLine(window);
 
-        GuiComponentMemento saved = window.CreateMemento();
+        GuiComponent.IMemento saved = window.CreateMemento();
 
         window.MoveTo(20, 0);
         window.Resize(40, 10);

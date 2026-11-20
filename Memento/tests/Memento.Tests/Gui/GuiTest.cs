@@ -13,7 +13,7 @@ public class GuiTest
     public void RestoreGoesBackToTheSavedState()
     {
         GuiComponent window = new GuiComponent("window", 0, 0, 20, 10);
-        GuiComponentMemento saved = window.CreateMemento();
+        GuiComponent.IMemento saved = window.CreateMemento();
         window.MoveTo(20, 0);
         window.Resize(40, 10);
         window.Restore(saved);
@@ -25,9 +25,9 @@ public class GuiTest
     public void TwoMementos()
     {
         GuiComponent window = new GuiComponent("window", 0, 0, 20, 10);
-        GuiComponentMemento first = window.CreateMemento();
+        GuiComponent.IMemento first = window.CreateMemento();
         window.MoveTo(20, 0);
-        GuiComponentMemento second = window.CreateMemento();
+        GuiComponent.IMemento second = window.CreateMemento();
         window.MoveTo(40, 0);
 
         window.Restore(first);
@@ -50,17 +50,33 @@ public class GuiTest
     public void TheWindowHoldsNoMemento()
     {
         var fields = typeof(GuiComponent).GetFields(System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic);
-        Assert.DoesNotContain(fields, f => f.FieldType == typeof(GuiComponentMemento));
+        Assert.DoesNotContain(fields, f => typeof(GuiComponent.IMemento).IsAssignableFrom(f.FieldType));
     }
 
     /// <summary>
-    /// A saved state cannot be changed, but anyone can read it. The accessor of the property
-    /// State is the method get_State.
+    /// The memento is closed: the caretaker sees an interface with no members, and the class
+    /// that holds the state is private to the window. The state is a record.
     /// </summary>
     [Fact]
-    public void TheMementoIsReadable()
+    public void TheMementoIsClosed()
     {
-        Assert.Equal(new[] { "get_State" }, PublicMethodsOf(typeof(GuiComponentMemento)));
+        Assert.Empty(typeof(GuiComponent.IMemento).GetMembers());
+        Type memento = typeof(GuiComponent).GetNestedType("Memento", System.Reflection.BindingFlags.NonPublic)!;
+        Assert.True(memento.IsNestedPrivate);
+        Assert.Equal(typeof(GuiComponentState), memento.GetProperty("State")!.PropertyType);
+        Assert.NotNull(typeof(GuiComponentState).GetMethod("<Clone>$"));
+    }
+
+    /// <summary>A memento the window did not make cannot be restored.</summary>
+    [Fact]
+    public void AForeignMementoIsRefused()
+    {
+        GuiComponent window = new GuiComponent("window", 0, 0, 20, 10);
+        Assert.Throws<InvalidCastException>(() => window.Restore(new Foreign()));
+    }
+
+    private sealed class Foreign : GuiComponent.IMemento
+    {
     }
 
     /// <summary>Main.Run prints the window before, after the change, and after undo.</summary>

@@ -4,7 +4,7 @@
 
 For further enquiry please contact Akin Kaldiroglu at akin@kaldiroglu.dev
 
-50 xUnit tests in one project, `tests/Memento.Tests`. All of them are **unit tests**: no
+51 xUnit tests in one project, `tests/Memento.Tests`. All of them are **unit tests**: no
 process boundary, no network, no threads and no sleeping. Three tests capture `Console.Out`.
 
 The tests are ported from the JUnit tests of the Java repository
@@ -33,7 +33,7 @@ PascalCase, and the expected values are the same except where noted below. The J
 | `Game/Problem/Copy/CopyTest.cs` | 8 | Stage three: the copy shares the inventory list, so loading gives `[shield, potion]`; the step table, player and checkpoint after each step; whoever holds the save can change it with `PickUp`; the game keeps a whole `Player`, so every public method works on the save; the load screen reads the save; the output of `Main.Run()` and `ReadTheSaveMain.Run()`. |
 | `Game/Solution/SolutionTest.cs` | 6 | The checkpoint keeps the promise, can be loaded twice, and is closed; public setters in each stage; `TakeDamage` lowers the health, and no public member reads or sets it; `Main.Run()` output. |
 | `Gof/ConstraintSolverTest.cs` | 6 | GoF's constraint solver: undo by moving back leaves the bend at 20, the memento puts it at 50; undo order; the memento is closed; the output of `Problem.Main.Run()` and `Solution.Main.Run()`. |
-| `Gui/GuiTest.cs` | 6 | The memento restores the saved state; the caretaker can keep two; the window has no public setters, only `MoveTo` and `Resize`; the window holds none; a saved state cannot be changed but anyone can read it; `Main.Run()` output. |
+| `Gui/GuiTest.cs` | 7 | The memento restores the saved state; the caretaker can keep two; the window has no public setters, only `MoveTo` and `Resize`; the window holds none; the memento is closed (an interface with no members, a private class holding a record); a memento the window did not make is refused; `Main.Run()` output. |
 | `Hw/Editor/HistoryTest.cs` | 3 | Homework 1: undo and redo with two stacks; a new change clears redo; the cursor is saved. |
 | `Hw/Rollback/BatchTest.cs` | 2 | Homework 2: a failed batch is rolled back; a good batch is done. |
 | `Hw/Incremental/SheetTest.cs` | 2 | Homework 3: two cells on a 10,000-cell sheet make a memento of 2 entries; undo in reverse order. |
@@ -71,8 +71,11 @@ sees only an **empty public interface** (`ConstraintSolver.IMemento`, `Player.IC
   `set_Position`** where the Java expects `setHealth`, `setInventory` and `setPosition`.
   The Java setters are C# property setters, and these are the names the compiler gives them.
   The test sets `player.Health = 999`, where the Java calls `setHealth(999)`.
-- **`GuiTest.TheMementoIsReadable` expects `get_State`** where the Java expects `getState`,
-  for the same reason: it is the accessor of the property `State`.
+- **`GuiTest.TheMementoIsClosed` checks an empty interface and a private nested class**,
+  where the Java checks a nested class with a private field and a private constructor. An
+  enclosing C# class cannot read a nested class's private members, so the port follows
+  `Player.ICheckpoint`. `AForeignMementoIsRefused` has no Java twin: in Java no other class
+  can make a `GuiComponent.Memento` at all.
 - **`HistoryTest.LoadingIsCorrect` (stage two) looks for getters as `get_...` or `Get...`**,
   and **`ThePlayerKeepsTheSlots` looks for a `Stack<>` field** where the Java looks for a
   `Deque`. The port uses `Stack<T>`, as the README says.
@@ -86,7 +89,7 @@ difference between the C# and the Java was found.
 ```bash
 cd ~/"Development/NET/Design Patterns/Design Patterns with CSharp/Memento"
 
-# all 50
+# all 51
 ~/.dotnet/dotnet test Memento.sln
 
 # one class

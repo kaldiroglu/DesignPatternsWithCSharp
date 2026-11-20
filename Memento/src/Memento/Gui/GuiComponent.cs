@@ -3,11 +3,31 @@ using System.Globalization;
 namespace dev.kaldiroglu.Memento.Gui;
 
 /// <summary>
-/// The <b>Originator</b>: a window with a position and a size. <see cref="CreateMemento"/>
-/// puts its state in a memento, and <see cref="Restore"/> takes it back.
+/// The <b>Originator</b>: a window with a position and a size. Its state is one object,
+/// <see cref="GuiComponentState"/>. <see cref="CreateMemento"/> puts the current state in a
+/// memento, and <see cref="Restore"/> reads it back. Only this class can do either.
 /// </summary>
 public class GuiComponent
 {
+    /// <summary>
+    /// The <b>Memento</b>, as the caretaker sees it. It has no members: the caretaker can keep
+    /// it and pass it back, but cannot read it, change it or make one.
+    /// </summary>
+    /// <remarks>
+    /// An enclosing class cannot read a nested class's private members. So the caretaker gets
+    /// this empty interface, and the class that holds the state, <see cref="Memento"/>, is
+    /// private to the window.
+    /// </remarks>
+    public interface IMemento
+    {
+    }
+
+    /// <summary>The state inside the memento. The class is private, so only the window can create it and read it.</summary>
+    private sealed class Memento(GuiComponentState state) : IMemento
+    {
+        public GuiComponentState State { get; } = state;
+    }
+
     private int x;
     private int y;
     private int length;
@@ -39,11 +59,15 @@ public class GuiComponent
     }
 
     /// <summary>Puts the current values in a new memento, so later changes cannot reach it.</summary>
-    public GuiComponentMemento CreateMemento() => new(new GuiComponentState(x, y, length, width));
+    public IMemento CreateMemento() => new Memento(new GuiComponentState(x, y, length, width));
 
-    public void Restore(GuiComponentMemento memento)
+    /// <summary>
+    /// Takes the state back from a memento this window's class made. A memento of any other
+    /// class throws <see cref="InvalidCastException"/>.
+    /// </summary>
+    public void Restore(IMemento memento)
     {
-        GuiComponentState state = memento.State;
+        GuiComponentState state = ((Memento)memento).State;
         x = state.X;
         y = state.Y;
         length = state.Length;

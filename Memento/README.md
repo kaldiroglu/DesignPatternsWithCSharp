@@ -28,7 +28,7 @@ mementos must be restored in the reverse order they were made.
 | `Memento.Game` | The main worked example: a game checkpoint. A player has health, a position and an inventory. The promise: loading gives back exactly what the player had at the checkpoint. `Problem.Setters` is stage one: the game reads and writes every field through public getters and setters, so anyone can set health to 999. `Problem.History` is stage two: the player keeps its own save slots. `Problem.Copy` is stage three: the game keeps a copy of the player, but the copy shares the inventory list with the player. `Solution` has the originator `Player`, the memento `Player.ICheckpoint`, the caretaker `Game`, and `Main`, which runs stage one, stage three and the memento. Each stage also has a `Main` of its own. |
 | `Memento.Gof` | GoF's own example (Design Patterns, pp. 283–291): a constraint solver keeps a line with one bend between two boxes. `Problem` undoes a move by moving the box back, and the bend does not come back. In `Solution`, `MoveCommand` (the caretaker) takes a memento from `ConstraintSolver` (the originator) before the move and gives it back on undo. `Main` runs the same steps in both designs; `Problem.Main` and `Solution.Main` run one design each. |
 | `Memento.Hw` | The three homework exercises: a `TextEditor` with undo and redo kept by a `History` (`Editor`), a `Batch` of transfers that gives every `Account` its memento back when one transfer fails (`Rollback`), and a `Sheet` whose memento holds only the cells one edit changed (`Incremental`). |
-| `Memento.Gui` | A window whose state is one object, `GuiComponentState`, kept by a `GuiComponentMemento`. `Main` is the caretaker: it keeps the memento while the window moves and resizes, then gives it back. |
+| `Memento.Gui` | A window whose state is one object, `GuiComponentState`, kept in a memento. The caretaker sees only `GuiComponent.IMemento`, an interface with no members; the class that holds the state is private to `GuiComponent`. `Main` is the caretaker: it keeps the memento while the window moves and resizes, then gives it back. |
 | `Memento.Pattern1` | An originator and a caretaker that keeps mementos in a stack. `Main` saves twice and undoes three times: each undo goes back one save, and the third finds nothing to undo. `Memento` is a class of its own, with a public `State`. |
 | `Memento.Pattern2` | The same, with the memento nested in the originator, so only the originator can read it. |
 
@@ -111,8 +111,7 @@ outputs are the same under a US English, a Turkish and a Swedish locale. What ha
   Account To, int Amount)`. Stage two's private record `Saved` is a `private sealed record`.
 - **Accessors became properties**: `Health`, `Position` and `Inventory` on stage one's
   player (with setters, as the Java has setters), `Name` and `X` on `Graphic`, `CheckpointCount`,
-  `CellCount`, `Size`, and the getters and setters of `GuiComponent`, `GuiComponentState`
-  and `GuiComponentMemento.State`. `Originator.State` in `Pattern1` is a get-only property;
+  `CellCount`, `Size`, `GuiComponent.Name` and the components of `GuiComponentState`. `Originator.State` in `Pattern1` is a get-only property;
   `SetState` stays a method because it also prints. `SetMemento`, `SetOriginator` and
   `Line()` stay methods, as in the Java.
 - **`Pattern2`'s memento is a private class behind an empty public interface.** The Java
