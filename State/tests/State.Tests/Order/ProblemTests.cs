@@ -134,6 +134,8 @@ public class ProblemTests
         Assert.Contains("FailedAttempts", orderMembers);
 
         // A C# enum cannot have methods, so OrderStatus is a class with five shared instances.
+        Assert.False(typeof(OrderStatus).IsEnum);
+        Assert.True(typeof(OrderStatus).IsAbstract);
         var constants = typeof(OrderStatus).GetFields(Declared | BindingFlags.Static)
             .Where(f => f.FieldType == typeof(OrderStatus) && f.IsInitOnly)
             .ToList();

@@ -18,7 +18,7 @@ in Java.
 
 | File | Java class | Java tests | C# tests | What it checks |
 |---|---|---|---|---|
-| `Order/ProblemTests.cs` | `ProblemTest` | 14 | 14 | Stage one's four flags (sixteen combinations, five statuses). Stage two's four switches with no `default`. Stage three's second shipment counts attempts 4, 5 and 6 and never goes back to the warehouse; a reset of the count to 0 fixes that; back at the warehouse the order still holds the old tracking number. The lines `StageOneMain`, `StageTwoMain`, `StageThreeMain` and `SecondShipmentMain` print. |
+| `Order/ProblemTests.cs` | `ProblemTest` | 15 | 14 | Stage one's four flags (sixteen combinations, five statuses). Stage two's four switches with no `default`. Stage three's second shipment counts attempts 4, 5 and 6 and never goes back to the warehouse; a reset of the count to 0 fixes that; back at the warehouse the order still holds the old tracking number. The lines `StageOneMain`, `StageTwoMain`, `StageThreeMain` and `SecondShipmentMain` print. |
 | `Order/SolutionTests.cs` | `SolutionTest` | 11 | 11 | The second shipment counts 1, 2 and 3 and goes back. A new `Shipped` starts at zero. Refusals by default. The end states override nothing. The five states. The context only forwards. The lines `SecondShipmentMain`, `SideBySideMain` and `RefusedRequestMain` print. |
 | `Order/StateMachineTests.cs` | `StateMachineTest` | 9 | 9 | The order as a finite state machine: the table `TransitionTableMain` prints, six of its twenty-five cells are moves, one start and two end states, the guard on `FailDelivery`, a refused event, an action that depends on the state and the event, the switch codes the same machine, each switch method is one column and each state class is one row. |
 | `Gof/TCPConnectionTests.cs` | `TCPConnectionTest` | 7 | 7 | Both versions give the same log and state for all 125 sequences of three requests. Five switches over three states. Default "ignored" behavior and an `internal` `ChangeState`. Each concrete state is one shared object. |
@@ -28,7 +28,7 @@ in Java.
 | `Hw/HomeworkTests.cs` | `AirConditionerTest` | 4 | 4 | The room and the target choose cooling, idle or heating; off stays off; only `AcState` declares `Running`; `Main` output. |
 | `Hw/HomeworkTests.cs` | `DocumentTest` | 4 | 3 | A draft cannot be approved; the table has four transitions; `Main` output. The Java check that `Status` declares no methods has no C# test, because a C# enum cannot declare methods. |
 | `Hw/HomeworkTests.cs` | `VendingMachineTest` | 4 | 4 | A sold-out machine returns the coin; one coin at a time; a refill; `Main` output. |
-| **Total** | | **68** | **65** | |
+| **Total** | | **69** | **65** | |
 
 `Printed.cs` holds the helpers: `By` captures `Console.Out` (restored in `finally`) and
 returns the printed lines; `CodeOf` reads a source file and strips its comments, because
@@ -58,6 +58,10 @@ Otherwise one class's capture of `Console.Out` would catch another class's outpu
   this is the only instance field, and that each constant's class declares none. The order's
   data is two `internal` properties (`TrackingNumber`, `FailedAttempts`) rather than two
   fields, so the test reads properties.
+- **`ProblemTest.enumConstantsHaveTheirOwnMethods` is not ported as its own test.** It
+  checks that `OrderStatus` is an enum whose constants have their own methods. A C# enum
+  cannot have methods, so `TheDataLivesInTheOrder` checks the C# form instead: `OrderStatus`
+  is an abstract class, not an enum, with five shared instances.
 - **`ProblemTest.switchesHaveNoDefault` counts `status switch`** rather than
   `switch (status)`, because the C# port uses switch expressions.
 - **`SolutionTest.theContextOnlyForwards`** checks for `bool` instead of `boolean`, and checks
