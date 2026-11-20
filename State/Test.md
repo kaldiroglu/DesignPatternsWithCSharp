@@ -24,11 +24,11 @@ in Java.
 | `Gof/TCPConnectionTests.cs` | `TCPConnectionTest` | 7 | 7 | Both versions give the same log and state for all 125 sequences of three requests. Five switches over three states. Default "ignored" behavior and an `internal` `ChangeState`. Each concrete state is one shared object. |
 | `Door/DoorTests.cs` | `DoorTest` | 8 | 8 | All three versions print the same story, starting closed. The states decide in `Pattern1`, and its state interface has only the requests. The manager decides in `Pattern2` from the state and the request; a request with no line keeps the state; its states hold no fields. No state stores a `bool`. Two state objects per `Pattern1` door. The version without the pattern has one `bool` and one `if` in each method. |
 | `Person/PersonTests.cs` | `PersonTest` | 3 | 3 | `Main` output. The person is not a state. A greeting does not change the state. |
-| `KnownUsesTests.cs` | `KnownUsesTest` | 4 | 2 | The .NET rows of the known-uses table: `TaskStatus` and `WebSocketState` are enums with the names the deck shows. |
+| `KnownUsesTests.cs` | `KnownUsesTest` | 5 | 2 | The .NET rows of the known-uses table: `TaskStatus` and `WebSocketState` are enums with the names the deck shows. |
 | `Hw/HomeworkTests.cs` | `AirConditionerTest` | 4 | 4 | The room and the target choose cooling, idle or heating; off stays off; only `AcState` declares `Running`; `Main` output. |
 | `Hw/HomeworkTests.cs` | `DocumentTest` | 4 | 3 | A draft cannot be approved; the table has four transitions; `Main` output. The Java check that `Status` declares no methods has no C# test, because a C# enum cannot declare methods. |
 | `Hw/HomeworkTests.cs` | `VendingMachineTest` | 4 | 4 | A sold-out machine returns the coin; one coin at a time; a refill; `Main` output. |
-| **Total** | | **69** | **65** | |
+| **Total** | | **70** | **65** | |
 
 `Printed.cs` holds the helpers: `By` captures `Console.Out` (restored in `finally`) and
 returns the printed lines; `CodeOf` reads a source file and strips its comments, because
@@ -39,8 +39,10 @@ Otherwise one class's capture of `Console.Out` would catch another class's outpu
 
 ## Java tests not ported, or changed
 
-- **`KnownUsesTest.threadState`, `futureState` and `futureTask` are not ported.** They check
-  JDK types (`Thread.State`, `Future.State`, `FutureTask`'s private `volatile int state`).
+- **`KnownUsesTest.threadState`, `futureState`, `futureTask`, `futureTaskHasSevenIntStates`
+  and `futureTaskUsesCompareAndSet` are not ported.** They check JDK types (`Thread.State`,
+  `Future.State`, and `FutureTask`'s seven `int` states, its private `volatile int state` and
+  its static `VarHandle`).
   .NET has none of these. In their place `KnownUsesTests` has two tests for the .NET rows of
   the same slide table: `TaskStatus` (its names include `Created` and `Running`, and
   `Created` is first) and `WebSocketState` (its names include `Connecting` and `Open`).
