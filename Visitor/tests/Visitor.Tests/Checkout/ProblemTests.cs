@@ -119,8 +119,16 @@ public class ProblemTests
     {
         Assert.Equal(
         [
-            "A book for 40, food for 100, electronics for 500: the correct tax is 2 + 1 + 100 = 103",
-            "Stage two, overloads:   tax 128 (each item is held as an IItem, so TaxOf(IItem) is called)"
+            "Each item held as its own type, so TaxOf(Book), TaxOf(Food) and TaxOf(Electronics) are called:",
+            "  Novel       40  tax   2",
+            "  Coffee     100  tax   1",
+            "  Headphones 500  tax 100",
+            "  total tax 103",
+            "Each item held as an IItem, as in the cart, so TaxOf(IItem) is called:",
+            "  Novel       40  tax   8",
+            "  Coffee     100  tax  20",
+            "  Headphones 500  tax 100",
+            "  total tax 128"
         ], Printed.By(P.StageTwoMain.Run));
     }
 

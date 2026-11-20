@@ -28,8 +28,8 @@ listed below.
 | `KnownUsesTests.cs` | 4 | 2 | .NET's `ExpressionVisitor`, in place of the JDK types. |
 | `Hw/AccountPrint/AccountPrintTests.cs` | 4 | 3 | Each printer writes to the output it is given, as text and as HTML; `Main` output. The Java reflection check on `Account`'s methods is not ported. |
 | `Hw/FileTree/FileTreeTests.cs` | 4 | 4 | The listing, the total size 15, `Folder.Accept` does the walking, `Main` output. |
-| (none) | 3 | 0 | The Java `CompileErrorTest` checks the compiler errors the deck quotes. It is not ported: the C# compiler gives a different message, and a switch that misses a case is only warning CS8509. |
-| **Total** | **65** | **59** | |
+| (none) | 4 | 0 | The Java `CompileErrorTest` checks the compiler errors the deck quotes, and that stage two's loop does not compile without `taxOf(Item)`. It is not ported: the C# compiler gives a different message, and a switch that misses a case is only warning CS8509. |
+| **Total** | **66** | **59** | |
 
 `Printed.cs` holds the helpers: `By` captures `Console.Out` and restores it in `finally`;
 `CodeOf` reads a source file under `src/Visitor` and removes its comments, so a check that
