@@ -4,7 +4,7 @@
 
 For further enquiry please contact Akin Kaldiroglu at akin@kaldiroglu.dev
 
-49 xUnit tests in one project, `tests/State.Tests`. All of them are **unit tests**: no
+60 xUnit tests in one project, `tests/State.Tests`. All of them are **unit tests**: no
 process boundary, no network. Two tests read C# source files of the library, found from
 the test file's own path (`CallerFilePath`), so they do not depend on the working directory.
 
@@ -26,7 +26,10 @@ in Java.
 | `Elevator/ElevatorTests.cs` | `ElevatorTest` | 4 | 4 | `Main` output. No request changes the state; only the caller does. A stopped elevator says it is starting. The elevator is not a state. |
 | `Person/PersonTests.cs` | `PersonTest` | 3 | 3 | `Main` output. The person is not a state. A greeting does not change the state. |
 | `KnownUsesTests.cs` | `KnownUsesTest` | 4 | 2 | The .NET rows of the known-uses table: `TaskStatus` and `WebSocketState` are enums with the names the deck shows. |
-| **Total** | | **51** | **49** | |
+| `Hw/HomeworkTests.cs` | `AirConditionerTest` | 4 | 4 | The room and the target choose cooling, idle or heating; off stays off; only `AcState` declares `Running`; `Main` output. |
+| `Hw/HomeworkTests.cs` | `DocumentTest` | 4 | 3 | A draft cannot be approved; the table has four transitions; `Main` output. The Java check that `Status` declares no methods has no C# test, because a C# enum cannot declare methods. |
+| `Hw/HomeworkTests.cs` | `VendingMachineTest` | 4 | 4 | A sold-out machine returns the coin; one coin at a time; a refill; `Main` output. |
+| **Total** | | **63** | **60** | |
 
 `Printed.cs` holds the helpers: `By` captures `Console.Out` (restored in `finally`) and
 returns the printed lines; `CodeOf` reads a source file and strips its comments, because
@@ -71,7 +74,7 @@ No test found a difference in behavior between the C# port and the Java.
 ```bash
 cd ~/"Development/NET/Design Patterns/Design Patterns with CSharp/State"
 
-# all 36
+# all 60
 ~/.dotnet/dotnet test State.sln
 
 # one class

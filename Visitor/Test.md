@@ -4,7 +4,7 @@
 
 For further enquiry please contact Akin Kaldiroglu at akin@kaldiroglu.dev
 
-52 xUnit tests in one project, `tests/Visitor.Tests`. All of them are **unit tests**: no
+59 xUnit tests in one project, `tests/Visitor.Tests`. All of them are **unit tests**: no
 process boundary, no network. Some tests read the library's own C# source files, and some
 capture `Console.Out` to read what an example prints.
 
@@ -26,7 +26,10 @@ listed below.
 | `Interpreter/RuleTests.cs` | 5 | 5 | The shop's rule language: four products, the limits, `Describe()`, the five rule records, the output of `Main.Run()`. |
 | `Hw/Expression/ExpressionTests.cs` | 4 | 4 | `(2 + 3) * -4` is -20, has depth 3, and prints as `((2 + 3) * -4)`. |
 | `KnownUsesTests.cs` | 4 | 2 | .NET's `ExpressionVisitor`, in place of the JDK types. |
-| **Total** | **54** | **52** | |
+| `Hw/AccountPrint/AccountPrintTests.cs` | 4 | 3 | Each printer writes to the output it is given, as text and as HTML; `Main` output. The Java reflection check on `Account`'s methods is not ported. |
+| `Hw/FileTree/FileTreeTests.cs` | 4 | 4 | The listing, the total size 15, `Folder.Accept` does the walking, `Main` output. |
+| (none) | 3 | 0 | The Java `CompileErrorTest` checks the compiler errors the deck quotes. It is not ported: the C# compiler gives a different message, and a switch that misses a case is only warning CS8509. |
+| **Total** | **65** | **59** | |
 
 `Printed.cs` holds the helpers: `By` captures `Console.Out` and restores it in `finally`;
 `CodeOf` reads a source file under `src/Visitor` and removes its comments, so a check that
@@ -85,7 +88,7 @@ case, is checked by `SolutionTests.TheSwitch`.
 ```bash
 cd ~/"Development/NET/Design Patterns/Design Patterns with CSharp/Visitor"
 
-# all 52
+# all 59
 ~/.dotnet/dotnet test Visitor.sln
 
 # one class
