@@ -214,8 +214,12 @@ public class ProblemTests
     {
         var lines = Printed.By(StageThreeMain.Run);
 
-        Assert.Single(lines);
-        Assert.EndsWith("delivery attempt 3 failed, back to the warehouse] -> PAID", lines[0]);
+        Assert.Equal([
+            "Stage three, first shipment:  [paid, shipped TR-1, delivery attempt 1 failed, "
+                + "delivery attempt 2 failed, delivery attempt 3 failed, back to the warehouse] -> PAID",
+            "Stage three, second shipment: [shipped TR-2, delivery attempt 4 failed, "
+                + "delivery attempt 5 failed, delivery attempt 6 failed] -> SHIPPED",
+            "The count was not reset, so it never equals 3 again: the courier has no limit."], lines);
     }
 
     [Fact]
