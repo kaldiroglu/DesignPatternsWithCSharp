@@ -2,8 +2,8 @@ namespace dev.kaldiroglu.State.Order.Problem;
 
 /// <summary>
 /// Stage three: enum constants. After three failed deliveries the parcel goes back to the
-/// warehouse. Then it is shipped again and fails three more times. The count was not reset,
-/// so the failures are attempts 4, 5 and 6, and the parcel never goes back.
+/// warehouse. Then it is shipped again and fails five times. The count was not reset, so
+/// the failures are attempts 4 to 8, and the parcel never goes back.
 /// </summary>
 /// <remarks>
 /// Run it with
@@ -18,7 +18,7 @@ public static class StageThreeMain
 
         int start = order.Events.Count;
         order.Ship("TR-2");
-        for (int i = 0; i < 3; i++)
+        for (int i = 0; i < 5; i++)
         {
             order.FailDelivery();
         }
