@@ -4,7 +4,7 @@
 
 For further enquiry please contact Akin Kaldiroglu at akin@kaldiroglu.dev
 
-59 xUnit tests in one project, `tests/Visitor.Tests`. All of them are **unit tests**: no
+60 xUnit tests in one project, `tests/Visitor.Tests`. All of them are **unit tests**: no
 process boundary, no network. Some tests read the library's own C# source files, and some
 capture `Console.Out` to read what an example prints.
 
@@ -20,7 +20,7 @@ listed below.
 |---|---|---|---|
 | `Checkout/ProblemTests.cs` | 11 | 11 | The three naive stages: each item taxes itself (103), overloads tax every item at 20% (128), type tests give 103 until a gift card makes it 123 and shipping 60; the output of each stage's runnable class (`Methods.Main`, `StageTwoMain`, `StageThreeMain`, `GiftCardMain`). |
 | `Checkout/SolutionTests.cs` | 11 | 11 | The visitors give 103 and 50 with a gift card; one visit method per item; no type tests in the visitors; the records and the switch in `Modern`; the output of `Checkout.Solution.Main.Run()` and `Checkout.Modern.Main.Run()`. |
-| `Gof/CompilerTests.cs` | 8 | 8 | GoF's compiler before and after the pattern: the same errors, code and text; the output of `Problem.Main.Run()` and `Solution.Main.Run()`. |
+| `Gof/CompilerTests.cs` | 9 | 9 | GoF's compiler before and after the pattern: the same errors, code and text; one constant node, held as an `INode`, gives `PUSH 2` to the code generator and `2` to the printer; the output of `Problem.Main.Run()` and `Solution.Main.Run()`. |
 | `File/FileTests.cs` | 6 | 6 | `Accept` returns the visitor's answer; the type tests and casts in `FileOperator`; the 0.80 thresholds. |
 | `Factory/HealthVisitorTests.cs` | 5 | 5 | Who gets a health check, and that `Boss` shares no parent with `Employee`. |
 | `Interpreter/RuleTests.cs` | 5 | 5 | The shop's rule language: four products, the limits, `Describe()`, the five rule records, the output of `Main.Run()`. |
@@ -29,7 +29,7 @@ listed below.
 | `Hw/AccountPrint/AccountPrintTests.cs` | 4 | 3 | Each printer writes to the output it is given, as text and as HTML; `Main` output. The Java reflection check on `Account`'s methods is not ported. |
 | `Hw/FileTree/FileTreeTests.cs` | 4 | 4 | The listing, the total size 15, `Folder.Accept` does the walking, `Main` output. |
 | (none) | 4 | 0 | The Java `CompileErrorTest` checks the compiler errors the deck quotes, and that stage two's loop does not compile without `taxOf(Item)`. It is not ported: the C# compiler gives a different message, and a switch that misses a case is only warning CS8509. |
-| **Total** | **66** | **59** | |
+| **Total** | **67** | **60** | |
 
 `Printed.cs` holds the helpers: `By` captures `Console.Out` and restores it in `finally`;
 `CodeOf` reads a source file under `src/Visitor` and removes its comments, so a check that
@@ -88,7 +88,7 @@ case, is checked by `SolutionTests.TheSwitch`.
 ```bash
 cd ~/"Development/NET/Design Patterns/Design Patterns with CSharp/Visitor"
 
-# all 59
+# all 60
 ~/.dotnet/dotnet test Visitor.sln
 
 # one class

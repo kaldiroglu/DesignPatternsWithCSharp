@@ -109,6 +109,19 @@ public class CompilerTests
             typeof(S.INodeVisitor).GetMethods().Select(m => m.Name).Order(StringComparer.Ordinal));
     }
 
+    /// <summary>One node held as an INode: Accept calls VisitConstant, and each visitor does its own job.</summary>
+    [Fact]
+    public void OneAcceptTwoJobs()
+    {
+        S.INode node = new S.ConstantNode(2);
+        var generator = new S.CodeGeneratingVisitor();
+        var printer = new S.PrettyPrintingVisitor();
+        node.Accept(generator);
+        node.Accept(printer);
+        Assert.Equal(["PUSH 2"], generator.Code);
+        Assert.Equal("2", printer.Text);
+    }
+
     /// <summary>What both designs print for y = 2, x = y + 1, z = w + x.</summary>
     private static readonly string[] Body =
     [
