@@ -178,6 +178,19 @@ public class SolutionTests
         Assert.Equal("  state now: Shipped[trackingNumber=TR-2, failedAttempts=1]", lines[3]);
     }
 
+    /// <summary>SideBySideMain prints the second shipment: 4, 5, 6 and still shipped; 1, 2, 3 and back to the warehouse.</summary>
+    [Fact]
+    public void SideBySideMainOutput()
+    {
+        Assert.Equal(new[]
+        {
+            "Enum constants: [shipped TR-2, delivery attempt 4 failed, delivery attempt 5 failed, "
+                + "delivery attempt 6 failed] -> SHIPPED",
+            "State objects:  [shipped TR-2, delivery attempt 1 failed, delivery attempt 2 failed, "
+                + "delivery attempt 3 failed, back to the warehouse] -> Paid[]"
+        }, Printed.By(SideBySideMain.Run));
+    }
+
     [Fact]
     public void RefusedRequestMainOutput()
     {

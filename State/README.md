@@ -80,7 +80,7 @@ implements the interface member.
   exercises — each on its own.
 - `net10.0`, nullable reference types on, implicit usings on — set once in
   `Directory.Build.props` and inherited by both projects.
-- **A test project, `State.Tests`**, with 36 xUnit tests ported from the Java JUnit tests.
+- **A test project, `State.Tests`**, with 49 xUnit tests ported from the Java JUnit tests.
 
 ## Differences from the Java original
 
@@ -173,7 +173,7 @@ Swedish locale. What had to change:
 
 ## Tests
 
-`tests/State.Tests` holds 36 xUnit tests, one test class for each Java test class, with the
+`tests/State.Tests` holds 49 xUnit tests, one test class for each Java test class, with the
 same assertions and the same expected values. The Java known-uses tests check JDK types and
 are replaced by two tests of the .NET rows of the same table. `Test.md` lists what is tested
 and every change from the Java.
@@ -201,7 +201,7 @@ cd ~/"Development/NET/Design Patterns/Design Patterns with CSharp/State"
 ```
 
 The runner accepts: `order-problem-stage-one`, `order-problem-stage-two`,
-`order-problem-stage-three`, `order-problem-second-shipment`, `order-second-shipment`,
+`order-problem-stage-three`, `order-problem-second-shipment`, `order-second-shipment`, `order-side-by-side`,
 `order-refused-request`, `gof-problem`, `gof-solution`, `gof`,
 `door-problem`, `door-pattern1`, `door-pattern2`, `account`, `elevator`,
 `person`, `hw-airconditioner`, `hw-document`, `hw-vending`.

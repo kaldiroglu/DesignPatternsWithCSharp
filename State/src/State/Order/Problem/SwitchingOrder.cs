@@ -10,7 +10,7 @@ namespace dev.kaldiroglu.State.Order.Problem;
 /// </para>
 /// <para>
 /// What it costs: the rules of one status are spread over every method. To read what a paid
-/// order may do, you read five switches. A new status is an edit to every one of them.
+/// order may do, you read four switches. A new status is an edit to every one of them.
 /// </para>
 /// </summary>
 public sealed class SwitchingOrder

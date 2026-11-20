@@ -2,7 +2,7 @@ namespace dev.kaldiroglu.State.Gof.Solution;
 
 /// <summary>
 /// A <b>ConcreteState</b>. It has no fields, so one object serves every connection: GoF make
-/// each state a Singleton. That is GoF implementation issue 2 (creating and destroying State
+/// each state a Singleton. That is GoF implementation issue 3 (creating and destroying State
 /// objects): create a state once and share it, when it holds nothing of its own.
 /// </summary>
 public sealed class TCPClosed : TCPState
