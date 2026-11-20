@@ -49,10 +49,12 @@ public class HealthVisitorTests
         Assert.Empty(Printed.By(() => new F.Boss("Young", 50).Accept(visitor)));
     }
 
+    /// <summary>Boss is not an Employee, and Employee and its four subclasses share one visit method.</summary>
     [Fact]
-    public void OneVisitForFourClasses()
+    public void OneVisitForFiveClasses()
     {
         Assert.Equal(typeof(object), typeof(F.Boss).BaseType);
+        Assert.False(typeof(F.Employee).IsAbstract);
         Assert.False(typeof(F.Employee).IsAssignableFrom(typeof(F.Boss)));
 
         Type[] subclasses = [typeof(F.Engineer), typeof(F.Secretary), typeof(F.Manager), typeof(F.Director)];
