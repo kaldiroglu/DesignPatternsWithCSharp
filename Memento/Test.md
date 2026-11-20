@@ -4,7 +4,7 @@
 
 For further enquiry please contact Akin Kaldiroglu at akin@kaldiroglu.dev
 
-45 xUnit tests in one project, `tests/Memento.Tests`. All of them are **unit tests**: no
+49 xUnit tests in one project, `tests/Memento.Tests`. All of them are **unit tests**: no
 process boundary, no network, no threads and no sleeping. Three tests capture `Console.Out`.
 
 The tests are ported from the JUnit tests of the Java repository
@@ -30,7 +30,8 @@ PascalCase, and the expected values are the same except where noted below. The J
 |---|---|---|
 | `Game/Problem/Setters/SettersTest.cs` | 4 | Stage one: loading is correct, and any code may set `Health` to 999; `Game` keeps one saved field for each field of `Player`; `Main.Run()` output. |
 | `Game/Problem/History/HistoryTest.cs` | 4 | Stage two: loading is correct with no public getters or setters; the player keeps the save slots; the game can only say save or load and always gets the last save; `Main.Run()` output. |
-| `Game/Problem/Copy/CopyTest.cs` | 8 | Stage three: the copy shares the inventory list, so loading gives `[shield, potion]`; the step table, player and checkpoint after each step; whoever holds the save can change it with `PickUp`; the game keeps a whole `Player`, so every public method works on the save; the load screen reads the save; the output of `Main.Run()` and `ReadTheSaveMain.Run()`. |
+| `Game/Problem/Copy/CopyTest.cs` | 9 | Stage three: the copy shares the inventory list, so loading gives `[shield, potion]`; loading shares the list again, so a key picked up after a load goes into the save; the step table, player and checkpoint after each step; whoever holds the save can change it with `PickUp`; the game keeps a whole `Player`, so every public method works on the save; the load screen reads the save; the output of `Main.Run()` and `ReadTheSaveMain.Run()`. |
+| `Game/Problem/CopyFix/CopyFixTest.cs` | 3 | Stage three with the quick fix: `Main.Run()` output (loading gives `[sword, shield]`, and a key picked up after the load stays out of the save); the fixed `Player` differs from stage three's in exactly the two inventory lines; the save is still a whole `Player`. |
 | `Game/Solution/SolutionTest.cs` | 6 | The checkpoint keeps the promise, can be loaded twice, and is closed; public setters in each stage; `TakeDamage` lowers the health, and no public member reads or sets it; `Main.Run()` output. |
 | `Gof/ConstraintSolverTest.cs` | 6 | GoF's constraint solver: undo by moving back leaves the bend at 20, the memento puts it at 50; undo order; the memento is closed; the output of `Problem.Main.Run()` and `Solution.Main.Run()`. |
 | `Gui/GuiTest.cs` | 7 | The memento restores the saved state; the caretaker can keep two; the window has no public setters, only `MoveTo` and `Resize`; the window holds none; the memento is closed (an interface with no members, a private class holding a record); a memento the window did not make is refused; `Main.Run()` output. |
@@ -83,7 +84,7 @@ sees only an **empty public interface** (`ConstraintSolver.IMemento`, `Player.IC
 ```bash
 cd ~/"Development/NET/Design Patterns/Design Patterns with CSharp/Memento"
 
-# all 45
+# all 49
 ~/.dotnet/dotnet test Memento.sln
 
 # one class

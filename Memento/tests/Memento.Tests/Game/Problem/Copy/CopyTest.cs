@@ -11,6 +11,20 @@ using static dev.kaldiroglu.Memento.Tests.Printed;
 /// <summary>Stage three: the game keeps a copy of the player, and the copy shares the inventory list.</summary>
 public class CopyTest
 {
+    /// <summary>Loading shares the list again: what the player picks up after a load goes into the save.</summary>
+    [Fact]
+    public void LoadingSharesTheListAgain()
+    {
+        Player player = new Player();
+        Game game = new Game();
+        player.PickUp("sword");
+        game.Checkpoint(player);
+        game.Load(player);
+        player.PickUp("key");
+
+        Assert.Equal("Saved game: health 100, at start, carrying [sword, key]", game.LoadScreen());
+    }
+
     /// <summary>After loading the player has health 100 at the bridge, but carries [shield, potion], not [sword, shield].</summary>
     [Fact]
     public void TheWrongInventory()

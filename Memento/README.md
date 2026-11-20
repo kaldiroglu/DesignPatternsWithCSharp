@@ -25,7 +25,7 @@ mementos must be restored in the reverse order they were made.
 
 | Namespace | What it shows |
 |---|---|
-| `Memento.Game` | The main worked example: a game checkpoint. A player has health, a position and an inventory. The promise: loading gives back exactly what the player had at the checkpoint. `Problem.Setters` is stage one: the game reads and writes every field through public getters and setters, so anyone can set health to 999. `Problem.History` is stage two: the player keeps its own save slots. `Problem.Copy` is stage three: the game keeps a copy of the player, but the copy shares the inventory list with the player. `Solution` has the originator `Player`, the memento `Player.ICheckpoint`, the caretaker `Game`, and `Main`, which runs stage one, stage three and the memento. Each stage also has a `Main` of its own. |
+| `Memento.Game` | The main worked example: a game checkpoint. A player has health, a position and an inventory. The promise: loading gives back exactly what the player had at the checkpoint. `Problem.Setters` is stage one: the game reads and writes every field through public getters and setters, so anyone can set health to 999. `Problem.History` is stage two: the player keeps its own save slots. `Problem.Copy` is stage three: the game keeps a copy of the player, but the copy shares the inventory list with the player. `Problem.CopyFix` is stage three with the list copied when saving and when loading: the inventory comes back, and the save is still a whole `Player`. `Solution` has the originator `Player`, the memento `Player.ICheckpoint`, the caretaker `Game`, and `Main`, which runs stage one, stage three and the memento. Each stage also has a `Main` of its own. |
 | `Memento.Gof` | GoF's own example (Design Patterns, pp. 283–291): a constraint solver keeps a line with one bend between two boxes. `Problem` undoes a move by moving the box back, and the bend does not come back. In `Solution`, `MoveCommand` (the caretaker) takes a memento from `ConstraintSolver` (the originator) before the move and gives it back on undo. `Main` runs the same steps in both designs; `Problem.Main` and `Solution.Main` run one design each. |
 | `Memento.Hw` | The three homework exercises: a `TextEditor` with undo and redo kept by a `History` (`Editor`), a `Batch` of transfers that gives every `Account` its memento back when one transfer fails (`Rollback`), and a `Sheet` whose memento holds only the cells one edit changed (`Incremental`). |
 | `Memento.Gui` | A window whose state is one object, `GuiComponentState`, kept in a memento. The caretaker sees only `GuiComponent.IMemento`, an interface with no members; the class that holds the state is private to `GuiComponent`. `Main` is the caretaker: it keeps the memento while the window moves and resizes, then gives it back. |
@@ -95,7 +95,7 @@ The load methods' XML comments say so.
 ## Differences from the Java original
 
 The port is faithful in behavior. The output of `game-problem-setters`,
-`game-problem-history`, `game-problem-copy`, `game-problem-copy-read-the-save`, `game`, `gof-problem`, `gof-solution`,
+`game-problem-history`, `game-problem-copy`, `game-problem-copy-fix`, `game-problem-copy-read-the-save`, `game`, `gof-problem`, `gof-solution`,
 `hw-editor`, `hw-rollback`, `hw-incremental` and `gui` is byte for byte the output of the Java `main` methods. These
 outputs are the same under a US English, a Turkish and a Swedish locale. What had to change:
 
@@ -137,15 +137,16 @@ outputs are the same under a US English, a Turkish and a Swedish locale. What ha
   - The root namespace is `dev.kaldiroglu.Memento`. `ConstraintSolver.Memento` and
     `GuiComponent.Memento` are private nested classes; inside their enclosing class the
     plain name `Memento` means the nested class, not the namespace.
-  - Four classes are named `Player`, in `Game.Problem.Setters`, `Game.Problem.History`,
-    `Game.Problem.Copy` and `Game.Solution`, and three are named `Game`, in
-    `Game.Problem.Setters`, `Game.Problem.Copy` and `Game.Solution`, as in the Java. The
+  - Five classes are named `Player`, in `Game.Problem.Setters`, `Game.Problem.History`,
+    `Game.Problem.Copy`, `Game.Problem.CopyFix` and `Game.Solution`, and four are named
+    `Game`, in `Game.Problem.Setters`, `Game.Problem.Copy`, `Game.Problem.CopyFix` and
+    `Game.Solution`, as in the Java. The
     class `Game` also has the name of the namespace `Memento.Game`. Inside
     `Game.Solution` the plain name `Game` means the caretaker class, because a type in the
     current namespace is found first. `Game.Solution.Main` writes the stage classes as
     `Problem.Setters.Player` and `Problem.Copy.Game`: from inside `Game.Solution`, `Problem`
     is found as a sibling namespace. The Java writes their full package names.
-  - Inside `Game.Problem.Setters` and `Game.Problem.Copy`, the plain names `Player` and
+  - Inside `Game.Problem.Setters`, `Game.Problem.Copy` and `Game.Problem.CopyFix`, the plain names `Player` and
     `Game` mean that stage's classes, so their `Main` classes write `new Game()` as the Java
     does.
   - Ten namespaces have a class named `Main`, as in the Java. `Main` is a static class
@@ -158,7 +159,7 @@ outputs are the same under a US English, a Turkish and a Swedish locale. What ha
 
 ## Tests
 
-`tests/Memento.Tests` holds 33 xUnit tests in 9 test classes. They are ported from the
+`tests/Memento.Tests` holds 49 xUnit tests in 11 test classes. They are ported from the
 JUnit tests of the Java repository, one C# test class for each Java test class, with the
 same expected values, except where `Test.md` notes a change. `Test.md` lists what each
 class tests, and the Java tests that are not ported, with the reason.
@@ -182,7 +183,7 @@ cd ~/"Development/NET/Design Patterns/Design Patterns with CSharp/Memento"
 ```
 
 The runner accepts: `game-problem-setters`, `game-problem-history`, `game-problem-copy`,
-`game-problem-copy-read-the-save`, `game`, `gof-problem`, `gof-solution`, `hw-editor`, `hw-rollback`, `hw-incremental`, `gui`.
+`game-problem-copy-fix`, `game-problem-copy-read-the-save`, `game`, `gof-problem`, `gof-solution`, `hw-editor`, `hw-rollback`, `hw-incremental`, `gui`.
 Each prints the output of one slide.
 
 Run the tests:

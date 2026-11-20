@@ -1,0 +1,20 @@
+namespace dev.kaldiroglu.Memento.Game.Problem.CopyFix;
+
+/// <summary>Stage three with the quick fix: the game keeps a copy of the player, as before.</summary>
+public sealed class Game
+{
+    private Player? checkpoint;
+
+    public void Checkpoint(Player player)
+    {
+        checkpoint = new Player(player);
+    }
+
+    public void Load(Player player)
+    {
+        player.RestoreFrom(checkpoint!);
+    }
+
+    /// <summary>The load screen: the game reads the save, because the save is a whole Player.</summary>
+    public string LoadScreen() => "Saved game: " + checkpoint;
+}
