@@ -70,6 +70,17 @@ public class SolutionTest
             typeof(Game).GetFields(BindingFlags.Instance | BindingFlags.NonPublic).Select(f => f.FieldType));
     }
 
+    /// <summary>Health: TakeDamage lowers it, and Player has no public member that reads or sets it.</summary>
+    [Fact]
+    public void HealthIsPrivate()
+    {
+        var player = new Player();
+        player.TakeDamage(30);
+        Assert.StartsWith("health 70,", player.ToString());
+        Assert.DoesNotContain(typeof(Player).GetMembers(BindingFlags.Instance | BindingFlags.Public),
+            m => m.Name.Contains("health", StringComparison.OrdinalIgnoreCase));
+    }
+
     /// <summary>Public setters on Player: yes in stage one, no in stage three, no with the memento.</summary>
     [Fact]
     public void PublicSetters()
