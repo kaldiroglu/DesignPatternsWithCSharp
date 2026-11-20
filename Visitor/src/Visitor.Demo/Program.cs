@@ -12,7 +12,6 @@ using GofSolutionMain = dev.kaldiroglu.Visitor.Gof.Solution.Main;
 using AccountPrintMain = dev.kaldiroglu.Visitor.Hw.AccountPrint.Main;
 using FileTreeMain = dev.kaldiroglu.Visitor.Hw.FileTree.Main;
 using ExpressionMain = dev.kaldiroglu.Visitor.Hw.Expression.Main;
-using FileProblem1Test = dev.kaldiroglu.Visitor.File.Problem1.Main;
 using FileProblem2Test = dev.kaldiroglu.Visitor.File.Problem2.Main;
 using FilePattern1Test = dev.kaldiroglu.Visitor.File.Pattern1.Main;
 using FileAccessMain = dev.kaldiroglu.Visitor.File.Pattern1.AccessMain;
@@ -44,7 +43,6 @@ public static class Program
         ["checkout-modern"] = ("A CHECKOUT", CheckoutModernMain.Run),
         ["gof-problem"] = ("GOF'S COMPILER", GofProblemMain.Run),
         ["gof-solution"] = ("GOF'S COMPILER", GofSolutionMain.Run),
-        ["file-problem1"] = ("TEXT FILES AND XML FILES", FileProblem1Test.Run),
         ["file-problem2"] = ("TEXT FILES AND XML FILES", FileProblem2Test.Run),
         ["file-pattern1"] = ("TEXT FILES AND XML FILES", FilePattern1Test.Run),
         ["file-access"] = ("TEXT FILES AND XML FILES", FileAccessMain.Run),

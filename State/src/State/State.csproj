@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <!-- Class library holding every State example: the online order in its three naive and
-       one pattern form, GoF's TCP connection, the door in three forms, the bank account,
+       one pattern form, GoF's TCP connection, the door in three forms,
        the person, the short TCP outline, and the three homework exercises. -->
   <PropertyGroup>
     <AssemblyName>State</AssemblyName>

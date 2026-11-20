@@ -17,7 +17,6 @@ using QuoteAllMain = dev.kaldiroglu.Strategy.Pricing.Solution.QuoteAllMain;
 using BestRuleMain = dev.kaldiroglu.Strategy.Pricing.Solution.BestRuleMain;
 using ChangeRuleMain = dev.kaldiroglu.Strategy.Pricing.Solution.ChangeRuleMain;
 using SortingProblemMain = dev.kaldiroglu.Strategy.Sorting.Problem.Main;
-using SortingSubclassingMain = dev.kaldiroglu.Strategy.Sorting.Subclassing.Main;
 using SortingPatternMain = dev.kaldiroglu.Strategy.Sorting.Pattern.Main;
 using FreightMain = dev.kaldiroglu.Strategy.Freight.Main;
 using SeatingMain = dev.kaldiroglu.Strategy.Hw.Seating.Main;
@@ -52,7 +51,6 @@ public static class Program
         ["pricing-change-rule"] = ("THE CHECKOUT", ChangeRuleMain.Run),
         ["sorting"] = ("THE SORTER", Sorting),
         ["sorting-problem"] = ("THE SORTER", SortingProblemMain.Run),
-        ["sorting-subclassing"] = ("THE SORTER", SortingSubclassingMain.Run),
         ["sorting-pattern"] = ("THE SORTER", SortingPatternMain.Run),
         ["freight"] = ("FREIGHT QUOTING", FreightMain.Run),
         ["hw-seating"] = ("HOMEWORK", SeatingMain.Run),

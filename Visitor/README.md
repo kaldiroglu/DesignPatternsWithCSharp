@@ -28,7 +28,7 @@ when a new kind of item is added, every visitor that does not handle it stops co
 | `Visitor.Checkout` | The main worked example: a shop that taxes books at 5%, food at 1% and electronics at 20%, and later sells gift cards, which carry no tax and are not shipped. `Problem.Methods` is stage one: each item computes its own tax, shipping cost and receipt line. `Problem.OverloadedTax` is stage two: one class with one `TaxOf` per kind of item. `Problem.TypeTestTax` and `TypeTestShipping` are stage three: one class that tests the type of each item. `Solution` has the element `IItem`, the four record elements, the visitor `IItemVisitor<R>`, the visitors `TaxVisitor`, `ShippingVisitor` and `ReceiptLineVisitor`, and the object structure `Checkout`. `Modern` is the same items as records with one switch for the tax. Each stage has its own runnable class: `Problem.Methods.Main`, `Problem.StageTwoMain`, `Problem.StageThreeMain` and `Problem.GiftCardMain`. `Solution.Main` runs one cart through all of them. |
 | `Visitor.Gof` | GoF's own example (Design Patterns, pp. 331–344): a compiler's syntax tree. `Problem` has every job — `TypeCheck`, `GenerateCode`, `PrettyPrint` — on every node. `Solution` has `INodeVisitor` with `VisitAssignment`, `VisitVariableRef`, `VisitConstant` and `VisitAdd`, and three visitors that walk the tree themselves. |
 | `Visitor.Hw` | The three homework exercises: printers for bank accounts that write to an output they are given (`AccountPrint`), a folder tree that walks itself (`FileTree`), and an arithmetic expression that gains a `Neg` node and a `DepthCounter` operation (`Expression`). |
-| `Visitor.File` | Text files and XML files that must be checked before they are read. `Domain` has the files only; `Problem1` tests types in the client; `Problem2` moves the type tests into `FileOperator`; `Pattern1` has `File.Accept(IVisitor)` and `FileVisitor`. |
+| `Visitor.File` | Text files and XML files that must be checked before they are read. `Problem2` moves the type tests into `FileOperator`; `Pattern1` has `File.Accept(IVisitor)` and `FileVisitor`. |
 | `Visitor.Factory` | A company's employees and its boss get a health check. `Boss` is not an `Employee`, so a visitor can visit classes that have no common parent. `HR` creates random employees. |
 | `Visitor.Interpreter` | Interpreter, taught as a section of the Visitor deck (Design Patterns, pp. 243–255): a rule language for a shop. `IRule` is the abstract expression; `CategoryIs` and `PriceBelow` are terminal expressions; `And`, `Or` and `Not` are nonterminal ones. Each interprets itself against a `Product`. The Java `Rule` is a `sealed` interface; C# cannot close an interface, so `IRule` is open and each record is sealed. |
 
@@ -170,7 +170,7 @@ What had to change:
     `Checkout.Solution` the plain name means the class.
   - Most examples have a class named `Main` or `Test`, as in the Java. `Main` is a static
     class with a `Run()` method, which C# allows. In `Visitor.Demo` the runner reaches them
-    through aliases: `CheckoutMain`, `GofProblemMain`, `FileProblem1Test`, `FactoryTest`,
+    through aliases: `CheckoutMain`, `GofProblemMain`, `FactoryTest`,
     `AnimalPattern2Test` and so on.
   - The Java `Main` classes write the `problem` and `modern` types with their full package
     names. The C# `Main` classes write `Problem.Book`, `Modern.Tax` and
@@ -211,7 +211,7 @@ cd ~/"Development/NET/Design Patterns/Design Patterns with CSharp/Visitor"
 
 The runner accepts: `checkout-problem-stage-one`, `checkout-problem-stage-two`,
 `checkout-problem-stage-three`, `checkout-problem-gift-card`, `checkout`, `checkout-modern`,
-`gof-problem`, `gof-solution`, `file-problem1`, `file-problem2`,
+`gof-problem`, `gof-solution`, `file-problem2`,
 `file-pattern1`, `factory`, `interpreter`, `hw-accountprint`, `hw-filetree`, `hw-expression`.
 
 ```bash

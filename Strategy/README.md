@@ -25,7 +25,7 @@ document change its line-breaking algorithm while it is open.
 |---|---|
 | `Strategy.Gof` | GoF's own example (Design Patterns, pp. 315–316): a document that breaks text into lines. `Problem.Composition` hard-wires two algorithms behind a `bool`; `Solution` gives the `Composition` an `ICompositor`, with `SimpleCompositor`, `TeXCompositor` and `ArrayCompositor`. |
 | `Strategy.Pricing` | A retailer's till, where the campaign changes every Thursday and the receipt has to say what it saved. `Domain` is the basket, the customer and the receipt. `Problem` is three naive stages — a `switch` on a string, a `switch` on an enum, a subclass per campaign — and `Till`, the reversal at stage three. `Solution` is `IPricingRule`, four rules, the `Checkout` that holds one, and the `CampaignBook` that chooses. |
-| `Strategy.Sorting` | Three sorting algorithms chosen by the array's size, in three stages: `Problem` (one class that decides and implements), `Subclassing` (a subclass per algorithm) and `Pattern` (`ISorter` with a `SortingContext` that selects). |
+| `Strategy.Sorting` | Three sorting algorithms chosen by the array's size, in two stages: `Problem` (one class that decides and implements) and `Pattern` (`ISorter` with a `SortingContext` that selects). |
 | `Strategy.Freight` | Four carriers' rate cards — by desi, by weight band, by zone, flat — that disagree about which parcel is cheap. Solution only: `IRateCard`, `ShippingDesk` and `CarrierBoard`. |
 | `Strategy.Hw` | The three homework exercises: seating a booking (`Seating`), what an overdue item costs (`LateFee`), and what a market requires of a passphrase (`Validation`). |
 
@@ -64,7 +64,7 @@ objects and implements none of them.
   composition, and `sorting` sets the naive sorter beside the context in one table.
 - `net10.0`, nullable reference types on, implicit usings on — set once in
   `Directory.Build.props` and inherited by both projects.
-- **A test project, `Strategy.Tests`**, with 58 xUnit tests ported from the Java JUnit tests.
+- **A test project, `Strategy.Tests`**, with 59 xUnit tests ported from the Java JUnit tests.
 
 ## Differences from the Java original
 
@@ -122,7 +122,7 @@ assert, and the output is the same under a Turkish locale. What had to change:
 
 ## Tests
 
-`tests/Strategy.Tests` holds 58 xUnit tests, one test class for each Java test class, with
+`tests/Strategy.Tests` holds 59 xUnit tests, one test class for each Java test class, with
 the same assertions and the same expected values. Every Java test is ported. `Test.md`
 lists what is tested and every place where a check had to take a different C# form.
 
@@ -151,7 +151,7 @@ cd ~/"Development/NET/Design Patterns/Design Patterns with CSharp/Strategy"
 The runner accepts: `gof`, `gof-layout`, `gof-problem`, `gof-solution`,
 `pricing-problem-stage-one`, `pricing-problem-stage-two`,
 `pricing-problem-stage-three`, `pricing-problem-best-campaign`, `pricing-quote-all`,
-`pricing-best-rule`, `pricing-change-rule`, `sorting`, `sorting-problem`, `sorting-subclassing`,
+`pricing-best-rule`, `pricing-change-rule`, `sorting`, `sorting-problem`,
 `sorting-pattern`, `freight`, `hw-seating`, `hw-latefee`, `hw-validation`.
 
 Run the tests with `~/.dotnet/dotnet test Strategy.sln`.

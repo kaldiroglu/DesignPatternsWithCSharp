@@ -1,7 +1,6 @@
 using dev.kaldiroglu.Strategy.Sorting.Pattern;
 using Xunit;
 using NaiveSorter = dev.kaldiroglu.Strategy.Sorting.Problem.Sorter;
-using SubclassBubbleSorter = dev.kaldiroglu.Strategy.Sorting.Subclassing.BubbleSorter;
 
 namespace dev.kaldiroglu.Strategy.Tests.Sorting;
 
@@ -32,7 +31,7 @@ public class SortingTests
         return copy;
     }
 
-    [Fact(DisplayName = "all three designs sort the same array into the same order")]
+    [Fact(DisplayName = "both designs sort the same array into the same order")]
     public void TheDesignsAgree()
     {
         var expected = SortedCopy(Shuffled(50));
@@ -40,14 +39,10 @@ public class SortingTests
         var byBranch = Shuffled(50);
         new NaiveSorter().Sort(byBranch);
 
-        var bySubclass = Shuffled(50);
-        new SubclassBubbleSorter().Sort(bySubclass);
-
         var byStrategy = Shuffled(50);
         new SortingContext().Sort(byStrategy);
 
         Assert.Equal(expected, byBranch);
-        Assert.Equal(expected, bySubclass);
         Assert.Equal(expected, byStrategy);
     }
 
