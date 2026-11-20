@@ -2,7 +2,7 @@
 
   <!-- Class library holding every Memento example: the game checkpoint in its three naive
        stages and its memento, GoF's constraint solver, the three homework exercises, and the
-       earlier examples (a GUI component, and two threaded originators). -->
+       GUI component. -->
   <PropertyGroup>
     <AssemblyName>Memento</AssemblyName>
   </PropertyGroup>

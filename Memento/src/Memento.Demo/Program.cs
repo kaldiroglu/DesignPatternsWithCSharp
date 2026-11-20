@@ -10,8 +10,6 @@ using EditorMain = dev.kaldiroglu.Memento.Hw.Editor.Main;
 using RollbackMain = dev.kaldiroglu.Memento.Hw.Rollback.Main;
 using IncrementalMain = dev.kaldiroglu.Memento.Hw.Incremental.Main;
 using GuiMain = dev.kaldiroglu.Memento.Gui.Main;
-using Pattern1Main = dev.kaldiroglu.Memento.Pattern1.Main;
-using Pattern2Main = dev.kaldiroglu.Memento.Pattern2.Main;
 
 namespace dev.kaldiroglu.Memento.Demo;
 
@@ -36,9 +34,7 @@ public static class Program
         ["hw-editor"] = ("HOMEWORK", EditorMain.Run),
         ["hw-rollback"] = ("HOMEWORK", RollbackMain.Run),
         ["hw-incremental"] = ("HOMEWORK", IncrementalMain.Run),
-        ["gui"] = ("THE EARLIER EXAMPLES", GuiMain.Run),
-        ["pattern1"] = ("THE EARLIER EXAMPLES", Pattern1Main.Run),
-        ["pattern2"] = ("THE EARLIER EXAMPLES", Pattern2Main.Run)
+        ["gui"] = ("THE EARLIER EXAMPLES", GuiMain.Run)
     };
 
     public static void Main(string[] args)

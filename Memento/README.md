@@ -29,8 +29,6 @@ mementos must be restored in the reverse order they were made.
 | `Memento.Gof` | GoF's own example (Design Patterns, pp. 283–291): a constraint solver keeps a line with one bend between two boxes. `Problem` undoes a move by moving the box back, and the bend does not come back. In `Solution`, `MoveCommand` (the caretaker) takes a memento from `ConstraintSolver` (the originator) before the move and gives it back on undo. `Main` runs the same steps in both designs; `Problem.Main` and `Solution.Main` run one design each. |
 | `Memento.Hw` | The three homework exercises: a `TextEditor` with undo and redo kept by a `History` (`Editor`), a `Batch` of transfers that gives every `Account` its memento back when one transfer fails (`Rollback`), and a `Sheet` whose memento holds only the cells one edit changed (`Incremental`). |
 | `Memento.Gui` | A window whose state is one object, `GuiComponentState`, kept in a memento. The caretaker sees only `GuiComponent.IMemento`, an interface with no members; the class that holds the state is private to `GuiComponent`. `Main` is the caretaker: it keeps the memento while the window moves and resizes, then gives it back. |
-| `Memento.Pattern1` | An originator and a caretaker that keeps mementos in a stack. `Main` saves twice and undoes three times: each undo goes back one save, and the third finds nothing to undo. `Memento` is a class of its own, with a public `State`. |
-| `Memento.Pattern2` | The same, with the memento nested in the originator, so only the originator can read it. |
 
 ### Things worth stopping on
 
@@ -85,12 +83,11 @@ The load methods' XML comments say so.
 ## Architecture
 
 - **One class library, `Memento`**, holding every example as nested namespaces — `Game`,
-  `Gof`, `Hw`, `Gui`, `Pattern1` and `Pattern2`. Sources mirror namespaces:
+  `Gof`, `Hw` and `Gui`. Sources mirror namespaces:
   `src/Memento/Game/Solution/…`.
 - **A console runner, `Memento.Demo`**, that runs the Java original's `main` methods — the
   game's three stages and the memento, GoF's constraint solver before and after the pattern,
-  the three homework exercises, the GUI component and the two caretaker examples — each on
-  its own.
+  the three homework exercises and the GUI component — each on its own.
 - `net10.0`, nullable reference types on, implicit usings on — set once in
   `Directory.Build.props` and inherited by both projects.
 - **An xUnit project, `Memento.Tests`**, in `tests/Memento.Tests`. It is described in `Test.md`.
@@ -99,7 +96,7 @@ The load methods' XML comments say so.
 
 The port is faithful in behavior. The output of `game-problem-setters`,
 `game-problem-history`, `game-problem-copy`, `game-problem-copy-read-the-save`, `game`, `gof-problem`, `gof-solution`,
-`hw-editor`, `hw-rollback`, `hw-incremental`, `gui`, `pattern1` and `pattern2` is byte for byte the output of the Java `main` methods. These
+`hw-editor`, `hw-rollback`, `hw-incremental` and `gui` is byte for byte the output of the Java `main` methods. These
 outputs are the same under a US English, a Turkish and a Swedish locale. What had to change:
 
 - **The mementos are an empty public interface and a private class**, as explained above.
@@ -111,14 +108,12 @@ outputs are the same under a US English, a Turkish and a Swedish locale. What ha
   Account To, int Amount)`. Stage two's private record `Saved` is a `private sealed record`.
 - **Accessors became properties**: `Health`, `Position` and `Inventory` on stage one's
   player (with setters, as the Java has setters), `Name` and `X` on `Graphic`, `CheckpointCount`,
-  `CellCount`, `Size`, `GuiComponent.Name` and the components of `GuiComponentState`. `Originator.State` in `Pattern1` is a get-only property;
-  `SetState` stays a method because it also prints. `SetMemento`, `SetOriginator` and
-  `Line()` stay methods, as in the Java.
-- **`Pattern2`'s memento is a private class behind an empty public interface.** The Java
-  memento is nested in `Originator` with a private field, which only `Originator` can read.
-  A C# outer class cannot read a nested class's private members, so `Originator.IMemento` is
-  an empty public interface for the caretaker, and the state is in a private nested class
-  `Memento`, the same idiom as the other mementos in this port.
+  `CellCount`, `Size`, `GuiComponent.Name` and the components of `GuiComponentState`. `Line()` stays a method, as in the Java.
+- **A nested memento is a private class behind an empty public interface.** The Java
+  mementos of `ConstraintSolver` and `GuiComponent` are nested with private fields, which
+  only the outer class can read. A C# outer class cannot read a nested class's private
+  members, so `IMemento` is an empty public interface for the caretaker, and the state is in
+  a private nested class `Memento`.
 - **Lists are `List<string>`, returned as `IReadOnlyList<string>`**, each a copy, as Java's
   `List.copyOf` gives. The examples print lists as `[a, b]`, as Java's `List.toString()`
   does.
@@ -135,20 +130,13 @@ outputs are the same under a US English, a Turkish and a Swedish locale. What ha
   cell and then throws `NullPointerException` in `Map.copyOf`; the C# throws
   `KeyNotFoundException` before it sets anything. No example uses a cell that does not
   exist. `Map.copyOf` is a new `Dictionary`, and `putAll` is a loop.
-- **In `Pattern1` and `Pattern2` the caretaker keeps its mementos in a `Stack<T>`**, where
-  the Java uses a `Deque`. Undo pops the last save and restores it; undo with no save left
-  prints "Caretaker: Nothing to undo."
 - **Number formats do not depend on the machine's locale.** Numbers that are printed are
   formatted with the invariant culture.
 - **The `main` methods became `Run()` methods** called by `Memento.Demo`.
 - **Names that clash, and how they are resolved.**
-  - The root namespace is `dev.kaldiroglu.Memento`, and `Pattern1` has a class named
-    `Memento`, as in the Java. Inside `dev.kaldiroglu.Memento.Pattern1` the plain name
-    `Memento` means the class, because a type in the current namespace is found before an
-    enclosing namespace. Nothing outside `Pattern1` names that class, so the clash never
-    reaches other code. `ConstraintSolver.Memento` and `Pattern2.Originator.Memento` are
-    private nested classes; inside their enclosing class the plain name means the nested
-    class.
+  - The root namespace is `dev.kaldiroglu.Memento`. `ConstraintSolver.Memento` and
+    `GuiComponent.Memento` are private nested classes; inside their enclosing class the
+    plain name `Memento` means the nested class, not the namespace.
   - Four classes are named `Player`, in `Game.Problem.Setters`, `Game.Problem.History`,
     `Game.Problem.Copy` and `Game.Solution`, and three are named `Game`, in
     `Game.Problem.Setters`, `Game.Problem.Copy` and `Game.Solution`, as in the Java. The
@@ -160,11 +148,11 @@ outputs are the same under a US English, a Turkish and a Swedish locale. What ha
   - Inside `Game.Problem.Setters` and `Game.Problem.Copy`, the plain names `Player` and
     `Game` mean that stage's classes, so their `Main` classes write `new Game()` as the Java
     does.
-  - Twelve namespaces have a class named `Main` or `Test`, as in the Java. `Main` and
-    `Test` are static classes with a `Run()` method, which C# allows. In `Memento.Demo` the
-    runner reaches them through aliases: `GameSettersMain`, `GameHistoryMain`,
-    `GameCopyMain`, `GameMain`, `GofProblemMain`, `GofSolutionMain`, `EditorMain`, `RollbackMain`, `IncrementalMain`, `GuiTest`, `Pattern1Test` and
-    `Pattern2Test`.
+  - Ten namespaces have a class named `Main`, as in the Java. `Main` is a static class
+    with a `Run()` method, which C# allows. In `Memento.Demo` the runner reaches them
+    through aliases: `GameSettersMain`, `GameHistoryMain`, `GameCopyMain`, `GameMain`,
+    `GofProblemMain`, `GofSolutionMain`, `EditorMain`, `RollbackMain`, `IncrementalMain`
+    and `GuiMain`.
 - **The `uml/` diagrams, the `CD1.png` and `SD1.png` images and the per-package `README.md`
   files in the Java packages are not ported yet.** This README carries their content.
 
@@ -186,8 +174,7 @@ cd ~/"Development/NET/Design Patterns/Design Patterns with CSharp/Memento"
 # build everything
 ~/.dotnet/dotnet build Memento.sln
 
-# every example, in the order the course presents them (pattern1 and pattern2 take about
-# twenty seconds each)
+# every example, in the order the course presents them
 ~/.dotnet/dotnet run --project src/Memento.Demo
 
 # one example on its own
@@ -195,8 +182,8 @@ cd ~/"Development/NET/Design Patterns/Design Patterns with CSharp/Memento"
 ```
 
 The runner accepts: `game-problem-setters`, `game-problem-history`, `game-problem-copy`,
-`game-problem-copy-read-the-save`, `game`, `gof-problem`, `gof-solution`, `hw-editor`, `hw-rollback`, `hw-incremental`, `gui`,
-`pattern1`, `pattern2`. Each prints the output of one slide.
+`game-problem-copy-read-the-save`, `game`, `gof-problem`, `gof-solution`, `hw-editor`, `hw-rollback`, `hw-incremental`, `gui`.
+Each prints the output of one slide.
 
 Run the tests:
 
