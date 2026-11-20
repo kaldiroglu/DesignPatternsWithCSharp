@@ -9,6 +9,7 @@ using OrderProblemSecondShipmentMain = dev.kaldiroglu.State.Order.Problem.Second
 using OrderRefusedRequestMain = dev.kaldiroglu.State.Order.Solution.RefusedRequestMain;
 using OrderSecondShipmentMain = dev.kaldiroglu.State.Order.Solution.SecondShipmentMain;
 using OrderSideBySideMain = dev.kaldiroglu.State.Order.Solution.SideBySideMain;
+using OrderTransitionTableMain = dev.kaldiroglu.State.Order.Solution.TransitionTableMain;
 using GofMain = dev.kaldiroglu.State.Gof.Main;
 using GofProblemMain = dev.kaldiroglu.State.Gof.Problem.Main;
 using GofSolutionMain = dev.kaldiroglu.State.Gof.Solution.Main;
@@ -40,6 +41,7 @@ public static class Program
         ["order-second-shipment"] = ("AN ONLINE ORDER", OrderSecondShipmentMain.Run),
         ["order-side-by-side"] = ("AN ONLINE ORDER", OrderSideBySideMain.Run),
         ["order-refused-request"] = ("AN ONLINE ORDER", OrderRefusedRequestMain.Run),
+        ["order-transition-table"] = ("AN ONLINE ORDER", OrderTransitionTableMain.Run),
         ["gof-problem"] = ("GOF'S TCP CONNECTION", GofProblemMain.Run),
         ["gof-solution"] = ("GOF'S TCP CONNECTION", GofSolutionMain.Run),
         ["gof"] = ("GOF'S TCP CONNECTION", GofMain.Run),
