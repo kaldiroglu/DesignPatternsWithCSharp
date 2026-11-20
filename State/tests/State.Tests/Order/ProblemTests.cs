@@ -152,6 +152,49 @@ public class ProblemTests
         }
     }
 
+    /// <summary>One of EnumOrder's internal properties, read or written from the test assembly.</summary>
+    private static PropertyInfo OrderProperty(string name) =>
+        typeof(EnumOrder).GetProperty(name, BindingFlags.Instance | BindingFlags.NonPublic)!;
+
+    /// <summary>Resetting FailedAttempts to 0 before the second shipment fixes the bug.</summary>
+    [Fact]
+    public void AResetFixesTheSecondShipment()
+    {
+        var order = new EnumOrder();
+        order.Pay();
+        order.Ship("TR-1");
+        order.FailDelivery();
+        order.FailDelivery();
+        order.FailDelivery();
+        OrderProperty("FailedAttempts").SetValue(order, 0);   // the line PAID.Ship does not have
+        order.Ship("TR-2");
+        order.FailDelivery();
+        order.FailDelivery();
+        order.FailDelivery();
+
+        var events = order.Events.ToList();
+        var secondShipment = events.Skip(events.IndexOf("shipped TR-2") + 1).ToList();
+        Assert.Equal(["delivery attempt 1 failed", "delivery attempt 2 failed",
+            "delivery attempt 3 failed", "back to the warehouse"], secondShipment);
+        Assert.Equal(OrderStatus.PAID, order.Status);
+    }
+
+    /// <summary>Back at the warehouse the order is PAID, but it still holds the old tracking number.</summary>
+    [Fact]
+    public void TheTrackingNumberOutlivesTheShipment()
+    {
+        var order = new EnumOrder();
+        order.Pay();
+        order.Ship("TR-1");
+        order.FailDelivery();
+        order.FailDelivery();
+        order.FailDelivery();
+
+        Assert.Equal(OrderStatus.PAID, order.Status);
+        Assert.Equal("TR-1", OrderProperty("TrackingNumber").GetValue(order));
+        Assert.Equal(3, OrderProperty("FailedAttempts").GetValue(order));
+    }
+
     [Fact]
     public void StageOneMainOutput()
     {

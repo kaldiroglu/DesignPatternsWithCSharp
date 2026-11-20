@@ -12,7 +12,8 @@ namespace dev.kaldiroglu.State.Order.Problem;
 /// order's data. A shipped order now has a tracking number and a count of failed delivery
 /// attempts, and both have to live in <see cref="EnumOrder"/> — fields that mean something
 /// only while the order is shipped, and that every transition must remember to set or reset.
-/// <c>PAID.Ship</c> forgets to reset the count.
+/// <c>PAID.Ship</c> forgets to reset the count. A reset there would fix this bug, but it is a
+/// rule someone must remember, and nothing clears the tracking number when a shipment ends.
 /// </para>
 /// <para>
 /// A C# enum cannot have methods, so this is a class with a private constructor and five

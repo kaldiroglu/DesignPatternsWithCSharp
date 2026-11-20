@@ -4,7 +4,7 @@
 
 For further enquiry please contact Akin Kaldiroglu at akin@kaldiroglu.dev
 
-60 xUnit tests in one project, `tests/State.Tests`. All of them are **unit tests**: no
+62 xUnit tests in one project, `tests/State.Tests`. All of them are **unit tests**: no
 process boundary, no network. Two tests read C# source files of the library, found from
 the test file's own path (`CallerFilePath`), so they do not depend on the working directory.
 
@@ -18,7 +18,7 @@ in Java.
 
 | File | Java class | Java tests | C# tests | What it checks |
 |---|---|---|---|---|
-| `Order/ProblemTests.cs` | `ProblemTest` | 12 | 12 | Stage one's four flags (sixteen combinations, five statuses). Stage two's four switches with no `default`. Stage three's second shipment counts attempts 4, 5 and 6 and never goes back to the warehouse. The lines `StageOneMain`, `StageTwoMain`, `StageThreeMain` and `SecondShipmentMain` print. |
+| `Order/ProblemTests.cs` | `ProblemTest` | 14 | 14 | Stage one's four flags (sixteen combinations, five statuses). Stage two's four switches with no `default`. Stage three's second shipment counts attempts 4, 5 and 6 and never goes back to the warehouse; a reset of the count to 0 fixes that; back at the warehouse the order still holds the old tracking number. The lines `StageOneMain`, `StageTwoMain`, `StageThreeMain` and `SecondShipmentMain` print. |
 | `Order/SolutionTests.cs` | `SolutionTest` | 11 | 11 | The second shipment counts 1, 2 and 3 and goes back. A new `Shipped` starts at zero. Refusals by default. The end states override nothing. The five states. The context only forwards. The lines `SecondShipmentMain`, `SideBySideMain` and `RefusedRequestMain` print. |
 | `Gof/TCPConnectionTests.cs` | `TCPConnectionTest` | 7 | 7 | Both versions give the same log and state for all 125 sequences of three requests. Five switches over three states. Default "ignored" behavior and an `internal` `ChangeState`. Each concrete state is one shared object. |
 | `Door/DoorTests.cs` | `DoorTest` | 5 | 5 | `Pattern1` and `Pattern2` print the same story. The states decide in `Pattern1`; the manager decides in `Pattern2`. Two state objects per `Pattern1` door. The version with a boolean. |
@@ -29,7 +29,7 @@ in Java.
 | `Hw/HomeworkTests.cs` | `AirConditionerTest` | 4 | 4 | The room and the target choose cooling, idle or heating; off stays off; only `AcState` declares `Running`; `Main` output. |
 | `Hw/HomeworkTests.cs` | `DocumentTest` | 4 | 3 | A draft cannot be approved; the table has four transitions; `Main` output. The Java check that `Status` declares no methods has no C# test, because a C# enum cannot declare methods. |
 | `Hw/HomeworkTests.cs` | `VendingMachineTest` | 4 | 4 | A sold-out machine returns the coin; one coin at a time; a refill; `Main` output. |
-| **Total** | | **63** | **60** | |
+| **Total** | | **65** | **62** | |
 
 `Printed.cs` holds the helpers: `By` captures `Console.Out` (restored in `finally`) and
 returns the printed lines; `CodeOf` reads a source file and strips its comments, because
@@ -74,7 +74,7 @@ No test found a difference in behavior between the C# port and the Java.
 ```bash
 cd ~/"Development/NET/Design Patterns/Design Patterns with CSharp/State"
 
-# all 60
+# all 62
 ~/.dotnet/dotnet test State.sln
 
 # one class
