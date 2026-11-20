@@ -1,37 +1,26 @@
 namespace dev.kaldiroglu.State.Door.Pattern1;
 
 /// <summary>
-/// What both door states share: the door they change, whether they are open, and the other
-/// state to move to.
+/// What both states share: the door they change, and the two states they can move it to.
+/// <see cref="Wire"/> is internal, so only <see cref="Door"/> connects them.
 /// </summary>
-public abstract class AbstractDoorState(bool open) : IDoorState
+public abstract class AbstractDoorState : IDoorState
 {
-    // Set by Door right after it creates the states, before any request arrives.
+    // Set by Door through Wire, before any request arrives.
     protected Door door = null!;
-    protected bool open = open;
-
-    // Each state is given only the other one; the field for its own state stays empty.
     protected IDoorState openState = null!;
     protected IDoorState closedState = null!;
+
+    internal void Wire(Door door, IDoorState openState, IDoorState closedState)
+    {
+        this.door = door;
+        this.openState = openState;
+        this.closedState = closedState;
+    }
 
     public abstract void Open();
 
     public abstract void Close();
 
-    public void SetClosedState(IDoorState closedState)
-    {
-        this.closedState = closedState;
-    }
-
-    public void SetOpenState(IDoorState openState)
-    {
-        this.openState = openState;
-    }
-
-    public bool IsOpen => open;
-
-    public void SetDoor(Door door)
-    {
-        this.door = door;
-    }
+    public abstract bool IsOpen { get; }
 }

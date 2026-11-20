@@ -11,7 +11,7 @@ public static class Main
 {
     public static void Run()
     {
-        Door door = new Door(true);
+        Door door = new Door(false);
         Console.WriteLine("Initial: " + Show(door.IsOpen));
         door.Close();
         Console.WriteLine("After close(): " + Show(door.IsOpen));

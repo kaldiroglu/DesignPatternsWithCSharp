@@ -1,15 +1,16 @@
 namespace dev.kaldiroglu.State.Door.Pattern2;
 
-/// <summary>A <b>ConcreteState</b>: the door is closed. To open it, it asks the manager.</summary>
-public class ClosedDoor(DoorStateManager dsm) : AbstractDoor(false, dsm)
+/// <summary>The closed state. It knows no other state and does not change the door.</summary>
+public class ClosedDoor : IDoorState
 {
-    public override void Open()
+    public void Open()
     {
-        dsm.Next(this);
     }
 
-    public override void Close()
+    public void Close()
     {
         Console.WriteLine("Door is already closed.");
     }
+
+    public bool IsOpen => false;
 }

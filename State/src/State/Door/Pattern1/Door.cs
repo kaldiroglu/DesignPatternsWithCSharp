@@ -1,25 +1,20 @@
 namespace dev.kaldiroglu.State.Door.Pattern1;
 
 /// <summary>
-/// The <b>Context</b>. It creates both states and tells each one about the door and about the
-/// other state. After that the states change the door's state themselves.
+/// The <b>Context</b>. It forwards each request to its state, and the state changes it.
+/// Every door makes its own two state objects, because each state holds its door.
 /// </summary>
 public class Door
 {
-    // Set by the constructor through ChangeState.
-    private IDoorState state = null!;
-    private readonly IDoorState openState = new OpenDoor();
-    private readonly IDoorState closedState = new ClosedDoor();
+    private readonly AbstractDoorState openState = new OpenDoor();
+    private readonly AbstractDoorState closedState = new ClosedDoor();
+    private IDoorState state;
 
     public Door()
     {
-        // Wire the states to the door and to each other.
-        openState.SetDoor(this);
-        openState.SetClosedState(closedState);
-        closedState.SetDoor(this);
-        closedState.SetOpenState(openState);
-
-        ChangeState(closedState);
+        openState.Wire(this, openState, closedState);
+        closedState.Wire(this, openState, closedState);
+        state = closedState;
     }
 
     public void Open()

@@ -25,7 +25,7 @@ of failed deliveries, so that a new shipment starts again at zero.
 |---|---|
 | `State.Order` | The main worked example: an online order that is placed, paid, shipped, delivered or cancelled. A courier gets three delivery attempts; after three failures the parcel goes back to the warehouse and can be shipped again. `Problem` is three naive stages: four boolean flags (`FlagOrder`), one status field with a switch in every method (`SwitchingOrder`, `Status`), and an enum constant with its own behavior per status (`EnumOrder`, `OrderStatus`). `Solution` has the context `Order`, the state `IOrderState` and the five states `Placed`, `Paid`, `Shipped`, `Delivered` and `Cancelled`. Each slide has its own runnable class: `StageOneMain`, `StageTwoMain`, `StageThreeMain` and `SecondShipmentMain` in `Problem` (`SampleOrder` builds the order after its first shipment), and `SecondShipmentMain` (the same story with stage three and with State objects) and `RefusedRequestMain` in `Solution`. |
 | `State.Gof` | GoF's own example (Design Patterns, pp. 305–313). `Problem.TCPConnection` switches over three states in every operation. `Solution` has the context `TCPConnection`, the abstract state `TCPState`, and `TCPClosed`, `TCPListen` and `TCPEstablished`, each a single shared object. |
-| `State.Door` | A door that is open or closed. `Problem` uses a boolean and an `if`. In `Pattern1` the states change the door's state, and each state knows the other one. In `Pattern2` a central `DoorStateManager` changes it, and only the manager knows all the states. |
+| `State.Door` | A door that is open or closed. `Problem` uses a boolean and an `if`. In `Pattern1` the states change the door's state, and each state knows the other one. In `Pattern2` the door passes each request to its state, then asks a central `DoorStateManager` for the next state; the manager's table maps a state and a request to the next state, and the states know no other state. |
 | `State.Account` | A bank account that is `Active`, `Overdrawn`, `Frozen` or `Closed`. |
 | `State.Elevator` | An elevator that is stopped, going up or going down. The caller sets the state. |
 | `State.Person` | A person who says hello and goodbye in a happy or a sad way. |
@@ -80,7 +80,7 @@ implements the interface member.
   exercises — each on its own.
 - `net10.0`, nullable reference types on, implicit usings on — set once in
   `Directory.Build.props` and inherited by both projects.
-- **A test project, `State.Tests`**, with 62 xUnit tests ported from the Java JUnit tests.
+- **A test project, `State.Tests`**, with 65 xUnit tests ported from the Java JUnit tests.
 
 ## Differences from the Java original
 
@@ -119,7 +119,7 @@ Swedish locale. What had to change:
 - **Accessors became properties**: `State`, `Status`, `Events`, `Log`, `Name`, `IsOpen`,
   `Room`, `Target`, `Stock`, `OverdraftLimit`. The account's three getter and setter pairs
   became read-write properties: `Status` and `Balance`. Setters that are alone or that do more than store a value stay methods:
-  `SetTarget`, `SetState`, `SetEmotionalState`, `SetDoor`, `SetOpenState`, `SetClosedState`.
+  `SetTarget`, `SetState`, `SetEmotionalState`.
 - **The internal log method is `Record`.** `AirConditioner` and `VendingMachine` have
   `log(String)` to add a line and `log()` to read the lines. C# cannot give a method and a
   property the same name, so the reader is the property `Log` and the writer is the
@@ -139,8 +139,8 @@ Swedish locale. What had to change:
   `State`, and many classes have a property called `State`; the two never meet, because
   inside a class the property is found first.
 - **Package access became `internal`**: `TCPConnection.ChangeState` and `Record`,
-  `Order.Event`, `EnumOrder`'s `TrackingNumber`, `FailedAttempts` and `MaxAttempts`, both
-  `Door.ChangeState` methods, `Door.dsm` in `Pattern2`, the
+  `Order.Event`, `EnumOrder`'s `TrackingNumber`, `FailedAttempts` and `MaxAttempts`,
+  `Door.ChangeState` and `AbstractDoorState.Wire` in `Door.Pattern1`, the
   air-conditioner and vending-machine members the states use, and the package-private types
   `AcState` and `IVendingState` with its states. `internal` is the whole assembly rather than
   one package. C# has nothing closer.
@@ -159,10 +159,10 @@ Swedish locale. What had to change:
   account prints its balances with the invariant culture; under a Swedish locale -1000 would
   otherwise print with the minus sign U+2212.
 - **Fields set after construction use `null!`.** In `Door.Pattern1` the states get their
-  door and their other state after they are created, and in both door patterns the door's
-  state is set by a method the constructor calls. The compiler cannot see this, so these
-  fields start as `null!`, with a comment. In `Door.Pattern1` the Java instance initializer
-  block is the start of the constructor body.
+  door and the two states through `Wire`, after they are created. The compiler cannot see
+  this, so these fields start as `null!`, with a comment.
+- **The door manager's table is one `Dictionary` keyed by a tuple** of state and request.
+  The Java uses a map of maps; a tuple key is the shorter form in C#.
 - **The outline's unused field draws warning CS0169**, "the field is never used".
   `ConcreteTCPConnection` suppresses that one warning around the field, and keeps the field
   and the empty methods as the Java has them.
@@ -173,7 +173,7 @@ Swedish locale. What had to change:
 
 ## Tests
 
-`tests/State.Tests` holds 62 xUnit tests, one test class for each Java test class, with the
+`tests/State.Tests` holds 65 xUnit tests, one test class for each Java test class, with the
 same assertions and the same expected values. The Java known-uses tests check JDK types and
 are replaced by two tests of the .NET rows of the same table. `Test.md` lists what is tested
 and every change from the Java.

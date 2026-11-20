@@ -1,6 +1,6 @@
 namespace dev.kaldiroglu.State.Door.Pattern2;
 
-/// <summary>The <b>State</b>. In this version a state knows only the manager, not the other state.</summary>
+/// <summary>The <b>State</b>: it does the work of a request. It does not choose the next state.</summary>
 public interface IDoorState
 {
     void Open();
